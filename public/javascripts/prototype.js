@@ -1538,6 +1538,7 @@ Ajax.Request = Class.create(Ajax.Base, {
     var headers = {
       'X-Requested-With': 'XMLHttpRequest',
       'X-Prototype-Version': Prototype.Version,
+      'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
     };
 
     if (this.method == 'post') {
