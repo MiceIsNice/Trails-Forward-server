@@ -1,3 +1,11 @@
+/* 
+ *  TrailsForwardServerAPI object:
+ *		- Holds knowledge of how to talk to server 
+ *  	- Relies on callback methods in TrailsForwardDataController 
+ * 
+ */
+
+
 function TrailsForwardServerAPI(){
 	this.SERVER_URL = "http://tfnew.dax.getdown.org";
 	this.AUTHENTICATE_USER_URL = "/users/authenticate_for_token.json?";
@@ -30,7 +38,7 @@ TrailsForwardServerAPI.prototype = {
 	logInUserWithEmailAndPassword : function(anEmail, aPassword){
 		if(anEmail && aPassword){
 			var params = this.buildParameterString([this.EMAIL, this.PASSWORD], [anEmail, aPassword]);
-			this.makeGetRequest(this.AUTHENTICATE_USER_URL, params, globalNames.DATA_CONTROLLER.onLogIn);
+			this.makeGetRequest(this.AUTHENTICATE_USER_URL, params, TFglobals.DATA_CONTROLLER.onLogIn);
 		}
 		else
 			console.log("TrailsForwardServerAPI.logInUserWithEmailAndPassword received bad email, password combo: " + anEmail + ", " + aPassword);
@@ -38,7 +46,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	getWorldDataForWorldId : function(anId){
 		if(anId)
-			this.makeGetRequest(this.buildWorldRSForWorldNum(anId), this.authString(), globalNames.DATA_CONTROLLER.onGetWorldData);
+			this.makeGetRequest(this.buildWorldRSForWorldNum(anId), this.authString(), TFglobals.DATA_CONTROLLER.onGetWorldData);
 		else
 			console.log("TrailsForwardServerAPI.getWorldDataForWorldId received undefined id");
 	},
@@ -47,7 +55,7 @@ TrailsForwardServerAPI.prototype = {
 	getUserPlayers : function(){
 		if(this._userId){
 			var resourceString = this.buildUsersPlayersRSForPlayerNum(this._userId);
-			this.makeGetRequest(resourceString, this.authString(), globalNames.DATA_CONTROLLER.onGetUserPlayers);
+			this.makeGetRequest(resourceString, this.authString(), TFglobals.DATA_CONTROLLER.onGetUserPlayers);
 		}
 		else
 			console.log("TrailsForwardServerAPI.getUserPlayers: called without a valid this._userId");
@@ -57,37 +65,37 @@ TrailsForwardServerAPI.prototype = {
 	loadMapSectionWithXYOriginAndLengthWidth : function(x, y, length, width){
 		var total_blocks = length * width;
 		this.blocks_to_get = total_blocks;
-		var world_id = globalNames.DATA_CONTROLLER.gameDataCache.id;
+		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
 		
 		/* JUST FOR TESTING */
 		total_blocks = 256;
 		this.blocks_to_get = 256;
 		
-		if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.loadMapSectionWithXYOriginAndLengthWidth: asking for " + 
+		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.loadMapSectionWithXYOriginAndLengthWidth: asking for " + 
 						total_blocks + "blocks from server");
 						
 		for(var i = 1; i <= total_blocks; i++)
-			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), globalNames.SERVER_API.mapStagingArea);
+			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);
 	},
 	
 	mapStagingArea : function(theData){
-		globalNames.SERVER_API.chunks_to_get--;
-		globalNames.DATA_CONTROLLER.storeTiles(theData);
-		if(globalNames.FULL_DEBUGGING == true) console.log("mapStagingArea received megatile " + theData.megatile.id);
-		if(globalNames.SERVER_API.chunks_to_get == 0)
-			globalNames.DATA_CONTROLLER.onGetTileChunk(globalNames.SERVER_API.starting_chunk);
+		TFglobals.SERVER_API.chunks_to_get--;
+		TFglobals.DATA_CONTROLLER.storeTiles(theData);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("mapStagingArea received megatile " + theData.megatile.id);
+		if(TFglobals.SERVER_API.chunks_to_get == 0)
+			TFglobals.DATA_CONTROLLER.onGetTileChunk(TFglobals.SERVER_API.starting_chunk);
 	},
 	
 	getTileChunkWithStartId : function(anId){
-		var world_id = globalNames.DATA_CONTROLLER.gameDataCache.id;
-		var total_chunks = globalNames.CHUNK_WIDTH * globalNames.CHUNK_WIDTH;
+		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
+		var total_chunks = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
 		this.starting_chunk = anId;
 		this.chunks_to_get = total_chunks;
 		var lastChunk = anId + this.chunks_to_get - 1;
 		
 		console.log("making a server request for blocks " + anId + " to " + lastChunk);
 		for(var i = anId; i < anId + total_chunks; i++)
-			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), globalNames.SERVER_API.mapStagingArea);	
+			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);	
 	},
 
 
@@ -100,7 +108,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	makeGetRequest : function(aResourcePath, urlParameters, aCallbackFunction){
 		if(aResourcePath && urlParameters && (aCallbackFunction || aCallbackFunction == null)){		
-			if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.makeGetRequest using url: " + this.SERVER_URL + aResourcePath + urlParameters);
+			if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.makeGetRequest using url: " + this.SERVER_URL + aResourcePath + urlParameters);
 			$.getJSON(this.SERVER_URL + aResourcePath + urlParameters, aCallbackFunction);
 		}
 		else
@@ -122,7 +130,7 @@ TrailsForwardServerAPI.prototype = {
 			for (var i = 0; i < aNamesList.length; i++){
 				theString += "&" + aNamesList[i] + "=" + aValuesList[i];
 			}
-			if(globalNames.FULL_DEBUGGING) console.log("made the parameter string: " + theString);
+			if(TFglobals.FULL_DEBUGGING) console.log("made the parameter string: " + theString);
 			return theString;
 		}
 		else
@@ -144,7 +152,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	buildWorldRSForWorldNum : function(worldNum){
 		var resourceString = this.WORLDS + this.FORWARD_SLASH + worldNum + this.JSON;
-		if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildWorldResourceStringForWorldNum made: " + resourceString);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildWorldResourceStringForWorldNum made: " + resourceString);
 			
 		return resourceString;
 	},
@@ -156,7 +164,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	buildUsersPlayersRSForPlayerNum : function(playerNum){
 		var resourceString = this.USERS + this.FORWARD_SLASH + playerNum + this.PLAYERS + this.JSON;
-		if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerNum made: " + resourceString);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerNum made: " + resourceString);
 		
 		return resourceString
 	},

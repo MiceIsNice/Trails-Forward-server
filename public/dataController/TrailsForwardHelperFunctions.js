@@ -1,5 +1,8 @@
-
-
+/* 
+ *  TrailsForwardHelperFunctions object:
+ *		- Contains printing and property assignment methods
+ * 
+ */
 function TrailsForwardHelperFunctions(){
 
 }
@@ -27,7 +30,7 @@ TrailsForwardHelperFunctions.prototype = {
  		being used with a freshly parsed JSON string from the server each time */
  	addPropertiesFromObjToObj : function(fromObj, toObj){
 		for(var key in fromObj){
-			if(globalNames.FULL_DEBUGGING == true) console.log("adding " + key + " : " + fromObj[key]);
+			if(TFglobals.FULL_DEBUGGING == true) console.log("adding " + key + " : " + fromObj[key]);
 			toObj[key] = fromObj[key];
 		}
 	},
@@ -35,11 +38,11 @@ TrailsForwardHelperFunctions.prototype = {
 	addSimplePropertiesFromObjToObj : function(fromObj, toObj){
 		for(var key in fromObj){
 			if((typeof fromObj[key] !== 'object' && !Array.isArray(fromObj[key])) || typeof fromObj[key] === 'string'){
-			if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardHelperFunctions.addSimplePropertiesFromObjToObj: adding " + key + " : " + fromObj[key]);
+			if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardHelperFunctions.addSimplePropertiesFromObjToObj: adding " + key + " : " + fromObj[key]);
 				toObj[key] = fromObj[key];
 			}
 			else
-			if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardHelperFunctions.addSimplePropertiesFromObjToObj: not adding " + key + " : " + fromObj[key]);
+			if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardHelperFunctions.addSimplePropertiesFromObjToObj: not adding " + key + " : " + fromObj[key]);
 		}
 	},
 	

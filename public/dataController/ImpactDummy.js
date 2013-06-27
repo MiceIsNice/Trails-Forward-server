@@ -18,17 +18,17 @@ ImpactDummy.prototype = {
 			blocks the way we want */		
 	askForMap : function(){
 			
-		var length = globalNames.DATA_CONTROLLER.gameDataCache.height;
-		var width = globalNames.DATA_CONTROLLER.gameDataCache.width;	
+		var length = TFglobals.DATA_CONTROLLER.gameDataCache.height;
+		var width = TFglobals.DATA_CONTROLLER.gameDataCache.width;	
 			
-		var block_width = globalNames.CHUNK_WIDTH;
+		var block_width = TFglobals.CHUNK_WIDTH;
 		var total_blocks = block_width * block_width;
 		
 		/* 	FOR TESTING - IT DOESN'T WORK WHEN ASKING FOR THEM ALL */
 		total_blocks = 1;
 		
 		for(var i = 1; i <= total_blocks; i += block_width)
-			globalNames.DATA_CONTROLLER.getTileChunkWithStartId(i);
+			TFglobals.DATA_CONTROLLER.getTileChunkWithStartId(i);
 	},
 	
 	onGetUserPlayers : function(players){
@@ -81,7 +81,7 @@ ImpactDummy.prototype = {
 	
 	onGetTileChunk : function(theData){
 		console.log("ImpactDummy received map block ");
-		globalNames.HELPER_FUNCTIONS.prettyPrintObject(theData[0]);
+		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theData[0]);
 	},
 
 };

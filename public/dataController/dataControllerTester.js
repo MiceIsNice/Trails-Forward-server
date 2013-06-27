@@ -34,7 +34,7 @@ TrailsForwardDataControllerTester.prototype = {
 		var options = document.getElementsByClassName("playerChoice");
 		for(var i = 0 ; i < options.length; i++){
 				if(options[i].checked == true){
-					globalNames.DATA_CONTROLLER.getWorldDataForPlayerId(options[i].value);
+					TFglobals.DATA_CONTROLLER.getWorldDataForPlayerId(options[i].value);
 					return;
 				}
 		}
@@ -43,7 +43,7 @@ TrailsForwardDataControllerTester.prototype = {
 	},
 	
 	getMapDataForChosenWorld : function(){
-		globalNames.IMPACT.askForMap();
+		TFglobals.IMPACT.askForMap();
 	},
 	
 	getPlayers : function(){
@@ -60,9 +60,9 @@ TrailsForwardDataControllerTester.prototype = {
 /* Set up the DataController and the objects it interacts with */
 var helperFunctions = new TrailsForwardHelperFunctions();
 var dataController = new TrailsForwardDataController();
-var globalNames = new TrailsForwardGlobalNames();
+var TFglobals = new TrailsForwardGlobals();
 var impactDummy = new ImpactDummy();
-globalNames.initialize(dataController, helperFunctions, impactDummy);
+TFglobals.initialize(dataController, helperFunctions, impactDummy);
 
 
 /* Make and use a tester object */

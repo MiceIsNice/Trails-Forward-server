@@ -1,5 +1,8 @@
-/* TrailsForwardDataController.js
- * 	Responsible for negotiating between cached data on the client, 
+/* 
+ *  TrailsForwardDataController.js
+ * 		- Provides game data from local cache or server through interactions with 
+ *			a TrailsForwardGameDataCache and a TrailsForwardServerAPI
+ *		- relies on methods in object referenced by TFglobals.IMPACT 
  *   
  */
 
@@ -28,7 +31,7 @@ TrailsForwardDataController.prototype = {
 		/* return the cached data or call method to  */
 	getUserPlayers : function(){
 		if(this.gameDataCache.getUserPlayers())
-			globalNames.IMPACT.onGetPlayers(this.gameDataCache.userPlayers);
+			TFglobals.IMPACT.onGetPlayers(this.gameDataCache.userPlayers);
 		else
 			this.serverAPI.getUserPlayers();
 	},
@@ -36,11 +39,11 @@ TrailsForwardDataController.prototype = {
 	getTileChunkWithStartId : function(anId){
 		var theChunk = this.gameDataCache.getTileChunkWithStartId(anId);
 		if(theChunk[0] != null){
-			if(globalNames.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: requested map data was cached");	
-			globalNames.IMPACT.onGetMapPiece(theChunk);
+			if(TFglobals.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: requested map data was cached");	
+			TFglobals.IMPACT.onGetMapPiece(theChunk);
 		}
 		else{
-			if(globalNames.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: calling serverAPI.getTileBlockWithStartId");
+			if(TFglobals.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: calling serverAPI.getTileBlockWithStartId");
 			this.serverAPI.getTileChunkWithStartId(anId);
 		}
 	},
@@ -58,27 +61,27 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	onGetUserPlayers : function(theData){
-		globalNames.DATA_CONTROLLER.gameDataCache.setUserPlayers(theData.players);
-		globalNames.IMPACT.onGetUserPlayers(theData.players);
+		TFglobals.DATA_CONTROLLER.gameDataCache.setUserPlayers(theData.players);
+		TFglobals.IMPACT.onGetUserPlayers(theData.players);
 	},
 	
 	
 	onLogIn : function(theData){
-		globalNames.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
-		globalNames.DATA_CONTROLLER.serverAPI._userId = theData.id;
-		globalNames.DATA_CONTROLLER.serverAPI.getUserPlayers();
-		globalNames.IMPACT.onLogin();
+		TFglobals.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
+		TFglobals.DATA_CONTROLLER.serverAPI._userId = theData.id;
+		TFglobals.DATA_CONTROLLER.serverAPI.getUserPlayers();
+		TFglobals.IMPACT.onLogin();
 	},
 	
 	onGetWorldData : function(theData){
-		globalNames.HELPER_FUNCTIONS.addSimplePropertiesFromObjToObj(theData.world, globalNames.DATA_CONTROLLER.gameDataCache);
-		globalNames.DATA_CONTROLLER.gameDataCache.initializeMap();
-		globalNames.IMPACT.onGetWorldData(theData);
+		TFglobals.HELPER_FUNCTIONS.addSimplePropertiesFromObjToObj(theData.world, TFglobals.DATA_CONTROLLER.gameDataCache);
+		TFglobals.DATA_CONTROLLER.gameDataCache.initializeMap();
+		TFglobals.IMPACT.onGetWorldData(theData);
 	},
 	
 	onGetTileChunk : function(startId){
 		var theChunk = this.gameDataCache.getTileChunkWithStartId(startId);
-		globalNames.IMPACT.onGetTileChunk(theChunk);
+		TFglobals.IMPACT.onGetTileChunk(theChunk);
 	},
 	
 };
