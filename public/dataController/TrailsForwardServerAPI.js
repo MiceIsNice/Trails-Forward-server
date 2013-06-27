@@ -63,7 +63,7 @@ TrailsForwardServerAPI.prototype = {
 		total_blocks = 256;
 		this.blocks_to_get = 256;
 		
-		if(globalNames.FULL_DEBUGGING) console.log("TrailsForwardServerAPI.loadMapSectionWithXYOriginAndLengthWidth: asking for " + 
+		if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.loadMapSectionWithXYOriginAndLengthWidth: asking for " + 
 						total_blocks + "blocks from server");
 						
 		for(var i = 1; i <= total_blocks; i++)
@@ -71,22 +71,22 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 	mapStagingArea : function(theData){
-		globalNames.SERVER_API.blocks_to_get--;
-		globalNames.DATA_CONTROLLER.storeTileSection(theData);
-		if(globalNames.FULL_DEBUGGING) console.log("mapStagingArea received megatile " + theData.megatile.id);
-		if(globalNames.SERVER_API.blocks_to_get == 0)
-			globalNames.DATA_CONTROLLER.onGetTileBlock(globalNames.SERVER_API.starting_block);
+		globalNames.SERVER_API.chunks_to_get--;
+		globalNames.DATA_CONTROLLER.storeTiles(theData);
+		if(globalNames.FULL_DEBUGGING == true) console.log("mapStagingArea received megatile " + theData.megatile.id);
+		if(globalNames.SERVER_API.chunks_to_get == 0)
+			globalNames.DATA_CONTROLLER.onGetTileChunk(globalNames.SERVER_API.starting_chunk);
 	},
 	
-	getTileBlockWithStartId : function(anId){
+	getTileChunkWithStartId : function(anId){
 		var world_id = globalNames.DATA_CONTROLLER.gameDataCache.id;
-		var total_blocks = globalNames.BLOCK_SIZE * globalNames.BLOCK_SIZE;
-		this.starting_block = anId;
-		this.blocks_to_get = total_blocks;
-		var lastBlock = anId + this.blocks_to_get - 1;
+		var total_chunks = globalNames.CHUNK_WIDTH * globalNames.CHUNK_WIDTH;
+		this.starting_chunk = anId;
+		this.chunks_to_get = total_chunks;
+		var lastChunk = anId + this.chunks_to_get - 1;
 		
-		console.log("making a server request for blocks " + anId + " to " + lastBlock);
-		for(var i = anId; i < anId + total_blocks; i++)
+		console.log("making a server request for blocks " + anId + " to " + lastChunk);
+		for(var i = anId; i < anId + total_chunks; i++)
 			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), globalNames.SERVER_API.mapStagingArea);	
 	},
 
@@ -100,7 +100,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	makeGetRequest : function(aResourcePath, urlParameters, aCallbackFunction){
 		if(aResourcePath && urlParameters && (aCallbackFunction || aCallbackFunction == null)){		
-			if(globalNames.FULL_DEBUGGING) console.log("TrailsForwardServerAPI.makeGetRequest using url: " + this.SERVER_URL + aResourcePath + urlParameters);
+			if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.makeGetRequest using url: " + this.SERVER_URL + aResourcePath + urlParameters);
 			$.getJSON(this.SERVER_URL + aResourcePath + urlParameters, aCallbackFunction);
 		}
 		else
@@ -144,7 +144,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	buildWorldRSForWorldNum : function(worldNum){
 		var resourceString = this.WORLDS + this.FORWARD_SLASH + worldNum + this.JSON;
-		if(globalNames.FULL_DEBUGGING) console.log("TrailsForwardServerAPI.buildWorldResourceStringForWorldNum made: " + resourceString);
+		if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildWorldResourceStringForWorldNum made: " + resourceString);
 			
 		return resourceString;
 	},
@@ -156,7 +156,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	buildUsersPlayersRSForPlayerNum : function(playerNum){
 		var resourceString = this.USERS + this.FORWARD_SLASH + playerNum + this.PLAYERS + this.JSON;
-		if(globalNames.FULL_DEBUGGING) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerNum made: " + resourceString);
+		if(globalNames.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerNum made: " + resourceString);
 		
 		return resourceString
 	},

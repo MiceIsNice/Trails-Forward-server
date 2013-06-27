@@ -21,14 +21,14 @@ ImpactDummy.prototype = {
 		var length = globalNames.DATA_CONTROLLER.gameDataCache.height;
 		var width = globalNames.DATA_CONTROLLER.gameDataCache.width;	
 			
-		var block_width = globalNames.BLOCK_SIZE;
+		var block_width = globalNames.CHUNK_WIDTH;
 		var total_blocks = block_width * block_width;
 		
-		/* 	FOR TESTING */
+		/* 	FOR TESTING - IT DOESN'T WORK WHEN ASKING FOR THEM ALL */
 		total_blocks = 1;
 		
 		for(var i = 1; i <= total_blocks; i += block_width)
-			globalNames.DATA_CONTROLLER.getTileBlockWithStartId(i);
+			globalNames.DATA_CONTROLLER.getTileChunkWithStartId(i);
 	},
 	
 	onGetUserPlayers : function(players){
@@ -79,9 +79,9 @@ ImpactDummy.prototype = {
 		messageP.appendChild(element);
 	},
 	
-	onGetMapBlock : function(theData){
+	onGetTileChunk : function(theData){
 		console.log("ImpactDummy received map block ");
-		//globalNames.HELPER_FUNCTIONS.prettyPrintObject(theData);
+		globalNames.HELPER_FUNCTIONS.prettyPrintObject(theData[0]);
 	},
 
 };

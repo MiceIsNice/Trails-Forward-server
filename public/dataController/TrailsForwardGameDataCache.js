@@ -38,25 +38,21 @@ TrailsForwardGameDataCache.prototype = {
 			console.log("TrailsForwardGameDataCache.getPlayerById: user_players undefined!");
 	},
 	
-	getMapSectionWithXYOriginAndLengthWidth : function(x, y, length, width){
-		return null;
+	getTileChunkWithStartId : function(anId){
+		var tiles_per_chunk = globalNames.CHUNK_WIDTH * globalNames.CHUNK_WIDTH;
+		var chunk = Math.floor(anId / tiles_per_chunk);
+		if(globalNames.FULL_DEBUGGING == true)console.log("TrailsForwardGameDataCache.getTileBlockWithStartId: requested block starts at id: " 
+													+ anId + ", which maps to block: " + chunk);
+		return this.gameMap[chunk];
 	},
 	
-	getTileBlockWithStartId : function(anId){
-		var tiles_per_block = globalNames.BLOCK_SIZE * globalNames.BLOCK_SIZE;
-		var block = Math.floor(anId / tiles_per_block);
-		if(globalNames.FULL_DEBUGGING)console.log("TrailsForwardGameDataCache.getTileBlockWithStartId: requested block starts at id: " 
-													+ anId + ", which maps to block: " + block);
-		return this.gameMap[block];
-	},
-	
-	storeTileSection : function(aTileSection){
+	storeTiles : function(aTileSection){
 		var num = aTileSection.id;
-		var tiles_per_block = globalNames.BLOCK_SIZE * globalNames.BLOCK_SIZE;
-		var block = Math.floor(num / tiles_per_block);
-		var positionInBlock = Math.floor(num % tiles_per_block) - 1;
-		if(globalNames.FULL_DEBUGGING) console.log("storing tile section in this.gameMap [" + block + "][" + positionInBlock + "]");
-		this.gameMap[block][positionInBlock] = aTileSection;
+		var tiles_per_chunk = globalNames.CHUNK_WIDTH * globalNames.CHUNK_WIDTH;
+		var chunk = Math.floor(num / tiles_per_chunk);
+		var positionInChunk = Math.floor(num % tiles_per_chunk) - 1;
+		if(globalNames.FULL_DEBUGGING == true) console.log("storing tile section in this.gameMap [" + block + "][" + positionInChunk + "]");
+		this.gameMap[chunk][positionInChunk] = aTileSection;
 	},
 	
 };

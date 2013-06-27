@@ -33,32 +33,19 @@ TrailsForwardDataController.prototype = {
 			this.serverAPI.getUserPlayers();
 	},
 	
-	/*
-	getMapSectionWithXYOriginAndLengthWidth : function(x, y, length, width){
-		var mapSection = this.gameDataCache.getMapSectionWithXYOriginAndLengthWidth(x,y,length,width);
-		
-		if(mapSection != null){
-			if(globalNames.FULL_DEBUGGING) console.log("requested map data was cached");		
-			globalNames.IMPACT.onMapSectionLoad(mapSection);
+	getTileChunkWithStartId : function(anId){
+		var theChunk = this.gameDataCache.getTileChunkWithStartId(anId);
+		if(theChunk[0] != null){
+			if(globalNames.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: requested map data was cached");	
+			globalNames.IMPACT.onGetMapPiece(theChunk);
 		}
 		else{
-			if(globalNames.FULL_DEBUGGING) console.log("calling serverAPI.loadMapSectionWithXYOriginAndLengthWidth");
-			this.serverAPI.loadMapSectionWithXYOriginAndLengthWidth(x, y, length, width);
+			if(globalNames.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: calling serverAPI.getTileBlockWithStartId");
+			this.serverAPI.getTileChunkWithStartId(anId);
 		}
 	},
-	*/
 	
-	getTileBlockWithStartId : function(anId){
-		var theBlock = this.gameDataCache.getTileBlockWithStartId(anId);
-		if(theBlock[0] != null){
-			if(globalNames.FULL_DEBUGGING) console.log("getTileBlockWithStartId: requested map data was cached");	
-			globalNames.IMPACT.onGetMapPiece(theBlock);
-		}
-		else{
-			if(globalNames.FULL_DEBUGGING) console.log("getTileBlockWithStartId: calling serverAPI.getTileBlockWithStartId");
-			this.serverAPI.getTileBlockWithStartId(anId);
-		}
-	},
+	
 	
 	/**
 		CALLBACK FUNCTIONS TO UPDATE gameDataCache AND SEND DATA TO IMPACT
@@ -66,8 +53,8 @@ TrailsForwardDataController.prototype = {
 	**/
 	
 	
-	storeTileSection : function(theData){
-		this.gameDataCache.storeTileSection(theData.megatile);
+	storeTiles : function(theData){
+		this.gameDataCache.storeTiles(theData.megatile);
 	},
 	
 	onGetUserPlayers : function(theData){
@@ -89,9 +76,9 @@ TrailsForwardDataController.prototype = {
 		globalNames.IMPACT.onGetWorldData(theData);
 	},
 	
-	onGetTileBlock : function(startId){
-		var theBlock = this.gameDataCache.getTileBlockWithStartId(startId);
-		globalNames.IMPACT.onGetMapBlock(theBlock);
+	onGetTileChunk : function(startId){
+		var theChunk = this.gameDataCache.getTileChunkWithStartId(startId);
+		globalNames.IMPACT.onGetTileChunk(theChunk);
 	},
 	
 };

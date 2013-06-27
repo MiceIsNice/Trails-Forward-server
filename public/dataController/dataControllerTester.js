@@ -1,3 +1,16 @@
+/**
+	TODO:
+		> Comment
+		> Make Get requests failure tolerant
+		> revise logging system
+		> expand server request capabilities, including PUT
+		> ? 
+
+**/
+
+
+
+
 
 function TrailsForwardDataControllerTester(aTrailsForwardDataController){
 	this.dataController = aTrailsForwardDataController;

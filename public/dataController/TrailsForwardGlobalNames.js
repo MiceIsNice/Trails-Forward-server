@@ -12,8 +12,8 @@ TrailsForwardGlobalNames.prototype = {
  		this.SERVER_API = this.DATA_CONTROLLER.serverAPI;
  		this.HELPER_FUNCTIONS = helperFunctionsRef;
  		this.IMPACT = impactRef;
- 		//this.FULL_DEBUGGING = false;
- 		this.BLOCK_SIZE = 16;
+ 		this.FULL_DEBUGGING = false;
+ 		this.CHUNK_WIDTH = 16;
  	},
  
 };
