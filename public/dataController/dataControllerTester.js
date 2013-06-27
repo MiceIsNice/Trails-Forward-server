@@ -1,13 +1,12 @@
 /**
 	TODO:
-		> Comment
-		> Make Get requests failure tolerant
-		> revise logging system
+		> brief method comments where helpful
+		> Make note of where/how to make GET requests failure tolerant
+		> revise logging system to be more helpful:
+			- more modes than FULL or not
+			- on FULL debug, limit request loops to prevent tons of printing?
 		> expand server request capabilities, including PUT
-		> ? 
-
 **/
-
 
 
 
