@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tile Factory - Trails Forward</title>
+    <style type="text/css">
+        html,body {
+            background-color: #333;
+            color: #fff;
+            font-family: helvetica, arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script src="tilefactory.js"></script>
+    <script src="vilasfactory.js"></script>
+    <div id="buttons">
+        <button type="button" onclick="buildForestTile()">Build Forest Tile</button>
+        <button type="button" onclick="buildResidentialTile()">Build Residential Tile</button>
+        <button type="button" onclick="saveTileButtonClicked()">Save Tile</button>
+    </div>
+    <br>
+    <canvas id="canvas" width=1028 height=1028>
+
+    </canvas>
+    <script>
+        // Things pre-loading
+        var vilasFactory = new VilasFactory();
+        vilasFactory.load();
+
+        $(window).bind("load", function() {
+            // Things post-loading
+            var canvas, ctx;
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.webkitImageSmoothingEnabled = true;
+            ctx.mozImageSmoothingEnabled = true;
+        });
+        $(window).load(function() {
+            // everything’s finished loaded code here…
+            buildForestTile();
+        });
+
+        function buildForestTile() {
+            var tile = vilasFactory.buildForestTile(40, 4, 0.5, 0.1, 1028);
+            drawTile(tile);
+        }
+
+        function buildResidentialTile() {
+            var tile = vilasFactory.buildResidentialTile(5, 3, 0.5, 0.01, 1028);
+            drawTile(tile);
+        }
+
+        function drawTile(tile) {
+            var canvas, ctx;
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext('2d');
+            canvas.width = canvas.width; // clear the canvas
+            ctx.drawImage(tile.canvas, 0, 0);
+        }
+
+        function saveTileButtonClicked() {
+            var canvas1 = document.getElementById("canvas");
+            if (canvas1.getContext) {
+                var ctx = canvas1.getContext("2d");
+                var myImage = canvas1.toDataURL("image/png");
+            }
+            window.open(myImage);
+            //window.location = myImage;
+        }
+    </script>
+</body>
+</html>
