@@ -58,12 +58,12 @@ TrailsForwardGameDataCache.prototype = {
 		return this.gameMap[chunk];
 	},
 	
-	storeTiles : function(aTileSection){
-		var num = aTileSection.id;
+	storeTiles : function(aMegatile){
+		var num = aMegatile.id;
 		var chunk = Math.floor(num / this.tiles_per_chunk);
 		var positionInChunk = Math.floor(num % this.tiles_per_chunk) - 1;
 		if(TFglobals.FULL_DEBUGGING == true) console.log("storing tile section in this.gameMap [" + chunk + "][" + positionInChunk + "]");
-		this.gameMap[chunk][positionInChunk] = aTileSection;
+		this.gameMap[chunk][positionInChunk] = aMegatile;
 	},
 	
 	getAvailableContractsForPlayer : function(){
