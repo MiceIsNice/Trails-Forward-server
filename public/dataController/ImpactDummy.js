@@ -1,6 +1,16 @@
+/* 
+ *  ImpactDummy object:
+ *		- simulates Impact sending to and receiving from TrailsForwardDataController
+ * 
+ */
+
 
 function callLoadMapTest(){
 	tester.getMapDataForChosenWorld();
+}
+
+function callLoadAvailableContractsTest(){
+	tester.loadAvailableContractsForChosenPlayer();
 }
 
 
@@ -73,7 +83,7 @@ ImpactDummy.prototype = {
 		
 		var element = document.createElement("input");
 		element.setAttribute("type", "submit");
-		element.setAttribute("value", "load map");
+		element.setAttribute("value", "Load Map");
 		element.setAttribute("id", "submitMap");
 		element.addEventListener("click", callLoadMapTest);
 		messageP.appendChild(element);
@@ -82,6 +92,59 @@ ImpactDummy.prototype = {
 	onGetTileChunk : function(theData){
 		console.log("ImpactDummy received map block ");
 		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theData[0]);
+		var button = document.createElement("input");
+		button.setAttribute("value", "Get Contracts");
+		button.setAttribute("type", "submit");
+		//button.removeEventListener("click", callLoadMapTest);
+		button.addEventListener("click", callLoadAvailableContractsTest);
+		
+		var messageP = document.getElementById("message");
+		messageP.innerHTML = "Map section loaded.  Click below to see available contracts.<br/>";
+		messageP.appendChild(button);
+	},
+	
+	onGetAvailableContracts : function(theContracts){
+	
+		var messageP = document.getElementById("message");
+		messageP.innerHTML = "Here are your available contracts:<br/>";
+		
+		var element;
+		var theForm = document.getElementById("playerForm");
+		
+		/*
+		var children = theForm.childNodes;
+		
+		// Does this work even though the length of the list changes? Or does it not change?
+		for(var i = 0; i , children.length; i++){
+			theForm.removeChild(children[i]);
+		}
+		*/
+		
+		theForm.innerHTML = "";
+		
+		for(var i = 0; i < theContracts.length; i++){
+			element = document.createElement("input");
+			element.value = theContracts[i].id;
+			element.setAttribute("type", "radio");
+			element.setAttribute("class", "contractChoice");
+			theForm.appendChild(element);
+			
+			theForm.innerHTML += " " + theContracts[i].name + " " + theContracts[i].points + "<br/>"
+		}
+		
+		theForm.innerHTML += "<br/>";
+		
+		element = document.createElement("input");
+		element.setAttribute("type", "submit");
+		element.setAttribute("value", "View contract");
+		element.setAttribute("id", "viewContract");
+	//	element.addEventListener("click", tester.getWorldDataForChosenPlayer);
+		theForm.appendChild(element);
+		
+		document.getElementById("playerChoiceDiv").style.display = "inline";
+		
+		console.log("ImpactDummy received contacts: ");
+		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theContracts);
 	},
 
 };

@@ -18,6 +18,7 @@ function TrailsForwardServerAPI(){
 	this.PLAYERS = "/players";
 	this.MEGATILES = "/megatiles";
 	this.AUTH_TOKEN = "auth_token";
+	this.AVAILABLE_CONTRACTS = "/available_contracts";
 	this.ID = "id";
 	
 	this._userId;
@@ -29,10 +30,11 @@ TrailsForwardServerAPI.prototype = {
 
 	constructor : TrailsForwardServerAPI,
 	
-	/***
+/*****
+
 		'PUBLIC' FUNCTIONS CALLED BY TrailsForwardDataController OBJECT
 		
-	***/
+*****/
 	
 
 	logInUserWithEmailAndPassword : function(anEmail, aPassword){
@@ -46,7 +48,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	getWorldDataForWorldId : function(anId){
 		if(anId)
-			this.makeGetRequest(this.buildWorldRSForWorldNum(anId), this.authString(), TFglobals.DATA_CONTROLLER.onGetWorldData);
+			this.makeGetRequest(this.buildWorldRSForWorldId(anId), this.authString(), TFglobals.DATA_CONTROLLER.onGetWorldData);
 		else
 			console.log("TrailsForwardServerAPI.getWorldDataForWorldId received undefined id");
 	},
@@ -54,7 +56,7 @@ TrailsForwardServerAPI.prototype = {
 
 	getUserPlayers : function(){
 		if(this._userId){
-			var resourceString = this.buildUsersPlayersRSForPlayerNum(this._userId);
+			var resourceString = this.buildUsersPlayersRSForPlayerId(this._userId);
 			this.makeGetRequest(resourceString, this.authString(), TFglobals.DATA_CONTROLLER.onGetUserPlayers);
 		}
 		else
@@ -75,7 +77,7 @@ TrailsForwardServerAPI.prototype = {
 						total_blocks + "blocks from server");
 						
 		for(var i = 1; i <= total_blocks; i++)
-			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);
+			this.makeGetRequest(this.buildMegatileRSForWorldIdAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);
 	},
 	
 	mapStagingArea : function(theData){
@@ -95,15 +97,23 @@ TrailsForwardServerAPI.prototype = {
 		
 		console.log("making a server request for blocks " + anId + " to " + lastChunk);
 		for(var i = anId; i < anId + total_chunks; i++)
-			this.makeGetRequest(this.buildMegatileRSForWorldNumAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);	
+			this.makeGetRequest(this.buildMegatileRSForWorldIdAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);	
+	},
+	
+	getAvailableContractsForWorldIdAndPlayerId : function(worldId, playerId){
+		var resourceString = this.buildAvailableContractsRSForWorldIdAndPlayerId(worldId, playerId);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.getAvailableContractsForWorldIdAndPlayerId asking for contracts for world, player: " 
+															+ worldId + ", " + playerId);
+		this.makeGetRequest(resourceString, this.authString(), TFglobals.DATA_CONTROLLER.onGetAvailableContracts);
 	},
 
 
 	
-	/***    
+/*****    
+
 		FUNCTIONS FOR MAKING SERVER REQUESTS
 	
-	***/	
+*****/	
 	
 	
 	makeGetRequest : function(aResourcePath, urlParameters, aCallbackFunction){
@@ -144,29 +154,38 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 	
-	/***    
+/*****
+
 		FUNCTIONS FOR BUILDING RESOURCE STRINGS TO ADD TO A URL.  
 		'RS' == 'RESOURCE STRING'
 	
-	***/
+*****/
 	
-	buildWorldRSForWorldNum : function(worldNum){
+	buildWorldRSForWorldId : function(worldNum){
 		var resourceString = this.WORLDS + this.FORWARD_SLASH + worldNum + this.JSON;
 		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildWorldResourceStringForWorldNum made: " + resourceString);
 			
 		return resourceString;
 	},
 	
-	buildMegatileRSForWorldNumAndId : function(aWorldNum, anId){
-		return resourceString = this.WORLDS + this.FORWARD_SLASH + aWorldNum +
+	buildMegatileRSForWorldIdAndId : function(worldId, anId){
+		return resourceString = this.WORLDS + this.FORWARD_SLASH + worldId +
 								this.MEGATILES + this.FORWARD_SLASH + anId + this.JSON;
 	},
 	
-	buildUsersPlayersRSForPlayerNum : function(playerNum){
-		var resourceString = this.USERS + this.FORWARD_SLASH + playerNum + this.PLAYERS + this.JSON;
-		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerNum made: " + resourceString);
+	buildUsersPlayersRSForPlayerId : function(playerId){
+		var resourceString = this.USERS + this.FORWARD_SLASH + playerId + this.PLAYERS + this.JSON;
+		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerId made: " + resourceString);
 		
-		return resourceString
+		return resourceString;
 	},
+ 
+ 	buildAvailableContractsRSForWorldIdAndPlayerId : function(worldId, playerId){
+		var resourceString = this.WORLDS + this.FORWARD_SLASH + worldId + this.PLAYERS + this.FORWARD_SLASH 
+								+ playerId + this.AVAILABLE_CONTRACTS + this.JSON;
+		if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.buildUsersPlayersRSForPlayerId made: " + resourceString);
+		
+		return resourceString;
+ 	},
  
 };
