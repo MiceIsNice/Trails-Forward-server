@@ -9,6 +9,7 @@ function TrailsForwardHelperFunctions(){
 
 TrailsForwardHelperFunctions.prototype = {
 
+	constructor : TrailsForwardHelperFunctions,
 
 	prettyPrintObject : function(theObj){
  		for (var key in theObj){
@@ -35,6 +36,7 @@ TrailsForwardHelperFunctions.prototype = {
 		}
 	},
 	
+	 /* copy non-object and non-array properties and their values from from obj to another */
 	addSimplePropertiesFromObjToObj : function(fromObj, toObj){
 		for (var key in fromObj){
 			if ((typeof fromObj[key] !== 'object' && !Array.isArray(fromObj[key])) || typeof fromObj[key] === 'string'){

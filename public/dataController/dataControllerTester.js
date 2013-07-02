@@ -1,8 +1,7 @@
 /**
 	TODO:
-		> brief method comments where helpful
 		> Make note of where/how to make GET requests failure tolerant
-		> revise logging system to be more helpful:
+		> Consider revising logging system to be more helpful:
 			- more modes than FULL or not
 			- on FULL debug, limit request loops to prevent tons of printing?
 		> expand server request capabilities, including PUT
@@ -49,8 +48,8 @@ TrailsForwardDataControllerTester.prototype = {
 		this.dataController.getUserPlayers();
 	},
 	
-	showResponse : function(theResponse){
-		console.log(theResponse);
+	loadAvailableContractsForChosenPlayer : function(){
+		this.dataController.getAvailableContractsForPlayer();
 	},
 
 };
@@ -68,6 +67,8 @@ TFglobals.initialize(dataController, helperFunctions, impactDummy);
 var tester = new TrailsForwardDataControllerTester(dataController);
 //tester.testLogin();
 
+
+ /* called when user clicks "Log In" */
 function logIn(){
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("password").value;
@@ -75,6 +76,8 @@ function logIn(){
 	tester.testLoginWithEmailAndPassword(email, password);
 }
 
+
+ /* automatically fill in login info */
 function init(){
 	document.getElementById("submitButton").addEventListener("click", logIn);
 	document.getElementById("email").value = "aaron.tietz@tufts.edu";

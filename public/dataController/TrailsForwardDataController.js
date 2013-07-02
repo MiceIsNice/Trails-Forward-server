@@ -15,6 +15,12 @@ TrailsForwardDataController.prototype = {
 
 	constructor : TrailsForwardDataController,
 	
+/*****
+
+		'PUBLIC' FUNCTIONS CALLED BY Impact 
+		
+*****/
+	
 	logInUserWithEmailAndPassword : function(anEmail, aPassword){
 		this.serverAPI.logInUserWithEmailAndPassword(anEmail, aPassword);
 	},
@@ -28,7 +34,6 @@ TrailsForwardDataController.prototype = {
 			console.log("TrailsForwardDataController.getWorldDataForPlayerId found no world for player_id: " + anId);
 	},
 	
-		/* return the cached data or call method to  */
 	getUserPlayers : function(){
 		if(this.gameDataCache.getUserPlayers())
 			TFglobals.IMPACT.onGetPlayers(this.gameDataCache.userPlayers);
@@ -48,12 +53,27 @@ TrailsForwardDataController.prototype = {
 		}
 	},
 	
+	getAvailableContractsForPlayer : function(){
+		var worldId = this.gameDataCache.id;
+		var playerId = this.gameDataCache.player_id;
+		var theContracts = this.gameDataCache.getAvailableContractsForPlayer();
+		if(theContracts.length != 0){
+			if(TFglobals.FULL_DEBUGGING == true) console.log("getAvailableContractsForUser: data was cached and fresh");	
+			TFglobals.IMPACT.onGetAvailableContracts(theContracts);	
+		}
+		else{
+			if(TFglobals.FULL_DEBUGGING == true) console.log("getAvailableContractsForUser: calling serverAPI.getAvailableContractsForWorldIdAndPlayerId");	
+			this.serverAPI.getAvailableContractsForWorldIdAndPlayerId(worldId, playerId);
+		}
+	},
 	
 	
-	/**
+	
+/*****
+
 		CALLBACK FUNCTIONS TO UPDATE gameDataCache AND SEND DATA TO IMPACT
 	
-	**/
+*****/
 	
 	
 	storeTiles : function(theData){
@@ -83,6 +103,11 @@ TrailsForwardDataController.prototype = {
 		var theChunk = this.gameDataCache.getMapChunkWithStartId(startId);
 		TFglobals.IMPACT.onGetMapChunk(theChunk);
 	}
+	
+	onGetAvailableContracts : function(theContracts){
+		TFglobals.DATA_CONTROLLER.gameDataCache.setAvailableContractsForPlayer(theContracts);
+		TFglobals.IMPACT.onGetAvailableContracts(theContracts);
+	},
 	
 };
 

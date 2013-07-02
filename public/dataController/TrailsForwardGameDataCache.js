@@ -7,15 +7,21 @@
 function TrailsForwardGameDataCache(){
 	this.user_players = new Array();
 	this.gameMap = new Array();
+	this.availableContracts = new Array();
 }
 
 TrailsForwardGameDataCache.prototype = {
 	
 	constructor : TrailsForwardGameDataCache,
 	
+/*****
+
+		'PUBLIC' FUNCTIONS CALLED BY TrailsForwardDataController OBJECT
+	
+*****/
+	
 	initializeMap : function(){
         if (TFglobals.FULL_DEBUGGING) console.log("Initializing map");
-		var count = this.height * this.width;
         this.tiles_per_chunk = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
         if (TFglobals.FULL_DEBUGGING) console.log("count = " + count);
         var a;
@@ -48,19 +54,29 @@ TrailsForwardGameDataCache.prototype = {
 	},
 	
 	getMapChunkWithStartId : function(anId){
+		var tiles_per_chunk = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
 		var chunk = Math.floor(anId / this.tiles_per_chunk);
 		if(TFglobals.FULL_DEBUGGING == true)console.log("TrailsForwardGameDataCache.getTileBlockWithStartId: requested block starts at id: " 
 													+ anId + ", which maps to block: " + chunk);
 		return this.gameMap[chunk];
 	},
 	
-	storeTiles : function(aTileSection){
-		var num = aTileSection.id;
+	storeTiles : function(aMegatile){
+		var num = aMegatile.id;
 		var chunk = Math.floor(num / this.tiles_per_chunk);
 		var positionInChunk = Math.floor(num % this.tiles_per_chunk) - 1;
 		if(TFglobals.FULL_DEBUGGING == true) console.log("storing tile section in this.gameMap [" + chunk + "][" + positionInChunk + "]");
-		this.gameMap[chunk][positionInChunk] = aTileSection;
+		this.gameMap[chunk][positionInChunk] = aMegatile;
 	}
 
+	getAvailableContractsForPlayer : function(){
+		return this.availableContracts;
+	},
+	
+	  /* WILL NEED TO TEST THE FORMAT COMING IN */
+	setAvailableContractsForPlayer : function(someContracts){
+		this.availableContracts = someContracts;
+	},
+	
 };
 
