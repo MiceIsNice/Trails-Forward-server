@@ -4,7 +4,7 @@
     <title>Tile Factory - Trails Forward</title>
     <style type="text/css">
         html,body {
-            background-color: #333;
+            background-color: #999;
             color: #fff;
             font-family: helvetica, arial, sans-serif;
             margin: 0;
@@ -23,6 +23,12 @@
         <button type="button" onclick="saveTileButtonClicked()">Save Tile</button>
     </div>
     <br>
+    <div id="settings">
+        <label for="tree_density">Tree density</label>
+        <input type="text" id="tree_density" value=0.5><br>
+        <label for="development_intensity">Development intensity</label>
+        <input type="text" id="development_intensity"><br>
+    </div>
     <canvas id="canvas" width=1028 height=1028>
 
     </canvas>
@@ -46,7 +52,53 @@
         });
 
         function buildForestTile() {
-            var tile = vilasFactory.buildForestTile(40, 4, 0.5, 0.1, 1028);
+            var tile, td, num_trees, num_trees_variance;
+            td = document.getElementById("tree_density");
+            if (td.value == 0) {
+                num_trees = 0;
+                num_trees_variance = 0;
+            }
+            else if (td.value <= 0.1) {
+                num_trees = 5;
+                num_trees_variance = 2;
+            }
+            else if (td.value <= 0.2) {
+                num_trees = 10;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.3) {
+                num_trees = 15;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.4) {
+                num_trees = 20;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.5) {
+                num_trees = 25;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.6) {
+                num_trees = 30;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.7) {
+                num_trees = 35;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.8) {
+                num_trees = 40;
+                num_trees_variance = 3;
+            }
+            else if (td.value <= 0.9) {
+                num_trees = 45;
+                num_trees_variance = 3;
+            }
+            else {
+                num_trees = 50;
+                num_trees_variance = 3;
+            }
+            tile = vilasFactory.buildForestTile(num_trees, num_trees_variance, 0.5, 0.05, 1028);
             drawTile(tile);
         }
 

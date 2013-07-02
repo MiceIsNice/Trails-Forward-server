@@ -28,7 +28,7 @@ ImpactDummy.prototype = {
 		total_blocks = 1;
 		
 		for(var i = 1; i <= total_blocks; i += block_width)
-			TFglobals.DATA_CONTROLLER.getTileChunkWithStartId(i);
+			TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(i);
 	},
 	
 	onGetUserPlayers : function(players){

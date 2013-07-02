@@ -25,7 +25,7 @@ TrailsForwardGlobals.prototype = {
  		  /* shared values */
  		this.FULL_DEBUGGING = false;
  		this.CHUNK_WIDTH = 16;
- 	},
+ 	}
  
 };
  

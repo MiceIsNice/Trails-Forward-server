@@ -14,9 +14,13 @@ TrailsForwardGameDataCache.prototype = {
 	constructor : TrailsForwardGameDataCache,
 	
 	initializeMap : function(){
+        if (TFglobals.FULL_DEBUGGING) console.log("Initializing map");
 		var count = this.height * this.width;
+        this.tiles_per_chunk = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
+        if (TFglobals.FULL_DEBUGGING) console.log("count = " + count);
+        var a;
 		for(var i = 0; i < count; i++){
-			var a = new Array(count);
+			a = new Array(this.tiles_per_chunk);
 			a[0] = null;
 			this.gameMap.push(a);
 		}
@@ -43,9 +47,8 @@ TrailsForwardGameDataCache.prototype = {
 			console.log("TrailsForwardGameDataCache.getPlayerById: user_players undefined!");
 	},
 	
-	getTileChunkWithStartId : function(anId){
-		var tiles_per_chunk = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
-		var chunk = Math.floor(anId / tiles_per_chunk);
+	getMapChunkWithStartId : function(anId){
+		var chunk = Math.floor(anId / this.tiles_per_chunk);
 		if(TFglobals.FULL_DEBUGGING == true)console.log("TrailsForwardGameDataCache.getTileBlockWithStartId: requested block starts at id: " 
 													+ anId + ", which maps to block: " + chunk);
 		return this.gameMap[chunk];
@@ -53,12 +56,11 @@ TrailsForwardGameDataCache.prototype = {
 	
 	storeTiles : function(aTileSection){
 		var num = aTileSection.id;
-		var tiles_per_chunk = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
-		var chunk = Math.floor(num / tiles_per_chunk);
-		var positionInChunk = Math.floor(num % tiles_per_chunk) - 1;
-		if(TFglobals.FULL_DEBUGGING == true) console.log("storing tile section in this.gameMap [" + block + "][" + positionInChunk + "]");
+		var chunk = Math.floor(num / this.tiles_per_chunk);
+		var positionInChunk = Math.floor(num % this.tiles_per_chunk) - 1;
+		if(TFglobals.FULL_DEBUGGING == true) console.log("storing tile section in this.gameMap [" + chunk + "][" + positionInChunk + "]");
 		this.gameMap[chunk][positionInChunk] = aTileSection;
-	},
-	
+	}
+
 };
 

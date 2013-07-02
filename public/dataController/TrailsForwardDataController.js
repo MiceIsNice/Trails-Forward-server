@@ -36,15 +36,15 @@ TrailsForwardDataController.prototype = {
 			this.serverAPI.getUserPlayers();
 	},
 	
-	getTileChunkWithStartId : function(anId){
-		var theChunk = this.gameDataCache.getTileChunkWithStartId(anId);
+	getMapChunkWithStartId : function(anId){
+		var theChunk = this.gameDataCache.getMapChunkWithStartId(anId);
 		if(theChunk[0] != null){
 			if(TFglobals.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: requested map data was cached");	
-			TFglobals.IMPACT.onGetMapPiece(theChunk);
+			TFglobals.IMPACT.onGetMapChunk(theChunk);
 		}
-		else{
+		else {
 			if(TFglobals.FULL_DEBUGGING == true) console.log("getTileBlockWithStartId: calling serverAPI.getTileBlockWithStartId");
-			this.serverAPI.getTileChunkWithStartId(anId);
+			this.serverAPI.getMapChunkWithStartId(anId);
 		}
 	},
 	
@@ -65,7 +65,6 @@ TrailsForwardDataController.prototype = {
 		TFglobals.IMPACT.onGetUserPlayers(theData.players);
 	},
 	
-	
 	onLogIn : function(theData){
 		TFglobals.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
 		TFglobals.DATA_CONTROLLER.serverAPI._userId = theData.id;
@@ -76,13 +75,14 @@ TrailsForwardDataController.prototype = {
 	onGetWorldData : function(theData){
 		TFglobals.HELPER_FUNCTIONS.addSimplePropertiesFromObjToObj(theData.world, TFglobals.DATA_CONTROLLER.gameDataCache);
 		TFglobals.DATA_CONTROLLER.gameDataCache.initializeMap();
+        if (TFglobals.FULL_DEBUGGING) console.log("Done initializing map, calling Impact onGetWorldData");
 		TFglobals.IMPACT.onGetWorldData(theData);
 	},
 	
-	onGetTileChunk : function(startId){
-		var theChunk = this.gameDataCache.getTileChunkWithStartId(startId);
-		TFglobals.IMPACT.onGetTileChunk(theChunk);
-	},
+	onGetMapChunk : function(startId){
+		var theChunk = this.gameDataCache.getMapChunkWithStartId(startId);
+		TFglobals.IMPACT.onGetMapChunk(theChunk);
+	}
 	
 };
 

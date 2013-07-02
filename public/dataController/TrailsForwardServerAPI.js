@@ -7,7 +7,7 @@
 
 
 function TrailsForwardServerAPI(){
-	this.SERVER_URL = "http://tfnew.dax.getdown.org";
+	this.SERVER_URL = "http://localhost:3000";
 	this.AUTHENTICATE_USER_URL = "/users/authenticate_for_token.json?";
 	this.EMAIL = "email";
 	this.PASSWORD = "password";
@@ -83,10 +83,10 @@ TrailsForwardServerAPI.prototype = {
 		TFglobals.DATA_CONTROLLER.storeTiles(theData);
 		if(TFglobals.FULL_DEBUGGING == true) console.log("mapStagingArea received megatile " + theData.megatile.id);
 		if(TFglobals.SERVER_API.chunks_to_get == 0)
-			TFglobals.DATA_CONTROLLER.onGetTileChunk(TFglobals.SERVER_API.starting_chunk);
+			TFglobals.DATA_CONTROLLER.onGetMapChunk(TFglobals.SERVER_API.starting_chunk);
 	},
 	
-	getTileChunkWithStartId : function(anId){
+	getMapChunkWithStartId : function(anId){
 		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
 		var total_chunks = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
 		this.starting_chunk = anId;
