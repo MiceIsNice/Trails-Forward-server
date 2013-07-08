@@ -1,8 +1,16 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Nick">
     <words>
+      <w>assetmanager</w>
+      <w>cachedisomap</w>
+      <w>isominimap</w>
+      <w>letmein</w>
+      <w>megatile</w>
+      <w>minimap</w>
       <w>onload</w>
+      <w>rclick</w>
       <w>tilesize</w>
+      <w>viewport</w>
     </words>
   </dictionary>
 </component>

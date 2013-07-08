@@ -33,13 +33,18 @@ TileFactory.prototype.startTile = function(name, tilesize) {
  * @param {{name: String, url: String, origin: {x: Number, y: Number}, extents: {width: Number, height: Number}}} piece
  * @param {{name: String, tilesize: Number, canvas: HTMLElement, context: CanvasRenderingContext2D, contents: Array}} tile
  * @param {Number} scale
+ * @param (Number} shouldRound Optional. Set to require position to be rounded to some fraction of the tilesize
  */
-TileFactory.prototype.getUnoccupiedSpace = function(piece, tile, scale) {
+TileFactory.prototype.getUnoccupiedSpace = function(piece, tile, scale, roundToFraction) {
     var rect, i, content, count = 0, extents = piece.extents;
     rect = new Rect(0, 0, extents.width * scale, extents.height * scale);
     while (count < 200) {
         rect.x = Math.random() * tile.tilesize - rect.width / 2;
         rect.y = Math.random() * tile.tilesize - rect.height / 2;
+        if (roundToFraction) {
+            rect.x = tile.tilesize / roundToFraction * (Math.floor(Math.random() * roundToFraction - 1) + 1) - rect.width / 2;
+            rect.y = tile.tilesize / roundToFraction * (Math.floor(Math.random() * roundToFraction - 1) + 1) - rect.height / 2;
+        }
         for (i = 0; i < tile.contents.length; i++) {
             content = tile.contents[i];
             if (rect.intersects(new Rect(content.x - content.piece.extents.width / 2,

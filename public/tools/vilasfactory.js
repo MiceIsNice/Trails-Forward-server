@@ -11,26 +11,14 @@ VilasFactory.prototype.pieces = {};
 VilasFactory.prototype.trees = [
     {
         name: "tree_piece_1",
-        url: "../media/tree1.png",
+        url: "../media/Pinetree1.png",
         origin: {
             x: 123,
-            y: 216
+            y: 242
         },
         extents: {
-            width: 200,
-            height: 200
-        }
-    },
-    {
-        name: "tree_piece_2",
-        url: "../media/tree2.png",
-        origin: {
-            x: 123,
-            y: 216
-        },
-        extents: {
-            width: 200,
-            height: 200
+            width: 50,
+            height: 50
         }
     }
     ];
@@ -38,14 +26,14 @@ VilasFactory.prototype.trees = [
 VilasFactory.prototype.houses = [
     {
         name: "house_piece",
-        url: "../media/house.png",
+        url: "../media/loggyhouse1.png",
         origin: {
-            x: 124,
-            y: 124
+            x: 126,
+            y: 171
         },
         extents: {
-            width: 600,
-            height: 600
+            width: 300,
+            height: 300
         }
     }
     ];
@@ -119,7 +107,8 @@ VilasFactory.prototype.buildForestTile = function(num_trees, num_trees_variance,
     return this.finishTile(tile, scale, scale_variance);
 };
 
-VilasFactory.prototype.buildResidentialTile = function(num_houses, num_houses_variance, scale, scale_variance, tilesize) {
+VilasFactory.prototype.buildResidentialTile = function(num_houses, num_houses_variance, num_trees, num_trees_variance,
+                                                       scale, scale_variance, tilesize, roundToFraction) {
     var tile, final_num_houses, i, piece, location, final_num_trees;
 
     tile = this.startTile("residential", tilesize);
@@ -128,14 +117,14 @@ VilasFactory.prototype.buildResidentialTile = function(num_houses, num_houses_va
 
     for (i = 0; i < final_num_houses; i++) {
         piece = this.getRandomFromArray(this.houses);
-        location = this.getUnoccupiedSpace(piece, tile, scale);
+        location = this.getUnoccupiedSpace(piece, tile, scale, roundToFraction);
         if (location) {
             console.log("Here");
             this.occupySpace(piece, location.x, location.y, tile, scale);
         }
     }
 
-    final_num_trees = Math.floor(Math.random() * (8));
+    final_num_trees = num_trees + Math.floor(Math.random() * (num_trees_variance + 1)) * (Math.random() > 0.5 ? 1 : -1);
 
     for (i = 0; i < final_num_trees; i++) {
         piece = this.getRandomFromArray(this.trees);

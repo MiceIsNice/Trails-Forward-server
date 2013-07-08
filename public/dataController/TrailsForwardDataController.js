@@ -102,12 +102,12 @@ TrailsForwardDataController.prototype = {
 	onGetMapChunk : function(startId){
 		var theChunk = this.gameDataCache.getMapChunkWithStartId(startId);
 		TFglobals.IMPACT.onGetMapChunk(theChunk);
-	}
+	},
 	
 	onGetAvailableContracts : function(theContracts){
 		TFglobals.DATA_CONTROLLER.gameDataCache.setAvailableContractsForPlayer(theContracts);
 		TFglobals.IMPACT.onGetAvailableContracts(theContracts);
-	},
+	}
 	
 };
 

@@ -22,6 +22,7 @@ TrailsForwardGameDataCache.prototype = {
 	
 	initializeMap : function(){
         if (TFglobals.FULL_DEBUGGING) console.log("Initializing map");
+        var count = this.height * this.width;
         this.tiles_per_chunk = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
         if (TFglobals.FULL_DEBUGGING) console.log("count = " + count);
         var a;
@@ -67,7 +68,7 @@ TrailsForwardGameDataCache.prototype = {
 		var positionInChunk = Math.floor(num % this.tiles_per_chunk) - 1;
 		if(TFglobals.FULL_DEBUGGING == true) console.log("storing tile section in this.gameMap [" + chunk + "][" + positionInChunk + "]");
 		this.gameMap[chunk][positionInChunk] = aMegatile;
-	}
+	},
 
 	getAvailableContractsForPlayer : function(){
 		return this.availableContracts;
@@ -76,7 +77,7 @@ TrailsForwardGameDataCache.prototype = {
 	  /* WILL NEED TO TEST THE FORMAT COMING IN */
 	setAvailableContractsForPlayer : function(someContracts){
 		this.availableContracts = someContracts;
-	},
+	}
 	
 };
 
