@@ -28,6 +28,10 @@
         <input type="text" id="tree_density" value=0.5><br>
         <label for="development_intensity">Development intensity</label>
         <input type="text" id="development_intensity"><br>
+        <label for="development_intensity">Scale</label>
+        <input type="text" id="scale" value=0.5><br>
+        <label for="development_intensity">Scale variance</label>
+        <input type="text" id="scale_variance" value=0.1><br>
     </div>
     <canvas id="canvas" width=1028 height=1028>
 
@@ -52,24 +56,28 @@
         });
 
         function buildForestTile() {
-            var tile, td, num_trees, num_trees_variance;
+            var tile, td, num_trees, num_trees_variance, scale, scale_variance;
             td = document.getElementById("tree_density");
             num_trees = 200 * td.value;
             num_trees_variance = 10 * td.value;
-            tile = vilasFactory.buildForestTile(num_trees, num_trees_variance, 0.5, 0.05, 1028);
+            scale = document.getElementById("scale").value * 1;
+            scale_variance = document.getElementById("scale_variance").value * 1;
+            tile = vilasFactory.buildForestTile(num_trees, num_trees_variance, scale, scale_variance, 1028);
             drawTile(tile);
         }
 
         function buildResidentialTile() {
-            var tile, td, hd, num_trees, num_trees_variance, num_houses, num_houses_variance;
+            var tile, td, hd, num_trees, num_trees_variance, num_houses, num_houses_variance, scale, scale_variance;
             td = document.getElementById("tree_density");
             num_trees = 200 * td.value;
             num_trees_variance = 10 * td.value;
             hd = document.getElementById("development_intensity");
             num_houses = 16 * hd.value;
             num_houses_variance = 2 * hd.value;
+            scale = document.getElementById("scale").value;
+            scale_variance = document.getElementById("scale_variance").value;
             tile = vilasFactory.buildResidentialTile(num_houses, num_houses_variance, num_trees, num_trees_variance,
-                    0.5, 0.01, 1028, 5);
+                    scale, scale_variance, 1028, 5);
             drawTile(tile);
         }
 
