@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     if @user != nil and @user.valid_password? params[:password]
       @auth_token = @user.authentication_token
       ret = {:id => @user.id, :auth_token => @auth_token}
+      cookies[:id] = @user.id
+      cookies[:auth_token] = @auth_token
       respond_to do |format|
         format.json {render :json => ret }
         format.xml  {render :xml => ret }
