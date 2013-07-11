@@ -11,10 +11,10 @@ VilasFactory.prototype.pieces = {};
 VilasFactory.prototype.trees = [
     {
         name: "tree_piece_1",
-        url: "../media/Pinetree1.png",
+        url: "../media/conifer_3A.png",
         origin: {
             x: 123,
-            y: 242
+            y: 234
         },
         extents: {
             width: 50,
