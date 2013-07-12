@@ -160,7 +160,10 @@ ig.module(
                 else if (this.panning && !ig.input.state('click')) {
                     this.panning = false;
                     if (this.origClickMouseX == mouseX && this.origClickMouseY == mouseY) { // SELECTION!
-                        var tileToSelect = this.terrainMap.getTileAtPx(mouseX, mouseY);
+                        var viewRect = this.getViewRect();
+                        var tileToSelect = this.terrainMap.getTileAtPx(
+                            viewRect.x + mouseX / ig.system.imageZoom,
+                            viewRect.y + mouseY / ig.system.imageZoom);
                         this.selectTile(tileToSelect.isoX, tileToSelect.isoY);
                     }
                 }
@@ -240,6 +243,7 @@ ig.module(
                 if (this.featureMap) {
                     ctx = ig.system.context;
                     ctx.save();
+                    scale = ig.system.imageZoom;
                     scale = ig.system.imageZoom;
                     ctx.scale(scale, scale);
                     ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
