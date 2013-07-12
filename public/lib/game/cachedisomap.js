@@ -616,14 +616,13 @@ ig.module(
             /**
              * @returns {*} An object (with renderX, renderY, and imageNames) of the tile on the map located at the
              * render (pixel) coordinates, or undefined if there is no data at that location on this map.
-             * renderX and renderY are just the two arguments to this function.
              */
             getTileAtPx: function(realX, realY) {
                 var isoX = Math.floor((realX / 2 + realY) / this.tilesize);
                 var isoY = Math.floor((-realX / 2 + realY) / this.tilesize);
                 var renderX = (isoX - isoY) * this.tilesize;
                 var renderY = (isoX + isoY) / 2 * this.tilesize;
-                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY)};
+                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX, isoY:isoY};
             },
 
             /**

@@ -16,6 +16,8 @@ ig.module(
             this._loaded = false;
             this._children = [];
             this._parent = null;
+            this.hide = false;
+            this.assetManager = ig.game.assetManager;
         },
 
         /**
@@ -75,11 +77,25 @@ ig.module(
         },
 
         /**
-         * Sets the url of the image asset to load upon the load() call. Kept separate from actual loading so you can
-         * handle loading in your code however you want to - separated out, or all at once.
+         * Removes the specified instance from the child array if it exists.
          */
-        setImageSrc: function(imageUrl) {
-            this.imageUrl = imageUrl;
+        removeChild: function(child) {
+            for (var i = this._children.length-1; i >= 0; i--) {
+                if (this._children[i] == child) {
+                    this._children[i].splice(i, 1);
+                    break;
+                }
+            }
+            child._parent = null;
+        },
+
+        /**
+         * Sets the name of the image asset for this UIElement. Should match the name of an image in the AssetManager.
+         */
+        setImage: function(imageName) {
+            if (this.assetManager) {
+                this.imageName = imageName;
+            }
         },
 
         /**
@@ -87,16 +103,26 @@ ig.module(
          * are loaded. If no image is set, returns true, since there isn't anything else in default UIElements that need
          * loading.
          */
-        isLoaded: function() {
-            if (this.imageUrl) {
-                return this._loaded;
+        loaded: function() {
+            if (this._loaded) {
+                return true;
             }
-            else return true;
+            else {
+                if (this.assetManager && this.imageName) {
+                    var loaded = this.assetManager.loaded(this.imageName);
+                    this._loaded = loaded;
+                    return loaded;
+                }
+                else {
+                    this._loaded = true;
+                    return true;
+                }
+            }
         },
 
         /**
-         * Does absolutely nothing, but calls click(x, y) on any _children this element has. You should call
-         * parent.click(x, y) when you overwrite this.
+         * Calls this.onClick() and calls click(x, y) on any _children this element has. You should call
+         * parent.click(x, y) when you overwrite this, probably.
          * @param x The x coordinate of the click relative to the top-left corner of this element's bounds
          * @param y The y coordinate of the click relative to the top-left corner of this element's bounds
          */
@@ -105,24 +131,28 @@ ig.module(
             if (this._children.length > 0) {
                 for (var i = 0; i < this._children.length; i++) {
                     child = this._children[i];
-                    child.click(x - child.bounds.x, y - child.bounds.y);
+                    if (child.bounds.containsPoint(x, y)) {
+                        child.click(x - child.bounds.x, y - child.bounds.y);
+                    }
                 }
+            }
+            if (this.onClick && typeof this.onClick === "function") {
+                this.onClick();
             }
         },
 
-        /**
-         * Starts loading the image set via the setImageSrc method. this.isLoaded() will return true once it's done.
-         */
-        load: function() {
-            var self = this;
-            var img = new Image();
-            img.onload = function () {
-                img._loaded = true;
-                self._loaded = true;
-            };
-            // start the <img> loading process
-            img.src = this.imageUrl;
-            this.image = img;
+        getOffsetX: function() {
+            if (this._parent) {
+                return this._parent.getOffsetX() + this.bounds.x;
+            }
+            else return this.bounds.x;
+        },
+
+        getOffsetY: function() {
+            if (this._parent) {
+                return this._parent.getOffsetY() + this.bounds.y;
+            }
+            else return this.bounds.y;
         },
 
         /**
@@ -135,8 +165,8 @@ ig.module(
 
             // Draw relative to parent position if a parent exists
             if (this._parent) {
-                parentOffsetX = this._parent.bounds.x;
-                parentOffsetY = this._parent.bounds.y;
+                parentOffsetX = this._parent.getOffsetX();
+                parentOffsetY = this._parent.getOffsetY();
                 if (this._parent._ninePatch) {
                     parentOffsetX += this._parent._ninePatchData.x1;
                     parentOffsetY += this._parent._ninePatchData.y1;
@@ -144,79 +174,82 @@ ig.module(
             }
 
             // Draw images if they exist / are loaded
-            if (this._loaded) {
-                if (this._ninePatch) {
-                    // For nine patch elements, draw all nine patches separately
-                    // Upper left
-                    ctx.drawImage(this.image,
-                        0, 0,
-                        this._ninePatchData.x1, this._ninePatchData.y1,
-                        this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
-                        this._ninePatchData.x1, this._ninePatchData.y1);
-                    // Upper right
-                    ctx.drawImage(this.image,
-                        this._ninePatchData.x2, 0,
-                        this.image.width - this._ninePatchData.x2, this._ninePatchData.y1,
-                        this.bounds.x + parentOffsetX + this.bounds.width - (this.image.width - this._ninePatchData.x2),
-                        this.bounds.y + parentOffsetY,
-                        this.image.width - this._ninePatchData.x2, this._ninePatchData.y1);
-                    // Lower left
-                    ctx.drawImage(this.image,
-                        0, this._ninePatchData.y2,
-                        this._ninePatchData.x1, this.image.height - this._ninePatchData.y2,
-                        this.bounds.x + parentOffsetX,
-                        this.bounds.y + parentOffsetY + this.bounds.height - (this.image.height - this._ninePatchData.y2),
-                        this._ninePatchData.x1, this.image.height - this._ninePatchData.y2);
-                    // Lower right
-                    ctx.drawImage(this.image,
-                        this._ninePatchData.x2, this._ninePatchData.y2,
-                        this.image.width - this._ninePatchData.x2, this.image.height - this._ninePatchData.y2,
-                        this.bounds.x + parentOffsetX + this.bounds.width - (this.image.width - this._ninePatchData.x2),
-                        this.bounds.y + parentOffsetY + this.bounds.height - (this.image.height - this._ninePatchData.y2),
-                        this.image.width - this._ninePatchData.x2, this.image.height - this._ninePatchData.y2);
-                    // Left edge
-                    ctx.drawImage(this.image,
-                        0, this._ninePatchData.y1,
-                        this._ninePatchData.x1, this.image.height - this._ninePatchData.y2,
-                        this.bounds.x + parentOffsetX,
-                        this.bounds.y + parentOffsetY + this._ninePatchData.y1,
-                        this._ninePatchData.x1, this.bounds.height - this._ninePatchData.y1 - (this.image.height - this._ninePatchData.y2));
-                    // Right edge
-                    ctx.drawImage(this.image,
-                        this._ninePatchData.x2, this._ninePatchData.y1,
-                        this.image.width - this._ninePatchData.x2, this._ninePatchData.y2 - this._ninePatchData.y1,
-                        this.bounds.x + parentOffsetX + this.bounds.width - (this.image.width - this._ninePatchData.x2),
-                        this.bounds.y + parentOffsetY + this._ninePatchData.y1,
-                        this.image.width - this._ninePatchData.x2, this.bounds.height - this._ninePatchData.y1 - (this.image.height - this._ninePatchData.y2));
-                    // Top edge
-                    ctx.drawImage(this.image,
-                        this._ninePatchData.x1, 0,
-                        this._ninePatchData.x2 - this._ninePatchData.x1, this._ninePatchData.y1,
-                        this.bounds.x + parentOffsetX + this._ninePatchData.x1,
-                        this.bounds.y + parentOffsetY,
-                        this.bounds.width - this._ninePatchData.x1 - (this.image.width - this._ninePatchData.x2), this._ninePatchData.y1);
-                    // Bottom edge
-                    ctx.drawImage(this.image,
-                        this._ninePatchData.x1, this._ninePatchData.y2,
-                        this._ninePatchData.x2 - this._ninePatchData.x1, this.image.height - this._ninePatchData.y2,
-                        this.bounds.x + parentOffsetX + this._ninePatchData.x1,
-                        this.bounds.y + parentOffsetY + this.bounds.height - (this.image.height - this._ninePatchData.y2),
-                        this.bounds.width - this._ninePatchData.x1 - (this.image.width - this._ninePatchData.x2), this.image.height - this._ninePatchData.y2);
-                    // Center face
-                    ctx.drawImage(this.image,
-                        this._ninePatchData.x1, this._ninePatchData.y1,
-                        this._ninePatchData.x2 - this._ninePatchData.x1, this._ninePatchData.y2 - this._ninePatchData.y1,
-                        this.bounds.x + parentOffsetX + this._ninePatchData.x1,
-                        this.bounds.y + parentOffsetY + this._ninePatchData.y1,
-                        this.bounds.width - this._ninePatchData.x1 - (this.image.width - this._ninePatchData.x2),
-                        this.bounds.height - this._ninePatchData.y1 - (this.image.height - this._ninePatchData.y2));
-                }
-                else {
-                    ctx.drawImage(this.image,
-                        0, 0,
-                        this.image.width, this.image.height,
-                        this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
-                        this.bounds.width, this.bounds.height);
+            if (this.loaded()) {
+                if (this.assetManager && this.imageName && this.assetManager.images[this.imageName]) {
+                    this.image = this.assetManager.images[this.imageName];
+                    if (this._ninePatch) {
+                        // For nine patch elements, draw all nine patches separately
+                        // Upper left
+                        ctx.drawImage(this.image,
+                            0, 0,
+                            this._ninePatchData.x1, this._ninePatchData.y1,
+                            this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
+                            this._ninePatchData.x1, this._ninePatchData.y1);
+                        // Upper right
+                        ctx.drawImage(this.image,
+                            this._ninePatchData.x2, 0,
+                            this.image.width - this._ninePatchData.x2, this._ninePatchData.y1,
+                            this.bounds.x + parentOffsetX + this.bounds.width - (this.image.width - this._ninePatchData.x2),
+                            this.bounds.y + parentOffsetY,
+                            this.image.width - this._ninePatchData.x2, this._ninePatchData.y1);
+                        // Lower left
+                        ctx.drawImage(this.image,
+                            0, this._ninePatchData.y2,
+                            this._ninePatchData.x1, this.image.height - this._ninePatchData.y2,
+                            this.bounds.x + parentOffsetX,
+                            this.bounds.y + parentOffsetY + this.bounds.height - (this.image.height - this._ninePatchData.y2),
+                            this._ninePatchData.x1, this.image.height - this._ninePatchData.y2);
+                        // Lower right
+                        ctx.drawImage(this.image,
+                            this._ninePatchData.x2, this._ninePatchData.y2,
+                            this.image.width - this._ninePatchData.x2, this.image.height - this._ninePatchData.y2,
+                            this.bounds.x + parentOffsetX + this.bounds.width - (this.image.width - this._ninePatchData.x2),
+                            this.bounds.y + parentOffsetY + this.bounds.height - (this.image.height - this._ninePatchData.y2),
+                            this.image.width - this._ninePatchData.x2, this.image.height - this._ninePatchData.y2);
+                        // Left edge
+                        ctx.drawImage(this.image,
+                            0, this._ninePatchData.y1,
+                            this._ninePatchData.x1, this.image.height - this._ninePatchData.y2,
+                            this.bounds.x + parentOffsetX,
+                            this.bounds.y + parentOffsetY + this._ninePatchData.y1,
+                            this._ninePatchData.x1, this.bounds.height - this._ninePatchData.y1 - (this.image.height - this._ninePatchData.y2));
+                        // Right edge
+                        ctx.drawImage(this.image,
+                            this._ninePatchData.x2, this._ninePatchData.y1,
+                            this.image.width - this._ninePatchData.x2, this._ninePatchData.y2 - this._ninePatchData.y1,
+                            this.bounds.x + parentOffsetX + this.bounds.width - (this.image.width - this._ninePatchData.x2),
+                            this.bounds.y + parentOffsetY + this._ninePatchData.y1,
+                            this.image.width - this._ninePatchData.x2, this.bounds.height - this._ninePatchData.y1 - (this.image.height - this._ninePatchData.y2));
+                        // Top edge
+                        ctx.drawImage(this.image,
+                            this._ninePatchData.x1, 0,
+                            this._ninePatchData.x2 - this._ninePatchData.x1, this._ninePatchData.y1,
+                            this.bounds.x + parentOffsetX + this._ninePatchData.x1,
+                            this.bounds.y + parentOffsetY,
+                            this.bounds.width - this._ninePatchData.x1 - (this.image.width - this._ninePatchData.x2), this._ninePatchData.y1);
+                        // Bottom edge
+                        ctx.drawImage(this.image,
+                            this._ninePatchData.x1, this._ninePatchData.y2,
+                            this._ninePatchData.x2 - this._ninePatchData.x1, this.image.height - this._ninePatchData.y2,
+                            this.bounds.x + parentOffsetX + this._ninePatchData.x1,
+                            this.bounds.y + parentOffsetY + this.bounds.height - (this.image.height - this._ninePatchData.y2),
+                            this.bounds.width - this._ninePatchData.x1 - (this.image.width - this._ninePatchData.x2), this.image.height - this._ninePatchData.y2);
+                        // Center face
+                        ctx.drawImage(this.image,
+                            this._ninePatchData.x1, this._ninePatchData.y1,
+                            this._ninePatchData.x2 - this._ninePatchData.x1, this._ninePatchData.y2 - this._ninePatchData.y1,
+                            this.bounds.x + parentOffsetX + this._ninePatchData.x1,
+                            this.bounds.y + parentOffsetY + this._ninePatchData.y1,
+                            this.bounds.width - this._ninePatchData.x1 - (this.image.width - this._ninePatchData.x2),
+                            this.bounds.height - this._ninePatchData.y1 - (this.image.height - this._ninePatchData.y2));
+                    }
+                    else {
+                        ctx.drawImage(this.image,
+                            0, 0,
+                            this.image.width, this.image.height,
+                            this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
+                            this.bounds.width, this.bounds.height);
+                    }
                 }
             }
 
@@ -228,7 +261,9 @@ ig.module(
             // Draw any children
             if (this._children.length > 0) {
                 for (var i = 0; i < this._children.length; i++) {
-                    this._children[i].draw();
+                    if (!this._children[i].hide) {
+                        this._children[i].draw();
+                    }
                 }
             }
         }

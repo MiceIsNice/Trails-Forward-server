@@ -1241,7 +1241,7 @@
     , refresh: function () {
         this.targets = this.$body
           .find(this.selector)
-          .map(function () {
+          .terrainMap(function () {
             var href = $(this).attr('href')
             return /^#\w/.test(href) && $(href).length ? href : null
           })

@@ -33,23 +33,32 @@ ig.module(
             },
 
             /**
-             * @returns {boolean} True if any assets that need loading are loaded, false otherwise.
+             * @returns {boolean} True if the specified asset is loaded, or (no argument) if all assets are loaded,
+             * or false otherwise.
              */
-            loaded: function() {
+            loaded: function(imageName) {
                 if (this._loaded) {
                     return true;
                 }
                 else { // Iterate through pieces and tiles to see if they are loaded
-                    var image;
-                    for (image in this.images) {
-                        if (this.images.hasOwnProperty(image)) {
-                            if (!image._loaded) {
-                                return false;
+                    if (imageName) {
+                        if (this.images[imageName]) {
+                            return this.images[imageName]._loaded;
+                        }
+                        else return false;
+                    }
+                    else {
+                        var image;
+                        for (image in this.images) {
+                            if (this.images.hasOwnProperty(image)) {
+                                if (!image._loaded) {
+                                    return false;
+                                }
                             }
                         }
+                        this._loaded = true;
+                        return true;
                     }
-                    this._loaded = true;
-                    return true;
                 }
             },
 
@@ -94,6 +103,7 @@ ig.module(
                     "media/trees3A_75_0.png",
                     "media/trees3A_75_1.png",
                     "media/trees3A_75_2.png",
+                    "media/uibox.png"
                 ];
             }
 
