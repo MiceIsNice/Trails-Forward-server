@@ -596,13 +596,13 @@ Object.extend(String.prototype, (function() {
   function extractScripts() {
     var matchAll = new RegExp(Prototype.ScriptFragment, 'img'),
         matchOne = new RegExp(Prototype.ScriptFragment, 'im');
-    return (this.match(matchAll) || []).map(function(scriptTag) {
+    return (this.match(matchAll) || []).terrainMap(function(scriptTag) {
       return (scriptTag.match(matchOne) || ['', ''])[1];
     });
   }
 
   function evalScripts() {
-    return this.extractScripts().map(function(script) { return eval(script) });
+    return this.extractScripts().terrainMap(function(script) { return eval(script) });
   }
 
   function escapeHTML() {
@@ -925,7 +925,7 @@ var Enumerable = (function() {
 
   function invoke(method) {
     var args = $A(arguments).slice(1);
-    return this.map(function(value) {
+    return this.terrainMap(function(value) {
       return value[method].apply(value, args);
     });
   }
@@ -980,7 +980,7 @@ var Enumerable = (function() {
   }
 
   function sortBy(iterator, context) {
-    return this.map(function(value, index) {
+    return this.terrainMap(function(value, index) {
       return {
         value: value,
         criteria: iterator.call(context, value, index)
@@ -992,7 +992,7 @@ var Enumerable = (function() {
   }
 
   function toArray() {
-    return this.map();
+    return this.terrainMap();
   }
 
   function zip() {
@@ -1000,8 +1000,8 @@ var Enumerable = (function() {
     if (Object.isFunction(args.last()))
       iterator = args.pop();
 
-    var collections = [this].concat(args).map($A);
-    return this.map(function(value, index) {
+    var collections = [this].concat(args).terrainMap($A);
+    return this.terrainMap(function(value, index) {
       return iterator(collections.pluck(index));
     });
   }
@@ -1148,7 +1148,7 @@ Array.from = $A;
   }
 
   function inspect() {
-    return '[' + this.map(Object.inspect).join(', ') + ']';
+    return '[' + this.terrainMap(Object.inspect).join(', ') + ']';
   }
 
   function indexOf(item, i) {
@@ -1295,8 +1295,8 @@ var Hash = Class.create(Enumerable, (function() {
   }
 
   function inspect() {
-    return '#<Hash:{' + this.map(function(pair) {
-      return pair.map(Object.inspect).join(': ');
+    return '#<Hash:{' + this.terrainMap(function(pair) {
+      return pair.terrainMap(Object.inspect).join(': ');
     }).join(', ') + '}>';
   }
 
@@ -5008,7 +5008,7 @@ Form.Methods = {
     form = $(form);
     var inputs = form.getElementsByTagName('input');
 
-    if (!typeName && !name) return $A(inputs).map(Element.extend);
+    if (!typeName && !name) return $A(inputs).terrainMap(Element.extend);
 
     for (var i = 0, matchingInputs = [], length = inputs.length; i < length; i++) {
       var input = inputs[i];
@@ -5884,7 +5884,7 @@ if (!document.getElementsByClassName) document.getElementsByClassName = function
   instanceMethods.getElementsByClassName = Prototype.BrowserFeatures.XPath ?
   function(element, className) {
     className = className.toString().strip();
-    var cond = /\s/.test(className) ? $w(className).map(iter).join('') : iter(className);
+    var cond = /\s/.test(className) ? $w(className).terrainMap(iter).join('') : iter(className);
     return cond ? document._getElementsByXPath('.//*' + cond, element) : [];
   } : function(element, className) {
     className = className.toString().strip();
