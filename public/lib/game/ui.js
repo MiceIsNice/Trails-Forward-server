@@ -21,6 +21,18 @@ ig.module(
         },
 
         /**
+         * Removes the specified instance from the array if it exists.
+         */
+        removeElement: function(uielement) {
+            for (var i = this._elements.length-1; i >= 0; i--) {
+                if (this._elements[i] == uielement) {
+                    this._elements[i].splice(i, 1);
+                    break;
+                }
+            }
+        },
+
+        /**
          * Calls registered UIElements' click() methods when they are clicked. To see how elements are chosen to click,
          * see elementAt(x, y).
          */
@@ -39,7 +51,9 @@ ig.module(
          */
         draw: function() {
             for (var i = 0; i < this._elements.length; i++) {
-                this._elements[i].draw();
+                if (!this._elements[i].hide) {
+                    this._elements[i].draw();
+                }
             }
         },
 
@@ -52,7 +66,7 @@ ig.module(
         elementAt: function(x, y) {
             for (var i = this._elements.length - 1; i >= 0; i--) { // iterate in reverse because we want the top-most
                 var element = this._elements[i];
-                if (element.bounds.containsPoint(x, y)) {
+                if (element.bounds.containsPoint(x, y) && element.hide == false) {
                     return element;
                 }
             }
@@ -65,10 +79,7 @@ ig.module(
          * @returns {boolean} True if the argument point overlaps with the bounding box of a UIElement registered with this UI.
          */
         overlaps: function(x, y) {
-            if (this.elementAt(x, y)) {
-                return true;
-            }
-            return false;
+            return this.elementAt(x, y);
         }
 
     })
