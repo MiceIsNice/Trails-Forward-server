@@ -7,6 +7,7 @@ ig.module(
     	'impact.font',
     	'impact.image',
         'impact.input',
+        'impact.entity',
         'game.cachedisomap',
         'game.isominimap',
         'game.ui',
@@ -53,9 +54,8 @@ ig.module(
                 var self = this, moneyBox, moneyText;
                 // TODO: UI needs to be driven by server code and/or placed elsewhere
                 moneyBox = new UIElement(new Rect(ig.system.width - 158, 0, 158, 30));
-                moneyBox.setImageSrc("media/uibox.png");
+                moneyBox.setImage("uibox");
                 moneyBox.enableNinePatch(4, 9, 4, 9);
-                moneyBox.load();
                 this.ui.addElement(moneyBox);
                 moneyText = new UIElement(new Rect(148, -2, 1, 1));
                 this.money = "$1,000,000.00";
@@ -66,13 +66,8 @@ ig.module(
             },
 
             constructMap: function() {
-                // Construct the data for the map
-                var mapData1 = []; // grass and water
-                var mapData2 = []; // trees and houses
-                var chunk;
-
-                // Now construct the map with this data, and add image references
-                this.map = new CachedIsoMap(128, this.assetManager);
+                this.terrainMap = new CachedIsoMap(128, this.assetManager);
+                this.featureMap = new CachedIsoMap(128, this.assetManager);
 
                 TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
             },
@@ -93,18 +88,17 @@ ig.module(
                 for (i = 0; i < chunk.length; i++) {
                     ig.log("Reading index " + i + " of chunk");
                     megatile = chunk[i];
-                    Math.min
                     if (megatile) {
                         ig.log("Found a megatile that isn't null: " + megatile.x + ", " + megatile.y);
                         for (j = 0; j < megatile.resource_tiles.length; j++) {
                             tile = megatile.resource_tiles[j];
-                            this.map.addTile(tile.x, tile.y, (tile.type === "LandTile")?"grass":"water");
+                            this.terrainMap.addTile(tile.x, tile.y, (tile.type === "LandTile")?"grass":"water");
                             ig.log("Added tile at " + tile.x + ", " + tile.y);
                             //if (tile.development_intensity >= 0.25) {
                             //    this.map.addTile(tile.x, tile.y, "");
                             //}
                             if (tile.tree_density >= 0.75) {
-                                this.map.addTile(tile.x, tile.y, "trees3A_75_" + Math.floor(Math.random() * 3));
+                                this.featureMap.addTile(tile.x, tile.y, "trees3A_75_" + Math.floor(Math.random() * 3));
                             }
                             /*else if (tile.tree_density >= 0.50) {
                                 this.map.addTile(tile.x, tile.y, "trees_50_" + Math.floor(Math.random() * 3));
@@ -130,8 +124,11 @@ ig.module(
              * Call this method on any tiles that have changed to have the map update them.
              */
             onInvalidateTile: function(x, y) {
-                if (this.map) {
-                    this.map.invalidateTile(x, y);
+                if (this.featureMap) {
+                    this.featureMap.invalidateTile(x, y);
+                }
+                if (this.terrainMap) {
+                    this.terrainMap.invalidateTile(x, y);
                 }
             },
 
@@ -152,6 +149,8 @@ ig.module(
 
                 if (ig.input.pressed('click') && !this.ui.overlaps(mouseX, mouseY)) {
                     this.panning = true;
+                    this.origClickMouseX = mouseX;
+                    this.origClickMouseY = mouseY;
                 }
                 else if (this.panning && ig.input.state('click')) {
                     this.screen.x += (this.oldMouseX - mouseX) / ig.system.imageZoom;
@@ -159,6 +158,13 @@ ig.module(
                 }
                 else if (this.panning && !ig.input.state('click')) {
                     this.panning = false;
+                    if (this.origClickMouseX == mouseX && this.origClickMouseY == mouseY) { // SELECTION!
+                        var viewRect = this.getViewRect();
+                        var tileToSelect = this.terrainMap.getTileAtPx(
+                            viewRect.x + mouseX / ig.system.imageZoom,
+                            viewRect.y + mouseY / ig.system.imageZoom);
+                        this.selectTile(tileToSelect.isoX, tileToSelect.isoY);
+                    }
                 }
                 else if (ig.input.state('rclick')) {
                     this.zoomMul += (this.oldMouseY - mouseY) / 300.0;
@@ -192,9 +198,10 @@ ig.module(
                         this.mapUpdate = true;
                         this.assetsLoadedText = true;
                     }
-                    if (this.map && this.gotMapChunk) {
+                    if (this.terrainMap && this.gotMapChunk) {
                         if (this.mapUpdate) {
-                            this.map.update();
+                            this.featureMap.update();
+                            this.terrainMap.update();
                             /*if (!this.minimap) {
                              ig.log("Loading minimap");
                              this.minimap = new IsoMinimap();
@@ -212,18 +219,34 @@ ig.module(
 
             draw: function() {
 
+                var ctx, scale;
+
                 // Draw all entities and backgroundMaps
+                // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
                 this.parent();
 
-                if (this.map) {
-
-                    var ctx = ig.system.context;
+                if (this.terrainMap) {
+                    ctx = ig.system.context;
                     ctx.save();
-                    var scale = ig.system.imageZoom;
+                    scale = ig.system.imageZoom;
                     ctx.scale(scale, scale);
                     ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
 
-                    this.map.draw();
+                    this.terrainMap.draw();
+
+                    ctx.restore();
+                }
+
+                // Draw things between the maps like tile selection highlights
+
+                if (this.featureMap) {
+                    ctx = ig.system.context;
+                    ctx.save();
+                    scale = ig.system.imageZoom;
+                    ctx.scale(scale, scale);
+                    ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
+
+                    this.featureMap.draw();
 
                     ctx.restore();
                 }
@@ -231,12 +254,12 @@ ig.module(
                 this.ui.draw();
 
                 // Add your own drawing code here
-                if (this.map) {
-                    if (this.map.status) {
+                if (this.terrainMap) {
+                    if (this.terrainMap.status) {
                         this.font.draw("Current zoom level: " + ig.system.imageZoom
-                            + "\nCurrent map status: " + this.map.status
-                            //+ "\nCurrent map2 status: " + this.map2.status
-                            + "\nHighest resolution on screen: " + this.map.highestResolutionOnScreen, 0, 0);
+                            + "\nCurrent terrainMap status: " + this.terrainMap.status
+                            + "\nCurrent featureMap status: " + this.featureMap.status
+                            + "\nHighest resolution on screen: " + this.terrainMap.highestResolutionOnScreen, 0, 0);
                     }
                 }
             },
@@ -259,6 +282,101 @@ ig.module(
             centerOnPoint: function(x, y) {
                 ig.game.screen.x -= (ig.game.screen.x + ig.system.width / 2) - x;
                 ig.game.screen.y -= (ig.game.screen.y + ig.system.height / 2) - y;
+            },
+
+            /**
+             * Selects the tile at the specified location. Selection has a little highlight effect.
+             * @param x
+             * @param y
+             */
+            selectTile: function(x, y) {
+                if (this.selectedTile) {
+                    if (this.selectedTile[0] == x && this.selectedTile[1] == y) {
+                        this.buyTile(x, y); // TODO: Obviously this is not proper functionality ultimately
+                    }
+                }
+                this.selectedTile = [x, y];
+                console.log("Selected tile: " + x + ", " + y);
+            },
+
+            /**
+             * Called when the player clicks on a tile that is already selected.
+             * @param x
+             * @param y
+             */
+            buyTile: function(x, y) { //TODO Obviously this should be called under different circumstances ultimately
+                this.showConfirmWindow(
+                    function() { return "Are you sure you want to buy this tile?"; },
+                    this.onConfirmBuyTile,
+                    [x, y]);
+            },
+
+            /**
+             * Displays a confirmation window with customizable displayed text and an arbitrary confirmation action.
+             * @param textFunction A function that returns the text to display.
+             * @param onConfirm The function to call if the user clicks "Yes" in the window. "No" closes the window.
+             * @param confirmArgs The argument to give to the onConfirm function call on confirmation.
+             */
+            showConfirmWindow: function(textFunction, onConfirm, confirmArgs) {
+                var self = this;
+                // Making sure the confirm window exists
+                if (!this.confirmWindow) {
+                    this.confirmWindow = new UIElement(new Rect(
+                        ig.system.width / 2 - 200,
+                        ig.system.height / 2 - 100,
+                        400,
+                        200
+                    ));
+                    this.confirmWindow.setImage("uibox");
+                    this.confirmWindow.enableNinePatch(4, 9, 4, 9);
+                    this.ui.addElement(this.confirmWindow);
+                }
+                this.confirmWindow.hide = false;
+
+                // Text in the confirm window
+                if (!this.confirmText) {
+                    this.confirmText = new UIElement(new Rect(200, 50, 1, 1));
+                    this.confirmWindow.addChild(this.confirmText);
+                }
+                this.confirmText.enableText(textFunction, this.font, ig.Font.ALIGN.CENTER);
+
+                // Yes button
+                if (!this.confirmYes) {
+                    this.confirmYes = new UIElement(new Rect(20, 140, 70, 40));
+                    this.confirmYes.setImage("uibox");
+                    this.confirmYes.enableNinePatch(4, 9, 4, 9);
+                    this.confirmWindow.addChild(this.confirmYes);
+                    var yesText = new UIElement(new Rect(35, 6, 1, 1));
+                    yesText.enableText(function() { return "Yes"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.confirmYes.addChild(yesText);
+                }
+                this.confirmYes.onClick = function() {
+                    onConfirm(confirmArgs);
+                    self.confirmWindow.hide = true;
+                };
+
+                // No button
+                if (!this.confirmNo) {
+                    this.confirmNo = new UIElement(new Rect(310, 140, 70, 40));
+                    this.confirmNo.setImage("uibox");
+                    this.confirmNo.enableNinePatch(4, 9, 4, 9);
+                    this.confirmWindow.addChild(this.confirmNo);
+                    var noText = new UIElement(new Rect(35, 6, 1, 1));
+                    noText.enableText(function() { return "No"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.confirmNo.addChild(noText);
+                }
+                this.confirmNo.onClick = function() {
+                    self.confirmWindow.hide = true;
+                };
+            },
+
+            /**
+             * Called when the player has confirmed they want to purchase the tile at the specified location.
+             * @param args A list containing [x, y]
+             */
+            onConfirmBuyTile: function(args) {
+                // Aaron's code here!
+                ig.log("Attempted to purchase tile at " + args[0] + ", " + args[1]);
             }
 
         });

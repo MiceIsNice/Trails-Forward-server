@@ -622,7 +622,7 @@ ig.module(
                 var isoY = Math.floor((-realX / 2 + realY) / this.tilesize);
                 var renderX = (isoX - isoY) * this.tilesize;
                 var renderY = (isoX + isoY) / 2 * this.tilesize;
-                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX, isoY:isoY};
+                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX - 1, isoY:isoY};
             },
 
             /**
