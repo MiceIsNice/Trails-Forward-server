@@ -243,6 +243,7 @@ ig.module(
                     ctx = ig.system.context;
                     ctx.save();
                     scale = ig.system.imageZoom;
+                    scale = ig.system.imageZoom;
                     ctx.scale(scale, scale);
                     ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
 
