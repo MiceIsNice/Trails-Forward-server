@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
+    puts "made a new User with id #{@user.id}"
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }

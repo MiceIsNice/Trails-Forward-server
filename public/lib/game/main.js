@@ -74,7 +74,8 @@ ig.module(
                 // Now construct the map with this data, and add image references
                 this.map = new CachedIsoMap(128, this.assetManager);
 
-                TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
+                  TFglobals.DATA_CONTROLLER.logInWithCookies();
+           //     TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
             },
 
             onLogin: function() {

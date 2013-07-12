@@ -24,6 +24,10 @@ TrailsForwardDataController.prototype = {
 	logInUserWithEmailAndPassword : function(anEmail, aPassword){
 		this.serverAPI.logInUserWithEmailAndPassword(anEmail, aPassword);
 	},
+
+        logInWithCookies : function(){
+                this.onLogIn();
+        },     
 	
 	getWorldDataForPlayerId : function(anId){
 		this.gameDataCache.player_id = anId;
@@ -86,8 +90,8 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	onLogIn : function(theData){
-		TFglobals.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
-		TFglobals.DATA_CONTROLLER.serverAPI._userId = theData.id;
+	//	TFglobals.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
+	//	TFglobals.DATA_CONTROLLER.serverAPI._userId = theData.id;
 		TFglobals.DATA_CONTROLLER.serverAPI.getUserPlayers();
 		TFglobals.IMPACT.onLogin();
 	},
