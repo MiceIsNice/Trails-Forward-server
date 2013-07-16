@@ -103,7 +103,24 @@ ig.module(
                     "media/trees3A_75_0.png",
                     "media/trees3A_75_1.png",
                     "media/trees3A_75_2.png",
-                    "media/uibox.png"
+                    "media/uibox.png",
+                    "media/shoreline_A.png",
+                    "media/shoreline_B.png",
+                    "media/shoreline_C.png",
+                    "media/shoreline_D.png",
+                    "media/shoreline_E.png",
+                    "media/shoreline_F.png",
+                    "media/shoreline_G.png",
+                    "media/shoreline_H.png",
+                    "media/shoreline_I.png",
+                    "media/shoreline_J.png",
+                    "media/shoreline_K.png",
+                    "media/shoreline_L.png",
+                    "media/shoreline_M.png",
+                    "media/shoreline_N.png",
+                    "media/shoreline_O.png",
+                    "media/shoreline_P.png",
+                    "media/shoreline_Q.png"
                 ];
             }
 

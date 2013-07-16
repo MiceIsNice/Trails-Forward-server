@@ -84,7 +84,7 @@ ig.module(
 
             onGetMapChunk: function(chunk) {
                 console.log("Got map chunk.");
-                var i, j, megatile, tile;
+                var i, j, k, megatile, tile, shoreTypes;
                 for (i = 0; i < chunk.length; i++) {
                     ig.log("Reading index " + i + " of chunk");
                     megatile = chunk[i];
@@ -101,14 +101,27 @@ ig.module(
                                 this.featureMap.addTile(tile.x, tile.y, "trees3A_75_" + Math.floor(Math.random() * 3));
                             }
                             /*else if (tile.tree_density >= 0.50) {
-                                this.map.addTile(tile.x, tile.y, "trees_50_" + Math.floor(Math.random() * 3));
+                             this.map.addTile(tile.x, tile.y, "trees_50_" + Math.floor(Math.random() * 3));
+                             }
+                             else if (tile.tree_density >= 0.25) {
+                             this.map.addTile(tile.x, tile.y, "trees_25_" + Math.floor(Math.random() * 3));
+                             }
+                             else if (tile.tree_density >= 0.10) {
+                             this.map.addTile(tile.x, tile.y, "trees_10_" + Math.floor(Math.random() * 3));
+                             }*/
+                        }
+                    }
+                    console.log(this.terrainMap.data);
+                }
+                for (i = 0; i < this.terrainMap.data.length; i++) {
+                    if (this.terrainMap.data[i]) {
+                        for (j = 0; j < this.terrainMap.data[i].length; j++) {
+                            shoreTypes = this.getShoreTypes(i, j);
+                            if (shoreTypes) {
+                                for (k = 0; k < shoreTypes.length; k++) {
+                                    this.terrainMap.addTile(i, j, "shoreline_" + shoreTypes[k]);
+                                }
                             }
-                            else if (tile.tree_density >= 0.25) {
-                                this.map.addTile(tile.x, tile.y, "trees_25_" + Math.floor(Math.random() * 3));
-                            }
-                            else if (tile.tree_density >= 0.10) {
-                                this.map.addTile(tile.x, tile.y, "trees_10_" + Math.floor(Math.random() * 3));
-                            }*/
                         }
                     }
                 }
@@ -297,7 +310,8 @@ ig.module(
                     }
                 }
                 this.selectedTile = [x, y];
-                console.log("Selected tile: " + x + ", " + y);
+                ig.log("Selected tile: " + x + ", " + y);
+                ig.log("The currently selected tile has shore type: " + this.getShoreTypes(x, y));
             },
 
             /**
@@ -378,6 +392,128 @@ ig.module(
             onConfirmBuyTile: function(args) {
                 // Aaron's code here!
                 ig.log("Attempted to purchase tile at " + args[0] + ", " + args[1]);
+            },
+
+            getShoreTypes: function(x, y) {
+                var megatile = this.terrainMap.getMegatile(x, y);
+                var shoreTypes = [], A, B, C, D, E, F, G, H;
+                if (megatile[0] == null) {
+                    return null;
+                }
+                else if (megatile[0][0] === "grass") {
+                    return null;
+                }
+                else if (megatile[0][0] === "water") {
+                    if (megatile[1] && megatile[1][0] === "grass") {
+                        A = true;
+                    }
+                    if (megatile[2] && megatile[2][0] === "grass") {
+                        B = true;
+                    }
+                    if (megatile[3] && megatile[3][0] === "grass") {
+                        C = true;
+                    }
+                    if (megatile[4] && megatile[4][0] === "grass") {
+                        D = true;
+                    }
+                    if (megatile[5] && megatile[5][0] === "grass") {
+                        E = true;
+                    }
+                    if (megatile[6] && megatile[6][0] === "grass") {
+                        F = true;
+                    }
+                    if (megatile[7] && megatile[7][0] === "grass") {
+                        G = true;
+                    }
+                    if (megatile[8] && megatile[8][0] === "grass") {
+                        H = true;
+                    }
+                    if (A && C && E && G) {
+                        shoreTypes.push("Q");
+                    }
+                    else if (A && C && E && !G) {
+                        shoreTypes.push("N");
+                    }
+                    else if (A && C && !E && G) {
+                        shoreTypes.push("M");
+                    }
+                    else if (A && C && !E && !G) {
+                        shoreTypes.push("K");
+                        if (B) {
+                            shoreTypes.push("B");
+                        }
+                    }
+                    else if (A && !C && E && G) {
+                        shoreTypes.push("P");
+                    }
+                    else if (A && !C && E && !G) {
+                        shoreTypes.push("A");
+                        shoreTypes.push("E");
+                    }
+                    else if (A && !C && !E && G) {
+                        shoreTypes.push("J");
+                        if (H) {
+                            shoreTypes.push("H");
+                        }
+                    }
+                    else if (A && !C && !E && !G) {
+                        shoreTypes.push("E");
+                        if (H) {
+                            shoreTypes.push("H");
+                        }
+                        if (B) {
+                            shoreTypes.push("B");
+                        }
+                    }
+                    else if (!A && C && E && G) {
+                        shoreTypes.push("O");
+                    }
+                    else if (!A && C && E && !G) {
+                        shoreTypes.push("L");
+                        if (D) {
+                            shoreTypes.push("D");
+                        }
+                    }
+                    else if (!A && C && !E && G) {
+                        shoreTypes.push("G");
+                        shoreTypes.push("C");
+                    }
+                    else if (!A && C && !E && !G) {
+                        shoreTypes.push("G");
+                        if (B) {
+                            shoreTypes.push("B");
+                        }
+                        if (D) {
+                            shoreTypes.push("D");
+                        }
+                    }
+                    else if (!A && !C && E && G) {
+                        shoreTypes.push("I");
+                        if (F) {
+                            shoreTypes.push("F");
+                        }
+                    }
+                    else if (!A && !C && E && !G) {
+                        shoreTypes.push("A");
+                        if (F) {
+                            shoreTypes.push("F");
+                        }
+                        if (D) {
+                            shoreTypes.push("D");
+                        }
+                    }
+                    else if (!A && !C && !E && G) {
+                        shoreTypes.push("C");
+                        if (F) {
+                            shoreTypes.push("F");
+                        }
+                        if (H) {
+                            shoreTypes.push("H");
+                        }
+                    }
+                    else return null;
+                }
+                return shoreTypes;
             }
 
         });

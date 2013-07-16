@@ -93,6 +93,38 @@ ig.module(
             },
 
             /**
+             * Returns the megatile CENTERED ON the argument tile. A megatile is a 3x3 array of tiles.
+             * @param x
+             * @param y
+             */
+            getMegatile: function(x, y) {
+                var list = [], i, xo, yo;
+                for (i = 0; i < 9; i++) {
+                    list.push(null);
+                }
+                for (i = 0; i < 9; i++) {
+                    switch(i) {
+                        case 0: xo = yo = 0; break;
+                        case 1: xo = 0; yo = -1; break;
+                        case 2: xo = 1; yo = -1; break;
+                        case 3: xo = 1; yo = 0; break;
+                        case 4: xo = 1; yo = 1; break;
+                        case 5: xo = 0; yo = 1; break;
+                        case 6: xo = -1; yo = 1; break;
+                        case 7: xo = -1; yo = 0; break;
+                        case 8: xo = -1; yo = -1; break;
+                        default: break;
+                    }
+                    if (this.data[x+xo]) {
+                        if (this.data[x+xo][y+yo]) {
+                            list[i] = this.data[x+xo][y+yo];
+                        }
+                    }
+                }
+                return list;
+            },
+
+            /**
              * Ensures the given section exists in memory and returns a reference to it.
              * @param sectionX
              * @param sectionY
