@@ -91,7 +91,7 @@ TrailsForwardServerAPI.prototype = {
 	getMapChunkWithStartId : function(anId){
 		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
 		//var total_chunks = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
-        var total_chunks = 6;
+        var total_chunks = 20;
 		this.starting_chunk = anId;
 		this.chunks_to_get = total_chunks;
 		var lastChunk = anId + this.chunks_to_get - 1;
