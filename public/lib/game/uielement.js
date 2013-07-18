@@ -24,9 +24,9 @@ ig.module(
          * Enables nine patching for this UIElement. Without nine patching, images will stretch in their entirety to
          * fit the element's bounds.
          * @param x1 The distance in pixels from the left edge of the image to the left edge of the center face patch
-         * @param x2 The distance in pixels from the right edge of the image to the right edge of the center face patch
+         * @param x2 The distance in pixels from the left edge of the image to the right edge of the center face patch
          * @param y1 The distance in pixels from the top edge of the image to the top edge of the center face patch
-         * @param y2 The distance in pixels from the bottom edge of the image to the bottom edge of the center face patch
+         * @param y2 The distance in pixels from the top edge of the image to the bottom edge of the center face patch
          */
         enableNinePatch: function(x1, x2, y1, y2) {
             this._ninePatch = true;
@@ -138,6 +138,62 @@ ig.module(
             }
             if (this.onClick && typeof this.onClick === "function") {
                 this.onClick();
+            }
+        },
+
+        /**
+         * Calls this.onUnclick() if it exists and calls unclick(x, y) on any _children this element has. You should call
+         * parent.unclick(x, y) when you overwrite this, probably. Called when the user lets go of the mouse-button
+         * after clicking this element.
+         */
+        unclick: function(x, y) {
+            var child;
+            if (this._children.length > 0) {
+                for (var i = 0; i < this._children.length; i++) {
+                    child = this._children[i];
+                    child.unclick(x - child.bounds.x, y - child.bounds.y);
+                }
+            }
+            if (this.onUnclick && typeof this.onUnclick === "function") {
+                this.onUnclick();
+            }
+        },
+
+        /**
+         * Calls this.onHover() if it exists and calls hover(x, y) on any _children this element has. You should call
+         * parent.hover(x, y) when you overwrite this, probably. Called when the mouse hovers over the element.
+         * @param x The x coordinate of the mouse relative to the top-left corner of this element's bounds
+         * @param y The y coordinate of the mouse relative to the top-left corner of this element's bounds
+         */
+        hover: function(x, y) {
+            var child;
+            if (this._children.length > 0) {
+                for (var i = 0; i < this._children.length; i++) {
+                    child = this._children[i];
+                    if (child.bounds.containsPoint(x, y)) {
+                        child.hover(x - child.bounds.x, y - child.bounds.y);
+                    }
+                }
+            }
+            if (this.onHover && typeof this.onHover === "function") {
+                this.onHover(x, y);
+            }
+        },
+
+        /**
+         * Calls this.onLeave() if it exists and calls leave(x, y) on any _children this element has. You should call
+         * parent.leave(x, y) when you overwrite this, probably. Called when the mouse stops hovering over the element.
+         */
+        leave: function() {
+            var child;
+            if (this._children.length > 0) {
+                for (var i = 0; i < this._children.length; i++) {
+                    child = this._children[i];
+                    child.leave();
+                }
+            }
+            if (this.onLeave && typeof this.onLeave === "function") {
+                this.onLeave();
             }
         },
 

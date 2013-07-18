@@ -52,10 +52,9 @@ ig.module(
 
                 // UI
                 var self = this, moneyBox, moneyText;
-                // TODO: UI needs to be driven by server code and/or placed elsewhere
                 moneyBox = new UIElement(new Rect(ig.system.width - 158, 0, 158, 30));
                 moneyBox.setImage("uibox");
-                moneyBox.enableNinePatch(4, 9, 4, 9);
+                moneyBox.enableNinePatch(5, 11, 6, 10);
                 this.ui.addElement(moneyBox);
                 moneyText = new UIElement(new Rect(148, -2, 1, 1));
                 this.money = "$1,000,000.00";
@@ -343,7 +342,7 @@ ig.module(
                         200
                     ));
                     this.confirmWindow.setImage("uibox");
-                    this.confirmWindow.enableNinePatch(4, 9, 4, 9);
+                    this.confirmWindow.enableNinePatch(5, 11, 6, 10);
                     this.ui.addElement(this.confirmWindow);
                 }
                 this.confirmWindow.hide = false;
@@ -358,8 +357,8 @@ ig.module(
                 // Yes button
                 if (!this.confirmYes) {
                     this.confirmYes = new UIElement(new Rect(20, 140, 70, 40));
-                    this.confirmYes.setImage("uibox");
-                    this.confirmYes.enableNinePatch(4, 9, 4, 9);
+                    this.confirmYes.setImage("button");
+                    this.confirmYes.enableNinePatch(3, 75, 4, 33);
                     this.confirmWindow.addChild(this.confirmYes);
                     var yesText = new UIElement(new Rect(35, 6, 1, 1));
                     yesText.enableText(function() { return "Yes"; }, this.font, ig.Font.ALIGN.CENTER);
@@ -367,21 +366,41 @@ ig.module(
                 }
                 this.confirmYes.onClick = function() {
                     onConfirm(confirmArgs);
-                    self.confirmWindow.hide = true;
+                    self.confirmYes.setImage("button_click");
+                    //self.confirmWindow.hide = true;
+                };
+                this.confirmYes.onHover = function() {
+                    self.confirmYes.setImage("button_hover");
+                };
+                this.confirmYes.onLeave = function() {
+                    self.confirmYes.setImage("button");
+                };
+                this.confirmYes.onUnclick = function() {
+                    self.confirmYes.setImage("button");
                 };
 
                 // No button
                 if (!this.confirmNo) {
                     this.confirmNo = new UIElement(new Rect(310, 140, 70, 40));
-                    this.confirmNo.setImage("uibox");
-                    this.confirmNo.enableNinePatch(4, 9, 4, 9);
+                    this.confirmNo.setImage("button");
+                    this.confirmNo.enableNinePatch(2, 76, 2, 34);
                     this.confirmWindow.addChild(this.confirmNo);
                     var noText = new UIElement(new Rect(35, 6, 1, 1));
                     noText.enableText(function() { return "No"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmNo.addChild(noText);
                 }
                 this.confirmNo.onClick = function() {
-                    self.confirmWindow.hide = true;
+                    self.confirmNo.setImage("button_click");
+                    //self.confirmWindow.hide = true;
+                };
+                this.confirmNo.onHover = function() {
+                    self.confirmNo.setImage("button_hover");
+                };
+                this.confirmNo.onLeave = function() {
+                    self.confirmNo.setImage("button");
+                };
+                this.confirmNo.onUnclick = function() {
+                    self.confirmYes.setImage("button");
                 };
             },
 
