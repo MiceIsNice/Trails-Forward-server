@@ -26,7 +26,8 @@ TrailsForwardDataController.prototype = {
 	},
 
         logInWithCookies : function(){
-                this.onLogIn();
+               // this.onLogIn();
+    		this.serverAPI.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
         },     
 	
 	getWorldDataForPlayerId : function(anId){
@@ -90,8 +91,8 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	onLogIn : function(theData){
-	//	TFglobals.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
-	//	TFglobals.DATA_CONTROLLER.serverAPI._userId = theData.id;
+		TFglobals.DATA_CONTROLLER.serverAPI._auth_token = theData.auth_token;
+		TFglobals.DATA_CONTROLLER.serverAPI._userId = theData.id;
 		TFglobals.DATA_CONTROLLER.serverAPI.getUserPlayers();
 		TFglobals.IMPACT.onLogin();
 	},
