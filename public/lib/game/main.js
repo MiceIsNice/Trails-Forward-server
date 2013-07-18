@@ -11,6 +11,7 @@ ig.module(
         'game.cachedisomap',
         'game.isominimap',
         'game.ui',
+        'game.button',
         'game.assetmanager'
     )
     .defines(function(){
@@ -248,9 +249,9 @@ ig.module(
                     scale = ig.system.imageZoom;
                     ctx.scale(scale, scale);
                     ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
-////
+
                     this.terrainMap.draw();
-////
+
                     ctx.restore();
                 }
 
@@ -263,13 +264,13 @@ ig.module(
                 // Draw things between the maps like tile selection highlights
 
                 if (this.featureMap) {
-                    //ctx.save();
-                    //ctx.scale(scale, scale);
-                    //ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
-////
-                    //this.featureMap.draw();
-////
-                    //ctx.restore();
+                    ctx.save();
+                    ctx.scale(scale, scale);
+                    ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
+
+                    this.featureMap.draw();
+
+                    ctx.restore();
                 }
 
                 this.ui.draw();
@@ -350,7 +351,7 @@ ig.module(
                         200
                     ));
                     this.confirmWindow.setImage("uibox");
-                    this.confirmWindow.enableNinePatch(5, 11, 6, 10);
+                    this.confirmWindow.enableNinePatch(5, 11, 6, 11);
                     this.ui.addElement(this.confirmWindow);
                 }
                 this.confirmWindow.hide = false;
@@ -364,52 +365,40 @@ ig.module(
 
                 // Yes button
                 if (!this.confirmYes) {
-                    this.confirmYes = new UIElement(new Rect(20, 140, 70, 40));
-                    this.confirmYes.setImage("button");
-                    this.confirmYes.enableNinePatch(3, 75, 4, 33);
+                    this.confirmYes = new Button(new Rect(10, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function(confirmArgs) {
+                            onConfirm(confirmArgs);
+                            self.confirmWindow.hide = true;
+                        },
+                        confirmArgs,
+                        [3, 75, 4, 33]
+                        );
                     this.confirmWindow.addChild(this.confirmYes);
                     var yesText = new UIElement(new Rect(35, 6, 1, 1));
                     yesText.enableText(function() { return "Yes"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmYes.addChild(yesText);
                 }
-                this.confirmYes.onClick = function() {
-                    onConfirm(confirmArgs);
-                    self.confirmYes.setImage("button_click");
-                    //self.confirmWindow.hide = true;
-                };
-                this.confirmYes.onHover = function() {
-                    self.confirmYes.setImage("button_hover");
-                };
-                this.confirmYes.onLeave = function() {
-                    self.confirmYes.setImage("button");
-                };
-                this.confirmYes.onUnclick = function() {
-                    self.confirmYes.setImage("button");
-                };
 
                 // No button
                 if (!this.confirmNo) {
-                    this.confirmNo = new UIElement(new Rect(310, 140, 70, 40));
-                    this.confirmNo.setImage("button");
-                    this.confirmNo.enableNinePatch(2, 76, 2, 34);
+                    this.confirmNo = new Button(new Rect(310, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.confirmWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
                     this.confirmWindow.addChild(this.confirmNo);
                     var noText = new UIElement(new Rect(35, 6, 1, 1));
                     noText.enableText(function() { return "No"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmNo.addChild(noText);
                 }
-                this.confirmNo.onClick = function() {
-                    self.confirmNo.setImage("button_click");
-                    //self.confirmWindow.hide = true;
-                };
-                this.confirmNo.onHover = function() {
-                    self.confirmNo.setImage("button_hover");
-                };
-                this.confirmNo.onLeave = function() {
-                    self.confirmNo.setImage("button");
-                };
-                this.confirmNo.onUnclick = function() {
-                    self.confirmYes.setImage("button");
-                };
             },
 
             /**
