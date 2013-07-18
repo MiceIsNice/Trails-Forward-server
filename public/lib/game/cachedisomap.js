@@ -51,6 +51,7 @@ ig.module(
              * @param {string} imageName The name of the image in the assetManager to be used.
              */
             addTile: function (x, y, imageName) {
+                var realX, realY, sectionX, sectionY;
                 if (x || x == 0) {
                     if (y || y == 0) {
                         this.data = this.data || [];
@@ -58,6 +59,12 @@ ig.module(
                         this.data[x][y] = this.data[x][y] || [];
                         this.data[x][y].push(imageName);
                         this.invalidateTile(x, y); // Important to call this - we changed a tile!
+                        realX = (x - y);
+                        realY = (x + y) / 2;
+                        sectionX = Math.floor(realX / this.sectionSize);
+                        sectionY = Math.floor(realY / this.sectionSize);
+                        this.sectionContainsData = this.sectionContainsData || {};
+                        this.sectionContainsData[sectionX + ", " + sectionY] = true;
                     }
                 }
             },
@@ -405,19 +412,19 @@ ig.module(
                         }
                     }
 
-                    // Step 5: High-res cache anything the player can see right now if past high zoom threshold
-                    if (ig.system.imageZoom >= this.highResZoomThreshold) {
-                        this.status = "High-res caching visible";
-                        this._high_res_cached = this._high_res_cached || [];
-                        for (i = 0; i < visibleSections.length; i++) {
-                            this._high_res_cached[visibleSections[i].x] =
-                                this._high_res_cached[visibleSections[i].x] || [];
-                            if (!this._high_res_cached[visibleSections[i].x][visibleSections[i].y]) {
-                                this.cacheSection(visibleSections[i].x, visibleSections[i].y, "high_res");
-                                return; // Only one section per update
-                            }
-                        }
-                    }
+                    //// Step 5: High-res cache anything the player can see right now if past high zoom threshold
+                    //if (ig.system.imageZoom >= this.highResZoomThreshold) {
+                    //    this.status = "High-res caching visible";
+                    //    this._high_res_cached = this._high_res_cached || [];
+                    //    for (i = 0; i < visibleSections.length; i++) {
+                    //        this._high_res_cached[visibleSections[i].x] =
+                    //            this._high_res_cached[visibleSections[i].x] || [];
+                    //        if (!this._high_res_cached[visibleSections[i].x][visibleSections[i].y]) {
+                    //            this.cacheSection(visibleSections[i].x, visibleSections[i].y, "high_res");
+                    //            return; // Only one section per update
+                    //        }
+                    //    }
+                    //}
 
                     // Step 6: Low-res cache the immediate surroundings if past low res zoom threshold
                     if (ig.system.imageZoom >= this.lowResZoomThreshold) {
@@ -444,19 +451,19 @@ ig.module(
                             }
                         }
                     }
-
-                    // Step 8: High-res cache the immediate surroundings if past high res zoom threshold
-                    if (ig.system.imageZoom >= this.highResZoomThreshold) {
-                        this.status = "High-res caching the immediate surroundings";
-                        for (i = 0; i < surroundingSections.length; i++) {
-                            this._high_res_cached[surroundingSections[i].x] =
-                                this._high_res_cached[surroundingSections[i].x] || [];
-                            if (!this._high_res_cached[surroundingSections[i].x][surroundingSections[i].y]) {
-                                this.cacheSection(surroundingSections[i].x, surroundingSections[i].y, "high_res");
-                                return; // Only one section per update
-                            }
-                        }
-                    }
+//
+                    //// Step 8: High-res cache the immediate surroundings if past high res zoom threshold
+                    //if (ig.system.imageZoom >= this.highResZoomThreshold) {
+                    //    this.status = "High-res caching the immediate surroundings";
+                    //    for (i = 0; i < surroundingSections.length; i++) {
+                    //        this._high_res_cached[surroundingSections[i].x] =
+                    //            this._high_res_cached[surroundingSections[i].x] || [];
+                    //        if (!this._high_res_cached[surroundingSections[i].x][surroundingSections[i].y]) {
+                    //            this.cacheSection(surroundingSections[i].x, surroundingSections[i].y, "high_res");
+                    //            return; // Only one section per update
+                    //        }
+                    //    }
+                    //}
 
                     // This step is only good if we're certain we can cache the entirety of the map without using up
                     // all of our allowed very-low-res sections. If we can't, it causes dancing black boxes around the
@@ -489,9 +496,9 @@ ig.module(
              * @param resMode A string determining the resolution at which to cache this section
              */
             cacheSection: function(sectionX, sectionY, resMode) {
+                var resDivider;
                 // Set the resolution divider that we'll use when generating cache sections
                 // or when rendering tiles to the cache
-                var resDivider;
                 switch (resMode) {
                     case "high_res":
                         resDivider = 1;
@@ -509,51 +516,58 @@ ig.module(
                         resDivider = 64; // Make it clear that there was an error
                 }
 
-                //ig.log("Caching section " + sectionX + ", " + sectionY); //TODO DELETE
+                if (this.sectionContainsData[sectionX + ", " + sectionY]) {
 
-                // Get the tiles we have left to render; either populate if empty or just keep going
-                // Also make sure we're still on the same section, otherwise start over!
-                this._tilesLeftToRender = this._tilesLeftToRender || [];
-                if (this._tilesLeftToRender.length == 0
-                    || this._currentlyDrawingSectionX != sectionX
-                    || this._currentlyDrawingSectionY != sectionY) {
-                    this._tilesLeftToRender = this.getTiles(new Rect(
-                        sectionX * this.sectionSize * this.tilesize,
-                        sectionY * this.sectionSize * this.tilesize,
-                        this.sectionSize * this.tilesize,
-                        this.sectionSize * this.tilesize));
-                    this._currentlyDrawingSectionX = sectionX;
-                    this._currentlyDrawingSectionY = sectionY;
-                }
+                    //ig.log("Caching section " + sectionX + ", " + sectionY);
 
-                //ig.log("tiles left to render: " + this._tilesLeftToRender.length); //TODO DELETE
-
-                // Ensure the section exists for the corresponding resolution, then render some tiles to it
-                var context = this._ensureSectionExists(sectionX, sectionY, resDivider).getContext('2d');
-                for (var i = 0; i < this.maxTilesPerUpdate * resDivider * resDivider; i++) {
-                    if (i == this._tilesLeftToRender.length) {
-                        break;
+                    // Get the tiles we have left to render; either populate if empty or just keep going
+                    // Also make sure we're still on the same section, otherwise start over!
+                    this._tilesLeftToRender = this._tilesLeftToRender || [];
+                    if (this._tilesLeftToRender.length == 0
+                        || this._currentlyDrawingSectionX != sectionX
+                        || this._currentlyDrawingSectionY != sectionY) {
+                        this._tilesLeftToRender = this.getTiles(new Rect(
+                            sectionX * this.sectionSize * this.tilesize,
+                            sectionY * this.sectionSize * this.tilesize,
+                            this.sectionSize * this.tilesize,
+                            this.sectionSize * this.tilesize));
+                        this._currentlyDrawingSectionX = sectionX;
+                        this._currentlyDrawingSectionY = sectionY;
                     }
-                    // Otherwise keep rendering until we hit the maximum allowed this update
-                    for (var j = 0; j < this._tilesLeftToRender[i].imageNames.length; j++) {
-                        this._renderTile(
-                            context,
-                            this._tilesLeftToRender[i].renderX,
-                            this._tilesLeftToRender[i].renderY,
-                            this._tilesLeftToRender[i].imageNames[j],
-                            sectionX, sectionY,
-                            resDivider
-                        );
+
+                    //ig.log("tiles left to render: " + this._tilesLeftToRender.length);
+
+                    // Ensure the section exists for the corresponding resolution, then render some tiles to it
+                    var context = this._ensureSectionExists(sectionX, sectionY, resDivider).getContext('2d');
+                    for (var i = 0; i < this.maxTilesPerUpdate * resDivider * resDivider; i++) {
+                        if (i == this._tilesLeftToRender.length) {
+                            break;
+                        }
+                        // Otherwise keep rendering until we hit the maximum allowed this update
+                        for (var j = 0; j < this._tilesLeftToRender[i].imageNames.length; j++) {
+                            this._renderTile(
+                                context,
+                                this._tilesLeftToRender[i].renderX,
+                                this._tilesLeftToRender[i].renderY,
+                                this._tilesLeftToRender[i].imageNames[j],
+                                sectionX, sectionY,
+                                resDivider
+                            );
+                        }
+                    }
+                    // Get rid of the rendered tiles from the array of tiles still to be drawn
+                    var c = 0;
+                    for (; i > 0; i--) {
+                        c++; // Teehee
+                    }
+                    this._tilesLeftToRender = this._tilesLeftToRender.splice(c);
+                    if (this._tilesLeftToRender.length == 0) {
+                        // We finished rendering this section at this resolution
+                        this._markSectionCached(sectionX, sectionY, resDivider);
                     }
                 }
-                // Get rid of the rendered tiles from the array of tiles still to be drawn
-                var c = 0;
-                for (; i > 0; i--) {
-                    c++; // Teehee
-                }
-                this._tilesLeftToRender = this._tilesLeftToRender.splice(c);
-                if (this._tilesLeftToRender.length == 0) {
-                    // We finished rendering this section at this resolution
+                else {
+                    // No data means we're already done! Keep the section null.
                     this._markSectionCached(sectionX, sectionY, resDivider);
                 }
             },
@@ -743,15 +757,19 @@ ig.module(
                         sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                         sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                        canvas = this._highResSections[sections[i].x][sections[i].y];
+                        if (this._highResSections[sections[i].x]) {
+                            if (this._highResSections[sections[i].x][sections[i].y]) {
+                                canvas = this._highResSections[sections[i].x][sections[i].y];
 
-                        ig.system.context.drawImage(canvas,
-                            0, 0,
-                            canvas.width, canvas.height,
-                            sectionRenderX, sectionRenderY,
-                            this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                        ig.Image.drawCount++;
-                        this.highestResolutionOnScreen = "high";
+                                ig.system.context.drawImage(canvas,
+                                    0, 0,
+                                    canvas.width, canvas.height,
+                                    sectionRenderX, sectionRenderY,
+                                    this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                ig.Image.drawCount++;
+                                this.highestResolutionOnScreen = "high";
+                            }
+                        }
                     }
                     else {
                         // Mid res
@@ -762,15 +780,19 @@ ig.module(
                             sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                             sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                            canvas = this._midResSections[sections[i].x][sections[i].y];
+                            if (this._midResSections[sections[i].x]) {
+                                if (this._midResSections[sections[i].x][sections[i].y]) {
+                                    canvas = this._midResSections[sections[i].x][sections[i].y];
 
-                            ig.system.context.drawImage(canvas,
-                                0, 0,
-                                canvas.width, canvas.height,
-                                sectionRenderX, sectionRenderY,
-                                this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                            ig.Image.drawCount++;
-                            this.highestResolutionOnScreen = "mid";
+                                    ig.system.context.drawImage(canvas,
+                                        0, 0,
+                                        canvas.width, canvas.height,
+                                        sectionRenderX, sectionRenderY,
+                                        this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                    ig.Image.drawCount++;
+                                    this.highestResolutionOnScreen = "mid";
+                                }
+                            }
                         }
                         else {
                             // Low res
@@ -781,15 +803,19 @@ ig.module(
                                 sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                                 sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                                canvas = this._lowResSections[sections[i].x][sections[i].y];
+                                if (this._lowResSections[sections[i].x]) {
+                                    if (this._lowResSections[sections[i].x][sections[i].y]) {
+                                        canvas = this._lowResSections[sections[i].x][sections[i].y];
 
-                                ig.system.context.drawImage(canvas,
-                                    0, 0,
-                                    canvas.width, canvas.height,
-                                    sectionRenderX, sectionRenderY,
-                                    this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                                ig.Image.drawCount++;
-                                this.highestResolutionOnScreen = "low";
+                                        ig.system.context.drawImage(canvas,
+                                            0, 0,
+                                            canvas.width, canvas.height,
+                                            sectionRenderX, sectionRenderY,
+                                            this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                        ig.Image.drawCount++;
+                                        this.highestResolutionOnScreen = "low";
+                                    }
+                                }
                             }
                             else {
                                 // Very low res
@@ -799,16 +825,20 @@ ig.module(
                                     sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                                     sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                                    canvas = this._veryLowResSections[sections[i].x][sections[i].y];
+                                    if (this._veryLowResSections[sections[i].x]) {
+                                        if (this._veryLowResSections[sections[i].x][sections[i].y]) {
+                                            canvas = this._veryLowResSections[sections[i].x][sections[i].y];
 
-                                    if (canvas) {
-                                        ig.system.context.drawImage(canvas,
-                                            0, 0,
-                                            canvas.width, canvas.height,
-                                            sectionRenderX, sectionRenderY,
-                                            this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                                        ig.Image.drawCount++;
-                                        this.highestResolutionOnScreen = "very low";
+                                            if (canvas) {
+                                                ig.system.context.drawImage(canvas,
+                                                    0, 0,
+                                                    canvas.width, canvas.height,
+                                                    sectionRenderX, sectionRenderY,
+                                                    this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                                ig.Image.drawCount++;
+                                                this.highestResolutionOnScreen = "very low";
+                                            }
+                                        }
                                     }
                                 }
                             }

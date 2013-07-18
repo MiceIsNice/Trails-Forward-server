@@ -237,31 +237,39 @@ ig.module(
                 // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
                 this.parent();
 
+               //if (ig.input.pressed("click")) {
+               //    this.shouldTime = true;
+               //    time.start("draw");
+               //}
+
                 if (this.terrainMap) {
                     ctx = ig.system.context;
                     ctx.save();
                     scale = ig.system.imageZoom;
                     ctx.scale(scale, scale);
                     ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
-
+////
                     this.terrainMap.draw();
-
+////
                     ctx.restore();
                 }
+
+                //if (this.shouldTime) {
+                //    time.stop("draw");
+                //    time.report();
+                //    this.shouldTime = null;
+                //}
 
                 // Draw things between the maps like tile selection highlights
 
                 if (this.featureMap) {
-                    ctx = ig.system.context;
-                    ctx.save();
-                    scale = ig.system.imageZoom;
-                    scale = ig.system.imageZoom;
-                    ctx.scale(scale, scale);
-                    ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
-
-                    this.featureMap.draw();
-
-                    ctx.restore();
+                    //ctx.save();
+                    //ctx.scale(scale, scale);
+                    //ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
+////
+                    //this.featureMap.draw();
+////
+                    //ctx.restore();
                 }
 
                 this.ui.draw();
