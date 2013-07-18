@@ -5,7 +5,7 @@ TrailsForwardWorld::Application.routes.draw do
   match "/users/authenticate_for_token" => "users#authenticate_for_token"
 
   resources :users do
-    resources :players, :only => [:index, :show, :update, :edit, :destroy]
+    resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
   end
 
   resources :worlds, :only => [:index, :show, :update] do

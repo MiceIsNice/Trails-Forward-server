@@ -5,7 +5,7 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    
+    <script type="text/javascript" src="login.js"></script>
 </head>
 
 <body>
@@ -64,8 +64,10 @@
             <div class="info_paragraph">
                 <div class="login_username">
                     <br />
-                    <p>Username</p>
-                    <div class="text_box"></div>                
+                    <p>Email</p>
+                    <div class="text_box">
+			<input type="text" id="emailL"></input>
+              	    </div>                
                 </div>
                 
                 <br />
@@ -74,12 +76,14 @@
                 
                 <div class="login_password">
                     <br />
-                    <p>Email</p>
-                    <div class="text_box"></div>                
+                    <p>Password</p>
+                    <div class="text_box">
+			<input type="text" id="passwordL"></input>
+		    </div>                
                 </div>
                 
                 <div class="big_button">
-                    <a href=""><span>Log In</span></a>
+                    <input type="submit" id="loginButton">Log In</input>
                 </div>
                 
                 <div class="read_more"></div>
@@ -100,7 +104,9 @@
                     <div class="login_username">
                         <br />
                         <p>Username</p>
-                        <div class="text_box"></div>                
+                        <div class="text_box">
+			  <input type="text" id="usernameR"></input>
+ 		        </div>                
                     </div>
                     
                     <br />
@@ -110,7 +116,9 @@
                     <div class="login_password">
                         <br />
                         <p>Email</p>
-                        <div class="text_box"></div>                
+                        <div class="text_box">
+			  <input type="text" id="emailR"></input>
+                        </div>                
                     </div>
                     
                     <br />
@@ -120,11 +128,13 @@
                     <div class="login_password">
                         <br />
                         <p>Password</p>
-                        <div class="text_box"></div>                
+                        <div class="text_box">
+			  <input type="text" id="passwordR"></input>
+		        </div>                
                     </div>
                     
                     <div class="big_button">
-                        <a href=""><span>Register</span></a>
+                        <input type="submit" id="registerButton">Register</input>
                     </div>
                     
                     

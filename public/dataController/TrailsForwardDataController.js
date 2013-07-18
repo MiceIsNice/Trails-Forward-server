@@ -24,6 +24,11 @@ TrailsForwardDataController.prototype = {
 	logInUserWithEmailAndPassword : function(anEmail, aPassword){
 		this.serverAPI.logInUserWithEmailAndPassword(anEmail, aPassword);
 	},
+
+        logInWithCookies : function(){
+               // this.onLogIn();
+    		this.serverAPI.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
+        },     
 	
 	getWorldDataForPlayerId : function(anId){
 		this.gameDataCache.player_id = anId;

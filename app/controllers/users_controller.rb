@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     if @user != nil and @user.valid_password? params[:password]
       @auth_token = @user.authentication_token
       ret = {:id => @user.id, :auth_token => @auth_token}
+      cookies[:id] = @user.id
+      cookies[:auth_token] = @auth_token
       respond_to do |format|
         format.json {render :json => ret }
         format.xml  {render :xml => ret }
@@ -36,7 +38,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
+    puts "UsersController::new made a new User with id #{@user.id}"
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -49,6 +51,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    puts "UsersController::create made a new user with id #{@user.id}"
 
     respond_to do |format|
       if @user.save

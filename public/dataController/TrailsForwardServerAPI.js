@@ -7,7 +7,7 @@
 
 
 function TrailsForwardServerAPI(){
-	this.SERVER_URL = "http://localhost:3000";
+	this.SERVER_URL = "http://tfnew.dax.getdown.org";
 	this.AUTHENTICATE_USER_URL = "/users/authenticate_for_token.json?";
 	this.EMAIL = "email";
 	this.PASSWORD = "password";
@@ -91,7 +91,7 @@ TrailsForwardServerAPI.prototype = {
 	getMapChunkWithStartId : function(anId){
 		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
 		//var total_chunks = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
-        var total_chunks = 5;
+        	var total_chunks = 5;
 		this.starting_chunk = anId;
 		this.chunks_to_get = total_chunks;
 		var lastChunk = anId + this.chunks_to_get - 1;
@@ -118,7 +118,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	
 	makeGetRequest : function(aResourcePath, urlParameters, aCallbackFunction){
-		if(aResourcePath && urlParameters && (aCallbackFunction || aCallbackFunction == null)){		
+		if(aResourcePath && (urlParameters || urlParameters =="") && (aCallbackFunction || aCallbackFunction == null)){		
 			if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.makeGetRequest using url: " + this.SERVER_URL + aResourcePath + urlParameters);
 			$.getJSON(this.SERVER_URL + aResourcePath + urlParameters, aCallbackFunction);
 		}
@@ -151,6 +151,7 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 	authString : function(){
+                //return "";
 		return this.buildParameterString([this.ID, this.AUTH_TOKEN], [this._userId, this._auth_token]);
 	},
 	
