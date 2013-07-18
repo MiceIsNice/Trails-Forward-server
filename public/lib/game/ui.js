@@ -37,11 +37,30 @@ ig.module(
          * see elementAt(x, y).
          */
         update: function() {
-            if (ig.input.pressed('click')) { // TODO: Make buttons activate on release rather than press
-                var elementClicked = this.elementAt(ig.input.mouse.x, ig.input.mouse.y);
-                if (elementClicked) {
-                    elementClicked.click(ig.input.mouse.x - elementClicked.bounds.x,
-                        ig.input.mouse.y - elementClicked.bounds.y);
+            var elementOfInterest = this.elementAt(ig.input.mouse.x, ig.input.mouse.y);
+            if (elementOfInterest) {
+                if (ig.input.pressed('click')) { // TODO: Make buttons activate on release rather than press
+                    if (!this.clicking) {
+                        elementOfInterest.click(ig.input.mouse.x - elementOfInterest.bounds.x,
+                            ig.input.mouse.y - elementOfInterest.bounds.y);
+                        this.clicking = elementOfInterest;
+                    }
+                }
+                else {
+                    this.hoveringOver = elementOfInterest;
+                    elementOfInterest.hover(ig.input.mouse.x - elementOfInterest.bounds.x,
+                        ig.input.mouse.y - elementOfInterest.bounds.y);
+                }
+            }
+            else {
+                if (this.clicking && !ig.input.pressed('click')) {
+                    this.clicking.onUnclick();
+                    this.clicking = null;
+                }
+                if (this.hoveringOver) {
+                    this.hoveringOver.leave(ig.input.mouse.x - this.hoveringOver.bounds.x,
+                        ig.input.mouse.y - this.hoveringOver.bounds.y);
+                    this.hoveringOver = null;
                 }
             }
         },

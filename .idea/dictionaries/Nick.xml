@@ -10,6 +10,7 @@
       <w>onload</w>
       <w>rclick</w>
       <w>tilesize</w>
+      <w>unclick</w>
       <w>viewport</w>
     </words>
   </dictionary>
