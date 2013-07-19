@@ -123,7 +123,8 @@ ig.module(
                     "media/shoreline_N.png",
                     "media/shoreline_O.png",
                     "media/shoreline_P.png",
-                    "media/shoreline_Q.png"
+                    "media/shoreline_Q.png",
+                    "media/selection_highlight.png"
                 ];
             }
 

@@ -19,7 +19,7 @@ ig.module(
         var game = ig.Game.extend({
 
             // Load things
-            font: new ig.Font("media/kharon_double_white.font.png"),
+            font: new ig.Font("media/timeless_white_16.font.png"),
 
             ui: new UI(),
 
@@ -52,17 +52,157 @@ ig.module(
                 ig.input.bind(ig.KEY.MWHEEL_UP, 'zoomBlipIn');
 
                 // UI
-                var self = this, moneyBox, moneyText;
-                moneyBox = new UIElement(new Rect(ig.system.width - 158, 0, 158, 30));
+                var self = this;
+
+                var playerNameBox, playerNameText;
+                playerNameBox = new UIElement(new Rect(0, 0, 180, 30));
+                playerNameBox.setImage("uibox");
+                playerNameBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(playerNameBox);
+                playerNameText = new UIElement(new Rect(85, 1, 1, 1));
+                this.playerName = "David Tennant";
+                playerNameText.enableText(function() {
+                    return self.playerName;
+                }, this.font, ig.Font.ALIGN.CENTER);
+                playerNameBox.addChild(playerNameText);
+
+                var zoomInButton, zoomOutButton, zoomInText, zoomOutText;
+                zoomInButton = new Button(new Rect(0, ig.system.height / 2 - 70, 30, 30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.zoomMul *= 1.2;
+                        self.zoomMul = Math.min((Math.max(self.zoomMul, self.minZoom)), self.maxZoom);
+                        ig.system.imageZoom = self.zoomMul;
+                        self.zoomPanOffsetX = ((ig.system.width / 2) / self.zoomMul) - (ig.system.width / 2);
+                        self.zoomPanOffsetY = ((ig.system.height / 2) / self.zoomMul) - (ig.system.height / 2);
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.ui.addElement(zoomInButton);
+                zoomInText = new UIElement(new Rect(12, 1, 1, 1));
+                zoomInText.enableText(function() {
+                    return "+";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                zoomInButton.addChild(zoomInText);
+
+                zoomOutButton = new Button(new Rect(0, ig.system.height / 2 - 40, 30, 30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.zoomMul /= 1.2;
+                        self.zoomMul = Math.min((Math.max(self.zoomMul, self.minZoom)), self.maxZoom);
+                        ig.system.imageZoom = self.zoomMul;
+                        self.zoomPanOffsetX = ((ig.system.width / 2) / self.zoomMul) - (ig.system.width / 2);
+                        self.zoomPanOffsetY = ((ig.system.height / 2) / self.zoomMul) - (ig.system.height / 2);
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.ui.addElement(zoomOutButton);
+                zoomOutText = new UIElement(new Rect(12, 1, 1, 1));
+                zoomOutText.enableText(function() {
+                    return "-";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                zoomOutButton.addChild(zoomOutText);
+
+                var turnPointsBox, turnPointsBar, turnPointsText;
+                turnPointsBox = new UIElement(new Rect(ig.system.width - 160, 0, 160, 30));
+                turnPointsBox.setImage("uibox");
+                turnPointsBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(turnPointsBox);
+                turnPointsText = new UIElement(new Rect(75, 1, 1, 1));
+                this.turnPoints = 100;
+                this.turnPointsMax = 100;
+                turnPointsText.enableText(function () {
+                    return self.turnPoints + "/" + self.turnPointsMax;
+                }, this.font, ig.Font.ALIGN.CENTER);
+                turnPointsBox.addChild(turnPointsText);
+
+                var moneyBox, moneyText;
+                moneyBox = new UIElement(new Rect(ig.system.width - 160, 30, 160, 30));
                 moneyBox.setImage("uibox");
-                moneyBox.enableNinePatch(5, 11, 6, 10);
+                moneyBox.enableNinePatch(5, 11, 5, 10);
                 this.ui.addElement(moneyBox);
-                moneyText = new UIElement(new Rect(148, -2, 1, 1));
+                moneyText = new UIElement(new Rect(148, 1, 1, 1));
                 this.money = "$1,000,000.00";
                 moneyText.enableText(function () {
                     return self.money;
                 }, this.font, ig.Font.ALIGN.RIGHT);
                 moneyBox.addChild(moneyText);
+
+                var politicalCapitalBox, politicalCapitalText;
+                politicalCapitalBox = new UIElement(new Rect(ig.system.width - 160, 60, 160, 30));
+                politicalCapitalBox.setImage("uibox");
+                politicalCapitalBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(politicalCapitalBox);
+                politicalCapitalText = new UIElement(new Rect(75, 1, 1, 1));
+                this.politicalCapital = 0;
+                this.politicalCapitalMax = 10;
+                politicalCapitalText.enableText(function () {
+                    return self.politicalCapital + "/" + self.politicalCapitalMax;
+                }, this.font, ig.Font.ALIGN.CENTER);
+                politicalCapitalBox.addChild(politicalCapitalText);
+
+                this.minimapBox = new UIElement(new Rect(
+                    0,
+                    ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
+                    ig.system.width / 4 + 8,
+                    ig.system.width / 4 / 1.7777777777 + 8
+                ));
+                this.minimapBox.setImage("uibox");
+                this.minimapBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(this.minimapBox);
+
+                var actionsBox, actionsText;
+                actionsBox = new UIElement(new Rect(
+                    ig.system.width - ig.system.width / 4 - 8,
+                    ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
+                    ig.system.width / 4 + 8,
+                    ig.system.width / 4 / 1.7777777777 + 8));
+                actionsBox.setImage("uibox");
+                actionsBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(actionsBox);
+                actionsText = new UIElement(new Rect((ig.system.width / 4 + 8) / 2 - 5, 1, 1, 1));
+                actionsText.enableText(function () {
+                    return "Actions";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                actionsBox.addChild(actionsText);
+
+                var contractsButton, contractsButtonText;
+                contractsButton = new UIElement(new Rect(
+                    20,
+                    30,
+                    ig.system.width / 4 - 20,
+                    50));
+                contractsButton.setImage("uibox");
+                contractsButton.enableNinePatch(5, 11, 5, 10);
+
+                contractsButton = new Button(new Rect(
+                        20,
+                        30,
+                        ig.system.width / 4 - 42,
+                        50),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        // TODO: Implement
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                actionsBox.addChild(contractsButton);
+                contractsButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 16, 1, 1));
+                contractsButtonText.enableText(function () {
+                    return "Contracts";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                contractsButton.addChild(contractsButtonText);
+
+                var upgradesBox, upgradesText;
             },
 
             constructMap: function() {
@@ -147,6 +287,8 @@ ig.module(
 
             // Called many times per second
             update: function() {
+                var self = this;
+
                 // Update all entities and backgroundMaps
                 this.parent();
 
@@ -215,14 +357,21 @@ ig.module(
                         if (this.mapUpdate) {
                             this.featureMap.update();
                             this.terrainMap.update();
-                            /*if (!this.minimap) {
+                            if (!this.minimap) {
                              ig.log("Loading minimap");
-                             this.minimap = new IsoMinimap();
-                             this.minimap.addReferenceMap(this.map);
+                             this.minimap = new IsoMinimap(new Rect(0,
+                                 0,
+                                 ig.system.width / 4,
+                                 ig.system.width / 4 / 1.7777777777
+                             ));
+                             this.minimap.addReferenceMap(this.terrainMap);
                              this.minimap.load();
+                             this.terrainMap.mapChangeCallback = function() {
+                                 self.minimap.load();
+                             };
                              ig.log("Minimap loaded");
-                             this.ui.addElement(this.minimap);
-                             }*/
+                             this.minimapBox.addChild(this.minimap);
+                             }
                         }
                     }
                 }
@@ -232,7 +381,7 @@ ig.module(
 
             draw: function() {
 
-                var ctx, scale;
+                var ctx, scale, realX, realY, x, y;
 
                 // Draw all entities and backgroundMaps
                 // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
@@ -252,6 +401,19 @@ ig.module(
 
                     this.terrainMap.draw();
 
+                    if (this.selectedTile) {
+                        x = this.selectedTile[0];
+                        y = this.selectedTile[1];
+                        realX = (x - y) * this.terrainMap.tilesize;
+                        realY = (x + y) / 2 * this.terrainMap.tilesize;
+                        var highlight = this.assetManager.images["selection_highlight"];
+                        if (highlight) {
+                            ctx.drawImage(this.assetManager.images["selection_highlight"],
+                                realX,
+                                realY);
+                        }
+                    }
+
                     ctx.restore();
                 }
 
@@ -262,6 +424,7 @@ ig.module(
                 //}
 
                 // Draw things between the maps like tile selection highlights
+
 
                 if (this.featureMap) {
                     ctx.save();
@@ -275,15 +438,15 @@ ig.module(
 
                 this.ui.draw();
 
-                // Add your own drawing code here
-                if (this.terrainMap) {
-                    if (this.terrainMap.status) {
-                        this.font.draw("Current zoom level: " + ig.system.imageZoom
-                            + "\nCurrent terrainMap status: " + this.terrainMap.status
-                            + "\nCurrent featureMap status: " + this.featureMap.status
-                            + "\nHighest resolution on screen: " + this.terrainMap.highestResolutionOnScreen, 0, 0);
-                    }
-                }
+                //// Add your own drawing code here
+                //if (this.terrainMap) {
+                //    if (this.terrainMap.status) {
+                //        this.font.draw("Current zoom level: " + ig.system.imageZoom
+                //            + "\nCurrent terrainMap status: " + this.terrainMap.status
+                //            + "\nCurrent featureMap status: " + this.featureMap.status
+                //            + "\nHighest resolution on screen: " + this.terrainMap.highestResolutionOnScreen, 0, 0);
+                //    }
+                //}
             },
 
             /**
@@ -377,7 +540,7 @@ ig.module(
                         [3, 75, 4, 33]
                         );
                     this.confirmWindow.addChild(this.confirmYes);
-                    var yesText = new UIElement(new Rect(35, 6, 1, 1));
+                    var yesText = new UIElement(new Rect(36, 12, 1, 1));
                     yesText.enableText(function() { return "Yes"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmYes.addChild(yesText);
                 }
@@ -395,7 +558,7 @@ ig.module(
                         [3, 75, 4, 33]
                     );
                     this.confirmWindow.addChild(this.confirmNo);
-                    var noText = new UIElement(new Rect(35, 6, 1, 1));
+                    var noText = new UIElement(new Rect(36, 12, 1, 1));
                     noText.enableText(function() { return "No"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmNo.addChild(noText);
                 }

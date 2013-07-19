@@ -10,22 +10,14 @@ ig.module(
 
         IsoMinimap = UIElement.extend({
 
-            init: function() {
-                // Initialize the bounds of the minimap on the screen. Defaults to the lower left corner
-                this.aspectRatio = 2;
-                this.widthFraction = ig.system.width / 4;
-
+            init: function(bounds) {
                 // Call the parent constructor to set the bounds
-                this.parent(new Rect(0,
-                    ig.system.height - this.widthFraction / this.aspectRatio,
-                    this.widthFraction,
-                    this.widthFraction / this.aspectRatio
-                    ));
+                this.parent(bounds);
 
                 // Initialize the canvas used to store the minimap image
                 this.canvas = document.createElement("canvas");
-                this.canvas.width = this.widthFraction;
-                this.canvas.height = this.widthFraction / this.aspectRatio;
+                this.canvas.width = bounds.width;
+                this.canvas.height = bounds.height;
             },
 
             /**
@@ -39,7 +31,9 @@ ig.module(
 
             click: function(x, y) {
                 var miniToMapRatio = this.getMinimapToMapSizeRatio();
-                ig.game.centerOnPoint((x - this.bounds.width / 2) / miniToMapRatio, y / miniToMapRatio);
+                ig.game.centerOnPoint(
+                    (x - this.bounds.width / 2 - this._parent.getOffsetX()) / miniToMapRatio,
+                    (y - this._parent.getOffsetY()) / miniToMapRatio);
             },
 
             /**
@@ -83,29 +77,48 @@ ig.module(
              * function.
              */
             draw: function() {
+                var parentOffsetX, parentOffsetY;
                 if (this._loaded) {
+
+                    // Draw relative to parent position if a parent exists
+                    if (this._parent) {
+                        parentOffsetX = this._parent.getOffsetX();
+                        parentOffsetY = this._parent.getOffsetY();
+                        if (this._parent._ninePatch) {
+                            parentOffsetX += this._parent._ninePatchData.x1;
+                            parentOffsetY += this._parent._ninePatchData.y1;
+                        }
+                    }
+
                     var ctx = ig.system.context,
                         miniToMapRatio;
                     // Fill in the background with black
-                    ctx.fillRect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+                    ctx.fillRect(this.bounds.x + parentOffsetX,
+                        this.bounds.y + parentOffsetY,
+                        this.bounds.width,
+                        this.bounds.height);
 
                     // Paint the map
                     ctx.drawImage(this.canvas,
                         0, 0,
                         this.canvas.width, this.canvas.height,
-                        this.bounds.x, this.bounds.y,
+                        this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
                         this.bounds.width, this.bounds.height);
 
                     // Stroke the viewport's position
                     miniToMapRatio = this.getMinimapToMapSizeRatio();
                     ctx.save();
                     ctx.beginPath();
-                    ctx.rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+                    ctx.rect(this.bounds.x + parentOffsetX,
+                        this.bounds.y + parentOffsetY,
+                        this.bounds.width,
+                        this.bounds.height);
                     ctx.clip();
                     ctx.strokeStyle = "#ffffff";
                     ctx.strokeRect(
-                        this.bounds.x + this.bounds.width / 2 + (ig.game.screen.x - ig.game.zoomPanOffsetX) * miniToMapRatio,
-                        this.bounds.y + (ig.game.screen.y - ig.game.zoomPanOffsetY) * miniToMapRatio,
+                        this.bounds.x + parentOffsetX + this.bounds.width / 2
+                            + (ig.game.screen.x - ig.game.zoomPanOffsetX) * miniToMapRatio,
+                        this.bounds.y + parentOffsetY + (ig.game.screen.y - ig.game.zoomPanOffsetY) * miniToMapRatio,
                         ig.system.width * miniToMapRatio / ig.system.imageZoom,
                         ig.system.height * miniToMapRatio / ig.system.imageZoom
                     );

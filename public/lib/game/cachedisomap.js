@@ -65,6 +65,9 @@ ig.module(
                         sectionY = Math.floor(realY / this.sectionSize);
                         this.sectionContainsData = this.sectionContainsData || {};
                         this.sectionContainsData[sectionX + ", " + sectionY] = true;
+                        if (this.mapChangeCallback && typeof this.mapChangeCallback === "function") {
+                            this.mapChangeCallback();
+                        }
                     }
                 }
             },
