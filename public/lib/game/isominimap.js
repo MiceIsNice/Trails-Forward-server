@@ -49,9 +49,9 @@ ig.module(
                         imageNames, imageNamesSansShorelines = [], name;
                     for (m = 0; m < this.referenceMaps.length; m++) {
                         if (this.referenceMaps[m].data) {
-                            ig.log("minimap: " + this.referenceMaps[m].data.length);
+                            //ig.log("minimap: " + this.referenceMaps[m].data.length);
                             for (i = 0; i < this.referenceMaps[m].data.length; i++) {
-                                ig.log("minimap: " + this.referenceMaps[m].data[i].length);
+                                //ig.log("minimap: " + this.referenceMaps[m].data[i].length);
                                 for (j = 0; j < this.referenceMaps[m].data[i].length; j++) {
                                     realX = (i - j) * this.referenceMaps[m].tilesize;
                                     realY = (i + j) / 2 * this.referenceMaps[m].tilesize;
@@ -59,7 +59,7 @@ ig.module(
                                     miniY = realY;
 
                                     imageNames = this.referenceMaps[m].data[i][j];
-                                    ig.log(imageNames);
+                                    //ig.log(imageNames);
                                     if (imageNames) {
                                         imageNamesSansShorelines = [];
                                         for (k = 0; k < imageNames.length; k++) {
@@ -68,8 +68,8 @@ ig.module(
                                                 imageNamesSansShorelines.push(name);
                                             }
                                         }
-                                        ig.log("Sans shorelines loading: ");
-                                        ig.log(imageNamesSansShorelines);
+                                        //ig.log("Sans shorelines loading: ");
+                                        //ig.log(imageNamesSansShorelines);
                                         this.referenceMaps[m]._renderTile(ctx,
                                             miniX, miniY, imageNamesSansShorelines, undefined, undefined, 1 / miniToFullRatio);
                                     }
