@@ -243,6 +243,7 @@ class ResourceTile < ActiveRecord::Base
                            :marten_population => self.marten_population, :housing_type => self.housing_type,
                            :small_tree_basal_area => self.small_tree_basal_area, 
                            :large_tree_basal_area => self.large_tree_basal_area,
+                           :type => self.type,
                            :owner => "none")
   end
   
