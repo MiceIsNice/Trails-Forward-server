@@ -301,33 +301,44 @@ ig.module(
 
             onGetMapChunk: function(chunk) {
                 ig.log("Got map chunk.");
-                var i, j, k, megatile, tile, shoreTypes;
+                var i, j, k, tile, shoreTypes, tileFeature, landType;
+                ig.log(chunk);
                 for (i = 0; i < chunk.length; i++) {
                     ig.log("Reading index " + i + " of chunk");
-                    megatile = chunk[i];
-                    if (megatile) {
-                        ig.log("Found a megatile that isn't null: " + megatile.x + ", " + megatile.y);
-                        for (j = 0; j < megatile.resource_tiles.length; j++) {
-                            tile = megatile.resource_tiles[j];
-                            this.terrainMap.addTile(tile.x, tile.y, (tile.type === "LandTile")?"grass":"water");
-                            ig.log("Added tile at " + tile.x + ", " + tile.y);
-                            //if (tile.development_intensity >= 0.25) {
-                            //    this.map.addTile(tile.x, tile.y, "");
-                            //}
-                            if (tile.tree_density >= 0.75) {
-                                this.featureMap.addTile(tile.x, tile.y, "forest_tileset_heavy");
-                                //this.featureMap.addTile(tile.x, tile.y, "trees_10_0");
-                            }
-                            /*else if (tile.tree_density >= 0.50) {
-                             this.map.addTile(tile.x, tile.y, "trees_50_" + Math.floor(Math.random() * 3));
-                             }
-                             else if (tile.tree_density >= 0.25) {
-                             this.map.addTile(tile.x, tile.y, "trees_25_" + Math.floor(Math.random() * 3));
-                             }
-                             else if (tile.tree_density >= 0.10) {
-                             this.map.addTile(tile.x, tile.y, "trees_10_" + Math.floor(Math.random() * 3));
-                             }*/
+                    tile = chunk[i].table;
+                    if (tile) {
+                        tileFeature = landType = undefined;
+                        ig.log("Found a tile that isn't null: " + tile.x + ", " + tile.y);
+                        switch(tile.base_cover_type) {
+                            case "forest":
+                                landType = "grass";
+                                if (tile.large_tree_basal_area == 0) {
+                                    tileFeature = "forest_tileset_light";
+                                }
+                                else {
+                                    tileFeature = "forest_tileset_heavy";
+                                }
+                                break;
+                            case "cultivated_crops":
+                                landType = "grass";
+                                break;
+                            case "herbaceous":
+                                landType = "grass";
+                                break;
+                            case "developed":
+                                landType = "grass";
+                                break;
+                            case "water":
+                                landType = "water";
+                                break;
+                            default:
+                                break;
                         }
+                        this.terrainMap.addTile(tile.x, tile.y, landType);
+                        if (tileFeature) {
+                            this.featureMap.addTile(tile.x, tile.y, tileFeature);
+                        }
+                        ig.log("Added tile at " + tile.x + ", " + tile.y);
                     }
                 }
                 for (i = 0; i < this.terrainMap.data.length; i++) {

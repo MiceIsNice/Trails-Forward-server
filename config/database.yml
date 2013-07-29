@@ -4,7 +4,7 @@ default: &DEFAULT
   reconnect: false
   pool: 5
   username: root
-  password:
+  password: root
   host: localhost
 
 development:
