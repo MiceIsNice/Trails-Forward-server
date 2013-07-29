@@ -17,9 +17,9 @@ ig.module(
             maxLowResCanvases:32,
             maxMidResCanvases:16,
             maxHighResCanvases:8,
-            lowResZoomThreshold:0.0625,
-            midResZoomThreshold:0.25,
-            highResZoomThreshold:0.5,
+            lowResZoomThreshold:0.065,
+            midResZoomThreshold:0.59,
+            highResZoomThreshold:0.7,
             maxTilesPerUpdate:6, // The maximum number of HIGH-RES tiles to render to canvas caches per update
                                  // (Tiles at half high-res resolution are drawn at twice this rate)
 
@@ -51,6 +51,7 @@ ig.module(
              * @param {string} imageName The name of the image in the assetManager to be used.
              */
             addTile: function (x, y, imageName) {
+                var realX, realY, sectionX, sectionY;
                 if (x || x == 0) {
                     if (y || y == 0) {
                         this.data = this.data || [];
@@ -58,6 +59,15 @@ ig.module(
                         this.data[x][y] = this.data[x][y] || [];
                         this.data[x][y].push(imageName);
                         this.invalidateTile(x, y); // Important to call this - we changed a tile!
+                        realX = (x - y);
+                        realY = (x + y) / 2;
+                        sectionX = Math.floor(realX / this.sectionSize);
+                        sectionY = Math.floor(realY / this.sectionSize);
+                        this.sectionContainsData = this.sectionContainsData || {};
+                        this.sectionContainsData[sectionX + ", " + sectionY] = true;
+                        if (this.mapChangeCallback && typeof this.mapChangeCallback === "function") {
+                            this.mapChangeCallback();
+                        }
                     }
                 }
             },
@@ -115,10 +125,8 @@ ig.module(
                         case 8: xo = -1; yo = -1; break;
                         default: break;
                     }
-                    if (this.data[x+xo]) {
-                        if (this.data[x+xo][y+yo]) {
-                            list[i] = this.data[x+xo][y+yo];
-                        }
+                    if (this.getTile(x+xo, y+yo)) {
+                        list[i] = this.getTile(x+xo, y+yo);
                     }
                 }
                 return list;
@@ -288,9 +296,13 @@ ig.module(
              * @param sectionX Specify this if this method is being used for caching a section, it offsets renderX, or just use undefined
              * @param sectionY Specify this if this method is being used for caching a section, it offsets renderY, or just use undefined
              * @param resDivider The divisor to apply to the resolution (automatically adjusts renderX,Y accordinagly)
+             * @param tileX The isometric x coordinate of the tile being rendered. Only necessary for drawing subimages
+             * @param tileY The isometric y coordinate of the tile being rendered. Only necessary for drawing subimages
              * @private
              */
-            _renderTile: function(ctx, renderX, renderY, imageName, sectionX, sectionY, resDivider) {
+            _renderTile: function(ctx, renderX, renderY, imageName, sectionX, sectionY, resDivider, tileX, tileY) {
+                var image, sourceRect;
+
                 // If we're painting onto a section, we should use the section origin as our render origin
                 if (sectionX !== undefined) {
                     renderX -= sectionX * this.tilesize * this.sectionSize;
@@ -299,19 +311,104 @@ ig.module(
                     renderY -= sectionY * this.tilesize * this.sectionSize;
                 }
 
-                var image = this.assetManager.images[imageName];
-
+                image = this.assetManager.images[imageName];
 
                 if (image) {
                     if (ctx) {
-                        ctx.drawImage(image,
-                            0, 0,
-                            image.width, image.height,
-                            renderX / resDivider, renderY / resDivider,
-                            image.width / resDivider, image.height / resDivider);
-                        ig.Image.drawCount++;
+                        if (imageName instanceof Array) {
+                            imageName = imageName[0];
+                        }
+                        if (imageName.startsWith("forest_tileset")) {
+                            sourceRect = this.getForestTile(tileX, tileY);
+                            ig.log("tileX: " + tileX + ", tileY: " + tileY);
+                            if (sourceRect) {
+                                ig.log("sourceRect: " + sourceRect);
+                                ctx.drawImage(image,
+                                    sourceRect.x, sourceRect.y,
+                                    sourceRect.width, sourceRect.height,
+                                    renderX / resDivider, renderY / resDivider,
+                                    sourceRect.width / resDivider, sourceRect.height / resDivider);
+                                ig.Image.drawCount++;
+                            }
+                        }
+                        else {
+                            ctx.drawImage(image,
+                                0, 0,
+                                image.width, image.height,
+                                renderX / resDivider, renderY / resDivider,
+                                image.width / resDivider, image.height / resDivider);
+                            ig.Image.drawCount++;
+                        }
                     }
                 }
+            },
+
+            getForestTile: function(x, y) {
+                var megatile = this.getMegatile(x, y), shapeString = "_", i, index, width, height;
+                if (megatile[0] == null) {
+                    return null;
+                }
+                if (megatile[1] && this.containsForest(megatile[1])) {
+                    shapeString += "A";
+                }
+                if (megatile[2] && this.containsForest(megatile[2])) {
+                    shapeString += "B";
+                }
+                if (megatile[3] && this.containsForest(megatile[3])) {
+                    shapeString += "C";
+                }
+                if (megatile[4] && this.containsForest(megatile[4])) {
+                    shapeString += "D";
+                }
+                if (megatile[5] && this.containsForest(megatile[5])) {
+                    shapeString += "E";
+                }
+                if (megatile[6] && this.containsForest(megatile[6])) {
+                    shapeString += "F";
+                }
+                if (megatile[7] && this.containsForest(megatile[7])) {
+                    shapeString += "G";
+                }
+                if (megatile[8] && this.containsForest(megatile[8])) {
+                    shapeString += "H";
+                }
+                if (shapeString === "_") {
+                    shapeString = "_0";
+                }
+                index = ig.game.tileTypes.indexOf(shapeString);
+                ig.log(x + ", " + y + ": " + shapeString + "; " + index);
+                if (index != -1) {
+                    x = index % 5;
+                    y = (index / 5) | 0;
+                    width = height = this.tilesize * 2;
+                    return new Rect(x * width, y * width, width, height);
+                }
+                else {
+                    // try without corners
+                    shapeString = shapeString.replace(/[BDFH]/g, "");
+                    if (shapeString === "_") {
+                        shapeString = "_0";
+                    }
+                    ig.log("Fixed shapeString " + shapeString);
+                    index = ig.game.tileTypes.indexOf(shapeString);
+                    if (index != -1) {
+                        x = index % 5;
+                        y = (index / 5) | 0;
+                        width = height = this.tilesize * 2;
+                        return new Rect(x * width, y * width, width, height);
+                    }
+                }
+                return null;
+            },
+
+            containsForest: function(imageNames) {
+                var i;
+                for (i = 0; i < imageNames.length; i++) {
+                    if (imageNames[i].startsWith("forest_tileset")) {
+                        return true;
+                    }
+                }
+                return false;
             },
 
             /**
@@ -405,19 +502,19 @@ ig.module(
                         }
                     }
 
-                    // Step 5: High-res cache anything the player can see right now if past high zoom threshold
-                    if (ig.system.imageZoom >= this.highResZoomThreshold) {
-                        this.status = "High-res caching visible";
-                        this._high_res_cached = this._high_res_cached || [];
-                        for (i = 0; i < visibleSections.length; i++) {
-                            this._high_res_cached[visibleSections[i].x] =
-                                this._high_res_cached[visibleSections[i].x] || [];
-                            if (!this._high_res_cached[visibleSections[i].x][visibleSections[i].y]) {
-                                this.cacheSection(visibleSections[i].x, visibleSections[i].y, "high_res");
-                                return; // Only one section per update
-                            }
-                        }
-                    }
+                    //// Step 5: High-res cache anything the player can see right now if past high zoom threshold
+                    //if (ig.system.imageZoom >= this.highResZoomThreshold) {
+                    //    this.status = "High-res caching visible";
+                    //    this._high_res_cached = this._high_res_cached || [];
+                    //    for (i = 0; i < visibleSections.length; i++) {
+                    //        this._high_res_cached[visibleSections[i].x] =
+                    //            this._high_res_cached[visibleSections[i].x] || [];
+                    //        if (!this._high_res_cached[visibleSections[i].x][visibleSections[i].y]) {
+                    //            this.cacheSection(visibleSections[i].x, visibleSections[i].y, "high_res");
+                    //            return; // Only one section per update
+                    //        }
+                    //    }
+                    //}
 
                     // Step 6: Low-res cache the immediate surroundings if past low res zoom threshold
                     if (ig.system.imageZoom >= this.lowResZoomThreshold) {
@@ -444,19 +541,19 @@ ig.module(
                             }
                         }
                     }
-
-                    // Step 8: High-res cache the immediate surroundings if past high res zoom threshold
-                    if (ig.system.imageZoom >= this.highResZoomThreshold) {
-                        this.status = "High-res caching the immediate surroundings";
-                        for (i = 0; i < surroundingSections.length; i++) {
-                            this._high_res_cached[surroundingSections[i].x] =
-                                this._high_res_cached[surroundingSections[i].x] || [];
-                            if (!this._high_res_cached[surroundingSections[i].x][surroundingSections[i].y]) {
-                                this.cacheSection(surroundingSections[i].x, surroundingSections[i].y, "high_res");
-                                return; // Only one section per update
-                            }
-                        }
-                    }
+//
+                    //// Step 8: High-res cache the immediate surroundings if past high res zoom threshold
+                    //if (ig.system.imageZoom >= this.highResZoomThreshold) {
+                    //    this.status = "High-res caching the immediate surroundings";
+                    //    for (i = 0; i < surroundingSections.length; i++) {
+                    //        this._high_res_cached[surroundingSections[i].x] =
+                    //            this._high_res_cached[surroundingSections[i].x] || [];
+                    //        if (!this._high_res_cached[surroundingSections[i].x][surroundingSections[i].y]) {
+                    //            this.cacheSection(surroundingSections[i].x, surroundingSections[i].y, "high_res");
+                    //            return; // Only one section per update
+                    //        }
+                    //    }
+                    //}
 
                     // This step is only good if we're certain we can cache the entirety of the map without using up
                     // all of our allowed very-low-res sections. If we can't, it causes dancing black boxes around the
@@ -489,9 +586,9 @@ ig.module(
              * @param resMode A string determining the resolution at which to cache this section
              */
             cacheSection: function(sectionX, sectionY, resMode) {
+                var resDivider;
                 // Set the resolution divider that we'll use when generating cache sections
                 // or when rendering tiles to the cache
-                var resDivider;
                 switch (resMode) {
                     case "high_res":
                         resDivider = 1;
@@ -509,51 +606,60 @@ ig.module(
                         resDivider = 64; // Make it clear that there was an error
                 }
 
-                //ig.log("Caching section " + sectionX + ", " + sectionY); //TODO DELETE
+                if (this.sectionContainsData[sectionX + ", " + sectionY]) {
 
-                // Get the tiles we have left to render; either populate if empty or just keep going
-                // Also make sure we're still on the same section, otherwise start over!
-                this._tilesLeftToRender = this._tilesLeftToRender || [];
-                if (this._tilesLeftToRender.length == 0
-                    || this._currentlyDrawingSectionX != sectionX
-                    || this._currentlyDrawingSectionY != sectionY) {
-                    this._tilesLeftToRender = this.getTiles(new Rect(
-                        sectionX * this.sectionSize * this.tilesize,
-                        sectionY * this.sectionSize * this.tilesize,
-                        this.sectionSize * this.tilesize,
-                        this.sectionSize * this.tilesize));
-                    this._currentlyDrawingSectionX = sectionX;
-                    this._currentlyDrawingSectionY = sectionY;
-                }
+                    //ig.log("Caching section " + sectionX + ", " + sectionY);
 
-                //ig.log("tiles left to render: " + this._tilesLeftToRender.length); //TODO DELETE
-
-                // Ensure the section exists for the corresponding resolution, then render some tiles to it
-                var context = this._ensureSectionExists(sectionX, sectionY, resDivider).getContext('2d');
-                for (var i = 0; i < this.maxTilesPerUpdate * resDivider * resDivider; i++) {
-                    if (i == this._tilesLeftToRender.length) {
-                        break;
+                    // Get the tiles we have left to render; either populate if empty or just keep going
+                    // Also make sure we're still on the same section, otherwise start over!
+                    this._tilesLeftToRender = this._tilesLeftToRender || [];
+                    if (this._tilesLeftToRender.length == 0
+                        || this._currentlyDrawingSectionX != sectionX
+                        || this._currentlyDrawingSectionY != sectionY) {
+                        this._tilesLeftToRender = this.getTiles(new Rect(
+                            sectionX * this.sectionSize * this.tilesize,
+                            sectionY * this.sectionSize * this.tilesize,
+                            this.sectionSize * this.tilesize,
+                            this.sectionSize * this.tilesize));
+                        this._currentlyDrawingSectionX = sectionX;
+                        this._currentlyDrawingSectionY = sectionY;
                     }
-                    // Otherwise keep rendering until we hit the maximum allowed this update
-                    for (var j = 0; j < this._tilesLeftToRender[i].imageNames.length; j++) {
-                        this._renderTile(
-                            context,
-                            this._tilesLeftToRender[i].renderX,
-                            this._tilesLeftToRender[i].renderY,
-                            this._tilesLeftToRender[i].imageNames[j],
-                            sectionX, sectionY,
-                            resDivider
-                        );
+
+                    //ig.log("tiles left to render: " + this._tilesLeftToRender.length);
+
+                    // Ensure the section exists for the corresponding resolution, then render some tiles to it
+                    var context = this._ensureSectionExists(sectionX, sectionY, resDivider).getContext('2d');
+                    for (var i = 0; i < this.maxTilesPerUpdate * resDivider * resDivider; i++) {
+                        if (i == this._tilesLeftToRender.length) {
+                            break;
+                        }
+                        // Otherwise keep rendering until we hit the maximum allowed this update
+                        for (var j = 0; j < this._tilesLeftToRender[i].imageNames.length; j++) {
+                            this._renderTile(
+                                context,
+                                this._tilesLeftToRender[i].renderX,
+                                this._tilesLeftToRender[i].renderY,
+                                this._tilesLeftToRender[i].imageNames[j],
+                                sectionX, sectionY,
+                                resDivider,
+                                this._tilesLeftToRender[i].isoX,
+                                this._tilesLeftToRender[i].isoY
+                            );
+                        }
+                    }
+                    // Get rid of the rendered tiles from the array of tiles still to be drawn
+                    var c = 0;
+                    for (; i > 0; i--) {
+                        c++; // Teehee
+                    }
+                    this._tilesLeftToRender = this._tilesLeftToRender.splice(c);
+                    if (this._tilesLeftToRender.length == 0) {
+                        // We finished rendering this section at this resolution
+                        this._markSectionCached(sectionX, sectionY, resDivider);
                     }
                 }
-                // Get rid of the rendered tiles from the array of tiles still to be drawn
-                var c = 0;
-                for (; i > 0; i--) {
-                    c++; // Teehee
-                }
-                this._tilesLeftToRender = this._tilesLeftToRender.splice(c);
-                if (this._tilesLeftToRender.length == 0) {
-                    // We finished rendering this section at this resolution
+                else {
+                    // No data means we're already done! Keep the section null.
                     this._markSectionCached(sectionX, sectionY, resDivider);
                 }
             },
@@ -649,12 +755,15 @@ ig.module(
              * @returns {*} An object (with renderX, renderY, and imageNames) of the tile on the map located at the
              * render (pixel) coordinates, or undefined if there is no data at that location on this map.
              */
-            getTileAtPx: function(realX, realY) {
+            getTileAtPx: function(realX, realY, fromMouse) {
                 var isoX = Math.floor((realX / 2 + realY) / this.tilesize);
                 var isoY = Math.floor((-realX / 2 + realY) / this.tilesize);
                 var renderX = (isoX - isoY) * this.tilesize;
                 var renderY = (isoX + isoY) / 2 * this.tilesize;
-                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX - 1, isoY:isoY};
+                if (fromMouse) {
+                    isoX -= 1;
+                }
+                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX, isoY:isoY};
             },
 
             /**
@@ -743,15 +852,19 @@ ig.module(
                         sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                         sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                        canvas = this._highResSections[sections[i].x][sections[i].y];
+                        if (this._highResSections[sections[i].x]) {
+                            if (this._highResSections[sections[i].x][sections[i].y]) {
+                                canvas = this._highResSections[sections[i].x][sections[i].y];
 
-                        ig.system.context.drawImage(canvas,
-                            0, 0,
-                            canvas.width, canvas.height,
-                            sectionRenderX, sectionRenderY,
-                            this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                        ig.Image.drawCount++;
-                        this.highestResolutionOnScreen = "high";
+                                ig.system.context.drawImage(canvas,
+                                    0, 0,
+                                    canvas.width, canvas.height,
+                                    sectionRenderX, sectionRenderY,
+                                    this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                ig.Image.drawCount++;
+                                this.highestResolutionOnScreen = "high";
+                            }
+                        }
                     }
                     else {
                         // Mid res
@@ -762,15 +875,19 @@ ig.module(
                             sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                             sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                            canvas = this._midResSections[sections[i].x][sections[i].y];
+                            if (this._midResSections[sections[i].x]) {
+                                if (this._midResSections[sections[i].x][sections[i].y]) {
+                                    canvas = this._midResSections[sections[i].x][sections[i].y];
 
-                            ig.system.context.drawImage(canvas,
-                                0, 0,
-                                canvas.width, canvas.height,
-                                sectionRenderX, sectionRenderY,
-                                this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                            ig.Image.drawCount++;
-                            this.highestResolutionOnScreen = "mid";
+                                    ig.system.context.drawImage(canvas,
+                                        0, 0,
+                                        canvas.width, canvas.height,
+                                        sectionRenderX, sectionRenderY,
+                                        this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                    ig.Image.drawCount++;
+                                    this.highestResolutionOnScreen = "mid";
+                                }
+                            }
                         }
                         else {
                             // Low res
@@ -781,15 +898,19 @@ ig.module(
                                 sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                                 sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                                canvas = this._lowResSections[sections[i].x][sections[i].y];
+                                if (this._lowResSections[sections[i].x]) {
+                                    if (this._lowResSections[sections[i].x][sections[i].y]) {
+                                        canvas = this._lowResSections[sections[i].x][sections[i].y];
 
-                                ig.system.context.drawImage(canvas,
-                                    0, 0,
-                                    canvas.width, canvas.height,
-                                    sectionRenderX, sectionRenderY,
-                                    this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                                ig.Image.drawCount++;
-                                this.highestResolutionOnScreen = "low";
+                                        ig.system.context.drawImage(canvas,
+                                            0, 0,
+                                            canvas.width, canvas.height,
+                                            sectionRenderX, sectionRenderY,
+                                            this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                        ig.Image.drawCount++;
+                                        this.highestResolutionOnScreen = "low";
+                                    }
+                                }
                             }
                             else {
                                 // Very low res
@@ -799,16 +920,20 @@ ig.module(
                                     sectionRenderX = sections[i].x * this.tilesize * this.sectionSize;
                                     sectionRenderY = sections[i].y * this.tilesize * this.sectionSize;
 
-                                    canvas = this._veryLowResSections[sections[i].x][sections[i].y];
+                                    if (this._veryLowResSections[sections[i].x]) {
+                                        if (this._veryLowResSections[sections[i].x][sections[i].y]) {
+                                            canvas = this._veryLowResSections[sections[i].x][sections[i].y];
 
-                                    if (canvas) {
-                                        ig.system.context.drawImage(canvas,
-                                            0, 0,
-                                            canvas.width, canvas.height,
-                                            sectionRenderX, sectionRenderY,
-                                            this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
-                                        ig.Image.drawCount++;
-                                        this.highestResolutionOnScreen = "very low";
+                                            if (canvas) {
+                                                ig.system.context.drawImage(canvas,
+                                                    0, 0,
+                                                    canvas.width, canvas.height,
+                                                    sectionRenderX, sectionRenderY,
+                                                    this.sectionSize * this.tilesize, this.sectionSize * this.tilesize);
+                                                ig.Image.drawCount++;
+                                                this.highestResolutionOnScreen = "very low";
+                                            }
+                                        }
                                     }
                                 }
                             }

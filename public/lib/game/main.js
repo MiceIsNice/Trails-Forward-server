@@ -11,6 +11,7 @@ ig.module(
         'game.cachedisomap',
         'game.isominimap',
         'game.ui',
+        'game.button',
         'game.assetmanager'
     )
     .defines(function(){
@@ -18,7 +19,7 @@ ig.module(
         var game = ig.Game.extend({
 
             // Load things
-            font: new ig.Font("media/kharon_double_white.font.png"),
+            font: new ig.Font("media/timeless_white_16.font.png"),
 
             ui: new UI(),
 
@@ -38,6 +39,68 @@ ig.module(
             acceptingLoad:false,
             retryMapLoad:false,
 
+            // Forest tileTypes
+            tileTypes:[
+                "_0",
+                "_A",
+                "_C",
+                "_E",
+                "_G",
+
+                "_AC",
+                "_AE",
+                "_AG",
+                "_CE",
+                "_CG",
+                "_EG",
+
+                "_ABC",
+                "_AGH",
+                "_CDE",
+                "_EFG",
+
+                "_ACE",
+                "_AEG",
+                "_ACG",
+                "_CEG",
+
+                "_ABCE",
+                "_ACEG",
+                "_ACGH",
+                "_AEFG",
+                "_CDEG",
+
+                "_ABCG",
+                "_ACDE",
+                "_AEGH",
+                "_CEFG",
+
+                "_ABCDE",
+                "_ABCGH",
+                "_AEFGH",
+                "_CDEFG",
+
+                "_ABCEG",
+                "_ACDEG",
+                "_ACEFG",
+                "_ACEGH",
+
+                "_ABCDEG",
+                "_ABCEGH",
+                "_ACDEFG",
+                "_ACEFGH",
+
+                "_ABCEFG",
+                "_ACDEGH",
+
+                "_ABCDEFG",
+                "_ABCDEGH",
+                "_ABCEFGH",
+                "_ACDEFGH",
+
+                "_ABCDEFGH"
+            ],
+
             init: function() {
                 // This injection is a part of the modified scaling implementation of Trails Forward's Impact framework
                 ig.System.inject({
@@ -51,17 +114,169 @@ ig.module(
                 ig.input.bind(ig.KEY.MWHEEL_UP, 'zoomBlipIn');
 
                 // UI
-                var self = this, moneyBox, moneyText;
-                moneyBox = new UIElement(new Rect(ig.system.width - 158, 0, 158, 30));
+                var self = this;
+
+                var playerNameBox, playerNameText;
+                playerNameBox = new UIElement(new Rect(0, 0, 180, 30));
+                playerNameBox.setImage("uibox");
+                playerNameBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(playerNameBox);
+                playerNameText = new UIElement(new Rect(85, 1, 1, 1));
+                this.playerName = "David Tennant";
+                playerNameText.enableText(function() {
+                    return self.playerName;
+                }, this.font, ig.Font.ALIGN.CENTER);
+                playerNameBox.addChild(playerNameText);
+
+                var zoomInButton, zoomOutButton, zoomInText, zoomOutText;
+                zoomInButton = new Button(new Rect(0, ig.system.height / 2 - 70, 30, 30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.zoomMul *= 1.2;
+                        self.zoomMul = Math.min((Math.max(self.zoomMul, self.minZoom)), self.maxZoom);
+                        ig.system.imageZoom = self.zoomMul;
+                        self.zoomPanOffsetX = ((ig.system.width / 2) / self.zoomMul) - (ig.system.width / 2);
+                        self.zoomPanOffsetY = ((ig.system.height / 2) / self.zoomMul) - (ig.system.height / 2);
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.ui.addElement(zoomInButton);
+                zoomInText = new UIElement(new Rect(12, 1, 1, 1));
+                zoomInText.enableText(function() {
+                    return "+";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                zoomInButton.addChild(zoomInText);
+
+                zoomOutButton = new Button(new Rect(0, ig.system.height / 2 - 40, 30, 30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.zoomMul /= 1.2;
+                        self.zoomMul = Math.min((Math.max(self.zoomMul, self.minZoom)), self.maxZoom);
+                        ig.system.imageZoom = self.zoomMul;
+                        self.zoomPanOffsetX = ((ig.system.width / 2) / self.zoomMul) - (ig.system.width / 2);
+                        self.zoomPanOffsetY = ((ig.system.height / 2) / self.zoomMul) - (ig.system.height / 2);
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.ui.addElement(zoomOutButton);
+                zoomOutText = new UIElement(new Rect(12, 1, 1, 1));
+                zoomOutText.enableText(function() {
+                    return "-";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                zoomOutButton.addChild(zoomOutText);
+
+                var turnPointsBox, turnPointsBar, turnPointsText;
+                turnPointsBox = new UIElement(new Rect(ig.system.width - 160, 0, 160, 30));
+                turnPointsBox.setImage("uibox");
+                turnPointsBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(turnPointsBox);
+                turnPointsText = new UIElement(new Rect(75, 1, 1, 1));
+                this.turnPoints = 100;
+                this.turnPointsMax = 100;
+                turnPointsText.enableText(function () {
+                    return self.turnPoints + "/" + self.turnPointsMax;
+                }, this.font, ig.Font.ALIGN.CENTER);
+                turnPointsBox.addChild(turnPointsText);
+
+                var moneyBox, moneyText;
+                moneyBox = new UIElement(new Rect(ig.system.width - 160, 30, 160, 30));
                 moneyBox.setImage("uibox");
-                moneyBox.enableNinePatch(5, 11, 6, 10);
+                moneyBox.enableNinePatch(5, 11, 5, 10);
                 this.ui.addElement(moneyBox);
-                moneyText = new UIElement(new Rect(148, -2, 1, 1));
+                moneyText = new UIElement(new Rect(148, 1, 1, 1));
                 this.money = "$1,000,000.00";
                 moneyText.enableText(function () {
                     return self.money;
                 }, this.font, ig.Font.ALIGN.RIGHT);
                 moneyBox.addChild(moneyText);
+
+                var politicalCapitalBox, politicalCapitalText;
+                politicalCapitalBox = new UIElement(new Rect(ig.system.width - 160, 60, 160, 30));
+                politicalCapitalBox.setImage("uibox");
+                politicalCapitalBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(politicalCapitalBox);
+                politicalCapitalText = new UIElement(new Rect(75, 1, 1, 1));
+                this.politicalCapital = 0;
+                this.politicalCapitalMax = 10;
+                politicalCapitalText.enableText(function () {
+                    return self.politicalCapital + "/" + self.politicalCapitalMax;
+                }, this.font, ig.Font.ALIGN.CENTER);
+                politicalCapitalBox.addChild(politicalCapitalText);
+
+                this.minimapBox = new UIElement(new Rect(
+                    0,
+                    ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
+                    ig.system.width / 4 + 8,
+                    ig.system.width / 4 / 1.7777777777 + 8
+                ));
+                this.minimapBox.setImage("uibox");
+                this.minimapBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(this.minimapBox);
+
+                var actionsBox, actionsText;
+                actionsBox = new UIElement(new Rect(
+                    ig.system.width - ig.system.width / 4 - 8,
+                    ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
+                    ig.system.width / 4 + 8,
+                    ig.system.width / 4 / 1.7777777777 + 8));
+                actionsBox.setImage("uibox");
+                actionsBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(actionsBox);
+                actionsText = new UIElement(new Rect((ig.system.width / 4 + 8) / 2 - 5, 1, 1, 1));
+                actionsText.enableText(function () {
+                    return "Actions";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                actionsBox.addChild(actionsText);
+
+                var contractsButton, contractsButtonText;
+                contractsButton = new Button(new Rect(
+                        20,
+                        30,
+                        ig.system.width / 4 - 42,
+                        30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.showContractsWindow();
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                actionsBox.addChild(contractsButton);
+                contractsButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 7, 1, 1));
+                contractsButtonText.enableText(function () {
+                    return "Contracts";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                contractsButton.addChild(contractsButtonText);
+
+                var upgradesButton, upgradesButtonText;
+                upgradesButton = new Button(new Rect(
+                        20,
+                        60,
+                        ig.system.width / 4 - 42,
+                        30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.showContractsWindow();
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                actionsBox.addChild(upgradesButton);
+                upgradesButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 7, 1, 1));
+                upgradesButtonText.enableText(function () {
+                    return "Upgrades";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                upgradesButton.addChild(upgradesButtonText);
             },
 
             constructMap: function() {
@@ -73,17 +288,17 @@ ig.module(
             },
 
             onLogin: function() {
-                console.log("Logged in.");
+                ig.log("Logged in.");
                 TFglobals.SERVER_API.getWorldDataForWorldId(3); // TODO: Hard-coded for now, fix later
             },
 
             onGetWorldData: function() {
-                console.log("Got world data.");
+                ig.log("Got world data.");
                 TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
             },
 
             onGetMapChunk: function(chunk) {
-                console.log("Got map chunk.");
+                ig.log("Got map chunk.");
                 var i, j, k, megatile, tile, shoreTypes;
                 for (i = 0; i < chunk.length; i++) {
                     ig.log("Reading index " + i + " of chunk");
@@ -98,7 +313,8 @@ ig.module(
                             //    this.map.addTile(tile.x, tile.y, "");
                             //}
                             if (tile.tree_density >= 0.75) {
-                                this.featureMap.addTile(tile.x, tile.y, "trees3A_75_" + Math.floor(Math.random() * 3));
+                                this.featureMap.addTile(tile.x, tile.y, "forest_tileset_heavy");
+                                //this.featureMap.addTile(tile.x, tile.y, "trees_10_0");
                             }
                             /*else if (tile.tree_density >= 0.50) {
                              this.map.addTile(tile.x, tile.y, "trees_50_" + Math.floor(Math.random() * 3));
@@ -111,7 +327,6 @@ ig.module(
                              }*/
                         }
                     }
-                    console.log(this.terrainMap.data);
                 }
                 for (i = 0; i < this.terrainMap.data.length; i++) {
                     if (this.terrainMap.data[i]) {
@@ -130,7 +345,7 @@ ig.module(
             },
 
             onGetUserPlayers: function(players) {
-                console.log("Players gotten: " + players[0]);
+                ig.log("Players gotten: " + players[0]);
             },
 
             /**
@@ -147,6 +362,8 @@ ig.module(
 
             // Called many times per second
             update: function() {
+                var self = this;
+
                 // Update all entities and backgroundMaps
                 this.parent();
 
@@ -175,7 +392,8 @@ ig.module(
                         var viewRect = this.getViewRect();
                         var tileToSelect = this.terrainMap.getTileAtPx(
                             viewRect.x + mouseX / ig.system.imageZoom,
-                            viewRect.y + mouseY / ig.system.imageZoom);
+                            viewRect.y + mouseY / ig.system.imageZoom,
+                            true);
                         this.selectTile(tileToSelect.isoX, tileToSelect.isoY);
                     }
                 }
@@ -215,14 +433,21 @@ ig.module(
                         if (this.mapUpdate) {
                             this.featureMap.update();
                             this.terrainMap.update();
-                            /*if (!this.minimap) {
+                            if (!this.minimap) {
                              ig.log("Loading minimap");
-                             this.minimap = new IsoMinimap();
-                             this.minimap.addReferenceMap(this.map);
+                             this.minimap = new IsoMinimap(new Rect(0,
+                                 0,
+                                 ig.system.width / 4,
+                                 ig.system.width / 4 / 1.7777777777
+                             ));
+                             this.minimap.addReferenceMap(this.terrainMap);
                              this.minimap.load();
+                             this.terrainMap.mapChangeCallback = function() {
+                                 self.minimap.load();
+                             };
                              ig.log("Minimap loaded");
-                             this.ui.addElement(this.minimap);
-                             }*/
+                             this.minimapBox.addChild(this.minimap);
+                             }
                         }
                     }
                 }
@@ -232,11 +457,16 @@ ig.module(
 
             draw: function() {
 
-                var ctx, scale;
+                var ctx, scale, realX, realY, x, y;
 
                 // Draw all entities and backgroundMaps
                 // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
                 this.parent();
+
+               //if (ig.input.pressed("click")) {
+               //    this.shouldTime = true;
+               //    time.start("draw");
+               //}
 
                 if (this.terrainMap) {
                     ctx = ig.system.context;
@@ -247,16 +477,33 @@ ig.module(
 
                     this.terrainMap.draw();
 
+                    if (this.selectedTile) {
+                        x = this.selectedTile[0];
+                        y = this.selectedTile[1];
+                        realX = (x - y) * this.terrainMap.tilesize;
+                        realY = (x + y) / 2 * this.terrainMap.tilesize;
+                        var highlight = this.assetManager.images["selection_highlight"];
+                        if (highlight) {
+                            ctx.drawImage(this.assetManager.images["selection_highlight"],
+                                realX,
+                                realY);
+                        }
+                    }
+
                     ctx.restore();
                 }
 
+                //if (this.shouldTime) {
+                //    time.stop("draw");
+                //    time.report();
+                //    this.shouldTime = null;
+                //}
+
                 // Draw things between the maps like tile selection highlights
 
+
                 if (this.featureMap) {
-                    ctx = ig.system.context;
                     ctx.save();
-                    scale = ig.system.imageZoom;
-                    scale = ig.system.imageZoom;
                     ctx.scale(scale, scale);
                     ctx.translate(-ig.game.screen.x + this.zoomPanOffsetX, -ig.game.screen.y + this.zoomPanOffsetY);
 
@@ -267,15 +514,15 @@ ig.module(
 
                 this.ui.draw();
 
-                // Add your own drawing code here
-                if (this.terrainMap) {
-                    if (this.terrainMap.status) {
-                        this.font.draw("Current zoom level: " + ig.system.imageZoom
-                            + "\nCurrent terrainMap status: " + this.terrainMap.status
-                            + "\nCurrent featureMap status: " + this.featureMap.status
-                            + "\nHighest resolution on screen: " + this.terrainMap.highestResolutionOnScreen, 0, 0);
-                    }
-                }
+                //// Add your own drawing code here
+                //if (this.terrainMap) {
+                //    if (this.terrainMap.status) {
+                //        this.font.draw("Current zoom level: " + ig.system.imageZoom
+                //            + "\nCurrent terrainMap status: " + this.terrainMap.status
+                //            + "\nCurrent featureMap status: " + this.featureMap.status
+                //            + "\nHighest resolution on screen: " + this.terrainMap.highestResolutionOnScreen, 0, 0);
+                //    }
+                //}
             },
 
             /**
@@ -311,7 +558,9 @@ ig.module(
                 }
                 this.selectedTile = [x, y];
                 ig.log("Selected tile: " + x + ", " + y);
-                ig.log("The currently selected tile has shore type: " + this.getShoreTypes(x, y));
+                ig.log("Tile has the following shape with respect to trees: ");
+                ig.log(this.featureMap.getForestTile(x, y));
+                ig.log(this.terrainMap.getTile(x, y));
             },
 
             /**
@@ -343,7 +592,7 @@ ig.module(
                         200
                     ));
                     this.confirmWindow.setImage("uibox");
-                    this.confirmWindow.enableNinePatch(5, 11, 6, 10);
+                    this.confirmWindow.enableNinePatch(5, 11, 6, 11);
                     this.ui.addElement(this.confirmWindow);
                 }
                 this.confirmWindow.hide = false;
@@ -357,52 +606,82 @@ ig.module(
 
                 // Yes button
                 if (!this.confirmYes) {
-                    this.confirmYes = new UIElement(new Rect(20, 140, 70, 40));
-                    this.confirmYes.setImage("button");
-                    this.confirmYes.enableNinePatch(3, 75, 4, 33);
+                    this.confirmYes = new Button(new Rect(10, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function(confirmArgs) {
+                            onConfirm(confirmArgs);
+                            self.confirmWindow.hide = true;
+                        },
+                        confirmArgs,
+                        [3, 75, 4, 33]
+                        );
                     this.confirmWindow.addChild(this.confirmYes);
-                    var yesText = new UIElement(new Rect(35, 6, 1, 1));
+                    var yesText = new UIElement(new Rect(36, 12, 1, 1));
                     yesText.enableText(function() { return "Yes"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmYes.addChild(yesText);
                 }
-                this.confirmYes.onClick = function() {
-                    onConfirm(confirmArgs);
-                    self.confirmYes.setImage("button_click");
-                    //self.confirmWindow.hide = true;
-                };
-                this.confirmYes.onHover = function() {
-                    self.confirmYes.setImage("button_hover");
-                };
-                this.confirmYes.onLeave = function() {
-                    self.confirmYes.setImage("button");
-                };
-                this.confirmYes.onUnclick = function() {
-                    self.confirmYes.setImage("button");
-                };
 
                 // No button
                 if (!this.confirmNo) {
-                    this.confirmNo = new UIElement(new Rect(310, 140, 70, 40));
-                    this.confirmNo.setImage("button");
-                    this.confirmNo.enableNinePatch(2, 76, 2, 34);
+                    this.confirmNo = new Button(new Rect(310, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.confirmWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
                     this.confirmWindow.addChild(this.confirmNo);
-                    var noText = new UIElement(new Rect(35, 6, 1, 1));
+                    var noText = new UIElement(new Rect(36, 12, 1, 1));
                     noText.enableText(function() { return "No"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmNo.addChild(noText);
                 }
-                this.confirmNo.onClick = function() {
-                    self.confirmNo.setImage("button_click");
-                    //self.confirmWindow.hide = true;
-                };
-                this.confirmNo.onHover = function() {
-                    self.confirmNo.setImage("button_hover");
-                };
-                this.confirmNo.onLeave = function() {
-                    self.confirmNo.setImage("button");
-                };
-                this.confirmNo.onUnclick = function() {
-                    self.confirmYes.setImage("button");
-                };
+            },
+
+            /**
+             * Displays the window for contracts.
+             */
+            showContractsWindow: function() {
+                var self = this;
+                // Making sure the confirm window exists
+                if (!this.contractsWindow) {
+                    this.contractsWindow = new UIElement(new Rect(
+                        ig.system.width / 2 - 200,
+                        ig.system.height / 2 - 100,
+                        400,
+                        200
+                    ));
+                    this.contractsWindow.setImage("uibox");
+                    this.contractsWindow.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.contractsWindow);
+                }
+                this.contractsWindow.hide = false;
+
+                // Text in the contracts window
+                if (!this.contractText) {
+                    this.contractText = new UIElement(new Rect(200, 50, 1, 1));
+                    this.contractsWindow.addChild(this.contractText);
+                }
+                this.contractText.enableText(function() { return "bluh" }, this.font, ig.Font.ALIGN.CENTER);
+
+                // A contract
+                if (!this.contract) {
+                    this.contract = new Button(new Rect(10, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.contractsWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.contractsWindow.addChild(this.contract);
+                }
             },
 
             /**
@@ -459,7 +738,7 @@ ig.module(
                     }
                     else if (A && C && !E && !G) {
                         shoreTypes.push("K");
-                        if (B) {
+                        if (F) {
                             shoreTypes.push("B");
                         }
                     }
@@ -472,16 +751,16 @@ ig.module(
                     }
                     else if (A && !C && !E && G) {
                         shoreTypes.push("J");
-                        if (H) {
+                        if (D) {
                             shoreTypes.push("H");
                         }
                     }
                     else if (A && !C && !E && !G) {
                         shoreTypes.push("E");
-                        if (H) {
+                        if (D) {
                             shoreTypes.push("H");
                         }
-                        if (B) {
+                        if (F) {
                             shoreTypes.push("B");
                         }
                     }
@@ -490,7 +769,7 @@ ig.module(
                     }
                     else if (!A && C && E && !G) {
                         shoreTypes.push("L");
-                        if (D) {
+                        if (H) {
                             shoreTypes.push("D");
                         }
                     }
@@ -500,34 +779,48 @@ ig.module(
                     }
                     else if (!A && C && !E && !G) {
                         shoreTypes.push("G");
-                        if (B) {
+                        if (F) {
                             shoreTypes.push("B");
                         }
-                        if (D) {
+                        if (H) {
                             shoreTypes.push("D");
                         }
                     }
                     else if (!A && !C && E && G) {
                         shoreTypes.push("I");
-                        if (F) {
+                        if (B) {
                             shoreTypes.push("F");
                         }
                     }
                     else if (!A && !C && E && !G) {
                         shoreTypes.push("A");
-                        if (F) {
+                        if (B) {
                             shoreTypes.push("F");
                         }
-                        if (D) {
+                        if (H) {
                             shoreTypes.push("D");
                         }
                     }
                     else if (!A && !C && !E && G) {
                         shoreTypes.push("C");
-                        if (F) {
+                        if (B) {
                             shoreTypes.push("F");
                         }
+                        if (D) {
+                            shoreTypes.push("H");
+                        }
+                    }
+                    else if (!A && !C && !E && !G) {
+                        if (B) {
+                            shoreTypes.push("F");
+                        }
+                        if (F) {
+                            shoreTypes.push("B");
+                        }
                         if (H) {
+                            shoreTypes.push("D");
+                        }
+                        if (D) {
                             shoreTypes.push("H");
                         }
                     }

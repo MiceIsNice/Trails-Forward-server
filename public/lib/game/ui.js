@@ -46,22 +46,31 @@ ig.module(
                         this.clicking = elementOfInterest;
                     }
                 }
-                else {
-                    this.hoveringOver = elementOfInterest;
-                    elementOfInterest.hover(ig.input.mouse.x - elementOfInterest.bounds.x,
+                else if (!this.hoveringOver) {
+                    elementOfInterest.enter(ig.input.mouse.x - elementOfInterest.bounds.x,
                         ig.input.mouse.y - elementOfInterest.bounds.y);
+                    this.hoveringOver = elementOfInterest;
+                }
+                else if (elementOfInterest == this.hoveringOver) {
+                    elementOfInterest.hover(ig.input.mouse.x - elementOfInterest.bounds.x,
+                    ig.input.mouse.y - elementOfInterest.bounds.y);
+                }
+                else if (this.hoveringOver) {
+                    this.hoveringOver.leave();
+                    this.hoveringOver = elementOfInterest;
+                    elementOfInterest.enter();
                 }
             }
             else {
-                if (this.clicking && !ig.input.pressed('click')) {
-                    this.clicking.onUnclick();
-                    this.clicking = null;
-                }
                 if (this.hoveringOver) {
-                    this.hoveringOver.leave(ig.input.mouse.x - this.hoveringOver.bounds.x,
-                        ig.input.mouse.y - this.hoveringOver.bounds.y);
+                    this.hoveringOver.leave();
                     this.hoveringOver = null;
                 }
+            }
+            if (this.clicking && ig.input.released('click')) {
+                this.clicking.unclick(ig.input.mouse.x - this.clicking.bounds.x,
+                    ig.input.mouse.y - this.clicking.bounds.y);
+                this.clicking = null;
             }
         },
 
@@ -86,7 +95,7 @@ ig.module(
             for (var i = this._elements.length - 1; i >= 0; i--) { // iterate in reverse because we want the top-most
                 var element = this._elements[i];
                 if (element.bounds.containsPoint(x, y) && element.hide == false) {
-                    return element;
+                    return element.childMostAt(x - element.bounds.x, y - element.bounds.y);
                 }
             }
             return null;

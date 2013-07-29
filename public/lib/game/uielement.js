@@ -10,14 +10,52 @@ ig.module(
 
         /**
          * @param bounds The bounding box of this UIElement. If the element has an image, it will stretch to fit the bounds.
+         * @param textFunction
+         * @param font
+         * @param fontAlign
+         * @param imageName
+         * @param ninePatchX1
+         * @param ninePatchX2
+         * @param ninePatchY1
+         * @param ninePatchY2
+         * @param onClick
+         * @param onUnclick
+         * @param onEnter
+         * @param onHover
+         * @param onLeave
          */
-        init: function(bounds) {
+        init: function(bounds, textFunction, font, fontAlign, imageName,
+                       ninePatchX1, ninePatchX2, ninePatchY1, ninePatchY2, onClick, onUnclick, onEnter, onHover, onLeave) {
             this.bounds = bounds;
             this._loaded = false;
             this._children = [];
             this._parent = null;
             this.hide = false;
             this.assetManager = ig.game.assetManager;
+            if (textFunction && font && fontAlign) {
+                this.enableText(textFunction, font, fontAlign);
+            }
+            if (imageName) {
+                this.setImage(imageName);
+            }
+            if (ninePatchX1 && ninePatchX2 && ninePatchY1 && ninePatchY2) {
+                this.enableNinePatch(ninePatchX1, ninePatchX2, ninePatchY1, ninePatchY2);
+            }
+            if (onClick && typeof onClick === "function") {
+                this.onClick = onClick;
+            }
+            if (onUnclick && typeof onUnclick === "function") {
+                this.onUnclick = onUnclick;
+            }
+            if (onEnter && typeof onEnter === "function") {
+                this.onEnter = onEnter;
+            }
+            if (onHover && typeof onHover === "function") {
+                this.onHover = onHover;
+            }
+            if (onLeave && typeof onLeave === "function") {
+                this.onLeave = onLeave;
+            }
         },
 
         /**
@@ -90,6 +128,22 @@ ig.module(
         },
 
         /**
+         * @param x X coordinate of the testing point in this element's space
+         * @param y Y coordinate of the testing point in this element's space
+         * @returns {UIElement} The first leaf of the interface tree that overlaps with the argument mouse coordinates.
+         */
+        childMostAt: function(x, y) {
+            var i, child;
+            for (i = 0; i <  this._children.length; i++) {
+                child = this._children[i];
+                if (child.bounds.containsPoint(x, y)) {
+                    return child.childMostAt(x, y);
+                }
+            }
+            return this;
+        },
+
+        /**
          * Sets the name of the image asset for this UIElement. Should match the name of an image in the AssetManager.
          */
         setImage: function(imageName) {
@@ -127,14 +181,8 @@ ig.module(
          * @param y The y coordinate of the click relative to the top-left corner of this element's bounds
          */
         click: function(x, y) {
-            var child;
-            if (this._children.length > 0) {
-                for (var i = 0; i < this._children.length; i++) {
-                    child = this._children[i];
-                    if (child.bounds.containsPoint(x, y)) {
-                        child.click(x - child.bounds.x, y - child.bounds.y);
-                    }
-                }
+            if (this._parent) {
+                this._parent.click(x + this.bounds.x, y + this.bounds.y);
             }
             if (this.onClick && typeof this.onClick === "function") {
                 this.onClick();
@@ -147,12 +195,8 @@ ig.module(
          * after clicking this element.
          */
         unclick: function(x, y) {
-            var child;
-            if (this._children.length > 0) {
-                for (var i = 0; i < this._children.length; i++) {
-                    child = this._children[i];
-                    child.unclick(x - child.bounds.x, y - child.bounds.y);
-                }
+            if (this._parent) {
+                this._parent.unclick(x + this.bounds.x, y + this.bounds.y);
             }
             if (this.onUnclick && typeof this.onUnclick === "function") {
                 this.onUnclick();
@@ -165,15 +209,21 @@ ig.module(
          * @param x The x coordinate of the mouse relative to the top-left corner of this element's bounds
          * @param y The y coordinate of the mouse relative to the top-left corner of this element's bounds
          */
+        enter: function(x, y) {
+            if (this.onEnter && typeof this.onEnter === "function") {
+                this.onEnter(x, y);
+            }
+        },
+
+        /**
+         * Calls this.onHover() if it exists and calls hover(x, y) on any _children this element has. You should call
+         * parent.hover(x, y) when you overwrite this, probably. Called when the mouse hovers over the element.
+         * @param x The x coordinate of the mouse relative to the top-left corner of this element's bounds
+         * @param y The y coordinate of the mouse relative to the top-left corner of this element's bounds
+         */
         hover: function(x, y) {
-            var child;
-            if (this._children.length > 0) {
-                for (var i = 0; i < this._children.length; i++) {
-                    child = this._children[i];
-                    if (child.bounds.containsPoint(x, y)) {
-                        child.hover(x - child.bounds.x, y - child.bounds.y);
-                    }
-                }
+            if (this._parent) {
+                this._parent.hover(x + this.bounds.x, y + this.bounds.y);
             }
             if (this.onHover && typeof this.onHover === "function") {
                 this.onHover(x, y);
@@ -182,16 +232,9 @@ ig.module(
 
         /**
          * Calls this.onLeave() if it exists and calls leave(x, y) on any _children this element has. You should call
-         * parent.leave(x, y) when you overwrite this, probably. Called when the mouse stops hovering over the element.
+         * parent.leave() when you overwrite this, probably. Called when the mouse stops hovering over the element.
          */
         leave: function() {
-            var child;
-            if (this._children.length > 0) {
-                for (var i = 0; i < this._children.length; i++) {
-                    child = this._children[i];
-                    child.leave();
-                }
-            }
             if (this.onLeave && typeof this.onLeave === "function") {
                 this.onLeave();
             }
