@@ -1,8 +1,10 @@
 TrailsForwardWorld::Application.routes.draw do
 
   devise_for :users
+  #get "sign_up" => "users#new", :as => "sign_up"
 
   match "/users/authenticate_for_token" => "users#authenticate_for_token"
+#  match "/users/sign_up" => "devise/registrations#new"
 
   resources :users do
     resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
@@ -64,7 +66,7 @@ TrailsForwardWorld::Application.routes.draw do
       end
     end
 
-    resources :resource_tiles, :only => [:show, :update] do
+    resources :resource_tiles, :only => [:index, :show, :update] do
       member do
         post :bulldoze
         post :clearcut
