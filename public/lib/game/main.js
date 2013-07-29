@@ -295,7 +295,7 @@ ig.module(
             onGetWorldData: function() {
                 ig.log("Got world data.");
                // TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
-				var rect = {x_min : 0, x_max : 32, y_min : 0, y_max : 32};
+				var rect = {x_min : 0, x_max : 64, y_min : 0, y_max : 64};
 				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
             },
 
