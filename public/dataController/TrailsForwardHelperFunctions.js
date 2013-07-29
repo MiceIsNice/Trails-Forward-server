@@ -48,4 +48,6 @@ TrailsForwardHelperFunctions.prototype = {
 		}
 	},
 	
+	
+	
 };

@@ -23,7 +23,7 @@ TrailsForwardGlobals.prototype = {
  		this.IMPACT = impactRef;
  		
  		  /* shared values */
- 		this.FULL_DEBUGGING = false;
+ 		this.FULL_DEBUGGING = true;
  		this.CHUNK_WIDTH = 16;
  	}
  

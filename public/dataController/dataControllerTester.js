@@ -12,6 +12,7 @@
 
 function TrailsForwardDataControllerTester(aTrailsForwardDataController){
 	this.dataController = aTrailsForwardDataController;
+//	this._email = "aarontietz@gmail.edu";
 	this._email = "aaron.tietz@tufts.edu";
 	this._password = "letmein";
 }
@@ -51,9 +52,12 @@ TrailsForwardDataControllerTester.prototype = {
 	loadAvailableContractsForChosenPlayer : function(){
 		this.dataController.getAvailableContractsForPlayer();
 	},
+	
+	loadAvailableUpgradesForChosenPlayer : function(){
+		this.dataController.getAvailableUpgradesForPlayer();
+	},
 
 };
-
 
 /* Set up the DataController and the objects it interacts with */
 var helperFunctions = new TrailsForwardHelperFunctions();
@@ -80,6 +84,7 @@ function logIn(){
  /* automatically fill in login info */
 function init(){
 	document.getElementById("submitButton").addEventListener("click", logIn);
+//	document.getElementById("email").value = "aarontietz@gmail.com";
 	document.getElementById("email").value = "aaron.tietz@tufts.edu";
 	document.getElementById("password").value = "letmein";
 }

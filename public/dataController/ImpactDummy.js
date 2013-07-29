@@ -13,6 +13,9 @@ function callLoadAvailableContractsTest(){
 	tester.loadAvailableContractsForChosenPlayer();
 }
 
+function callLoadAvailableUpgradesTest(){
+	tester.loadAvailableUpgradesForChosenPlayer();
+}
 
 function ImpactDummy(){
 
@@ -27,18 +30,26 @@ ImpactDummy.prototype = {
 			the server yet, and ultimately we'll likely write a new method to return 
 			blocks the way we want */		
 	askForMap : function(){
-			
+		
+		/**
 		var length = TFglobals.DATA_CONTROLLER.gameDataCache.height;
 		var width = TFglobals.DATA_CONTROLLER.gameDataCache.width;	
 			
 		var block_width = TFglobals.CHUNK_WIDTH;
 		var total_blocks = block_width * block_width;
 		
-		/* 	FOR TESTING - IT DOESN'T WORK WHEN ASKING FOR THEM ALL */
+		// FOR TESTING - IT DOESN'T WORK WHEN ASKING FOR THEM ALL
 		total_blocks = 1;
+		**/
 		
+		//TFglobals.DATA_CONTROLLER.getMapChunksWithIds([1,2,3,4,5,6,7,8,9]);
+		var rect = {x_min : 0, x_max : 5, y_min : 0, y_max : 5};
+		TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
+		
+		/**
 		for(var i = 1; i <= total_blocks; i += block_width)
 			TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(i);
+		**/
 	},
 	
 	onGetUserPlayers : function(players){
@@ -89,7 +100,7 @@ ImpactDummy.prototype = {
 		messageP.appendChild(element);
 	},
 	
-	onGetTileChunk : function(theData){
+	onGetMapChunk : function(theData){
 		console.log("ImpactDummy received map block ");
 		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theData[0]);
 		var button = document.createElement("input");
@@ -98,9 +109,18 @@ ImpactDummy.prototype = {
 		//button.removeEventListener("click", callLoadMapTest);
 		button.addEventListener("click", callLoadAvailableContractsTest);
 		
+		var button2 = document.createElement("input");
+		button2.setAttribute("value", "Get Upgrades");
+		button2.setAttribute("type", "submit");
+		//button.removeEventListener("click", callLoadMapTest);
+		button2.addEventListener("click", callLoadAvailableUpgradesTest);
+		
+		
+		
 		var messageP = document.getElementById("message");
-		messageP.innerHTML = "Map section loaded.  Click below to see available contracts.<br/>";
+		messageP.innerHTML = "Map section loaded.  Click below to see available contracts and upgrades.<br/>";
 		messageP.appendChild(button);
+		messageP.appendChild(button2);
 	},
 	
 	onGetAvailableContracts : function(theContracts){
@@ -110,15 +130,6 @@ ImpactDummy.prototype = {
 		
 		var element;
 		var theForm = document.getElementById("playerForm");
-		
-		/*
-		var children = theForm.childNodes;
-		
-		// Does this work even though the length of the list changes? Or does it not change?
-		for(var i = 0; i , children.length; i++){
-			theForm.removeChild(children[i]);
-		}
-		*/
 		
 		theForm.innerHTML = "";
 		
@@ -143,8 +154,29 @@ ImpactDummy.prototype = {
 		
 		document.getElementById("playerChoiceDiv").style.display = "inline";
 		
-		console.log("ImpactDummy received contacts: ");
+		console.log("ImpactDummy received contracts: ");
 		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theContracts);
+	},
+	
+	onGetAvailableUpgradesForPlayer : function(theUpgrades){
+		console.log("ImpactDummy received upgrades: ");
+		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theUpgrades);		
+	},
+	
+	onAttemptToPurchaseTile : function(theResult){
+		console.log("ImpactDummy received tile purchase attempt: ");	
+	},
+	
+	onAttemptToPurchaseUpgrade : function(theResult){
+		console.log("ImpactDummy received upgrade purchase attempt: ");
+	},
+	
+	onRequestSurveyForTile : function(theResult){
+		console.log("ImpactDummy received survey attempt: ");
+	},
+
+	onGetPlayerStats : function(theStats){
+		console.log("ImpactDummy received player stats: ");
 	},
 
 };
