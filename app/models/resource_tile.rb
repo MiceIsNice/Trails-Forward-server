@@ -64,6 +64,10 @@ class ResourceTile < ActiveRecord::Base
     cover_type_sym = ResourceTile.cover_type_symbol(landcover_code)
     self.verbiage[:land_cover_type][cover_type_sym]
   end
+  
+  def self.owner_id
+    Megatile.find(@megatile_id).owner_id 
+  end
 
   def self.verbiage
     { :land_cover_type => {
@@ -228,6 +232,40 @@ class ResourceTile < ActiveRecord::Base
   
   def neighbors distance = 1
     self.world.resource_tiles.within_rectangle :x_min => self.x - distance, :x_max => self.x + distance, :y_min => self.y - distance, :y_max => self.y + distance
+  end
+
+  # CHANGE THIS TO DETERMINE WHO THE OWNER IS - 
+  #    RIGHT NOW IT JUST SAYS "none" ALWAYS 
+  def to_simple_tile
+   # the_owner_id = Megatile.find(self.megatile_id).owner_id
+    #the_owner = the_owner_id == null ? "none" : "owned"
+    return OpenStruct.new(:x => self.x, :y => self.y, :base_cover_type => self.base_cover_type,
+                           :marten_population => self.marten_population, :housing_type => self.housing_type,
+                           :small_tree_basal_area => self.small_tree_basal_area, 
+                           :large_tree_basal_area => self.large_tree_basal_area,
+                           :owner => "none")
+  end
+  
+  def to_str
+    return "id= #{@id}";
+  end
+  
+  api_accessible :resource_basics do |template|
+    template.add :x
+    template.add :y
+    template.add :base_cover_type
+    template.add lambda{|rt| case Megatile.find(rt.megatile_id).owner_id
+                               when null 
+                                 "none"
+                               when user.id 
+                                 "me" #I don't think I have the user id here
+                               else 
+                                 "other_player"
+                               end}, :as => :owner
+    template.add :marten_population
+    template.add :housing_type
+    template.add :small_tree_basal_area
+    template.add :large_tree_basal_area
   end
 
   api_accessible :resource_base do |template|

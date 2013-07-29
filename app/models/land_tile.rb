@@ -85,7 +85,6 @@ class LandTile < ResourceTile
     end
   end
 
-
   api_accessible :resource, :extend => :resource_base do |template|
     template.add :primary_use
     template.add :zoning_code

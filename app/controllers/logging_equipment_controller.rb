@@ -25,6 +25,10 @@ class LoggingEquipmentController < ApplicationController
   def show
     respond_with logging_equipment
   end
+  
+  def upgrades_for_player_type_and_world
+    return 
+  end
 
 
   def create
