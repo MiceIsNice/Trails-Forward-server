@@ -311,7 +311,6 @@ ig.module(
                         ig.log("Found a tile that isn't null: " + tile.x + ", " + tile.y);
                         switch(tile.base_cover_type) {
                             case "forest":
-                                landType = "grass";
                                 if (tile.large_tree_basal_area == 0) {
                                     tileFeature = "forest_tileset_light";
                                 }
@@ -320,19 +319,20 @@ ig.module(
                                 }
                                 break;
                             case "cultivated_crops":
-                                landType = "grass";
                                 break;
                             case "herbaceous":
-                                landType = "grass";
                                 break;
                             case "developed":
-                                landType = "grass";
-                                break;
-                            case "water":
-                                landType = "water";
                                 break;
                             default:
                                 break;
+                        }
+                        switch (tile.type) {
+                            case "LandTile":
+                                landType = "grass";
+                                break;
+                            default:
+                                landType = "water";
                         }
                         this.terrainMap.addTile(tile.x, tile.y, landType);
                         if (tileFeature) {
