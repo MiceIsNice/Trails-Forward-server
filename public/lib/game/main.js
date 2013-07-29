@@ -283,8 +283,8 @@ ig.module(
                 this.terrainMap = new CachedIsoMap(128, this.assetManager);
                 this.featureMap = new CachedIsoMap(128, this.assetManager);
 
-                  TFglobals.DATA_CONTROLLER.logInWithCookies();
-           //     TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
+           //       TFglobals.DATA_CONTROLLER.logInWithCookies();
+                TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
             },
 
             onLogin: function() {
@@ -294,7 +294,9 @@ ig.module(
 
             onGetWorldData: function() {
                 ig.log("Got world data.");
-                TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
+               // TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
+				var rect = {x_min : 0, x_max : 5, y_min : 0, y_max : 5};
+				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
             },
 
             onGetMapChunk: function(chunk) {
