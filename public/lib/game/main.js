@@ -308,7 +308,7 @@ ig.module(
                     tile = chunk[i].table;
                     if (tile) {
                         tileFeature = landType = undefined;
-                        ig.log("Found a tile that isn't null: " + tile.x + ", " + tile.y);
+                        //ig.log("Found a tile that isn't null: " + tile.x + ", " + tile.y);
                         switch(tile.base_cover_type) {
                             case "forest":
                                 if (tile.large_tree_basal_area == 0) {
@@ -338,7 +338,7 @@ ig.module(
                         if (tileFeature) {
                             this.featureMap.addTile(tile.x, tile.y, tileFeature);
                         }
-                        ig.log("Added tile at " + tile.x + ", " + tile.y);
+                        //ig.log("Added tile at " + tile.x + ", " + tile.y);
                     }
                 }
                 for (i = 0; i < this.terrainMap.data.length; i++) {
