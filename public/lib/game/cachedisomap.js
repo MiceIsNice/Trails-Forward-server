@@ -17,9 +17,9 @@ ig.module(
             maxLowResCanvases:32,
             maxMidResCanvases:16,
             maxHighResCanvases:8,
-            lowResZoomThreshold:0.0625,
-            midResZoomThreshold:0.25,
-            highResZoomThreshold:0.5,
+            lowResZoomThreshold:0.065,
+            midResZoomThreshold:0.59,
+            highResZoomThreshold:0.7,
             maxTilesPerUpdate:6, // The maximum number of HIGH-RES tiles to render to canvas caches per update
                                  // (Tiles at half high-res resolution are drawn at twice this rate)
 
@@ -125,10 +125,8 @@ ig.module(
                         case 8: xo = -1; yo = -1; break;
                         default: break;
                     }
-                    if (this.data[x+xo]) {
-                        if (this.data[x+xo][y+yo]) {
-                            list[i] = this.data[x+xo][y+yo];
-                        }
+                    if (this.getTile(x+xo, y+yo)) {
+                        list[i] = this.getTile(x+xo, y+yo);
                     }
                 }
                 return list;
@@ -298,9 +296,13 @@ ig.module(
              * @param sectionX Specify this if this method is being used for caching a section, it offsets renderX, or just use undefined
              * @param sectionY Specify this if this method is being used for caching a section, it offsets renderY, or just use undefined
              * @param resDivider The divisor to apply to the resolution (automatically adjusts renderX,Y accordinagly)
+             * @param tileX The isometric x coordinate of the tile being rendered. Only necessary for drawing subimages
+             * @param tileY The isometric y coordinate of the tile being rendered. Only necessary for drawing subimages
              * @private
              */
-            _renderTile: function(ctx, renderX, renderY, imageName, sectionX, sectionY, resDivider) {
+            _renderTile: function(ctx, renderX, renderY, imageName, sectionX, sectionY, resDivider, tileX, tileY) {
+                var image, sourceRect;
+
                 // If we're painting onto a section, we should use the section origin as our render origin
                 if (sectionX !== undefined) {
                     renderX -= sectionX * this.tilesize * this.sectionSize;
@@ -309,19 +311,104 @@ ig.module(
                     renderY -= sectionY * this.tilesize * this.sectionSize;
                 }
 
-                var image = this.assetManager.images[imageName];
-
+                image = this.assetManager.images[imageName];
 
                 if (image) {
                     if (ctx) {
-                        ctx.drawImage(image,
-                            0, 0,
-                            image.width, image.height,
-                            renderX / resDivider, renderY / resDivider,
-                            image.width / resDivider, image.height / resDivider);
-                        ig.Image.drawCount++;
+                        if (imageName instanceof Array) {
+                            imageName = imageName[0];
+                        }
+                        if (imageName.startsWith("forest_tileset")) {
+                            sourceRect = this.getForestTile(tileX, tileY);
+                            ig.log("tileX: " + tileX + ", tileY: " + tileY);
+                            if (sourceRect) {
+                                ig.log("sourceRect: " + sourceRect);
+                                ctx.drawImage(image,
+                                    sourceRect.x, sourceRect.y,
+                                    sourceRect.width, sourceRect.height,
+                                    renderX / resDivider, renderY / resDivider,
+                                    sourceRect.width / resDivider, sourceRect.height / resDivider);
+                                ig.Image.drawCount++;
+                            }
+                        }
+                        else {
+                            ctx.drawImage(image,
+                                0, 0,
+                                image.width, image.height,
+                                renderX / resDivider, renderY / resDivider,
+                                image.width / resDivider, image.height / resDivider);
+                            ig.Image.drawCount++;
+                        }
                     }
                 }
+            },
+
+            getForestTile: function(x, y) {
+                var megatile = this.getMegatile(x, y), shapeString = "_", i, index, width, height;
+                if (megatile[0] == null) {
+                    return null;
+                }
+                if (megatile[1] && this.containsForest(megatile[1])) {
+                    shapeString += "A";
+                }
+                if (megatile[2] && this.containsForest(megatile[2])) {
+                    shapeString += "B";
+                }
+                if (megatile[3] && this.containsForest(megatile[3])) {
+                    shapeString += "C";
+                }
+                if (megatile[4] && this.containsForest(megatile[4])) {
+                    shapeString += "D";
+                }
+                if (megatile[5] && this.containsForest(megatile[5])) {
+                    shapeString += "E";
+                }
+                if (megatile[6] && this.containsForest(megatile[6])) {
+                    shapeString += "F";
+                }
+                if (megatile[7] && this.containsForest(megatile[7])) {
+                    shapeString += "G";
+                }
+                if (megatile[8] && this.containsForest(megatile[8])) {
+                    shapeString += "H";
+                }
+                if (shapeString === "_") {
+                    shapeString = "_0";
+                }
+                index = ig.game.tileTypes.indexOf(shapeString);
+                ig.log(x + ", " + y + ": " + shapeString + "; " + index);
+                if (index != -1) {
+                    x = index % 5;
+                    y = (index / 5) | 0;
+                    width = height = this.tilesize * 2;
+                    return new Rect(x * width, y * width, width, height);
+                }
+                else {
+                    // try without corners
+                    shapeString = shapeString.replace(/[BDFH]/g, "");
+                    if (shapeString === "_") {
+                        shapeString = "_0";
+                    }
+                    ig.log("Fixed shapeString " + shapeString);
+                    index = ig.game.tileTypes.indexOf(shapeString);
+                    if (index != -1) {
+                        x = index % 5;
+                        y = (index / 5) | 0;
+                        width = height = this.tilesize * 2;
+                        return new Rect(x * width, y * width, width, height);
+                    }
+                }
+                return null;
+            },
+
+            containsForest: function(imageNames) {
+                var i;
+                for (i = 0; i < imageNames.length; i++) {
+                    if (imageNames[i].startsWith("forest_tileset")) {
+                        return true;
+                    }
+                }
+                return false;
             },
 
             /**
@@ -554,7 +641,9 @@ ig.module(
                                 this._tilesLeftToRender[i].renderY,
                                 this._tilesLeftToRender[i].imageNames[j],
                                 sectionX, sectionY,
-                                resDivider
+                                resDivider,
+                                this._tilesLeftToRender[i].isoX,
+                                this._tilesLeftToRender[i].isoY
                             );
                         }
                     }
@@ -666,12 +755,15 @@ ig.module(
              * @returns {*} An object (with renderX, renderY, and imageNames) of the tile on the map located at the
              * render (pixel) coordinates, or undefined if there is no data at that location on this map.
              */
-            getTileAtPx: function(realX, realY) {
+            getTileAtPx: function(realX, realY, fromMouse) {
                 var isoX = Math.floor((realX / 2 + realY) / this.tilesize);
                 var isoY = Math.floor((-realX / 2 + realY) / this.tilesize);
                 var renderX = (isoX - isoY) * this.tilesize;
                 var renderY = (isoX + isoY) / 2 * this.tilesize;
-                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX - 1, isoY:isoY};
+                if (fromMouse) {
+                    isoX -= 1;
+                }
+                return {renderX:renderX, renderY:renderY, imageNames:this.getTile(isoX, isoY), isoX:isoX, isoY:isoY};
             },
 
             /**

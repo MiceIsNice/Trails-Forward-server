@@ -3,6 +3,67 @@ function TileFactory() {
 
 }
 
+TileFactory.prototype.tileTypes = [
+    "_0",
+    "_A",
+    "_C",
+    "_E",
+    "_G",
+
+    "_AC",
+    "_AE",
+    "_AG",
+    "_CE",
+    "_CG",
+    "_EG",
+
+    "_ABC",
+    "_AGH",
+    "_CDE",
+    "_EFG",
+
+    "_ACE",
+    "_AEG",
+    "_ACG",
+    "_CEG",
+
+    "_ABCE",
+    "_ACEG",
+    "_ACGH",
+    "_AEFG",
+    "_CDEG",
+
+    "_ABCG",
+    "_ACDE",
+    "_AEGH",
+    "_CEFG",
+
+    "_ABCDE",
+    "_ABCGH",
+    "_AEFGH",
+    "_CDEFG",
+
+    "_ABCEG",
+    "_ACDEG",
+    "_ACEFG",
+    "_ACEGH",
+
+    "_ABCDEG",
+    "_ABCEGH",
+    "_ACDEFG",
+    "_ACEFGH",
+
+    "_ABCEFG",
+    "_ACDEGH",
+
+    "_ABCDEFG",
+    "_ABCDEGH",
+    "_ABCEFGH",
+    "_ACDEFGH",
+
+    "_ABCDEFGH"
+];
+
 /**
  * Starts the construction of a tile and returns it.
  * @param {String} name
@@ -33,14 +94,26 @@ TileFactory.prototype.startTile = function(name, tilesize) {
  * @param {{name: String, url: String, origin: {x: Number, y: Number}, extents: {width: Number, height: Number}}} piece
  * @param {{name: String, tilesize: Number, canvas: HTMLElement, context: CanvasRenderingContext2D, contents: Array}} tile
  * @param {Number} scale
- * @param (Number} shouldRound Optional. Set to require position to be rounded to some fraction of the tilesize
+ * @param {Number} roundToFraction Optional. Set to require position to be rounded to some fraction of the tilesize
+ * @param {Number} section The section number. 0-8.
  */
-TileFactory.prototype.getUnoccupiedSpace = function(piece, tile, scale, roundToFraction) {
-    var rect, i, content, count = 0, extents = piece.extents;
+TileFactory.prototype.getUnoccupiedSpace = function(piece, tile, scale, roundToFraction, section) {
+    var rect, i, content, count = 0, extents = piece.extents, sectionFactorX, sectionFactorY;
     rect = new Rect(0, 0, extents.width * scale, extents.height * scale);
+    switch (section) {
+        case 0: sectionFactorX = 1; sectionFactorY = 1; break;
+        case 1: sectionFactorX = 1; sectionFactorY = 0; break;
+        case 2: sectionFactorX = 2; sectionFactorY = 0; break;
+        case 3: sectionFactorX = 2; sectionFactorY = 1; break;
+        case 4: sectionFactorX = 2; sectionFactorY = 2; break;
+        case 5: sectionFactorX = 1; sectionFactorY = 2; break;
+        case 6: sectionFactorX = 0; sectionFactorY = 2; break;
+        case 7: sectionFactorX = 0; sectionFactorY = 1; break;
+        case 8: sectionFactorX = 0; sectionFactorY = 0; break;
+    }
     while (count < 200) {
-        rect.x = Math.random() * tile.tilesize - rect.width / 2;
-        rect.y = Math.random() * tile.tilesize - rect.height / 2;
+        rect.x = Math.random() * tile.tilesize / 3 + (tile.tilesize / 3 * sectionFactorX) - rect.width / 2;
+        rect.y = Math.random() * tile.tilesize / 3 + (tile.tilesize / 3 * sectionFactorY) - rect.height / 2;
         if (roundToFraction) {
             rect.x = tile.tilesize / roundToFraction * (Math.floor(Math.random() * roundToFraction - 1) + 1) - rect.width / 2;
             rect.y = tile.tilesize / roundToFraction * (Math.floor(Math.random() * roundToFraction - 1) + 1) - rect.height / 2;
@@ -73,6 +146,22 @@ TileFactory.prototype.getUnoccupiedSpace = function(piece, tile, scale, roundToF
     console.log("getUnoccupiedSpace() failed: No suitable location found.");
     return null;
 };
+
+TileFactory.prototype.ignoreSectionBecauseTileType = function(section, tileType) {
+    var letter;
+    switch (section) {
+        case 0: letter = "_"; break;
+        case 1: letter = "A"; break;
+        case 2: letter = "B"; break;
+        case 3: letter = "C"; break;
+        case 4: letter = "D"; break;
+        case 5: letter = "E"; break;
+        case 6: letter = "F"; break;
+        case 7: letter = "G"; break;
+        case 8: letter = "H"; break;
+    }
+    return tileType.indexOf(letter) === -1;
+}
 
 /**
  *

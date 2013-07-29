@@ -45,21 +45,33 @@ ig.module(
                     var realX, realY, miniX, miniY,
                         miniToFullRatio = this.getMinimapToMapSizeRatio(),
                         ctx = this.canvas.getContext('2d'),
-                        m, i, j,
-                        tileIndex;
+                        m, i, j, k,
+                        imageNames, imageNamesSansShorelines = [], name;
                     for (m = 0; m < this.referenceMaps.length; m++) {
                         if (this.referenceMaps[m].data) {
+                            ig.log("minimap: " + this.referenceMaps[m].data.length);
                             for (i = 0; i < this.referenceMaps[m].data.length; i++) {
+                                ig.log("minimap: " + this.referenceMaps[m].data[i].length);
                                 for (j = 0; j < this.referenceMaps[m].data[i].length; j++) {
                                     realX = (i - j) * this.referenceMaps[m].tilesize;
                                     realY = (i + j) / 2 * this.referenceMaps[m].tilesize;
                                     miniX = realX + (this.bounds.width / 2 / miniToFullRatio);
                                     miniY = realY;
 
-                                    tileIndex = this.referenceMaps[m].data[i][j];
-                                    if (tileIndex !== undefined) {
+                                    imageNames = this.referenceMaps[m].data[i][j];
+                                    ig.log(imageNames);
+                                    if (imageNames) {
+                                        imageNamesSansShorelines = [];
+                                        for (k = 0; k < imageNames.length; k++) {
+                                            name = imageNames[k];
+                                            if (!(name.substring(0, "shoreline".length) === "shoreline")) {
+                                                imageNamesSansShorelines.push(name);
+                                            }
+                                        }
+                                        ig.log("Sans shorelines loading: ");
+                                        ig.log(imageNamesSansShorelines);
                                         this.referenceMaps[m]._renderTile(ctx,
-                                            miniX, miniY, tileIndex, undefined, undefined, 1 / miniToFullRatio);
+                                            miniX, miniY, imageNamesSansShorelines, undefined, undefined, 1 / miniToFullRatio);
                                     }
                                 }
                             }
@@ -133,9 +145,12 @@ ig.module(
             getMinimapToMapSizeRatio: function() {
                 if (this.referenceMaps) { // return this minimap's width over the reference map's width
                     if (this.referenceMaps[0]) {
-                        return this.bounds.width / (this.referenceMaps[0]._boundsMaxX
-                            - this.referenceMaps[0]._boundsMinX);
+                        if (Math.abs(this.referenceMaps[0]._boundsMaxX) > Math.abs(this.referenceMaps[0]._boundsMinX)) {
+                            return this.bounds.width / (2 * this.referenceMaps[0]._boundsMaxX);
+                        }
+                        return this.bounds.width / (2 * Math.abs(this.referenceMaps[0]._boundsMinX));
                     }
+                    return null;
                 } else {
                     return null;
                 }

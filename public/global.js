@@ -7,3 +7,9 @@
 var TFglobals = new TrailsForwardGlobals();
 
 TFglobals.initialize(new TrailsForwardDataController(), new TrailsForwardHelperFunctions(), ig.game);
+
+if (typeof String.prototype.startsWith != 'function') {
+    String.prototype.startsWith = function (str){
+        return this.slice(0, str.length) == str;
+    };
+}

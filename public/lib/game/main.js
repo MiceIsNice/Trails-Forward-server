@@ -39,6 +39,68 @@ ig.module(
             acceptingLoad:false,
             retryMapLoad:false,
 
+            // Forest tileTypes
+            tileTypes:[
+                "_0",
+                "_A",
+                "_C",
+                "_E",
+                "_G",
+
+                "_AC",
+                "_AE",
+                "_AG",
+                "_CE",
+                "_CG",
+                "_EG",
+
+                "_ABC",
+                "_AGH",
+                "_CDE",
+                "_EFG",
+
+                "_ACE",
+                "_AEG",
+                "_ACG",
+                "_CEG",
+
+                "_ABCE",
+                "_ACEG",
+                "_ACGH",
+                "_AEFG",
+                "_CDEG",
+
+                "_ABCG",
+                "_ACDE",
+                "_AEGH",
+                "_CEFG",
+
+                "_ABCDE",
+                "_ABCGH",
+                "_AEFGH",
+                "_CDEFG",
+
+                "_ABCEG",
+                "_ACDEG",
+                "_ACEFG",
+                "_ACEGH",
+
+                "_ABCDEG",
+                "_ABCEGH",
+                "_ACDEFG",
+                "_ACEFGH",
+
+                "_ABCEFG",
+                "_ACDEGH",
+
+                "_ABCDEFG",
+                "_ABCDEGH",
+                "_ABCEFGH",
+                "_ACDEFGH",
+
+                "_ABCDEFGH"
+            ],
+
             init: function() {
                 // This injection is a part of the modified scaling implementation of Trails Forward's Impact framework
                 ig.System.inject({
@@ -173,36 +235,48 @@ ig.module(
                 actionsBox.addChild(actionsText);
 
                 var contractsButton, contractsButtonText;
-                contractsButton = new UIElement(new Rect(
-                    20,
-                    30,
-                    ig.system.width / 4 - 20,
-                    50));
-                contractsButton.setImage("uibox");
-                contractsButton.enableNinePatch(5, 11, 5, 10);
-
                 contractsButton = new Button(new Rect(
                         20,
                         30,
                         ig.system.width / 4 - 42,
-                        50),
+                        30),
                     "button",
                     "button_hover",
                     "button_click",
                     function() {
-                        // TODO: Implement
+                        self.showContractsWindow();
                     },
                     undefined,
                     [3, 75, 4, 33]
                 );
                 actionsBox.addChild(contractsButton);
-                contractsButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 16, 1, 1));
+                contractsButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 7, 1, 1));
                 contractsButtonText.enableText(function () {
                     return "Contracts";
                 }, this.font, ig.Font.ALIGN.CENTER);
                 contractsButton.addChild(contractsButtonText);
 
-                var upgradesBox, upgradesText;
+                var upgradesButton, upgradesButtonText;
+                upgradesButton = new Button(new Rect(
+                        20,
+                        60,
+                        ig.system.width / 4 - 42,
+                        30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.showContractsWindow();
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                actionsBox.addChild(upgradesButton);
+                upgradesButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 7, 1, 1));
+                upgradesButtonText.enableText(function () {
+                    return "Upgrades";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                upgradesButton.addChild(upgradesButtonText);
             },
 
             constructMap: function() {
@@ -213,17 +287,17 @@ ig.module(
             },
 
             onLogin: function() {
-                console.log("Logged in.");
+                ig.log("Logged in.");
                 TFglobals.SERVER_API.getWorldDataForWorldId(3); // TODO: Hard-coded for now, fix later
             },
 
             onGetWorldData: function() {
-                console.log("Got world data.");
+                ig.log("Got world data.");
                 TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
             },
 
             onGetMapChunk: function(chunk) {
-                console.log("Got map chunk.");
+                ig.log("Got map chunk.");
                 var i, j, k, megatile, tile, shoreTypes;
                 for (i = 0; i < chunk.length; i++) {
                     ig.log("Reading index " + i + " of chunk");
@@ -238,7 +312,8 @@ ig.module(
                             //    this.map.addTile(tile.x, tile.y, "");
                             //}
                             if (tile.tree_density >= 0.75) {
-                                this.featureMap.addTile(tile.x, tile.y, "trees3A_75_" + Math.floor(Math.random() * 3));
+                                this.featureMap.addTile(tile.x, tile.y, "forest_tileset_heavy");
+                                //this.featureMap.addTile(tile.x, tile.y, "trees_10_0");
                             }
                             /*else if (tile.tree_density >= 0.50) {
                              this.map.addTile(tile.x, tile.y, "trees_50_" + Math.floor(Math.random() * 3));
@@ -251,7 +326,6 @@ ig.module(
                              }*/
                         }
                     }
-                    console.log(this.terrainMap.data);
                 }
                 for (i = 0; i < this.terrainMap.data.length; i++) {
                     if (this.terrainMap.data[i]) {
@@ -270,7 +344,7 @@ ig.module(
             },
 
             onGetUserPlayers: function(players) {
-                console.log("Players gotten: " + players[0]);
+                ig.log("Players gotten: " + players[0]);
             },
 
             /**
@@ -317,7 +391,8 @@ ig.module(
                         var viewRect = this.getViewRect();
                         var tileToSelect = this.terrainMap.getTileAtPx(
                             viewRect.x + mouseX / ig.system.imageZoom,
-                            viewRect.y + mouseY / ig.system.imageZoom);
+                            viewRect.y + mouseY / ig.system.imageZoom,
+                            true);
                         this.selectTile(tileToSelect.isoX, tileToSelect.isoY);
                     }
                 }
@@ -482,7 +557,9 @@ ig.module(
                 }
                 this.selectedTile = [x, y];
                 ig.log("Selected tile: " + x + ", " + y);
-                ig.log("The currently selected tile has shore type: " + this.getShoreTypes(x, y));
+                ig.log("Tile has the following shape with respect to trees: ");
+                ig.log(this.featureMap.getForestTile(x, y));
+                ig.log(this.terrainMap.getTile(x, y));
             },
 
             /**
@@ -565,6 +642,48 @@ ig.module(
             },
 
             /**
+             * Displays the window for contracts.
+             */
+            showContractsWindow: function() {
+                var self = this;
+                // Making sure the confirm window exists
+                if (!this.contractsWindow) {
+                    this.contractsWindow = new UIElement(new Rect(
+                        ig.system.width / 2 - 200,
+                        ig.system.height / 2 - 100,
+                        400,
+                        200
+                    ));
+                    this.contractsWindow.setImage("uibox");
+                    this.contractsWindow.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.contractsWindow);
+                }
+                this.contractsWindow.hide = false;
+
+                // Text in the contracts window
+                if (!this.contractText) {
+                    this.contractText = new UIElement(new Rect(200, 50, 1, 1));
+                    this.contractsWindow.addChild(this.contractText);
+                }
+                this.contractText.enableText(function() { return "bluh" }, this.font, ig.Font.ALIGN.CENTER);
+
+                // A contract
+                if (!this.contract) {
+                    this.contract = new Button(new Rect(10, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.contractsWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.contractsWindow.addChild(this.contract);
+                }
+            },
+
+            /**
              * Called when the player has confirmed they want to purchase the tile at the specified location.
              * @param args A list containing [x, y]
              */
@@ -618,7 +737,7 @@ ig.module(
                     }
                     else if (A && C && !E && !G) {
                         shoreTypes.push("K");
-                        if (B) {
+                        if (F) {
                             shoreTypes.push("B");
                         }
                     }
@@ -631,16 +750,16 @@ ig.module(
                     }
                     else if (A && !C && !E && G) {
                         shoreTypes.push("J");
-                        if (H) {
+                        if (D) {
                             shoreTypes.push("H");
                         }
                     }
                     else if (A && !C && !E && !G) {
                         shoreTypes.push("E");
-                        if (H) {
+                        if (D) {
                             shoreTypes.push("H");
                         }
-                        if (B) {
+                        if (F) {
                             shoreTypes.push("B");
                         }
                     }
@@ -649,7 +768,7 @@ ig.module(
                     }
                     else if (!A && C && E && !G) {
                         shoreTypes.push("L");
-                        if (D) {
+                        if (H) {
                             shoreTypes.push("D");
                         }
                     }
@@ -659,34 +778,48 @@ ig.module(
                     }
                     else if (!A && C && !E && !G) {
                         shoreTypes.push("G");
-                        if (B) {
+                        if (F) {
                             shoreTypes.push("B");
                         }
-                        if (D) {
+                        if (H) {
                             shoreTypes.push("D");
                         }
                     }
                     else if (!A && !C && E && G) {
                         shoreTypes.push("I");
-                        if (F) {
+                        if (B) {
                             shoreTypes.push("F");
                         }
                     }
                     else if (!A && !C && E && !G) {
                         shoreTypes.push("A");
-                        if (F) {
+                        if (B) {
                             shoreTypes.push("F");
                         }
-                        if (D) {
+                        if (H) {
                             shoreTypes.push("D");
                         }
                     }
                     else if (!A && !C && !E && G) {
                         shoreTypes.push("C");
-                        if (F) {
+                        if (B) {
                             shoreTypes.push("F");
                         }
+                        if (D) {
+                            shoreTypes.push("H");
+                        }
+                    }
+                    else if (!A && !C && !E && !G) {
+                        if (B) {
+                            shoreTypes.push("F");
+                        }
+                        if (F) {
+                            shoreTypes.push("B");
+                        }
                         if (H) {
+                            shoreTypes.push("D");
+                        }
+                        if (D) {
                             shoreTypes.push("H");
                         }
                     }

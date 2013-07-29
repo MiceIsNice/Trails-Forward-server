@@ -62,7 +62,6 @@ ig.module(
                 }
             },
 
-
             /**
              * Asks the server for a list of {url, type, name} objects to load.
              * @private
@@ -82,27 +81,8 @@ ig.module(
                 return [
                     "media/water.png",
                     "media/grass.png",
+                    "media/grass2.png",
                     "media/trees_10_0.png",
-                    "media/trees_10_1.png",
-                    "media/trees_10_2.png",
-                    "media/trees_25_0.png",
-                    "media/trees_25_1.png",
-                    "media/trees_25_2.png",
-                    "media/trees_50_0.png",
-                    "media/trees_50_1.png",
-                    "media/trees_50_2.png",
-                    "media/trees_75_0.png",
-                    "media/trees_75_1.png",
-                    "media/trees_75_2.png",
-                    "media/trees1B_75_0.png",
-                    "media/trees1B_75_1.png",
-                    "media/trees1B_75_2.png",
-                    "media/trees2A_75_0.png",
-                    "media/trees2A_75_1.png",
-                    "media/trees2A_75_2.png",
-                    "media/trees3A_75_0.png",
-                    "media/trees3A_75_1.png",
-                    "media/trees3A_75_2.png",
                     "media/uibox.png",
                     "media/button.png",
                     "media/button_hover.png",
@@ -124,7 +104,9 @@ ig.module(
                     "media/shoreline_O.png",
                     "media/shoreline_P.png",
                     "media/shoreline_Q.png",
-                    "media/selection_highlight.png"
+                    "media/selection_highlight.png",
+                    "media/forest_tileset_heavy.png",
+                    "media/forest_tileset_light.png"
                 ];
             }
 
