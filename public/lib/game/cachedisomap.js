@@ -80,8 +80,10 @@ ig.module(
              * @returns {Array}
              */
             getTile: function (x, y) {
-                if (this.data[x]) {
-                    return this.data[x][y];
+                if (this.data) {
+                    if (this.data[x]) {
+                        return this.data[x][y];
+                    }
                 }
                 return null;
             },
