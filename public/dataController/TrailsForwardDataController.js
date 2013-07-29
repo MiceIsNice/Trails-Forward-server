@@ -197,7 +197,7 @@ TrailsForwardDataController.prototype = {
 	onGetTilesInRect : function(theTiles){
 		if(TFglobals.FULL_DEBUGGING == true){
 			console.log("DC.onGetTilesInRect received: ")
-			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theTiles);
+			//TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theTiles);
 		}
 		TFglobals.IMPACT.onGetMapChunk(theTiles);	
 	},
