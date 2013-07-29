@@ -81,7 +81,6 @@ ig.module(
                 return [
                     "media/water.png",
                     "media/grass.png",
-                    "media/grass2.png",
                     "media/trees_10_0.png",
                     "media/uibox.png",
                     "media/button.png",
