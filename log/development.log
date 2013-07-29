@@ -897,3 +897,19 @@ The error occurred while evaluating nil.[]):
 ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/logging_equipment.json"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/log_in.html"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
+  
+
