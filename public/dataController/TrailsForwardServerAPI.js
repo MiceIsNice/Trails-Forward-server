@@ -21,8 +21,8 @@ function TrailsForwardServerAPI(){
 	this.MEGATILES = "/megatiles";
 	this.RESOURCE_TILES = "/resource_tiles";
 	this.AUTH_TOKEN = "auth_token";
-	this.AVAILABLE_CONTRACTS = "/available_contracts";
-	this.AVAILABLE_EQUIPMENT = "/logging_equipment"; // this will change to something like 'equipment'
+	this.AVAILABLE_CONTRACTS = "/contract_templates";
+	this.AVAILABLE_EQUIPMENT = "/logging_equipment_templates"; // this will change to something like 'equipment'
 													 // and the server will filter by player type
 	this.ID = "id";
 	this.OPENING_BRACKET = "&#91";
@@ -77,56 +77,6 @@ TrailsForwardServerAPI.prototype = {
 			console.log("S_API.getUserPlayers: called without a valid this._userId");
 	},
 
-/**
-	 // We currently have to ask for one megatile at a time, a 3 x 3 block of resource tiles
-	loadMapSectionWithXYOriginAndLengthWidth : function(x, y, length, width){
-		var total_blocks = length * width;
-		this.blocks_to_get = total_blocks;
-		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
-		
-		//
-		total_blocks = 256;
-		this.blocks_to_get = 256;
-		
-		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.loadMapSectionWithXYOriginAndLengthWidth: asking for " + 
-						total_blocks + "blocks from server");
-						
-		for(var i = 1; i <= total_blocks; i++)
-			this.makeGetRequest(this.buildMegatileRSForWorldIdAndId(world_id, i), this.authString(), TFglobals.SERVER_API.mapStagingArea);
-	},
-	
-	mapStagingArea : function(theData){
-		TFglobals.SERVER_API.chunks_to_get--;
-		TFglobals.DATA_CONTROLLER.storeTiles(theData);
-		if(TFglobals.FULL_DEBUGGING == true) console.log("mapStagingArea received megatile " + theData.megatile.id);
-		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theData);
-		if(TFglobals.SERVER_API.chunks_to_get == 0)
-			TFglobals.DATA_CONTROLLER.onGetMapChunk(TFglobals.SERVER_API.starting_chunk);
-	},
-	
-	getMapChunkWithId : function(anId){
-		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
-		//var total_chunks = TFglobals.CHUNK_WIDTH * TFglobals.CHUNK_WIDTH;
-        var total_chunks = 255;
-		this.starting_chunk = anId;
-		this.chunks_to_get = total_chunks;
-		var lastChunk = anId + this.chunks_to_get - 1;
-		
-		console.log("making a server request for blocks " + anId + " to " + lastChunk);
-		for(var i = anId; i < anId + total_chunks; i++)
-
-		this.makeGetRequest(this.buildMegatileRSForWorldIdAndId(world_id, anId), this.authString(), TFglobals.SERVER_API.mapStagingArea);	
-	},
-	
-	getMapChunksWithIds : function(someIds){
-		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
-		var rs = this.buildMegatileRSForWorldIdAndId(world_id, 1);
-		var qs = this.authString() + "&" + this.buildQueryStringArrayWithIdentifierAndValues("ids", someIds);
-		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.getMapChunksWithIds: making get request");
-		this.makeGetRequest(rs, qs, TFglobals.DATA_CONTROLLER.onGetMapChunks);
-	},
-**/
-
 	getTilesInRect : function(rect){
 		var world_id = TFglobals.DATA_CONTROLLER.gameDataCache.id;
 		var resourceString = this.buildTilesInRectRSWithWorldIdAndRect(world_id, rect);
@@ -134,7 +84,7 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 	getAvailableContractsForWorldIdAndPlayerId : function(worldId, playerId){
-		var resourceString = this.buildAvailableContractsRSForWorldIdAndPlayerId(worldId, playerId);
+		var resourceString = this.buildAvailableContractTemplatesRSForWorldIdAndPlayerId(worldId, playerId);
 		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.getAvailableContractsForWorldIdAndPlayerId asking for contracts for world, player: " 
 															+ worldId + ", " + playerId);
 		this.makeGetRequest(resourceString, this.authString(), TFglobals.DATA_CONTROLLER.onGetAvailableContracts);
@@ -277,9 +227,9 @@ TrailsForwardServerAPI.prototype = {
 		return resourceString;
 	},
  
- 	buildAvailableContractsRSForWorldIdAndPlayerId : function(world_id, player_id){
-		var resourceString = this.resourceStringForWorldIdAndPlayerId(world_id, player_id) + this.AVAILABLE_CONTRACTS + this.JSON;
-		
+ 	buildAvailableContractTemplatesRSForWorldIdAndPlayerId : function(world_id, player_id){
+		//var resourceString = this.resourceStringForWorldIdAndPlayerId(world_id, player_id) + this.AVAILABLE_CONTRACTS + this.JSON;
+		var resourceString = this.AVAILABLE_CONTRACTS + this.JSON;
 		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.buildUsersPlayersRSForPlayerId made: " + resourceString);
 		return resourceString;
  	},

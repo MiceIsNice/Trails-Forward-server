@@ -140,7 +140,7 @@ ImpactDummy.prototype = {
 			element.setAttribute("class", "contractChoice");
 			theForm.appendChild(element);
 			
-			theForm.innerHTML += " " + theContracts[i].name + " " + theContracts[i].points + "<br/>"
+			theForm.innerHTML += " " + theContracts[i].contract_template.codename + ", fee: $" + theContracts[i].contract_template.dollars + "<br/>"
 		}
 		
 		theForm.innerHTML += "<br/>";

@@ -54,30 +54,6 @@ TrailsForwardDataController.prototype = {
 		}
 	},
 	
-	/** CURRENTLY USING THIS WITH THE EXISTING IMPACT INTERFACE **/
-/*
-	getMapChunkWithStartId : function(anId){
-		this.serverAPI.getMapChunksWithIds([1,2,3,4,5,6,7,8]);
-		//this.getMapChunkWithId(anId);
-	},
-	
-	getMapChunksWithIds : function(someIds){
-		someIds.map(this.getMapChunkWithId);
-	},
-	
-	getMapChunkWithId : function(anId){
-	
-		if(TFglobals.DATA_CONTROLLER.gameDataCache.chunkIsFresh(anId)){
-			if(TFglobals.FULL_DEBUGGING == true) console.log("DC.getMapChunkWithId: cached data is fresh");	
-			TFglobals.IMPACT.onGetMapChunk(TFglobals.DATA_CONTROLLER.gameDataCache.getMapChunkWithId(anId));
-		}
-		else {
-	
-			if(TFglobals.FULL_DEBUGGING == true) console.log("DC.getTileBlockWithStartId: calling serverAPI.getMapChunkWithId for chunk id: " + anId);
-			TFglobals.DATA_CONTROLLER.serverAPI.getMapChunkWithId(anId);
-		} 
-	},
-*/
 	getTilesInRect : function (rect){
 		if(TFglobals.FULL_DEBUGGING == true) console.log("DC.getTilesInRect: calling serverAPI.getTilesInRect");
 		this.serverAPI.getTilesInRect(rect);
@@ -167,32 +143,6 @@ TrailsForwardDataController.prototype = {
         if (TFglobals.FULL_DEBUGGING) console.log("Done initializing map, calling Impact onGetWorldData");
 		TFglobals.IMPACT.onGetWorldData(theData);
 	},
-
-
-/**	
-	onGetMapChunk : function(chunkId){
-		var theChunk = this.gameDataCache.getMapChunkWithId(chunkId);
-
-			//THIS IS COMING BACK EMPTY.  NEXT: LOOK AT HOW THE TILE STAGING AREA.  FIGURE OUT A 
-			//	WAY TO STAGE MULTIPLE CHUNKS, SEND EACH TO IMPACT WHEN DONE (AND STORE), AND 
-			//	TO ASK FOR TILES NOT RECEIVED (OR SHOULD THAT BE ON IMPACT'S SIDE OF THINGS?)
-	
-		console.log("I believe I have a valid chunk: ");
-		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theChunk);
-		this.gameDataCache.chunkQueue.push(chunkId);
-		TFglobals.IMPACT.onGetMapChunk(theChunk);
-	},
-	
-	onGetMapChunks : function(theChunks){
-		if(TFglobals.FULL_DEBUGGING == true){
-			console.log("DC.onGetMapChunks: got chunks:");
-			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theChunks);	
-		}
-		var result = new Array();
-		result.push(theChunks.megatile);
-		TFglobals.IMPACT.onGetMapChunk(result);
-	},
-**/
 
 	onGetTilesInRect : function(theTiles){
 		if(TFglobals.FULL_DEBUGGING == true){

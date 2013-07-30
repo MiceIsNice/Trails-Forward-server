@@ -913,3 +913,36 @@ ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
 ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
   
 
+
+ActionView::Template::Error (The single-table inheritance mechanism failed to locate the subclass: 'company'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite Company.inheritance_column to use another column for that information.):
+    6:   </div>
+    7: 
+    8:   <div class="form-inputs">
+    9:     <%= f.input :company_id, :collection => Company.all, :label_method => :codename %>
+    10:     <%= f.input :codename %>
+    11:     <%= f.input :name %>
+    12:     <%= f.input :role, :collection => ContractTemplate::Possible_Roles %>
+  app/views/contract_templates/_form.html.erb:9:in `block in _app_views_contract_templates__form_html_erb__2605041567502733503_70244384958620'
+  app/views/contract_templates/_form.html.erb:1:in `_app_views_contract_templates__form_html_erb__2605041567502733503_70244384958620'
+  app/views/contract_templates/new.html.erb:6:in `_app_views_contract_templates_new_html_erb__2846608605349921469_70244385107520'
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts/new.html"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts_templates"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/contract_templates.json"):
+  
+
