@@ -154,21 +154,59 @@ ImpactDummy.prototype = {
 		
 		document.getElementById("playerChoiceDiv").style.display = "inline";
 		
-		console.log("ImpactDummy received contracts: ");
-		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theContracts);
+		//console.log("ImpactDummy received contracts: ");
+		//TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theContracts);
 	},
 	
 	onGetAvailableUpgradesForPlayer : function(theUpgrades){
-		console.log("ImpactDummy received upgrades: ");
-		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theUpgrades);		
+		//console.log("ImpactDummy received upgrades: ");
+		//TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theUpgrades);	
+		
+		
+		var messageP = document.getElementById("message");
+		messageP.innerHTML = "Here are your available upgrades:<br/>";
+		
+		var element;
+		var theForm = document.getElementById("playerForm");
+		
+		theForm.innerHTML = "";
+		
+		for(var i = 0; i < theUpgrades.length; i++){
+			element = document.createElement("input");
+			element.value = theUpgrades[i].id;
+			element.setAttribute("type", "radio");
+			element.setAttribute("class", "contractChoice");
+			element.setAttribute("value", theUpgrades[i].logging_equipment_template.id);
+			theForm.appendChild(element);
+			
+			theForm.innerHTML += " " + theUpgrades[i].logging_equipment_template.name + ", cost: $" + theUpgrades[i].logging_equipment_template.initial_cost_max + "<br/>"
+		}
+		
+		theForm.innerHTML += "<br/>";
+		
+		element = document.createElement("input");
+		element.setAttribute("type", "submit");
+		element.setAttribute("value", "Purchase upgrade");
+		element.setAttribute("id", "purchaseUpgrade");
+	    element.addEventListener("click", tester.tryToPurchaseUpgrade);
+		theForm.appendChild(element);
+		
+		document.getElementById("playerChoiceDiv").style.display = "inline";
 	},
 	
 	onAttemptToPurchaseTile : function(theResult){
 		console.log("ImpactDummy received tile purchase attempt: ");	
 	},
 	
-	onAttemptToPurchaseUpgrade : function(theResult){
-		console.log("ImpactDummy received upgrade purchase attempt: ");
+	onAttemptToPurchaseUpgradeResponse : function(theResult){
+		if(theResult.status == TFglobals.HELPER_FUNCTIONS.FAILURE){
+			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: failure buying equipment.  Message is: " + theResult.message);
+		}
+		else if(theResult.status == TFglobals.HELPER_FUNCTIONS.FAILURE){
+			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received upgrade purchase attempt: " + );
+		}
+		else
+			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received bad status code: " + theResult.status);
 	},
 	
 	onRequestSurveyForTile : function(theResult){

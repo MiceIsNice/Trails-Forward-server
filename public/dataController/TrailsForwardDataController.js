@@ -92,8 +92,8 @@ TrailsForwardDataController.prototype = {
 		}
 	},
 	
-	attemptToPurchaseUpgradeWithName : function(upgradeName){
-		//this.serverAPI.attemptToPurchaseUpgradeWithName(upgradeName)
+	attemptToPurchaseUpgradeWithId : function(equipmentId){
+		this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipmentId);
 	},
 	
 	attemptToPurchaseTile : function(x, y){
@@ -174,23 +174,37 @@ TrailsForwardDataController.prototype = {
 	
 	onAttemptToPurchaseTile : function(theResult){
 		if(TFglobals.FULL_DEBUGGING == true){
-			console.log("onAttemptToPurchaseTile got: ");
+			console.log("DC.onAttemptToPurchaseTile got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
 		}
 		TFglobals.IMPACT.onAttemptToPurchaseTile(theResult);
 	},
 	
-	onAttemptToPurchaseUpgrade : function(theResult){
+	onAttemptToPurchaseUpgradeSuccess : function(theResult){
 		if(TFglobals.FULL_DEBUGGING == true){
-			console.log("onAttemptToPurchaseUpgrade got: ");
+			console.log("DC.onAttemptToPurchaseUpgradeResponse got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
 		}
-		TFglobals.IMPACT.onAttemptToPurchaseUpgrade(theResult);
+		var response = {};
+		if(theResult.message){
+			response.status = TFglobals.HELPER_FUNCTIONS.FAILURE;
+			response.message = theResult.message;	
+		}
+		else{
+			response.status = TFglobals.HELPER_FUNCTIONS.SUCCESS;
+			response.message = "successfully bought a " + theResult.name;
+		}
+		TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(theResult);
+	},
+	
+	onAttemptToPurchaseUpgradeFailure : function(theResult){
+		console.log("purchase failed with error ");
+		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
 	},
 	
 	onRequestSurveyForTile : function(theResult){
 		if(TFglobals.FULL_DEBUGGING == true){
-			console.log("onRequestSurveyForTile got: ");
+			console.log("DC.onRequestSurveyForTile got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
 		}
 		TFglobals.IMPACT.onRequestSurveyForTile(theResult);
@@ -199,7 +213,7 @@ TrailsForwardDataController.prototype = {
 	/* store stats in the cache and pass them to Impact */
 	onGetPlayerStats : function(theStats){
 		if(TFglobals.FULL_DEBUGGING == true){
-			console.log("onGetPlayerStats got: ");
+			console.log("DC.onGetPlayerStats got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theStats);
 		}
 		TFglobals.DATA_CONTROLLER.validPlayerStats = true;

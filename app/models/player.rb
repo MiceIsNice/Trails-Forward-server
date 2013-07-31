@@ -9,7 +9,7 @@ class Player < ActiveRecord::Base
     @world = stats[:world_id]
     @user = stats[:user_id]
     @type = stats[:player_type]
-    puts "Player.initialize set world #{self.world} for user #{self.user} of type #{self.type}"
+    #puts "Player.initialize set world #{self.world} for user #{self.user} of type #{self.type}"
   end
 
   def self.default_balance

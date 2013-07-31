@@ -946,3 +946,63 @@ ActionController::RoutingError (No route matches [GET] "/contracts_templates"):
 ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/contract_templates.json"):
   
 
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipmentundefined/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/logging_equipment_templates.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+

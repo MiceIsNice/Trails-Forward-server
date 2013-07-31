@@ -15,11 +15,14 @@ function TrailsForwardServerAPI(){
 	this.WORLDS = "/worlds";
 	this.NEW = "/new";
 	this.JSON = ".json?";
+	this.XML = ".xml?";
 	this.FORWARD_SLASH = "/";
 	this.USERS = "/users";
 	this.PLAYERS = "/players";
 	this.MEGATILES = "/megatiles";
 	this.RESOURCE_TILES = "/resource_tiles";
+	this.LOGGING_EQUIPMENT = "/logging_equipment";
+	this.BUY = "/buy";
 	this.AUTH_TOKEN = "auth_token";
 	this.AVAILABLE_CONTRACTS = "/contract_templates";
 	this.AVAILABLE_EQUIPMENT = "/logging_equipment_templates"; // this will change to something like 'equipment'
@@ -120,8 +123,12 @@ TrailsForwardServerAPI.prototype = {
 		this.makeGetRequest(resourceString, this.authString(), TFglobals.DATA_CONTROLLER.onGetAvailableUpgradesForPlayer);
 	},
 	
-	attemptToPurchaseUpgradeWithName : function(upgradeName){
-	
+	attemptToPurchaseUpgradeWithWorldIdAndEquipmentId : function(world_id, equipment_id){
+		var resourceString = this.buildPurchaseLoggingEquipmentRSForWorldIdAndEquipmentId(world_id, equipment_id);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId asking for equipment id, world id: " 
+															+ equipment_id + ", " + world_id);
+		this.makePutRequest(resourceString, this.authString(), {}, TFglobals.DATA_CONTROLLER.onAttemptToPurchaseUpgradeSuccess,
+					TFglobals.DATA_CONTROLLER.onAttemptToPurchaseUpgradeFailure);
 	},
 	
 	attemptToPurchaseTileWithLocation : function(x, y){
@@ -147,6 +154,23 @@ TrailsForwardServerAPI.prototype = {
 		}
 		else
 			console.log("S_API.makeGetRequest received bad resourcePath, urlParameters, callbackFunction 3-tuple: " + 
+							aResourcePath + ", " + urlParameters + ", " + aCallbackFunction);
+	},
+	
+	makePutRequest : function(aResourcePath, urlParameters, aPayload, aCallbackFunction, aFailureContinuation){
+		if(aResourcePath && urlParameters && aPayload && aCallbackFunction && aFailureContinuation){		
+			if(TFglobals.FULL_DEBUGGING == true) console.log("TrailsForwardServerAPI.makeGetRequest using url: " + this.SERVER_URL + aResourcePath + urlParameters);
+			aPayload._method = 'PUT';
+			$.ajax({
+				type: "POST",
+				url: this.SERVER_URL + aResourcePath + urlParameters,
+				data: aPayload,
+				success: aCallbackFunction,
+				fail: aFailureContinuation
+			});
+		}
+		else
+			console.log("S_API.makePutRequest received bad resourcePath, urlParameters, callbackFunction 3-tuple: " + 
 							aResourcePath + ", " + urlParameters + ", " + aCallbackFunction);
 	},
 	
@@ -271,6 +295,12 @@ TrailsForwardServerAPI.prototype = {
 			console.log("S_API.buildPostMessageObjectWithNamesAndValues should have two equal length arrays but received: " + 
 						aNamesList + " of length: " + aNamesList.length + ", and " +  aValuesList + " of length: " + 
 						aValuesList.length);
+ 	},
+ 	
+ 	buildPurchaseLoggingEquipmentRSForWorldIdAndEquipmentId : function(world_id, equipment_id){
+ 		var resourceString = this.WORLDS + this.FORWARD_SLASH + world_id + this.LOGGING_EQUIPMENT + this.FORWARD_SLASH + equipment_id + this.BUY + this.JSON;
+ 		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.buildPurchaseLoggingEquipmentRSForWorldIdAndEquipmentId made: " + resourceString);
+ 		return resourceString;
  	},
  	
  	 /* /users/:user_id/players/new(.:format) */

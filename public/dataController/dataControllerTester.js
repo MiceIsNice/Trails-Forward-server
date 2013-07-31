@@ -56,6 +56,20 @@ TrailsForwardDataControllerTester.prototype = {
 	loadAvailableUpgradesForChosenPlayer : function(){
 		this.dataController.getAvailableUpgradesForPlayer();
 	},
+	
+	tryToPurchaseUpgrade : function(){
+		var selectors = document.getElementsByClassName("contractChoice");
+		var equipment_id = -1;
+		for(var i = 0; i < selectors.length; i++){
+		  	if(selectors[i].checked == true){
+		    	equipment_id = selectors[i].value;
+		  	}
+		}
+		if(equipment_id != -1)
+			TFglobals.DATA_CONTROLLER.attemptToPurchaseUpgradeWithId(equipment_id);
+		else
+			console.log("tester.tryToPurchaseUpgrade called without an upgrade selected");
+	},
 
 };
 

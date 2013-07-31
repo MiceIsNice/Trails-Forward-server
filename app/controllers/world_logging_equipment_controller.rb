@@ -20,10 +20,13 @@ class WorldLoggingEquipmentController < ApplicationController
 
   def buy
     if logging_equipment.player.present?
-      respond_to do |format|
-        format.xml  { render  xml: { errors: ["Already owned"] }, status: :unprocessable_entity }
-        format.json { render json: { errors: ["Already owned"] }, status: :unprocessable_entity }
-      end
+      render json: {message: "Player tried to purchase equipment that has an owner"}
+      #respond_to do |format|
+       # format.xml  { render  xml: { errors: ["Already owned"] }, status: :unprocessable_entity }
+       # format.json { render json: { errors: ["Already owned"] }, status: :unprocessable_entity }
+      #end
+    elsif player.balance < logging_equipment.initial_cost.to_i 
+      render json: {message: "Player doesn't have enough money to buy equipment"}
     else
       logging_equipment.player = player
       player.balance -= logging_equipment.initial_cost.to_i
