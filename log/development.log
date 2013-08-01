@@ -1006,3 +1006,178 @@ ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
 ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world_logging_equipment/available.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:24: syntax error, unexpected tLABEL, expecting keyword_do or '{' or '('
+      render json: "found this many available p...
+                  ^):
+  
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...ipment.where(player_id: nil AND world_id: params[:world_id]);
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+...ND world_id: params[:world_id]);
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...ment.where(player_id == nil AND world_id == params[:world_id...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+... world_id == params[:world_id]);
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...ment.where(player_id == nil AND world_id == params[:world_id...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+... world_id == params[:world_id]);
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...pment.where(player_id = nil AND world_id = params[:world_id]...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+...D world_id = params[:world_id]);
+...                               ^):
+  
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::LoggingEquipments):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tLABEL
+...ere(player_id: nil && world_id: params[:world_id]);
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+...&& world_id: params[:world_id]);
+...                               ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds3/logging_equipment/2/available.json"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:46: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/contracts_templates.json"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ArgumentError (wrong number of arguments(1 for 0)):
+  app/controllers/world_player_available_contracts_controller.rb:8:in `select'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+ArgumentError (wrong number of arguments(1 for 0)):
+  app/controllers/world_player_available_contracts_controller.rb:8:in `select'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+NoMethodError (undefined method `codename' for #<Contract:0x007f8dd2c98080>):
+  app/models/player.rb:72:in `block in available_contracts'
+  app/models/player.rb:70:in `uniq'
+  app/models/player.rb:70:in `available_contracts'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+NoMethodError (undefined method `name' for #<Contract:0x007f8dd2ed0aa0>):
+  app/models/player.rb:72:in `block in available_contracts'
+  app/models/player.rb:70:in `uniq'
+  app/models/player.rb:70:in `available_contracts'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+

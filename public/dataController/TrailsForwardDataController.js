@@ -96,6 +96,10 @@ TrailsForwardDataController.prototype = {
 		this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipmentId);
 	},
 	
+	attemptToAcceptContractWithId : function(contract_id){
+		this.serverAPI.attemptToAcceptContractWithId(contract_id);
+	},
+	
 	attemptToPurchaseTile : function(x, y){
 		//this.serverAPI.attemptToPurchaseTileWithLocation(x, y)
 	},

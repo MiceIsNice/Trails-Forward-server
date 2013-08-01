@@ -85,6 +85,7 @@ TrailsForwardWorld::Application.routes.draw do
     end
 
     resources :contracts
+    
     resources :messages do
       member do
         put :read
@@ -94,6 +95,7 @@ TrailsForwardWorld::Application.routes.draw do
 
     resources :logging_equipment, :only => [:index], :controller => :world_logging_equipment do
       member do
+        get :available
         put :buy
       end
 

@@ -68,8 +68,8 @@ class Player < ActiveRecord::Base
 
   def available_contracts
     Contract.find(:all,
-                  :conditions => ['player_id is NULL AND contract_templates.points_required_to_unlock >= ? AND contract_templates.role = ? ',  self.contract_points, self.type],
-                  :joins => [:contract_template])
+                  :conditions => ['player_id is NULL AND contract_templates.points_required_to_unlock >= ? AND contract_templates.role = ? AND world_id = ?',  self.contract_points, self.type, self.world],
+                  :joins => [:contract_template]).uniq {|c| c.contract_template_id }
   end
 
   def company_points company

@@ -70,6 +70,20 @@ TrailsForwardDataControllerTester.prototype = {
 		else
 			console.log("tester.tryToPurchaseUpgrade called without an upgrade selected");
 	},
+	
+	acceptContract : function(){
+		var selectors = document.getElementsByClassName("contractChoice");
+		var contract_id = -1;
+		for(var i = 0; i < selectors.length; i++){
+		  	if(selectors[i].checked == true){
+		    	contract_id = selectors[i].value;
+		  	}
+		}
+		if(contract_id != -1)
+			TFglobals.DATA_CONTROLLER.attemptToAcceptContractWithId(contract_id);
+		else
+			console.log("tester.tryToPurchaseUpgrade called without an upgrade selected");
+	},
 
 };
 

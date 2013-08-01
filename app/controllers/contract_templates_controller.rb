@@ -1,4 +1,4 @@
-class ContractTemplatesController < ApplicationController
+qclass ContractTemplatesController < ApplicationController
   skip_authorization_check
   expose(:contract_templates)
   expose(:contract_template)

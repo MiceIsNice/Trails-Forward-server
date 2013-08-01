@@ -124,6 +124,7 @@ ImpactDummy.prototype = {
 	},
 	
 	onGetAvailableContracts : function(theContracts){
+		console.log("ImpactDummy.onGetAvailableContracts received " + theContracts.lumberjack_contracts.length + " contracts");
 	
 		var messageP = document.getElementById("message");
 		messageP.innerHTML = "Here are your available contracts:<br/>";
@@ -133,23 +134,23 @@ ImpactDummy.prototype = {
 		
 		theForm.innerHTML = "";
 		
-		for(var i = 0; i < theContracts.length; i++){
+		for(var i = 0; i < theContracts.lumberjack_contracts.length; i++){
 			element = document.createElement("input");
-			element.value = theContracts[i].id;
+			element.value = theContracts.lumberjack_contracts[i].id;
 			element.setAttribute("type", "radio");
 			element.setAttribute("class", "contractChoice");
 			theForm.appendChild(element);
 			
-			theForm.innerHTML += " " + theContracts[i].contract_template.codename + ", fee: $" + theContracts[i].contract_template.dollars + "<br/>"
+			theForm.innerHTML += " " + theContracts.lumberjack_contracts[i].codename + ", fee: $" + theContracts.lumberjack_contracts[i].earnings + "<br/>"
 		}
 		
 		theForm.innerHTML += "<br/>";
 		
 		element = document.createElement("input");
 		element.setAttribute("type", "submit");
-		element.setAttribute("value", "View contract");
+		element.setAttribute("value", "Accept contract");
 		element.setAttribute("id", "viewContract");
-	//	element.addEventListener("click", tester.getWorldDataForChosenPlayer);
+		element.addEventListener("click", tester.acceptContract);
 		theForm.appendChild(element);
 		
 		document.getElementById("playerChoiceDiv").style.display = "inline";
@@ -176,10 +177,10 @@ ImpactDummy.prototype = {
 			element.value = theUpgrades[i].id;
 			element.setAttribute("type", "radio");
 			element.setAttribute("class", "contractChoice");
-			element.setAttribute("value", theUpgrades[i].logging_equipment_template.id);
+			element.setAttribute("value", theUpgrades[i].logging_equipment.id);
 			theForm.appendChild(element);
 			
-			theForm.innerHTML += " " + theUpgrades[i].logging_equipment_template.name + ", cost: $" + theUpgrades[i].logging_equipment_template.initial_cost_max + "<br/>"
+			theForm.innerHTML += " " + theUpgrades[i].logging_equipment.name + ", cost: $" + theUpgrades[i].logging_equipment.initial_cost + "<br/>"
 		}
 		
 		theForm.innerHTML += "<br/>";
@@ -203,7 +204,7 @@ ImpactDummy.prototype = {
 			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: failure buying equipment.  Message is: " + theResult.message);
 		}
 		else if(theResult.status == TFglobals.HELPER_FUNCTIONS.FAILURE){
-			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received upgrade purchase attempt: " + );
+			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received upgrade purchase attempt: " + theResult.message);
 		}
 		else
 			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received bad status code: " + theResult.status);
