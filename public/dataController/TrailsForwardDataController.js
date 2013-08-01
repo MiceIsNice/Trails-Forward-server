@@ -60,14 +60,16 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	getAvailableContractsForPlayer : function(){
+	/*
 		if(this.validContracts){
 			if(TFglobals.FULL_DEBUGGING == true) console.log("DC.getAvailableContractsForUser: cached data is fresh");	
 			TFglobals.IMPACT.onGetAvailableContracts(this.gameDataCache.getAvailableContractsForPlayer());		
 		}
 		else{
+	*/
 			if(TFglobals.FULL_DEBUGGING == true) console.log("DC.getAvailableContractsForUser: calling serverAPI.getAvailableContractsForWorldIdAndPlayerId");	
 			this.serverAPI.getAvailableContractsForWorldIdAndPlayerId(this.gameDataCache.id, this.gameDataCache.player_id);
-		}
+		//}
 	},
 	
 	getPlayerStats : function(){
@@ -97,7 +99,10 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	attemptToAcceptContractWithId : function(contract_id){
-		this.serverAPI.attemptToAcceptContractWithId(contract_id);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("DC.attemptToAcceptContractWithId: calling serverAPI.attemptToAcceptContractWithWorldIdPlayerIdAndContractId(" + 
+				this.gameDataCache.id + ", " + this.gameDataCache.player_id + ", " + contract_id + ")");
+		this.serverAPI.attemptToAcceptContractWithWorldIdPlayerIdAndContractId(this.gameDataCache.id, 
+				this.gameDataCache.player_id, contract_id);
 	},
 	
 	attemptToPurchaseTile : function(x, y){
@@ -161,8 +166,8 @@ TrailsForwardDataController.prototype = {
 			console.log("DC.onGetAvailableContracts got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theContracts);
 		}
-		TFglobals.DATA_CONTROLLER.validContracts = true;
-		TFglobals.DATA_CONTROLLER.gameDataCache.setAvailableContractsForPlayer(theContracts);
+		//TFglobals.DATA_CONTROLLER.validContracts = true;
+		//TFglobals.DATA_CONTROLLER.gameDataCache.setAvailableContractsForPlayer(theContracts);
 		TFglobals.IMPACT.onGetAvailableContracts(theContracts);
 	},
 	
@@ -176,12 +181,21 @@ TrailsForwardDataController.prototype = {
 		TFglobals.IMPACT.onGetAvailableUpgradesForPlayer(theUpgrades);
 	},
 	
+	onAttemptToAcceptContract : function(theResult){
+		if(TFglobals.FULL_DEBUGGING == true){
+			console.log("DC.onAttemptToAcceptContract: received:");
+			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
+		}
+		TFglobals.IMPACT.onAttemptToAcceptContract(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult, 
+											function(){"successfully accepted contract " + theResult.name}));
+	},
+	
 	onAttemptToPurchaseTile : function(theResult){
 		if(TFglobals.FULL_DEBUGGING == true){
 			console.log("DC.onAttemptToPurchaseTile got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
 		}
-		TFglobals.IMPACT.onAttemptToPurchaseTile(theResult);
+	//	TFglobals.IMPACT.onAttemptToPurchaseTile();
 	},
 	
 	onAttemptToPurchaseUpgradeSuccess : function(theResult){
@@ -189,16 +203,8 @@ TrailsForwardDataController.prototype = {
 			console.log("DC.onAttemptToPurchaseUpgradeResponse got: ");
 			TFglobals.HELPER_FUNCTIONS.prettyPrintObject(theResult);
 		}
-		var response = {};
-		if(theResult.message){
-			response.status = TFglobals.HELPER_FUNCTIONS.FAILURE;
-			response.message = theResult.message;	
-		}
-		else{
-			response.status = TFglobals.HELPER_FUNCTIONS.SUCCESS;
-			response.message = "successfully bought a " + theResult.name;
-		}
-		TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(theResult);
+		TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult, 
+											function(){"successfully bought a " + theResult.name}));
 	},
 	
 	onAttemptToPurchaseUpgradeFailure : function(theResult){
@@ -223,6 +229,29 @@ TrailsForwardDataController.prototype = {
 		TFglobals.DATA_CONTROLLER.validPlayerStats = true;
 		TFglobals.DATA_CONTROLLER.gameDataCache.setPlayerStats(theStats);
 		TFglobals.IMPACT.onGetPlayerStats(theStats);
+	},
+	
+/*****
+
+		HELPER FUNCTIONS
+	
+*****/	
+
+	/* successMessage is a function that will only be executed if message is 
+		the successfully obtained object hoped for */
+	prepareImpactMessage : function(serverResponse, successMessage){
+		var response = {};
+		if(serverResponse.message){
+			response.status = TFglobals.FAILURE;
+			response.message = serverResponse.message;	
+		}
+		else{
+			response.status = TFglobals.SUCCESS;
+			response.message = successMessage();
+		}
+		if(TFglobals.FULL_DEBUGGING == true) console.log("DC.prepareImpactMessage made response with status, message: " +
+						response.status + ", " + response.message);
+		return response;
 	},
 	
 };

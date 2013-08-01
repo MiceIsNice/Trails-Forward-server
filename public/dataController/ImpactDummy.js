@@ -200,14 +200,25 @@ ImpactDummy.prototype = {
 	},
 	
 	onAttemptToPurchaseUpgradeResponse : function(theResult){
-		if(theResult.status == TFglobals.HELPER_FUNCTIONS.FAILURE){
+		if(theResult.status == TFglobals.FAILURE){
 			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: failure buying equipment.  Message is: " + theResult.message);
 		}
-		else if(theResult.status == TFglobals.HELPER_FUNCTIONS.FAILURE){
+		else if(theResult.status == TFglobals.SUCCESS){
 			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received upgrade purchase attempt: " + theResult.message);
 		}
 		else
 			console.log("ImpactDummy.onAttemptToPurchaseUpgradeResponse: received bad status code: " + theResult.status);
+	},
+	
+	onAttemptToAcceptContract : function(theResult){
+		if(theResult.status == TFglobals.FAILURE){
+			console.log("ImpactDummy.onAttemptToAcceptContract: failure accepting contract.  Message is: " + theResult.message);
+		}
+		else if(theResult.status == TFglobals.SUCCESS){
+			console.log("ImpactDummy.onAttemptToAcceptContract: accepted contract: " + theResult.message);
+		}
+		else
+			console.log("ImpactDummy.onAttemptToAcceptContract: received bad status code: " + theResult.status);
 	},
 	
 	onRequestSurveyForTile : function(theResult){

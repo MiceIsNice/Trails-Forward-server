@@ -19,6 +19,7 @@ function TrailsForwardServerAPI(){
 	this.FORWARD_SLASH = "/";
 	this.USERS = "/users";
 	this.PLAYERS = "/players";
+	this.ACCEPT = "accept";
 	this.MEGATILES = "/megatiles";
 	this.RESOURCE_TILES = "/resource_tiles";
 	this.LOGGING_EQUIPMENT = "/logging_equipment";
@@ -138,8 +139,11 @@ TrailsForwardServerAPI.prototype = {
 					TFglobals.DATA_CONTROLLER.onAttemptToPurchaseUpgradeFailure);
 	},
 	
-	attemptToAcceptContractWithId : function(contract_id){
-		console.log("S_API: trying to accept contract with id " + contract_id);
+	attemptToAcceptContractWithWorldIdPlayerIdAndContractId : function(world_id, player_id, contract_id){
+		var resourceString = this.buildAcceptContractRSForWorldIdPlayerIdAndContractId(world_id, player_id, contract_id);
+		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.attemptToAcceptContractWithWorldIdPlayerIdAndContractId asking for world id, player id, contract id: " 
+															+ world_id + ", " + player_id + ", " + contract_id);
+		this.sendPostMessage(resourceString, this.authString(), {}, TFglobals.DATA_CONTROLLER.onAttemptToAcceptContract);
 	},
 	
 	attemptToPurchaseTileWithLocation : function(x, y){
@@ -187,7 +191,9 @@ TrailsForwardServerAPI.prototype = {
 	
 	sendPostMessage : function(aResourcePath, urlParameters, messageData, aCallbackFunction){
 		if(aResourcePath && urlParameters && messageData && (aCallbackFunction || aCallbackFunction == null)){		
-			if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.sendPostMessage using url: " + this.SERVER_URL + aResourcePath + urlParameters + "with message: " + messageData);
+			if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.sendPostMessage using url: " + 
+				this.SERVER_URL + aResourcePath + urlParameters + "with message: " + messageData + 
+				" and callback function " + aCallbackFunction);
 			$.post(this.SERVER_URL + aResourcePath + urlParameters, messageData, aCallbackFunction);
 		}
 		else
@@ -313,6 +319,14 @@ TrailsForwardServerAPI.prototype = {
  		var resourceString = this.WORLDS + this.FORWARD_SLASH + world_id + this.LOGGING_EQUIPMENT + this.FORWARD_SLASH + equipment_id + this.BUY + this.JSON;
  		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.buildPurchaseLoggingEquipmentRSForWorldIdAndEquipmentId made: " + resourceString);
  		return resourceString;
+ 	},
+ 	
+ 	/* /worlds/:world_id/players/:player_id/available_contracts/:available_contract_id/accept(.:format) */
+ 	buildAcceptContractRSForWorldIdPlayerIdAndContractId : function(world_id, player_id, contract_id){
+ 		var resourceString = this.WORLDS + this.FORWARD_SLASH + world_id + this.PLAYERS + this.FORWARD_SLASH + 
+ 				player_id + this.AVAILABLE_CONTRACTS + this.FORWARD_SLASH + contract_id + this.FORWARD_SLASH + this.ACCEPT + this.JSON;
+  		if(TFglobals.FULL_DEBUGGING == true) console.log("S_API.buildAcceptContractRSForWorldIdPlayerIdAndContractId made: " + resourceString);
+ 	 	return resourceString;
  	},
  	
  	 /* /users/:user_id/players/new(.:format) */

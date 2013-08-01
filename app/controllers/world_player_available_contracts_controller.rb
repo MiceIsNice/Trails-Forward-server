@@ -17,9 +17,17 @@ class WorldPlayerAvailableContractsController < ApplicationController
 
   def accept
     @player = Player.find(params[:player_id])
-    @contract = Contract.find(params[:id] || params[:available_contract_id])
+    
+    #@contract = Contract.find(params[:id] || params[:available_contract_id])
+    @contract = Contract.find(params[:available_contract_id])
 
-    authorize! :accept_contract, @contract
+    begin
+      authorize! :accept_contract, @contract
+    rescue CanCan::AccessDenied => e
+      puts "caught AccessDenied exception with message #{e.message}"
+      render json: {:message => e.message}
+      return
+    end
 
     @contract.player = @player
     great_success = true   # yakshemash
