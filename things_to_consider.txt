@@ -1,0 +1,29 @@
+Things to consider:
+
+When contracts have attached tiles, where do they come from?
+	a. a pre-existing collection no one is allowed to purchase
+	b. a dynamically chosen tile that no one owns that fits the bill
+	
+How do we filter contracts in the contract_templates_controller so that 
+	players get the right one?
+	a. player type
+	b. requirements compared to player capability?
+	c. difficulty / points vs. points_required_to_unlock? 
+	
+	
+
+How do we know things are working out?
+On our end:
+- Are they able to clearly articulate where the project stands, including what part of last week's 
+	plan worked, and what needs to be done for the upcoming week?
+- Are they able to translate ideas from the lab meetings into a technical plan?
+- Are they comfortable asking clarification questions during week?
+- Are they comfortable generating simple examples of UI when there's no firm plan yet 
+	(so, "We want to implement political capital, but we don't know yet the best way to show the user.")
+- Do they put good code, harmonious relationships, and student growth ahead of time to deployment?
+- Do they delegate to students in a reasonable way (some challenges, a reasonable amount of work)?
+
+On their end:
+- Do they feel like their voice is heard?
+- Do they feel like we're articulating what our expectations and wants are?
+
