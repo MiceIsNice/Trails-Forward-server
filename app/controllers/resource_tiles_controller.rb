@@ -21,7 +21,7 @@ class ResourceTilesController < ApplicationController
   before_filter :check_harvest_rights, only: [:clearcut_list, :diameter_limit_cut_list, :partial_selection_cut_list]
 
   expose(:world) { World.find params[:world_id] }
-  expose(:resource_tile) { ResourceTile.find params[:id] }
+  expose(:resource_tile) { ResourceTile.find (params[:id] ? params[:id] : 1) }
 
   expose(:resource_tiles) do
     if params[:resource_tile_ids]
@@ -50,9 +50,30 @@ class ResourceTilesController < ApplicationController
       format.json { render_for_api :resource_actions, :json => resource_tiles, :root => :resource_tiles  }
     end
   end
+  
+  def index
+    authorize! :do_things, resource_tile.world
+    
+    if valid_rect_params params
+      @result = produce_tiles_in_rect params
+     # @result.each { |x| puts x.id}
+      puts "Sending #{@result.length} resource_tiles retrieved from the database"
+      simple_tiles = @result.map {|tile| tile.to_simple_tile}
+      render json: simple_tiles
+    else
+      render json: "Invalid request: must send x_min >= 0, < x_max; y_min >= 0, < y_max; x_max < world.width; y_max < world.height"
+    end
+  end 
 
+  def valid_rect_params params
+    world = World.find(params[:world_id])
+    return (params[:x_min] && params[:y_min] && params[:x_max] && params[:y_max] && 
+             params[:x_min].to_i >= 0 && params[:x_min].to_i < params[:x_max].to_i && 
+             params[:y_min].to_i >= 0 && params[:y_min].to_i < params[:y_max].to_i &&
+             params[:x_max].to_i < world.width && params[:y_max].to_i < world.height)
+  end
 
-  # GET /world/:world_id/resource_tiles/1
+  # GET /worlds/:world_id/resource_tiles/1
   def show
     authorize! :do_things, resource_tile.world
 
@@ -61,6 +82,9 @@ class ResourceTilesController < ApplicationController
     end
   end
 
+  def produce_tiles_in_rect params
+    return ResourceTile.where("x <= #{params[:x_max]} AND y <= #{params[:y_max]} AND x >= #{params[:x_min]} AND y >= #{params[:y_min]} AND world_id = #{params[:world_id]}");
+  end 
 
   def build
     authorize! :build, resource_tile

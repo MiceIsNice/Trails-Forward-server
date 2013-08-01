@@ -52,13 +52,18 @@ class MegatilesController < ApplicationController
   end
 
   def show
-    @megatile = Megatile.find(params[:id])
-    authorize! :do_things, @megatile.world
+   # @megatile = Megatile.find(params[:id])
+   	@theIds = params[:ids]
+    puts "here with ids: #{@theIds}"
+    @megatiles = Array.new 
+    @theIds.each{|theValue| @megatiles << Megatile.find(theValue)}
+    authorize! :do_things, @megatiles[0].world
+    puts "found #{@megatiles.length} megatiles including 0: #{@megatiles[0]}"
     
-    if stale?(:last_modified => @megatile.updated_at)
+    if stale?(:last_modified => @megatiles[0].updated_at)
       respond_to do |format|
-        format.xml  { render_for_api :megatile_with_resources, :xml  => @megatile, :root => :megatile  }
-        format.json { render_for_api :megatile_with_resources, :json => @megatile, :root => :megatile  }
+        format.xml  { render_for_api :megatile_with_resources, :xml  => @megatiles[0], :root => :megatile  }
+        format.json { render_for_api :megatile_with_resources, :json => @megatiles[0], :root => :megatile  }
       end
     end
   end

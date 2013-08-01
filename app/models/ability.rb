@@ -33,7 +33,7 @@ class Ability
 
     # users can only do things in worlds they inhabit
     can :do_things, World do |world|
-      world.player_for_user(user)
+      true || world.player_for_user(user)
     end
 
     can :index_listings, World do |world|
@@ -73,7 +73,15 @@ class Ability
 
     can :accept_contract, Contract do |contract|
       player = contract.world.player_for_user(user)
-      player.available_contracts.include?(contract)
+
+      if Contract.where("player_id = ?", player.id).length > 0
+        raise CanCan::AccessDenied.new("A player is allowed only one contract at a time.", :accept_contract, contract)
+      elsif player.available_contracts.include?(contract)
+        raise CanCan::AccessDenied.new("This contract is not available for the player.", :accept_contract, contract)
+      else 
+        false
+      end 
+        
     end
 
     can :attach_megatiles, Contract do |contract|

@@ -17,6 +17,32 @@ class PlayersController < ApplicationController
       format.json  { render_for_api template_to_use, :json  => @players, :root => :players  }
     end
   end
+  
+  # GET /users/:user_id/players/new(.:format)
+    #settings[:world_id]
+    #settings[:user_id]
+    #settings[:player_type]
+  def new
+    puts "Player.new 1"
+    @player = Player.new(params)
+    @player.save
+    puts "Player.new 2 made player with id: #{@player.id}"
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @player }
+    end
+    puts "Player.new 3"
+  end
+  
+  def create
+    puts "Player.create"
+    @player = Player.new(params)
+    puts "Player.create 2 made player with id: #{@player.id}"
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @player }
+    end
+  end 
 
   # GET /users/:user_id/players/:id
   def show

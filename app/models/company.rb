@@ -1,2 +1,4 @@
 class Company < NonPlayerCharacter
+
+
 end

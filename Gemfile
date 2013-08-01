@@ -45,6 +45,8 @@ group :development, :test do
   gem 'sqlite3'
   gem 'ruby-prof'
   gem 'ruby-debug19', require: 'ruby-debug'
+  gem 'pry-rescue'
+  gem 'jazz_hands'
 
   gem 'guard'
     gem 'guard-bundler'

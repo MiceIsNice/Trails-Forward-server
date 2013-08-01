@@ -3,6 +3,14 @@ class Player < ActiveRecord::Base
   include PlayerApi
 
   serialize :quests, Hash
+  
+  def initialize stats
+    puts "Player.initialize in world #{stats[:world_id]} for user #{stats[:user_id]} of type #{stats[:player_type]}"
+    @world = stats[:world_id]
+    @user = stats[:user_id]
+    @type = stats[:player_type]
+    #puts "Player.initialize set world #{self.world} for user #{self.user} of type #{self.type}"
+  end
 
   def self.default_balance
     50000
@@ -59,9 +67,10 @@ class Player < ActiveRecord::Base
   end
 
   def available_contracts
+  #puts "Player.available_contracts: contract_templates.points_required_to_unlock <= ? AND contract_templates.role = ? AND world_id = ?' #{self.contract_points}, #{self.type}, #{self.world.id}"
     Contract.find(:all,
-                  :conditions => ['player_id is NULL AND contract_templates.points_required_to_unlock >= ? AND contract_templates.role = ? ',  self.contract_points, self.type],
-                  :joins => [:contract_template])
+                  :conditions => ['player_id is NULL AND contract_templates.points_required_to_unlock <= ? AND contract_templates.role = ? AND world_id = ?',  self.contract_points, self.type, self.world.id],
+                  :joins => [:contract_template]).uniq {|c| c.contract_template_id }
   end
 
   def company_points company

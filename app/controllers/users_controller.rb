@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:authenticate_for_token]
-  skip_authorization_check :only => :authenticate_for_token
+  before_filter :authenticate_user!, :except => [:authenticate_for_token, :new]
+  skip_authorization_check :only => [:authenticate_for_token, :new]
 
   def authenticate_for_token
     @user = User.find_by_email params[:email]
     if @user != nil and @user.valid_password? params[:password]
       @auth_token = @user.authentication_token
       ret = {:id => @user.id, :auth_token => @auth_token}
+      cookies[:id] = @user.id
+      cookies[:auth_token] = @auth_token
       respond_to do |format|
         format.json {render :json => ret }
         format.xml  {render :xml => ret }
@@ -36,7 +38,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
     respond_to do |format|
       format.html
       format.xml  { render :xml => @user }
@@ -48,7 +49,9 @@ class UsersController < ApplicationController
   end
 
   def create
+   # @user = User.new(params[:email], params[:password], params[:name]);
     @user = User.new(params[:user])
+    puts "UsersController::create made a new user with id #{@user.id}"
 
     respond_to do |format|
       if @user.save
