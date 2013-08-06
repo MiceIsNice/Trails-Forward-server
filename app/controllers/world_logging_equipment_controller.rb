@@ -27,13 +27,13 @@ class WorldLoggingEquipmentController < ApplicationController
 
   def buy
     if logging_equipment.player.present?
-      render json: {message: "You tried to purchase equipment that has an owner"}
+      render json: {errors: ["You tried to purchase equipment that has an owner"]}
       #respond_to do |format|
        # format.xml  { render  xml: { errors: ["Already owned"] }, status: :unprocessable_entity }
        # format.json { render json: { errors: ["Already owned"] }, status: :unprocessable_entity }
       #end
     elsif player.balance < logging_equipment.initial_cost.to_i 
-      render json: {message: "Sadly, you don't have enough money to buy that piece of equipment"}
+      render json: {errors: ["Sadly, you don't have enough money to buy that piece of equipment"]}
     else
       logging_equipment.player = player
       player.balance -= logging_equipment.initial_cost.to_i
@@ -43,10 +43,13 @@ class WorldLoggingEquipmentController < ApplicationController
           player.save!
           logging_equipment.save!
         end
+        render json: {:message => "success", :logging_equipment_id => logging_equipment.id}
+=begin
         respond_to do |format|
           format.xml  { render_for_api :logging_equipment_base, :xml  => logging_equipment }
           format.json { render_for_api :logging_equipment_base, :json => logging_equipment }
         end
+=end
       rescue ActiveRecord::RecordInvalid
         respond_to do |format|
           format.xml  { render  xml: { errors: ["Transaction Failed"] }, status: :unprocessable_entity }

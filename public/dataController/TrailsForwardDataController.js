@@ -82,10 +82,12 @@ TrailsForwardDataController.prototype = {
 		this.serverAPI.getAvailableUpgradesForWorldIdAndPlayerId(this.gameDataCache.id, this.gameDataCache.player_id);
 	},
 	
-	attemptToPurchaseUpgradeWithId : function(equipmentId){
-		
+	attemptToPurchaseUpgradeWithId : function(equipment_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseUpgradeWithId", ["equipment_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 	
-		this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipmentId);
+		if(equipment_id || equipment_id == 0)
+			this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipment_id);
+		else console.log("bad input");	
 	},
 	
 	attemptToAcceptContractWithId : function(contract_id){
@@ -104,11 +106,12 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
-	attemptToPurchaseTileWithId : function(tile_id){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	attemptToPurchaseMegatileIncludingResourceTileId : function(tile_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithWorldIdAndResourceTileId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(tile_id || tile_id == 0)
-			this.serverAPI.attemptToPurchaseTileWithId(tile_id)
+			this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileId(this.gameDataCache.id, 
+																							this.gameDataCache.player_id, tile_id)
 		else console.log("bad input");	
 	},
 	
@@ -120,7 +123,7 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
-	
+
 	
 /*****
 
@@ -195,16 +198,15 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToAcceptContract", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToAcceptContract(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult, 
-											function(){"successfully accepted contract " + theResult.name}));
+			TFglobals.IMPACT.onAttemptToAcceptContract(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
-	onAttemptToPurchaseTile : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseTile", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	onAttemptToPurchaseMegatileIncludingResourceTileId : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseMegatileIncludingResourceTileId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToPurchaseTile(theResult);
+			TFglobals.IMPACT.onAttemptToPurchaseMegatileIncludingResourceTileId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
@@ -212,8 +214,7 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseUpgradeSuccess", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult, 
-											function(){"successfully bought a " + theResult.name}));
+			TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
@@ -252,22 +253,15 @@ TrailsForwardDataController.prototype = {
 	
 *****/	
 
-	/* successMessage is a function that will only be executed if message is 
-		the successfully obtained object hoped for */
-	prepareImpactMessage : function(serverResponse, successMessage){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.prepareImpactMessage", ["serverResponse", "successMessage"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-
-		if(serverResponse && successMessage){
-			var response = {};
-			if(serverResponse.message){
-				response.status = TFglobals.FAILURE;
-				response.message = serverResponse.message;	
-			}
-			else{
-				response.status = TFglobals.SUCCESS;
-				response.message = successMessage();
-			}
-			return response;
+	prepareImpactMessage : function(serverResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.prepareImpactMessage", ["serverResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+		console.log("serverResponse message: " + serverResponse.message);
+		if(serverResponse){
+			if(serverResponse.errors)
+				serverResponse.status = TFglobals.FAILURE;
+			else
+				serverResponse.status = TFglobals.SUCCESS;
+			return serverResponse;
 		}
 		else console.log("bad input");
 	},

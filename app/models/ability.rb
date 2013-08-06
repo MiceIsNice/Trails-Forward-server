@@ -76,10 +76,10 @@ class Ability
 
       if Contract.where("player_id = ?", player.id).length > 0
         raise CanCan::AccessDenied.new("A player is allowed only one contract at a time.", :accept_contract, contract)
-      elsif player.available_contracts.include?(contract)
+      elsif !player.available_contracts.include?(contract)
         raise CanCan::AccessDenied.new("This contract is not available for the player.", :accept_contract, contract)
       else 
-        false
+        true
       end 
         
     end
