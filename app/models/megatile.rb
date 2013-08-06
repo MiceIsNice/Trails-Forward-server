@@ -51,7 +51,6 @@ class Megatile < ActiveRecord::Base
     bids_offering.where(status: 'Offered')
   end
 
-
   def estimated_value
     total_price = 0
     resource_tiles.each do |rt|

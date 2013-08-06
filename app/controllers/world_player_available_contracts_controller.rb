@@ -24,7 +24,8 @@ class WorldPlayerAvailableContractsController < ApplicationController
     begin
       authorize! :accept_contract, @contract
     rescue CanCan::AccessDenied => e
-      render json: {:message => e.message}
+      #render json: {:message => e.message}
+      render json: {:errors => [e.message] }
       return
     end
 
@@ -61,13 +62,19 @@ class WorldPlayerAvailableContractsController < ApplicationController
       root_key = WorldPlayerContractsController::contracts_root_key_helper(@player)[0..-2]
       template_key = WorldPlayerContractsController::contracts_template_key_helper @player
 
+      render json: {:message => "success", :contract_id => @contract.id}
+=begin 
       respond_to do |format|
         format.json { render_for_api template_key, :json => @contract, :root => root_key }
       end
+=end
     else
+      render json: {:errors => @contract.errors}
+=begin
       respond_to do |format|
         format.json  { render :json => @contract.errors, :status => :unprocessable_entity }
       end
+=end
     end
   end #accept
 

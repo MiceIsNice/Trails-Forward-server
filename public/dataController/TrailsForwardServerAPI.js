@@ -174,11 +174,15 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
-	attemptToPurchaseTileWithId : function(tile_id){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToPurchaseTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
-												
-		if(tile_id || tile_id == 0)
-			0; // CHANGE ME
+	attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileId : function(world_id, player_id, tile_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileId", ["world_id", "player_id", "tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+					
+		if(tile_id || tile_id == 0){
+			var resourceString = this.buildPurchaseMegatileRSWithWorldIdAndResourceTileId(world_id, tile_id);
+			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["resource_tile_id", "player_id"],[tile_id, player_id]);
+			this.makePutRequest(resourceString, parameterString, {}, 
+									TFglobals.DATA_CONTROLLER.onAttemptToPurchaseMegatileIncludingResourceTileId, null);
+		}
 		else console.log("bad input");	
 	},
 	
@@ -210,8 +214,8 @@ TrailsForwardServerAPI.prototype = {
 	makePutRequest : function(aResourcePath, urlParameters, messagePayload, aCallbackFunction, aFailureContinuation){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.makePutRequest", ["aResourcePath", "urlParameters", "messagePayload", "aCallbackFunction", "aFailureContinuation"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));	
 	
-		if(aResourcePath && urlParameters && aPayload && aCallbackFunction && aFailureContinuation || aFailureContinuation == null){		
-			aPayload._method = 'PUT';
+		if(aResourcePath && urlParameters && messagePayload && aCallbackFunction && aFailureContinuation || aFailureContinuation == null){		
+			messagePayload._method = 'PUT';
 			$.ajax({
 				type: "POST",
 				url: this.SERVER_URL + aResourcePath + urlParameters,
@@ -227,7 +231,7 @@ TrailsForwardServerAPI.prototype = {
 	sendPostMessage : function(aResourcePath, urlParameters, messagePayload, aCallbackFunction){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.sendPostMessage", ["aResourcePath", "urlParameters", "messagePayload", "aCallbackFunction"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 	
-		if(aResourcePath && urlParameters && messageData && (aCallbackFunction || aCallbackFunction == null))
+		if(aResourcePath && urlParameters && messagePayload && (aCallbackFunction || aCallbackFunction == null))
 			$.post(this.SERVER_URL + aResourcePath + urlParameters, messagePayload, aCallbackFunction);
 		else console.log("bad input");
 	},
@@ -272,7 +276,7 @@ TrailsForwardServerAPI.prototype = {
 	buildWorldRSForWorldId : function(world_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildWorldRSForWorldId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 	
-		if(world_num) 
+		if(world_id) 
 			return (this.WORLDS + this.FORWARD_SLASH + world_id + this.JSON);
 		else console.log("bad input");
 	},
@@ -360,6 +364,14 @@ TrailsForwardServerAPI.prototype = {
  			return this.WORLDS + this.FORWARD_SLASH + world_id + this.PLAYERS + this.FORWARD_SLASH + player_id + 
  					this.AVAILABLE_CONTRACTS + this.FORWARD_SLASH + contract_id + this.FORWARD_SLASH + this.ACCEPT + this.JSON;
 		else console.log("bad input");			
+ 	},
+ 	
+ 	  /* produces: worlds/world_id/megatiles/this.UNUSED_NUMBER/buy(.:format)	*/
+ 	buildPurchaseMegatileRSWithWorldIdAndResourceTileId : function(world_id, tile_id){
+   		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPurchaseMegatileRSWithWorldIdAndResourceTileId", ["world_id", "tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+ 		if((world_id || world_id == 0) && (tile_id || tile_id == 0))
+ 			return this.WORLDS + this.FORWARD_SLASH + world_id + this.MEGATILES + this.UNUSED_NUMBER + this.BUY + this.JSON;
  	},
  	
 /** NOT USING WORLD ID YET!!! 
