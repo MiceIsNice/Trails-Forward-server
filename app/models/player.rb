@@ -57,7 +57,6 @@ class Player < ActiveRecord::Base
   before_create :create_default_sawyer_crew_logging_equipment
 
 
-
   def selection_name
     "#{self.name}, world:#{world.id} #{world.name.truncate(15)}"
   end

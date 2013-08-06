@@ -7,7 +7,7 @@
 
 
 function TrailsForwardGlobals(){
-
+	console.log("TrailsForwardGlobals");
 }
  
 TrailsForwardGlobals.prototype = {
@@ -23,7 +23,23 @@ TrailsForwardGlobals.prototype = {
  		this.IMPACT = impactRef;
  		
  		  /* shared values */
+ 		  
+ 		  // debugging status codes: 
  		this.FULL_DEBUGGING = true;
+ 		this.FULL_DEBUGGING_VERBOSE = false;
+ 		this.DC_DEBUGGING = false;
+ 		this.DC_DEBUGGING_VERBOSE = false;
+ 		this.HF_DEBUGGING = false;
+ 		this.HF_DEBUGGING_VERBOSE = false;
+ 		this.GDC_DEBUGGING = false;
+ 		this.GDC_DEBUGGING_VERBOSE = false;
+ 		this.S_API_DEBUGGING = false;
+ 		this.S_API_DEBUGGING_VERBOSE = false;
+ 		this.I_DUMMY_DEBUGGING = false;
+ 		this.I_DUMMY_DEBUGGING_VERBOSE = false;
+ 		this.DC_TESTER_DEBUGGING = false;
+ 		this.DC_TESTER_DEBUGGING_VERBOSE = false;
+ 		
  		this.CHUNK_WIDTH = 16;
  		this.SUCCESS = 1;
  		this.FAILURE = 2;

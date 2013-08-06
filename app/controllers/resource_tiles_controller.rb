@@ -54,7 +54,7 @@ class ResourceTilesController < ApplicationController
   def index
     authorize! :do_things, resource_tile.world
     
-    if valid_rect_params params
+    if valid_rect_params? params
       @result = produce_tiles_in_rect params
      # @result.each { |x| puts x.id}
       puts "Sending #{@result.length} resource_tiles retrieved from the database"
@@ -65,7 +65,7 @@ class ResourceTilesController < ApplicationController
     end
   end 
 
-  def valid_rect_params params
+  def valid_rect_params? params
     world = World.find(params[:world_id])
     return (params[:x_min] && params[:y_min] && params[:x_max] && params[:y_max] && 
              params[:x_min].to_i >= 0 && params[:x_min].to_i < params[:x_max].to_i && 
@@ -158,8 +158,26 @@ class ResourceTilesController < ApplicationController
       end
     end
   end
+  
+  # given a tile id, first looks for an attached tile 
+  # 
+def clearcut_list
+    time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
+    money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
+    
+    tile = Tile.find(params[:id])
+    
+    
+    # 1. look for an attached contract, then an unattached one
+=begin
+    contract_to_fufill = attached ? attached : 
+    contract_to_fufill = attached?
+    if contract_to_fufill.length = 
+      contract_to_fufill = Contracts.where("player_id = ?", player.id).length > 0
+=end
+end
 
-
+=begin
   def clearcut_list
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
@@ -169,7 +187,7 @@ class ResourceTilesController < ApplicationController
     end
 
     unless params[:estimate] == 'true'
-      unless TimeManager.can_perform_action? player: player, cost: time_cost
+    unless params[:estimate] == true && TimeManager.can_perform_action? player: player, cost: time_cost
         respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
         return
       end
@@ -212,7 +230,7 @@ class ResourceTilesController < ApplicationController
       end
     end
   end
-
+=end
 
   def build_list
     raise 'not yet implemented'
