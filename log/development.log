@@ -1266,6 +1266,7 @@ AbstractController::DoubleRenderError (Render and/or redirect were called multip
   app/controllers/world_player_available_contracts_controller.rb:64:in `accept'
 
 
+
 SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:189: syntax error, unexpected tLABEL, expecting keyword_then or ';' or '\n'
 ...ger.can_perform_action? player: player, cost: time_cost
 ...                               ^
@@ -1473,5 +1474,19 @@ LocalJumpError (unexpected return):
 SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:24: syntax error, unexpected tIDENTIFIER, expecting keyword_end
 ...: LoggingEquipment.update where("player_id IS NULL AND world...
 ...                               ^):
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/world_player_available_contracts_controller.rb:5:in `index'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=2):
+  app/controllers/world_player_available_contracts_controller.rb:5:in `index'
+
+
+SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
   
 

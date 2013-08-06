@@ -41,6 +41,13 @@ ig.module(
             this.onLeave = function() {
                 this.setImage(this.buttonImage);
             }
+        },
+
+        setFunction: function(funcToCall, funcArgs) {
+            this.onUnclick = function() {
+                this.setImage(this.buttonImage);
+                funcToCall(funcArgs);
+            }
         }
 
     });

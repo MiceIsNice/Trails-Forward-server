@@ -10,7 +10,7 @@ ig.module(
 
         /**
          * @param bounds The bounding box of this UIElement. If the element has an image, it will stretch to fit the bounds.
-         * @param textFunction
+         * @optional @param textFunction
          * @param font
          * @param fontAlign
          * @param imageName
@@ -23,9 +23,11 @@ ig.module(
          * @param onEnter
          * @param onHover
          * @param onLeave
+         * @param onHold
          */
         init: function(bounds, textFunction, font, fontAlign, imageName,
-                       ninePatchX1, ninePatchX2, ninePatchY1, ninePatchY2, onClick, onUnclick, onEnter, onHover, onLeave) {
+                       ninePatchX1, ninePatchX2, ninePatchY1, ninePatchY2, onClick, onUnclick, onEnter, onHover,
+                       onLeave, onHold) {
             this.bounds = bounds;
             this._loaded = false;
             this._children = [];
@@ -55,6 +57,9 @@ ig.module(
             }
             if (onLeave && typeof onLeave === "function") {
                 this.onLeave = onLeave;
+            }
+            if (onHold && typeof onHold === "function") {
+                this.onHold = onHold;
             }
         },
 
@@ -128,6 +133,16 @@ ig.module(
         },
 
         /**
+         * Removes all children from this UIElement.
+         */
+        clearChildren: function() {
+            for (var i = this._children.length - 1; i >= 0; i--) {
+                this._children[i]._parent = null;
+            }
+            this._children = [];
+        },
+
+        /**
          * @param x X coordinate of the testing point in this element's space
          * @param y Y coordinate of the testing point in this element's space
          * @returns {UIElement} The first leaf of the interface tree that overlaps with the argument mouse coordinates.
@@ -137,7 +152,7 @@ ig.module(
             for (i = 0; i <  this._children.length; i++) {
                 child = this._children[i];
                 if (child.bounds.containsPoint(x, y)) {
-                    return child.childMostAt(x, y);
+                    return child.childMostAt(x - child.bounds.x, y - child.bounds.y);
                 }
             }
             return this;
@@ -175,8 +190,7 @@ ig.module(
         },
 
         /**
-         * Calls this.onClick() and calls click(x, y) on any _children this element has. You should call
-         * parent.click(x, y) when you overwrite this, probably.
+         * Calls this.onClick().
          * @param x The x coordinate of the click relative to the top-left corner of this element's bounds
          * @param y The y coordinate of the click relative to the top-left corner of this element's bounds
          */
@@ -185,13 +199,12 @@ ig.module(
                 this._parent.click(x + this.bounds.x, y + this.bounds.y);
             }
             if (this.onClick && typeof this.onClick === "function") {
-                this.onClick();
+                this.onClick(x, y);
             }
         },
 
         /**
-         * Calls this.onUnclick() if it exists and calls unclick(x, y) on any _children this element has. You should call
-         * parent.unclick(x, y) when you overwrite this, probably. Called when the user lets go of the mouse-button
+         * Calls this.onUnclick() if it exists. Called when the user lets go of the mouse-button
          * after clicking this element.
          */
         unclick: function(x, y) {
@@ -199,13 +212,12 @@ ig.module(
                 this._parent.unclick(x + this.bounds.x, y + this.bounds.y);
             }
             if (this.onUnclick && typeof this.onUnclick === "function") {
-                this.onUnclick();
+                this.onUnclick(x, y);
             }
         },
 
         /**
-         * Calls this.onHover() if it exists and calls hover(x, y) on any _children this element has. You should call
-         * parent.hover(x, y) when you overwrite this, probably. Called when the mouse hovers over the element.
+         * Calls this.onEnter() if it exists. Called when the mouse hovers over the element.
          * @param x The x coordinate of the mouse relative to the top-left corner of this element's bounds
          * @param y The y coordinate of the mouse relative to the top-left corner of this element's bounds
          */
@@ -216,27 +228,62 @@ ig.module(
         },
 
         /**
-         * Calls this.onHover() if it exists and calls hover(x, y) on any _children this element has. You should call
-         * parent.hover(x, y) when you overwrite this, probably. Called when the mouse hovers over the element.
+         * Calls this.onHover() if it exists. Called when the mouse hovers over the element.
          * @param x The x coordinate of the mouse relative to the top-left corner of this element's bounds
          * @param y The y coordinate of the mouse relative to the top-left corner of this element's bounds
          */
         hover: function(x, y) {
-            if (this._parent) {
-                this._parent.hover(x + this.bounds.x, y + this.bounds.y);
-            }
+            //if (this._parent) {
+            //    this._parent.hover(x + this.bounds.x, y + this.bounds.y);
+            //}
             if (this.onHover && typeof this.onHover === "function") {
                 this.onHover(x, y);
             }
         },
 
         /**
-         * Calls this.onLeave() if it exists and calls leave(x, y) on any _children this element has. You should call
-         * parent.leave() when you overwrite this, probably. Called when the mouse stops hovering over the element.
+         * Calls this.onLeave() if it exists. Called when the mouse stops hovering over the element.
          */
         leave: function() {
             if (this.onLeave && typeof this.onLeave === "function") {
                 this.onLeave();
+            }
+        },
+
+        /**
+         * Calls this.onHold(x, y) if it exists and calls
+         * @returns {*}
+         */
+        hold: function(x, y) {
+            if (this.onHold && typeof this.onHold === "function") {
+                this.onHold(x, y);
+            }
+        },
+
+        /**
+         * Calls this.onLongHover() if it exists, which occurs when the mouse hovers over an element without moving
+         * for one second.
+         * If longHover() is being called, hover() is too.
+         * @param x
+         * @param y
+         */
+        longHover: function(x, y) {
+            if (this.onLongHover && typeof this.onLongHover === "function") {
+                this.onLongHover(x, y);
+            }
+        },
+
+        /**
+         * Calls this.onUnLongHover() if it exists, which occurs when the mouse starts moving after holding long
+         * enough to start a longHover.
+         * Note: An unLongHover is guaranteed if there is a leave() during a longHover, but an unLongHover does not
+         * necessarily imply a leave().
+         * @param x
+         * @param y
+         */
+        unLongHover: function(x, y) {
+            if (this.onUnLongHover && typeof this.onUnLongHover === "function") {
+                this.onUnLongHover(x, y);
             }
         },
 
@@ -252,6 +299,11 @@ ig.module(
                 return this._parent.getOffsetY() + this.bounds.y;
             }
             else return this.bounds.y;
+        },
+
+        getInnerWidth: function() {
+            return this.bounds.width
+                - ((this._ninePatch)? (this._ninePatchData.x1 + this._ninePatchData.x2 - this.bounds.width) : 0);
         },
 
         /**
@@ -354,7 +406,7 @@ ig.module(
 
             // Draw any text
             if (this._usingText) {
-                this._font.draw(this._textFunction(), this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY, this._fontAlign);
+                this._font.draw(this.formatText(this._textFunction()), this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY, this._fontAlign);
             }
 
             // Draw any children
@@ -365,6 +417,33 @@ ig.module(
                     }
                 }
             }
+        },
+
+        /**
+         * Adds newlines to the argument string.
+         * @param {String} text
+         * @returns {String} A line-breakified string based on this.bounds.width.
+         */
+        formatText: function(text) {
+            var buffer = "", temp, pos = 0, moartemp;
+            if (this.bounds.width > 10) {
+                while (true) {
+                    moartemp = text.indexOf(" ", pos+1);
+                    if (moartemp == -1) {
+                        temp = text.substring(pos);
+                    }
+                    else temp = text.substring(pos, moartemp);
+                    if (ig.game.font.widthForString(buffer+temp) > this.bounds.width) {
+                        buffer += "\n";
+                        temp = temp.substring(1);
+                    }
+                    buffer += temp;
+                    pos = text.indexOf(" ", pos+1);
+                    if (pos == -1) break;
+                }
+                return buffer;
+            }
+            else return text;
         }
 
     })

@@ -10,6 +10,8 @@ ig.module(
 
         init: function() {
             this._elements = [];
+            this.updatingElements = [];
+            this.longHoverTimeMs = 1000;
         },
 
         /**
@@ -37,14 +39,21 @@ ig.module(
          * see elementAt(x, y).
          */
         update: function() {
-            var elementOfInterest = this.elementAt(ig.input.mouse.x, ig.input.mouse.y);
+            var elementOfInterest = this.elementAt(ig.input.mouse.x, ig.input.mouse.y), i;
             if (elementOfInterest) {
-                if (ig.input.pressed('click')) { // TODO: Make buttons activate on release rather than press
+                if (ig.input.pressed('click')) {
                     if (!this.clicking) {
                         elementOfInterest.click(ig.input.mouse.x - elementOfInterest.bounds.x,
                             ig.input.mouse.y - elementOfInterest.bounds.y);
                         this.clicking = elementOfInterest;
                     }
+                }
+                else if (ig.input.state('click') && this.clicking == elementOfInterest) {
+                    elementOfInterest.hold(ig.input.mouse.x - elementOfInterest.bounds.x,
+                        ig.input.mouse.y - elementOfInterest.bounds.y);
+                }
+                else if (ig.input.state('click')) {
+
                 }
                 else if (!this.hoveringOver) {
                     elementOfInterest.enter(ig.input.mouse.x - elementOfInterest.bounds.x,
@@ -52,11 +61,40 @@ ig.module(
                     this.hoveringOver = elementOfInterest;
                 }
                 else if (elementOfInterest == this.hoveringOver) {
+                    this.oldMouseX = this.oldMouseX || 0;
+                    this.oldMouseY = this.oldMouseY || 0;
                     elementOfInterest.hover(ig.input.mouse.x - elementOfInterest.bounds.x,
                     ig.input.mouse.y - elementOfInterest.bounds.y);
+                    if (ig.input.mouse.x == this.oldMouseX && ig.input.mouse.y == this.oldMouseY) {
+                        var delta = time.stop("hoverTimer");
+                        time.start("hoverTimer");
+                        this.elapsedHovering = this.elapsedHovering || 0;
+                        this.elapsedHovering += delta;
+                        if (this.elapsedHovering >= this.longHoverTimeMs) {
+                            this.isLongHovering = true;
+                            elementOfInterest.longHover(this.oldMouseX - elementOfInterest.bounds.x,
+                                this.oldMouseY - elementOfInterest.bounds.y);
+                        }
+                    }
+                    else {
+                        this.elapsedHovering = 0;
+                        if (this.isLongHovering) {
+                            elementOfInterest.unLongHover(ig.input.mouse.x - elementOfInterest.bounds.x,
+                                ig.input.mouse.y - elementOfInterest.bounds.y);
+                            this.isLongHovering = false;
+                        }
+                    }
+                    this.oldMouseX = ig.input.mouse.x;
+                    this.oldMouseY = ig.input.mouse.y;
                 }
                 else if (this.hoveringOver) {
                     this.hoveringOver.leave();
+                    this.elapsedHovering = 0;
+                    if (this.isLongHovering) {
+                        this.hoveringOver.unLongHover(ig.input.mouse.x - this.hoveringOver.bounds.x,
+                            ig.input.mouse.y - this.hoveringOver.bounds.y);
+                        this.isLongHovering = false;
+                    }
                     this.hoveringOver = elementOfInterest;
                     elementOfInterest.enter();
                 }
@@ -71,6 +109,10 @@ ig.module(
                 this.clicking.unclick(ig.input.mouse.x - this.clicking.bounds.x,
                     ig.input.mouse.y - this.clicking.bounds.y);
                 this.clicking = null;
+            }
+
+            for (i = 0; i < this.updatingElements.length; i++) {
+                this.updatingElements[i].update();
             }
         },
 
@@ -94,7 +136,7 @@ ig.module(
         elementAt: function(x, y) {
             for (var i = this._elements.length - 1; i >= 0; i--) { // iterate in reverse because we want the top-most
                 var element = this._elements[i];
-                if (element.bounds.containsPoint(x, y) && element.hide == false) {
+                if (element.bounds.containsPoint(x, y) && !element.hide) {
                     return element.childMostAt(x - element.bounds.x, y - element.bounds.y);
                 }
             }

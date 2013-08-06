@@ -105,7 +105,9 @@ ig.module(
                     "media/shoreline_Q.png",
                     "media/selection_highlight.png",
                     "media/forest_tileset_heavy.png",
-                    "media/forest_tileset_light.png"
+                    "media/forest_tileset_light.png",
+                    "media/harvesting_tile.png",
+                    "media/contract_picture.png"
                 ];
             }
 
