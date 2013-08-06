@@ -20,7 +20,7 @@ ig.module(
             lowResZoomThreshold:0.065,
             midResZoomThreshold:0.59,
             highResZoomThreshold:0.7,
-            maxTilesPerUpdate:6, // The maximum number of HIGH-RES tiles to render to canvas caches per update
+            maxTilesPerUpdate:1, // The maximum number of HIGH-RES tiles to render to canvas caches per update
                                  // (Tiles at half high-res resolution are drawn at twice this rate)
 
             init: function(tilesize, assetManager) {
@@ -65,6 +65,27 @@ ig.module(
                         sectionY = Math.floor(realY / this.sectionSize);
                         this.sectionContainsData = this.sectionContainsData || {};
                         this.sectionContainsData[sectionX + ", " + sectionY] = true;
+                        if (this.mapChangeCallback && typeof this.mapChangeCallback === "function") {
+                            this.mapChangeCallback();
+                        }
+                    }
+                }
+            },
+
+            clearTile: function(x, y) {
+                var i, j;
+                console.log(x + ", " + y);
+                if (x || x == 0) {
+                    if (y || y == 0) {
+                        this.data = this.data || [];
+                        this.data[x] = this.data[x] || [];
+                        this.data[x][y] = [];
+                        this.invalidateTile(x, y); // Important to call this - we changed a tile!
+                        for (i = -1; i < 1; i++) {
+                            for (j = -1; j < 1; j++) {
+                                this.invalidateTile(x+i, y+j);
+                            }
+                        }
                         if (this.mapChangeCallback && typeof this.mapChangeCallback === "function") {
                             this.mapChangeCallback();
                         }
@@ -322,9 +343,8 @@ ig.module(
                         }
                         if (imageName.startsWith("forest_tileset")) {
                             sourceRect = this.getForestTile(tileX, tileY);
-                            ig.log("tileX: " + tileX + ", tileY: " + tileY);
+                            //ig.log("tileX: " + tileX + ", tileY: " + tileY);
                             if (sourceRect) {
-                                ig.log("sourceRect: " + sourceRect);
                                 ctx.drawImage(image,
                                     sourceRect.x, sourceRect.y,
                                     sourceRect.width, sourceRect.height,
@@ -378,7 +398,7 @@ ig.module(
                     shapeString = "_0";
                 }
                 index = ig.game.tileTypes.indexOf(shapeString);
-                ig.log(x + ", " + y + ": " + shapeString + "; " + index);
+                //ig.log(x + ", " + y + ": " + shapeString + "; " + index);
                 if (index != -1) {
                     x = index % 5;
                     y = (index / 5) | 0;
@@ -391,7 +411,7 @@ ig.module(
                     if (shapeString === "_") {
                         shapeString = "_0";
                     }
-                    ig.log("Fixed shapeString " + shapeString);
+                    //ig.log("Fixed shapeString " + shapeString);
                     index = ig.game.tileTypes.indexOf(shapeString);
                     if (index != -1) {
                         x = index % 5;
@@ -637,6 +657,7 @@ ig.module(
                         }
                         // Otherwise keep rendering until we hit the maximum allowed this update
                         for (var j = 0; j < this._tilesLeftToRender[i].imageNames.length; j++) {
+                            var tile = this._tilesLeftToRender[i];
                             this._renderTile(
                                 context,
                                 this._tilesLeftToRender[i].renderX,
@@ -715,7 +736,7 @@ ig.module(
              * @param y Isometric Y coordinate of the tile that was changed
              */
             invalidateTile: function(x, y) {
-                var realX, realY, sectionX, sectionY;
+                var realX, realY, sectionX, sectionY, canvas;
                 realX = (x - y);
                 realY = (x + y) / 2;
 
@@ -726,6 +747,31 @@ ig.module(
                 this._markSection(sectionX, sectionY, 2, false);
                 this._markSection(sectionX, sectionY, 4, false);
                 this._markSection(sectionX, sectionY, 16, false);
+
+                if (this._veryLowResSections[sectionX]) {
+                    if (this._veryLowResSections[sectionX][sectionY]) {
+                        canvas = this._veryLowResSections[sectionX][sectionY];
+                        canvas.width = canvas.width;
+                    }
+                }
+                if (this._lowResSections[sectionX]) {
+                    if (this._lowResSections[sectionX][sectionY]) {
+                        canvas = this._lowResSections[sectionX][sectionY];
+                        canvas.width = canvas.width;
+                    }
+                }
+                if (this._midResSections[sectionX]) {
+                    if (this._midResSections[sectionX][sectionY]) {
+                        canvas = this._midResSections[sectionX][sectionY];
+                        canvas.width = canvas.width;
+                    }
+                }
+                if (this._highResSections[sectionX]) {
+                    if (this._highResSections[sectionX][sectionY]) {
+                        canvas = this._highResSections[sectionX][sectionY];
+                        canvas.width = canvas.width;
+                    }
+                }
             },
 
             /**

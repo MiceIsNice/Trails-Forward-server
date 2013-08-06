@@ -1265,3 +1265,19 @@ AbstractController::DoubleRenderError (Render and/or redirect were called multip
   app/controllers/world_player_available_contracts_controller.rb:65:in `block (2 levels) in accept'
   app/controllers/world_player_available_contracts_controller.rb:64:in `accept'
 
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/world_player_available_contracts_controller.rb:5:in `index'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=2):
+  app/controllers/world_player_available_contracts_controller.rb:5:in `index'
+
+
+SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+

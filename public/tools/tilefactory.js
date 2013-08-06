@@ -110,10 +110,17 @@ TileFactory.prototype.getUnoccupiedSpace = function(piece, tile, scale, roundToF
         case 6: sectionFactorX = 0; sectionFactorY = 2; break;
         case 7: sectionFactorX = 0; sectionFactorY = 1; break;
         case 8: sectionFactorX = 0; sectionFactorY = 0; break;
+        default: sectionFactorX = sectionFactorY = null;
     }
     while (count < 200) {
-        rect.x = Math.random() * tile.tilesize / 3 + (tile.tilesize / 3 * sectionFactorX) - rect.width / 2;
-        rect.y = Math.random() * tile.tilesize / 3 + (tile.tilesize / 3 * sectionFactorY) - rect.height / 2;
+        if (sectionFactorX && sectionFactorY) {
+            rect.x = Math.random() * tile.tilesize / 3 + (tile.tilesize / 3 * sectionFactorX) - rect.width / 2;
+            rect.y = Math.random() * tile.tilesize / 3 + (tile.tilesize / 3 * sectionFactorY) - rect.height / 2;
+        }
+        else {
+            rect.x = Math.random() * tile.tilesize - rect.width / 2;
+            rect.y = Math.random() * tile.tilesize - rect.height / 2;
+        }
         if (roundToFraction) {
             rect.x = tile.tilesize / roundToFraction * (Math.floor(Math.random() * roundToFraction - 1) + 1) - rect.width / 2;
             rect.y = tile.tilesize / roundToFraction * (Math.floor(Math.random() * roundToFraction - 1) + 1) - rect.height / 2;

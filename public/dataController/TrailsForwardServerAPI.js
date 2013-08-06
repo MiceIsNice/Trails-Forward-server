@@ -272,7 +272,7 @@ TrailsForwardServerAPI.prototype = {
 	buildWorldRSForWorldId : function(world_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildWorldRSForWorldId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 	
-		if(world_num) 
+		if(world_id)
 			return (this.WORLDS + this.FORWARD_SLASH + world_id + this.JSON);
 		else console.log("bad input");
 	},

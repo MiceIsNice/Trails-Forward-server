@@ -146,6 +146,36 @@ VilasFactory.prototype.houses = [
     }
     ];
 
+VilasFactory.prototype.stumps = [
+    {
+        name: "stump_piece",
+        url: "../media/stump.png",
+        origin: {
+            x: 132,
+            y: 219
+        },
+        extents: {
+            width: 50,
+            height: 50
+        }
+    }
+];
+
+VilasFactory.prototype.harvesters = [
+    {
+        name: "harvester_piece",
+        url: "../media/harvester_big.png",
+        origin: {
+            x: 223,
+            y: 278
+        },
+        extents: {
+            width: 300,
+            height: 300
+        }
+    }
+];
+
 VilasFactory.prototype.load = function() {
     var i, self = this;
     for (i = 0; i < this.trees.length; i++) {
@@ -153,6 +183,12 @@ VilasFactory.prototype.load = function() {
     }
     for (i = 0; i < this.houses.length; i++) {
         this._loadUrl(this.houses[i].url, this.houses[i], this.houses[i].name);
+    }
+    for (i = 0; i < this.stumps.length; i++) {
+        this._loadUrl(this.stumps[i].url, this.stumps[i], this.stumps[i].name);
+    }
+    for (i = 0; i < this.harvesters.length; i++) {
+        this._loadUrl(this.harvesters[i].url, this.harvesters[i], this.harvesters[i].name);
     }
     this._loaded = false; // We added things that aren't loaded yet
 };
@@ -219,6 +255,39 @@ VilasFactory.prototype.buildForestTile = function(num_trees, num_trees_variance,
             if (location) {
                 this.occupySpace(piece, location.x, location.y, tile, scale);
             }
+        }
+    }
+
+    return this.finishTile(tile, scale, scale_variance);
+};
+
+VilasFactory.prototype.buildHarvestingTile = function(num_trees, num_trees_variance, num_stumps, num_stumps_variance,
+                                                      scale, scale_variance, tilesize) {
+    var tile, piece, location, i, final_num_trees, final_num_stumps;
+
+    tile = this.startTile("harvest", tilesize);
+
+    final_num_trees = num_trees + Math.floor(Math.random() * (num_trees_variance + 1)) * (Math.random() > 0.5 ? 1 : -1);
+
+    final_num_stumps = num_stumps + Math.floor(Math.random() * (num_stumps_variance + 1)) * (Math.random() > 0.5 ? 1 : -1);
+
+    piece = this.getRandomFromArray(this.harvesters);
+    location = this.getUnoccupiedSpace(piece, tile, scale, null, null);
+    if (location) {
+        this.occupySpace(piece, location.x, location.y, tile, scale);
+    }
+    for (i = 0; i < final_num_trees; i++) {
+        piece = this.getRandomFromArray(this.trees);
+        location = this.getUnoccupiedSpace(piece, tile, scale, null, null);
+        if (location) {
+            this.occupySpace(piece, location.x, location.y, tile, scale);
+        }
+    }
+    for (i = 0; i < final_num_stumps; i++) {
+        piece = this.getRandomFromArray(this.stumps);
+        location = this.getUnoccupiedSpace(piece, tile, scale, null, null);
+        if (location) {
+            this.occupySpace(piece, location.x, location.y, tile, scale);
         }
     }
 

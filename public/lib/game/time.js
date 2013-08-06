@@ -25,12 +25,14 @@ if (typeof window.time == 'undefined') {
             stop: function(name) {
                 if (name in timeMap) {
                     var stop = (new Date()).getTime();
+                    var start = timeMap[name];
                     var l = new Report(name, timeMap[name], stop);
                     log.push(l);
                     if (lineReport) lineReportMethod.call(this, l);
-                    delete timeMap[name];
+                    return stop - start;
                 } else {
-                    error('stop:' + name + ' not found');
+                    //error('stop:' + name + ' not found');
+                    return 0;
                 }
             },
 

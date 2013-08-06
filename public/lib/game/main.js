@@ -8,11 +8,12 @@ ig.module(
     	'impact.image',
         'impact.input',
         'impact.entity',
+        'game.assetmanager',
         'game.cachedisomap',
         'game.isominimap',
         'game.ui',
         'game.button',
-        'game.assetmanager'
+        'game.scrollfield'
     )
     .defines(function(){
 
@@ -283,13 +284,19 @@ ig.module(
                 this.terrainMap = new CachedIsoMap(128, this.assetManager);
                 this.featureMap = new CachedIsoMap(128, this.assetManager);
 
-           //       TFglobals.DATA_CONTROLLER.logInWithCookies();
+                TFglobals.DATA_CONTROLLER.getUserPlayers();
+
+                //TFglobals.DATA_CONTROLLER.logInWithCookies();
                 TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
+            },
+
+            onGetUserPlayers: function(players) {
+                ig.log("Got user players.");
+                TFglobals.DATA_CONTROLLER.getWorldDataForPlayerId(players[0].id);
             },
 
             onLogin: function() {
                 ig.log("Logged in.");
-                TFglobals.SERVER_API.getWorldDataForWorldId(3); // TODO: Hard-coded for now, fix later
             },
 
             onGetWorldData: function() {
@@ -297,14 +304,15 @@ ig.module(
                // TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
 				var rect = {x_min : 0, x_max : 64, y_min : 0, y_max : 64};
 				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
+                TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
             },
 
             onGetMapChunk: function(chunk) {
                 ig.log("Got map chunk.");
                 var i, j, k, tile, shoreTypes, tileFeature, landType;
-                ig.log(chunk);
+                //ig.log(chunk);
                 for (i = 0; i < chunk.length; i++) {
-                    ig.log("Reading index " + i + " of chunk");
+                    //ig.log("Reading index " + i + " of chunk");
                     tile = chunk[i].table;
                     if (tile) {
                         tileFeature = landType = undefined;
@@ -355,10 +363,6 @@ ig.module(
                 }
                 ig.log("Done getting map chunk");
                 this.gotMapChunk = true;
-            },
-
-            onGetUserPlayers: function(players) {
-                ig.log("Players gotten: " + players[0]);
             },
 
             /**
@@ -472,14 +476,14 @@ ig.module(
 
                 var ctx, scale, realX, realY, x, y;
 
-                // Draw all entities and backgroundMaps
-                // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
-                this.parent();
-
                //if (ig.input.pressed("click")) {
                //    this.shouldTime = true;
                //    time.start("draw");
                //}
+
+                // Draw all entities and backgroundMaps
+                // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
+                this.parent();
 
                 if (this.terrainMap) {
                     ctx = ig.system.context;
@@ -570,10 +574,10 @@ ig.module(
                     }
                 }
                 this.selectedTile = [x, y];
-                ig.log("Selected tile: " + x + ", " + y);
-                ig.log("Tile has the following shape with respect to trees: ");
-                ig.log(this.featureMap.getForestTile(x, y));
-                ig.log(this.terrainMap.getTile(x, y));
+                //ig.log("Selected tile: " + x + ", " + y);
+                //ig.log("Tile has the following shape with respect to trees: ");
+                //ig.log(this.featureMap.getForestTile(x, y));
+                //ig.log(this.terrainMap.getTile(x, y));
             },
 
             /**
@@ -585,7 +589,7 @@ ig.module(
                 this.showConfirmWindow(
                     function() { return "Are you sure you want to buy this tile?"; },
                     this.onConfirmBuyTile,
-                    [x, y]);
+                    {x:x, y:y, that:this});
             },
 
             /**
@@ -596,6 +600,7 @@ ig.module(
              */
             showConfirmWindow: function(textFunction, onConfirm, confirmArgs) {
                 var self = this;
+
                 // Making sure the confirm window exists
                 if (!this.confirmWindow) {
                     this.confirmWindow = new UIElement(new Rect(
@@ -629,16 +634,24 @@ ig.module(
                         },
                         confirmArgs,
                         [3, 75, 4, 33]
-                        );
+                    );
                     this.confirmWindow.addChild(this.confirmYes);
                     var yesText = new UIElement(new Rect(36, 12, 1, 1));
                     yesText.enableText(function() { return "Yes"; }, this.font, ig.Font.ALIGN.CENTER);
                     this.confirmYes.addChild(yesText);
                 }
+                this.confirmYes.setFunction(
+                    function(confirmArgs) {
+                        onConfirm(confirmArgs);
+                        self.confirmWindow.hide = true;
+                    },
+                    confirmArgs
+                );
 
                 // No button
                 if (!this.confirmNo) {
-                    this.confirmNo = new Button(new Rect(310, 140, 70, 40),
+                    this.confirmNo = new Button(
+                        new Rect(310, 140, 70, 40),
                         "button",
                         "button_hover",
                         "button_click",
@@ -663,10 +676,10 @@ ig.module(
                 // Making sure the confirm window exists
                 if (!this.contractsWindow) {
                     this.contractsWindow = new UIElement(new Rect(
-                        ig.system.width / 2 - 200,
-                        ig.system.height / 2 - 100,
-                        400,
-                        200
+                        ig.system.width / 2 - 250,
+                        ig.system.height / 2 - 150,
+                        500,
+                        300
                     ));
                     this.contractsWindow.setImage("uibox");
                     this.contractsWindow.enableNinePatch(5, 11, 6, 11);
@@ -674,16 +687,46 @@ ig.module(
                 }
                 this.contractsWindow.hide = false;
 
-                // Text in the contracts window
-                if (!this.contractText) {
-                    this.contractText = new UIElement(new Rect(200, 50, 1, 1));
-                    this.contractsWindow.addChild(this.contractText);
-                }
-                this.contractText.enableText(function() { return "bluh" }, this.font, ig.Font.ALIGN.CENTER);
-
                 // A contract
-                if (!this.contract) {
-                    this.contract = new Button(new Rect(10, 140, 70, 40),
+                //if (!this.contract) {
+                //    this.contract = new Button(new Rect(10, 140, 70, 40),
+                //        "button",
+                //        "button_hover",
+                //        "button_click",
+                //        function() {
+                //            self.contractsWindow.hide = true;
+                //        },
+                //        undefined,
+                //        [3, 75, 4, 33]
+                //    );
+                //    this.contractsWindow.addChild(this.contract);
+                //}
+
+                // A scroll field
+                if (!this.contractScrollField) {
+                    this.contractScrollField = new ScrollField(
+                        new Rect(
+                            10, 30, this.contractsWindow.bounds.width - 20, this.contractsWindow.bounds.height - 40
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        [3, 75, 4, 33],
+                        "uibox",
+                        [5, 11, 6, 11],
+                        "uibox",
+                        [5, 11, 6, 11],
+                        this.ui
+                    );
+                    this.contractsWindow.addChild(this.contractScrollField);
+                    this.contractScrollField.horizontalScrollBar.hide = true;
+                }
+
+                if (!this.contractsWindowClose) {
+                    this.contractsWindowClose = new Button(
+                        new Rect(
+                            this.contractsWindow.bounds.width - 30, 0, 20, 20
+                        ),
                         "button",
                         "button_hover",
                         "button_click",
@@ -693,7 +736,98 @@ ig.module(
                         undefined,
                         [3, 75, 4, 33]
                     );
-                    this.contractsWindow.addChild(this.contract);
+                    this.contractsWindow.addChild(this.contractsWindowClose);
+                    var contractsWindowCloseText = new UIElement(new Rect(12, 1, 1, 1));
+                    contractsWindowCloseText.enableText(function() { return "x"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.contractsWindowClose.addChild(contractsWindowCloseText);
+                }
+
+                var i = 0, contractHeight = 190, contractWidth = 142, contractSpacing = 5, contract;
+                // a contract
+                if (!this.contracts) {
+                    this.contracts = [];
+                    for (i = 0; i < this.availableContracts.length; i++) {
+                        contract = new Button(
+                            new Rect(
+                                contractSpacing + (i % 3) * contractWidth + (i % 3) * contractSpacing,
+                                contractSpacing + ((i / 3) | 0) * contractHeight + ((i / 3) | 0) * contractSpacing,
+                                contractWidth,
+                                contractHeight
+                            ),
+                            "button",
+                            "button_hover",
+                            "button_click",
+                            function() {
+                                self.contractsWindow.hide = true;
+                                self.removeContractTooltip();
+                            },
+                            undefined,
+                            [3, 75, 4, 33]
+                        );
+                        this.contractTooltipSource = this.availableContracts[i];
+                        contract.contractInfo = this.availableContracts[i];
+                        contract.onLongHover = function() {
+                            self.generateContractTooltip(this.contractInfo);
+                        };
+                        contract.onUnLongHover = function() {
+                            self.removeContractTooltip();
+                        };
+                        this.contractScrollField.contentPanel.addChild(contract);
+                        var contractImage = new UIElement(new Rect(9, 10, 128, 128));
+                        contractImage.setImage("contract_picture");
+                        contract.addChild(contractImage);
+                        var contractText = new UIElement(new Rect(contractWidth / 2, 144, contractWidth - 10, 0));
+                        this.specificContract = this.availableContracts[i];
+                        console.log(this.specificContract);
+                        contractText.text = this.specificContract.codename;
+                        contractText.enableText(function() {
+                                return this.text;
+                            },
+                            this.font, ig.Font.ALIGN.CENTER);
+                        contract.addChild(contractText);
+                        this.contracts.push(contract);
+                    }
+                }
+
+            },
+
+            onGetAvailableContracts: function(contracts) {
+                console.log("Got contracts.");
+                this.availableContracts = contracts.lumberjack_contracts;
+            },
+
+            generateContractTooltip: function(contractInfo) {
+                if (!this.tooltip) {
+                    this.tooltip = new UIElement(new Rect(
+                        ig.input.mouse.x + 10,
+                        ig.input.mouse.y + 10,
+                        400,
+                        200
+                    ));
+                    this.tooltip.setImage("uibox");
+                    this.tooltip.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.tooltip);
+                }
+                this.tooltip.hide = false;
+                var text = "";
+                if (!this.tooltipText) {
+                    this.tooltipText = new UIElement(new Rect(0, 0, this.tooltip.getInnerWidth(), 10));
+                    for (var property in contractInfo) {
+                        if (contractInfo.hasOwnProperty(property)) {
+                            text += property + ": " + contractInfo[property] + "\n";
+                        }
+                    }
+                    this.tooltipText.enableText(function() { return text; }, this.font, ig.Font.ALIGN.LEFT);
+                    this.tooltip.addChild(this.tooltipText);
+                }
+            },
+
+            removeContractTooltip: function() {
+                if (this.tooltip) {
+                    this.tooltip.hide = true;
+                    this.tooltip.clearChildren();
+                    this.tooltipText = null;
+                    this.tooltip = null;
                 }
             },
 
@@ -703,7 +837,10 @@ ig.module(
              */
             onConfirmBuyTile: function(args) {
                 // Aaron's code here!
-                ig.log("Attempted to purchase tile at " + args[0] + ", " + args[1]);
+                ig.log("Attempted to purchase tile at " + args.x + ", " + args.y);
+
+                args.that.featureMap.clearTile(args.x, args.y);
+                args.that.featureMap.addTile(args.x, args.y, "harvesting_tile");
             },
 
             getShoreTypes: function(x, y) {
