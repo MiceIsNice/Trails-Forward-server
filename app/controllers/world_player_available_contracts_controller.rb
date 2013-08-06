@@ -24,7 +24,6 @@ class WorldPlayerAvailableContractsController < ApplicationController
     begin
       authorize! :accept_contract, @contract
     rescue CanCan::AccessDenied => e
-      puts "caught AccessDenied exception with message #{e.message}"
       render json: {:message => e.message}
       return
     end

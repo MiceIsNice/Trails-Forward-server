@@ -5,6 +5,8 @@
  */
 
 function TrailsForwardGameDataCache(){
+	if(TFglobals.FULL_DEBUGGING || TFglobals.GDC_DEBUGGING) console.log("TrailsForwardGameDataCache()");
+
 	this.user_players = new Array();
 	this.availableContracts = new Array();
 	this.chunkQueue = new TrailsForwardChunkQueue();
