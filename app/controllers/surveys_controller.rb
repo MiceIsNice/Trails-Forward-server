@@ -5,15 +5,20 @@ class SurveysController < ApplicationController
     world = World.find(params[:world_id])
     id = params[:resource_tile] ? ResourceTile.find(params[:resource_tile]).megatile_id : params[:megatile_id]
     puts "index survey for megatile id #{id}"
-    megatile = world: world.megatiles.find(id)
+#    megatile = world: world.megatiles.find(id)
+    megatile = Megatile.find(id)
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)
 
-    @surveys = megatile.surveys.where(player_id: player.id)
+	@surveys = Survey.where("megatile_id = ? AND player_id = ?", id, player.id)
+#    @surveys = megatile.surveys.where(player_id: player.id)
+    puts "SurveysController.index found this many surveys for this tile from this user: #{@surveys.length}"
 
     if @surveys.empty?
-      @surveys = [DefaultSurvey.of(megatile: megatile)]
+      render json: {:errors => ["You haven't conducted a survey of this tile yet"]}
+      return
+   #   @surveys = [DefaultSurvey.of(megatile: megatile)]
     end
 
     respond_to do |format|
@@ -26,7 +31,8 @@ class SurveysController < ApplicationController
     world = World.find(params[:world_id])
     id = params[:resource_tile] ? ResourceTile.find(params[:resource_tile]).megatile_id : params[:megatile_id]
     puts "create survey for megatile id #{id}"
-    megatile = world: world.megatiles.find(id)
+#    megatile = world: world.megatiles.find(id)
+    megatile = Megatile.find(id)
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)

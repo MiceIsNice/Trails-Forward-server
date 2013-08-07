@@ -201,7 +201,7 @@ ImpactDummy.prototype = {
 			console.log("onAttemptToAcceptContract accepted contract with id: " + theResponse.contract_id);
 		}
 		else{
-			console.log("onAttemptToAcceptContract failure!");
+			console.log("onAttemptToAcceptContract failure with message: " + theResponse.errors.join(", "));
 		}
 	},
 	
@@ -212,7 +212,7 @@ ImpactDummy.prototype = {
 			console.log("onAttemptToClearCutTileWithId success!");
 		}
 		else{
-			console.log("onAttemptToClearCutTileWithId failure!");
+			console.log("onAttemptToClearCutTileWithId failure with message: " + theResponse.errors.join(", "));
 		}			
 	},
 	
@@ -223,7 +223,7 @@ ImpactDummy.prototype = {
 			console.log("onConductSurveyOfTileWithId success!");
 		}
 		else{
-			console.log("onConductSurveyOfTileWithId failure!");
+			console.log("onConductSurveyOfTileWithId failure with message: " + theResponse.errors.join(", "));
 		}		
 	},
 
@@ -234,7 +234,7 @@ ImpactDummy.prototype = {
 			console.log("onViewExistingSurveyOfTileWithId success!");
 		}
 		else{
-			console.log("onViewExistingSurveyOfTileWithId failure!");
+			console.log("onViewExistingSurveyOfTileWithId failure with message: " + theResponse.errors.join(", "));
 		}		
 	},
 
@@ -245,7 +245,7 @@ ImpactDummy.prototype = {
 			console.log("onGetPlayerStats received balance: " + theResponse.balance + ", turn points: " + theResponse.turn_points + ", political capital: " + theResponse.political_capital);
 		}
 		else{
-			console.log("onGetPlayerStats failure!");
+			console.log("onGetPlayerStats failure with message: " + theResponse.errors.join(", "));
 		}		
 	},
 	
