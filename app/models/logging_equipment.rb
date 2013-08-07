@@ -77,6 +77,12 @@ class LoggingEquipment < ActiveRecord::Base
   end
 
 
+    # 1. Get array of equipment out of options hash
+    # 2. Produce a new array that contains copies of those equipment objects that contain
+    #      the value attached to :diameter in the options hash within their diameter range 
+    # 3. Send harvest_volume to each element of the new array, replacing element 
+    #      with the resulting value
+    # 4. Sum the values stored in the new array 
   def self.harvest_volume_for options
     options.required_keys! :diameter, :equipment
 
@@ -86,6 +92,12 @@ class LoggingEquipment < ActiveRecord::Base
   end
 
 
+    # 1. Get array of equipment out of options hash
+    # 2. Produce a new array that contains copies of those equipment objects that contain
+    #      the value attached to :diameter in the options hash within their diameter range 
+    # 3. Send operating_cost to each element of the new array, replacing element 
+    #      with the resulting value
+    # 4. Sum the values stored in the new array 
   def self.operating_cost_for options
     options.required_keys! :diameter, :equipment
 

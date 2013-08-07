@@ -304,7 +304,10 @@ class ResourceTile < ActiveRecord::Base
   end
 
   def can_harvest?
-    raise 'not implemented'
+    return landcover_class_code == 41 ||
+           landcover_class_code == 42 ||
+           landcover_class_code == 43 ||
+           landcover_class_code == 90 
   end
 
   def clearcut!

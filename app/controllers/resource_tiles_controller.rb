@@ -21,7 +21,7 @@ class ResourceTilesController < ApplicationController
   before_filter :check_harvest_rights, only: [:clearcut_list, :diameter_limit_cut_list, :partial_selection_cut_list]
 
   expose(:world) { World.find params[:world_id] }
-  expose(:resource_tile) { ResourceTile.find (params[:id] ? params[:id] : 1) }
+  expose(:resource_tile) { ResourceTile.find (params[:tile_id] ? params[:tile_id] : 1) }
 
   expose(:resource_tiles) do
     if params[:resource_tile_ids]
@@ -174,28 +174,34 @@ def clearcut_list
     if contract_to_fufill.length = 
       contract_to_fufill = Contracts.where("player_id = ?", player.id).length > 0
 end
+=end
 
   def clearcut_list
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
 
+    puts "resource_tiles_controller.clearcut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
+	
+=begin
     if params[:estimate] == true
       params[:estimate] = 'true'
     end
 
     unless params[:estimate] == 'true'
-    unless params[:estimate] == true && TimeManager.can_perform_action? player: player, cost: time_cost
+=end
+    unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
         respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
         return
       end
-    end
+#    end
 
     player.balance -= money_cost
     player.time_remaining_this_turn -= time_cost
     results = harvestable_tiles.collect(&:clearcut)
     summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
 
-    if params[:estimate] == 'true'
+#    if params[:estimate] == 'true'
+    if params[:estimate] == true 
       respond_with summary
     else
       begin
@@ -227,7 +233,6 @@ end
       end
     end
   end
-=end
 
   def build_list
     raise 'not yet implemented'
@@ -286,16 +291,18 @@ end
     time_cost = TimeManager.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
 
+=begin
     if params[:estimate] == true
       params[:estimate] = 'true'
     end
 
     unless params[:estimate] == 'true'
-      unless TimeManager.can_perform_action? player: player, cost: time_cost
+=end
+      unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
         respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
         return
       end
-    end
+#    end
 
     player.balance -= money_cost
     player.time_remaining_this_turn -= time_cost

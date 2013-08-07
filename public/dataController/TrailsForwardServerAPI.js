@@ -25,7 +25,9 @@ function TrailsForwardServerAPI(){
 	this.MEGATILES = "/megatiles";
 	this.RESOURCE_TILES = "/resource_tiles";
 	this.LOGGING_EQUIPMENT = "/logging_equipment";
+	this.CLEARCUT = "/clearcut";
 	this.BUY = "/buy";
+	this.PLAYER_STATS = "/player_stats";
 	this.AUTH_TOKEN = "auth_token";
 	this.AVAILABLE_CONTRACTS = "/available_contracts";
 	this.AVAILABLE_LOGGING_EQUIPMENT = "/available"; // this will change to something like 'equipment'
@@ -131,8 +133,15 @@ TrailsForwardServerAPI.prototype = {
 	
 ***/
 	
-	getPlayerStats : function(){
-	
+	getPlayerStatsForPlayerId : function(player_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayerStatsForPlayerId", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+
+		if(player_id || player_id == 0){
+			var resourceString = this.buildPlayerStatsRSWithUserIdAndPlayerId(this._userId, player_id);
+			var queryString = this.authString() + this.buildParameterStringWithNamesAndValues(["player_id"],[player_id]);
+			this.makeGetRequest(resourceString, queryString, TFglobals.DATA_CONTROLLER.onGetPlayerStats);
+		}
+		else console.log("bad input");		
 	},
 	
 	getAvailableUpgradesForWorldIdAndPlayerId : function (world_id, player_id){
@@ -166,11 +175,14 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
-	attemptToClearCutTileWithId : function(tile_id){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToClearCutTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+	attemptToClearCutTileWithWorldIdAndTileId : function(world_id, the_tile_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToClearCutTileWithId", ["the_tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 												
-		if(tile_id || tile_id == 0)
-			this.sendPostMessage("", this.authString(), {id: tile_id}, TFglobals.DATA_CONTROLLER.onAttemptToClearCutTileWithId);
+		if(the_tile_id || the_tile_id == 0){
+			var resourceString = this.buildAttemptToClearCutTileRSWithWorldId(world_id);
+			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["estimate"],[true]);
+			this.sendPostMessage(resourceString, parameterString, {tile_id: the_tile_id, resource_tile_ids : [the_tile_id]}, TFglobals.DATA_CONTROLLER.onAttemptToClearCutTileWithId);
+		}
 		else console.log("bad input");
 	},
 	
@@ -372,7 +384,27 @@ TrailsForwardServerAPI.prototype = {
 
  		if((world_id || world_id == 0) && (tile_id || tile_id == 0))
  			return this.WORLDS + this.FORWARD_SLASH + world_id + this.MEGATILES + this.UNUSED_NUMBER + this.BUY + this.JSON;
+		else console.log("bad input");
  	},
+ 	
+ 	  /* produces /worlds/world_id/resource_tiles/clearcut.json? */
+ 	buildAttemptToClearCutTileRSWithWorldId : function(world_id){
+   		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildAttemptToClearCutTileRSWithWorldId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+		if(world_id || world_id == 0)
+			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.CLEARCUT + this.JSON;
+		else console.log("bad input");
+ 	},
+ 	
+ 	  /* produces: /worlds/world_id/stats.json? */
+ 	buildPlayerStatsRSWithUserIdAndPlayerId : function(user_id, player_id){
+   		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPlayerStatsRSWithUserIdAndPlayerId", ["user_id", "player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+ 		if((user_id || user_id == 0) && (player_id || player_id == 0))
+ 			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYER_STATS + this.JSON;
+ 		else console.log("bad input");	
+ 	},
+ 	
  	
 /** NOT USING WORLD ID YET!!! 
  

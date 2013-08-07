@@ -9,6 +9,11 @@ TrailsForwardWorld::Application.routes.draw do
   resources :users do
     resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
   end
+ 
+  resources :users do 
+    resources :players 
+      get :player_stats
+  end 
 
   resources :worlds, :only => [:index, :show, :update] do
     member do

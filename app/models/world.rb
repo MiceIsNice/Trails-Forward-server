@@ -179,7 +179,10 @@ class World < ActiveRecord::Base
   end
 
   def player_for_user(user)
-    players.where(:user_id => user.id).first
+    the_player = Player.where("user_id = ? AND world_id = ?", user.id, self.id)[0]
+    puts "world id #{self.id} has a player for user #{user.id} with player id: #{the_player.id}"
+   #players.where(:user_id => user.id)
+   the_player
   end
 
   # TODO: make scope
