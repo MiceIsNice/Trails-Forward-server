@@ -52,8 +52,9 @@ ig.module(
                     elementOfInterest.hold(ig.input.mouse.x - elementOfInterest.bounds.x,
                         ig.input.mouse.y - elementOfInterest.bounds.y);
                 }
-                else if (ig.input.state('click')) {
-
+                else if (ig.input.state('click') && this.clicking) {
+                    this.clicking.hold(ig.input.mouse.x - this.clicking.bounds.x,
+                        ig.input.mouse.y - this.clicking.bounds.y);
                 }
                 else if (!this.hoveringOver) {
                     elementOfInterest.enter(ig.input.mouse.x - elementOfInterest.bounds.x,
@@ -98,6 +99,10 @@ ig.module(
                     this.hoveringOver = elementOfInterest;
                     elementOfInterest.enter();
                 }
+            }
+            else if (ig.input.state('click') && this.clicking) {
+                this.clicking.hold(ig.input.mouse.x - this.clicking.bounds.x,
+                    ig.input.mouse.y - this.clicking.bounds.y);
             }
             else {
                 if (this.hoveringOver) {

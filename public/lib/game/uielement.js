@@ -233,9 +233,9 @@ ig.module(
          * @param y The y coordinate of the mouse relative to the top-left corner of this element's bounds
          */
         hover: function(x, y) {
-            //if (this._parent) {
-            //    this._parent.hover(x + this.bounds.x, y + this.bounds.y);
-            //}
+            if (this._parent && this.hoverPassThrough) {
+                this._parent.hover(x + this.bounds.x, y + this.bounds.y);
+            }
             if (this.onHover && typeof this.onHover === "function") {
                 this.onHover(x, y);
             }
@@ -245,6 +245,9 @@ ig.module(
          * Calls this.onLeave() if it exists. Called when the mouse stops hovering over the element.
          */
         leave: function() {
+            if (this._parent && this.hoverPassThrough) {
+                this._parent.leave();
+            }
             if (this.onLeave && typeof this.onLeave === "function") {
                 this.onLeave();
             }
@@ -268,6 +271,9 @@ ig.module(
          * @param y
          */
         longHover: function(x, y) {
+            if (this._parent && this.hoverPassThrough) {
+                this._parent.longHover(x + this.bounds.x, y + this.bounds.y);
+            }
             if (this.onLongHover && typeof this.onLongHover === "function") {
                 this.onLongHover(x, y);
             }
@@ -282,6 +288,9 @@ ig.module(
          * @param y
          */
         unLongHover: function(x, y) {
+            if (this._parent && this.hoverPassThrough) {
+                this._parent.unLongHover(x + this.bounds.x, y + this.bounds.y);
+            }
             if (this.onUnLongHover && typeof this.onUnLongHover === "function") {
                 this.onUnLongHover(x, y);
             }

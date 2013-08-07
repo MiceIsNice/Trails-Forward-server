@@ -758,8 +758,7 @@ ig.module(
                             "button_hover",
                             "button_click",
                             function() {
-                                self.contractsWindow.hide = true;
-                                self.removeContractTooltip();
+
                             },
                             undefined,
                             [3, 75, 4, 33]
@@ -772,9 +771,29 @@ ig.module(
                         contract.onUnLongHover = function() {
                             self.removeContractTooltip();
                         };
+                        contract.funcToCall = function() {
+                            var thisContract = this;
+                            self.showConfirmWindow(function() {
+                                    return "Are you sure you want to take on the "
+                                        + thisContract.contractInfo.codename + " contract?";
+                                },
+                                self.onConfirmTakeContract,
+                                this.contractInfo);
+                            self.removeContractTooltip();
+                            self.contractsWindow.hide = true;
+                        };
                         this.contractScrollField.contentPanel.addChild(contract);
                         var contractImage = new UIElement(new Rect(9, 10, 128, 128));
-                        contractImage.setImage("contract_picture");
+                        contractImage.hoverPassThrough = true;
+                        if (this.contractTooltipSource.name === "Lumberjack Easy Park") {
+                            contractImage.setImage("park_contract_picture");
+                        }
+                        else if (this.contractTooltipSource.codename === "Saw Timber Wanted") {
+                            contractImage.setImage("mill_contract_picture");
+                        }
+                        else {
+                            contractImage.setImage("contract_picture");
+                        }
                         contract.addChild(contractImage);
                         var contractText = new UIElement(new Rect(contractWidth / 2, 144, contractWidth - 10, 0));
                         this.specificContract = this.availableContracts[i];
@@ -829,6 +848,10 @@ ig.module(
                     this.tooltipText = null;
                     this.tooltip = null;
                 }
+            },
+
+            onConfirmTakeContract: function(contractInfo) {
+                console.log("Contract accepted: " + contractInfo.codename);
             },
 
             /**

@@ -107,7 +107,9 @@ ig.module(
                     "media/forest_tileset_heavy.png",
                     "media/forest_tileset_light.png",
                     "media/harvesting_tile.png",
-                    "media/contract_picture.png"
+                    "media/contract_picture.png",
+                    "media/park_contract_picture.png",
+                    "media/mill_contract_picture.png"
                 ];
             }
 
