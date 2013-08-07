@@ -174,41 +174,41 @@ ImpactDummy.prototype = {
 		else console.log("bad input");
 	},
 	
-	onAttemptToPurchaseMegatileIncludingResourceTileId : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseMegatileIncludingResourceTileId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
-		if(this.serverResponseWasPositive(theResult)){
-			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId successfully purchased resource tile with origin x, y: " + theResult.megatile_upper_left_xy.x + ", " + theResult.megatile_upper_left_xy.y);
+	onAttemptToPurchaseMegatileIncludingResourceTileId : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseMegatileIncludingResourceTileId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId successfully purchased resource tile with origin x, y: " + theResponse.megatile_upper_left_xy.x + ", " + theResponse.megatile_upper_left_xy.y);
 		}
 		else{
 			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId failure!");
 		}
 	},
 	
-	onAttemptToPurchaseUpgradeResponse : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseUpgradeResponse", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
-		if(this.serverResponseWasPositive(theResult)){
-			console.log("onAttemptToPurchaseUpgradeResponse successfully purchased equipment with id: " + theResult.logging_equipment_id);
+	onAttemptToPurchaseUpgradeResponse : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseUpgradeResponse", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onAttemptToPurchaseUpgradeResponse successfully purchased equipment with id: " + theResponse.logging_equipment_id);
 		}
 		else{
 			console.log("onAttemptToPurchaseUpgradeResponse failure!");
 		}
 	},
 	
-	onAttemptToAcceptContract : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToAcceptContract", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onAttemptToAcceptContract : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToAcceptContract", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
-		if(this.serverResponseWasPositive(theResult)){
-			console.log("onAttemptToAcceptContract accepted contract with id: " + theResult.contract_id);
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onAttemptToAcceptContract accepted contract with id: " + theResponse.contract_id);
 		}
 		else{
 			console.log("onAttemptToAcceptContract failure!");
 		}
 	},
 	
-	onAttemptToClearCutTileWithId : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutTileWithId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onAttemptToClearCutTileWithId : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutTileWithId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
-		if(this.serverResponseWasPositive(theResult)){
+		if(this.serverResponseWasPositive(theResponse)){
 			console.log("onAttemptToClearCutTileWithId success!");
 		}
 		else{
@@ -216,27 +216,34 @@ ImpactDummy.prototype = {
 		}			
 	},
 	
-	onRequestSurveyForTile : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onRequestSurveyForTile", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onRequestSurveyForTile : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onRequestSurveyForTile", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 	},
 
-	onGetPlayerStats : function(theStats){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayerStats", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onGetPlayerStats : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayerStats", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onGetPlayerStats received balance: " + theResponse.balance + ", turn points: " + theResponse.turn_points + ", political capital: " + theResponse.political_capital);
+		}
+		else{
+			console.log("onGetPlayerStats failure!");
+		}		
 	},
 	
 /**
-	respondPositivelyToRequestResult : function(theResult, theFunctionName, successMessagePrefix, failureMessagePrefix){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.respondPositivelyToRequestResult", ["theResult", "theFunctionName", "successMessagePrefix", "failureMessagePrefix"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	respondPositivelyToRequestResult : function(theResponse, theFunctionName, successMessagePrefix, failureMessagePrefix){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.respondPositivelyToRequestResult", ["theResponse", "theFunctionName", "successMessagePrefix", "failureMessagePrefix"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
-		if(theResult.status == TFglobals.SUCCESS){
-			console.log("ImpactDummy." + theFunctionName + ": " + successMessagePrefix + theResult.message);
+		if(theResponse.status == TFglobals.SUCCESS){
+			console.log("ImpactDummy." + theFunctionName + ": " + successMessagePrefix + theResponse.message);
 			return true;
 		}
 		
-		if(theResult.status == TFglobals.FAILURE)
-			console.log("ImpactDummy." + theFunctionName + ": " + failureMessagePrefix + ". Message is: " + theResult.errors.join(", "));
+		if(theResponse.status == TFglobals.FAILURE)
+			console.log("ImpactDummy." + theFunctionName + ": " + failureMessagePrefix + ". Message is: " + theResponse.errors.join(", "));
 		else
-			console.log("ImpactDummy." + theFunctionName + ": received bad status code: " + theResult.status);
+			console.log("ImpactDummy." + theFunctionName + ": received bad status code: " + theResponse.status);
 		return false;
 	},
 **/

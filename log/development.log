@@ -1490,3 +1490,364 @@ SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/
 SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
   
 
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:188: syntax error, unexpected tLABEL, expecting keyword_then or ';' or '\n'
+...ger.can_perform_action? player: player, cost: time_cost
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:353: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [POST] "/worlds/3/resource_tiles/clearcutundefined&id=1&auth_token=Zu8zzYrHxVShpXDzvhap&estimate=true"):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:134:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NameError (undefined local variable or method `world' for #<Ability:0x007ffa39e1c298>):
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NameError (undefined local variable or method `current_user' for #<Ability:0x007ffa38f4dbe0>):
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:134:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:134:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NameError (uninitialized constant World::Players):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for []:ActiveRecord::Relation):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:357: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:356:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `each' for #<LandTile:0x007ffa398ddd18>):
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:356:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `each'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:356:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:357:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39982458>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39ccdae0>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39f3e4a0>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa38fc4f38>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39ae3b80>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39f4ce60>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39962c20>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39e22788>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa38f070c8>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39973fc0>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:360: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:60: syntax error, unexpected '{', expecting keyword_end
+    render :json {:balance => self.balance, :tu...
+                  ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:60: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...> self.balance, :turn_points => self.time_remaining_this_tur...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:60: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...his_turn, :political_capital => 5}
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:101: syntax error, unexpected $end, expecting keyword_end):
+  app/models/ability.rb:22:in `initialize'
+  app/controllers/players_controller.rb:9:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/player_stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+AbstractController::ActionNotFound (The action 'player_stats' could not be found for UsersController):
+  
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007ffaf1878ce8>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1d37590>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1b812f0>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1f2f348>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1d19c98>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007fa9d46f52b8>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007fa9d4685ad0>):
+  app/controllers/users_controller.rb:88:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007fa9d46a0970>):
+  app/controllers/users_controller.rb:87:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007fa9d435e7d0>):
+  app/controllers/users_controller.rb:87:in `player_stats'
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/users_controller.rb:85:in `player_stats'
+
+
+NameError (undefined local variable or method `player' for #<Ability:0x007fee8afc94e8>):
+  app/models/ability.rb:139:in `initialize'
+  app/controllers/users_controller.rb:92:in `player_stats'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/ability.rb:139: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+    can :get_player_stats player 
+                                ^):
+  app/controllers/players_controller.rb:9:in `index'
+
+
+NameError (undefined local variable or method `player' for #<Ability:0x007fee8b950fe8>):
+  app/models/ability.rb:139:in `initialize'
+  app/controllers/players_controller.rb:9:in `index'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
