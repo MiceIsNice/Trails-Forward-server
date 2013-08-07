@@ -267,7 +267,7 @@ ig.module(
                     "button_hover",
                     "button_click",
                     function() {
-                        self.showContractsWindow();
+                        self.showUpgradesWindow();
                     },
                     undefined,
                     [3, 75, 4, 33]
@@ -305,6 +305,7 @@ ig.module(
 				var rect = {x_min : 0, x_max : 64, y_min : 0, y_max : 64};
 				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
                 TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
+                TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
             },
 
             onGetMapChunk: function(chunk) {
@@ -542,25 +543,7 @@ ig.module(
                 //}
             },
 
-            /**
-             * Gets the boundaries of the viewport in world space as a Rect.
-             * @returns {Rect}
-             * @see Rect.js
-             */
-            getViewRect: function() {
-                return new Rect(this.screen.x - this.zoomPanOffsetX,
-                    this.screen.y - this.zoomPanOffsetY,
-                    ig.system.width / ig.system.imageZoom,
-                    ig.system.height / ig.system.imageZoom);
-            },
-
-            /**
-             * Centers the game screen on a point in world-space.
-             */
-            centerOnPoint: function(x, y) {
-                ig.game.screen.x -= (ig.game.screen.x + ig.system.width / 2) - x;
-                ig.game.screen.y -= (ig.game.screen.y + ig.system.height / 2) - y;
-            },
+            // ******************* TILE SELECTION **********************
 
             /**
              * Selects the tile at the specified location. Selection has a little highlight effect.
@@ -580,6 +563,8 @@ ig.module(
                 //ig.log(this.terrainMap.getTile(x, y));
             },
 
+            // ******************* BUYING LAND **********************
+
             /**
              * Called when the player clicks on a tile that is already selected.
              * @param x
@@ -591,6 +576,20 @@ ig.module(
                     this.onConfirmBuyTile,
                     {x:x, y:y, that:this});
             },
+
+            /**
+             * Called when the player has confirmed they want to purchase the tile at the specified location.
+             * @param args A list containing [x, y]
+             */
+            onConfirmBuyTile: function(args) {
+                // Aaron's code here!
+                ig.log("Attempted to purchase tile at " + args.x + ", " + args.y);
+
+                args.that.featureMap.clearTile(args.x, args.y);
+                args.that.featureMap.addTile(args.x, args.y, "harvesting_tile");
+            },
+
+            // ******************* CONFIRMATION **********************
 
             /**
              * Displays a confirmation window with customizable displayed text and an arbitrary confirmation action.
@@ -667,6 +666,8 @@ ig.module(
                     this.confirmNo.addChild(noText);
                 }
             },
+
+            // ******************* CONTRACTS **********************
 
             /**
              * Displays the window for contracts.
@@ -774,13 +775,12 @@ ig.module(
                         contract.funcToCall = function() {
                             var thisContract = this;
                             self.showConfirmWindow(function() {
-                                    return "Are you sure you want to take on the "
+                                    return "Are you sure you want to take on\nthe "
                                         + thisContract.contractInfo.codename + " contract?";
                                 },
                                 self.onConfirmTakeContract,
-                                this.contractInfo);
+                                thisContract.contractInfo);
                             self.removeContractTooltip();
-                            self.contractsWindow.hide = true;
                         };
                         this.contractScrollField.contentPanel.addChild(contract);
                         var contractImage = new UIElement(new Rect(9, 10, 128, 128));
@@ -807,7 +807,6 @@ ig.module(
                         this.contracts.push(contract);
                     }
                 }
-
             },
 
             onGetAvailableContracts: function(contracts) {
@@ -851,20 +850,199 @@ ig.module(
             },
 
             onConfirmTakeContract: function(contractInfo) {
+                ig.game.contractsWindow.hide = true;
                 console.log("Contract accepted: " + contractInfo.codename);
             },
 
-            /**
-             * Called when the player has confirmed they want to purchase the tile at the specified location.
-             * @param args A list containing [x, y]
-             */
-            onConfirmBuyTile: function(args) {
-                // Aaron's code here!
-                ig.log("Attempted to purchase tile at " + args.x + ", " + args.y);
+            // ******************* UPGRADES **********************
 
-                args.that.featureMap.clearTile(args.x, args.y);
-                args.that.featureMap.addTile(args.x, args.y, "harvesting_tile");
+            showUpgradesWindow: function() {
+                var self = this;
+                // Making sure the confirm window exists
+                if (!this.upgradesWindow) {
+                    this.upgradesWindow = new UIElement(new Rect(
+                        ig.system.width / 2 - 250,
+                        ig.system.height / 2 - 150,
+                        500,
+                        300
+                    ));
+                    this.upgradesWindow.setImage("uibox");
+                    this.upgradesWindow.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.upgradesWindow);
+                }
+                this.upgradesWindow.hide = false;
+
+                // A scroll field
+                if (!this.upgradeScrollField) {
+                    this.upgradeScrollField = new ScrollField(
+                        new Rect(
+                            10, 30, this.upgradesWindow.bounds.width - 20, this.upgradesWindow.bounds.height - 40
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        [3, 75, 4, 33],
+                        "uibox",
+                        [5, 11, 6, 11],
+                        "uibox",
+                        [5, 11, 6, 11],
+                        this.ui
+                    );
+                    this.upgradesWindow.addChild(this.upgradeScrollField);
+                    this.upgradeScrollField.horizontalScrollBar.hide = true;
+                }
+
+                if (!this.upgradesWindowClose) {
+                    this.upgradesWindowClose = new Button(
+                        new Rect(
+                            this.upgradesWindow.bounds.width - 30, 0, 20, 20
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.upgradesWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.upgradesWindow.addChild(this.upgradesWindowClose);
+                    var upgradesWindowCloseText = new UIElement(new Rect(12, 1, 1, 1));
+                    upgradesWindowCloseText.enableText(function() { return "x"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.upgradesWindowClose.addChild(upgradesWindowCloseText);
+                }
+
+                var i = 0, upgradeHeight = 190, upgradeWidth = 142, upgradeSpacing = 5, upgrade;
+                // an upgrade
+                if (!this.upgrades) {
+                    this.upgrades = [];
+                    for (i = 0; i < this.availableUpgrades.length; i++) {
+                        upgrade = new Button(
+                            new Rect(
+                                upgradeSpacing + (i % 3) * upgradeWidth + (i % 3) * upgradeSpacing,
+                                upgradeSpacing + ((i / 3) | 0) * upgradeHeight + ((i / 3) | 0) * upgradeSpacing,
+                                upgradeWidth,
+                                upgradeHeight
+                            ),
+                            "button",
+                            "button_hover",
+                            "button_click",
+                            function() {
+
+                            },
+                            undefined,
+                            [3, 75, 4, 33]
+                        );
+                        this.upgradeTooltipSource = this.availableUpgrades[i].logging_equipment;
+                        upgrade.upgradeInfo = this.availableUpgrades[i].logging_equipment;
+                        upgrade.onLongHover = function() {
+                            self.generateUpgradeTooltip(this.upgradeInfo);
+                        };
+                        upgrade.onUnLongHover = function() {
+                            self.removeUpgradeTooltip();
+                        };
+                        upgrade.funcToCall = function() {
+                            var thisUpgrade = this;
+                            self.showConfirmWindow(function() {
+                                    return "Are you sure you want to purchase\nthe "
+                                        + thisUpgrade.upgradeInfo.name + " upgrade?";
+                                },
+                                self.onConfirmTakeUpgrade,
+                                thisUpgrade.upgradeInfo);
+                            self.removeUpgradeTooltip();
+                        };
+                        this.upgradeScrollField.contentPanel.addChild(upgrade);
+                        var upgradeImage = new UIElement(new Rect(9, 10, 128, 128));
+                        upgradeImage.hoverPassThrough = true;
+                        if (this.upgradeTooltipSource.name === "Sawyer Crew") {
+                            upgradeImage.setImage("sawyer_upgrade_picture");
+                        }
+                        else {
+                            upgradeImage.setImage("upgrade_picture");
+                        }
+                        upgrade.addChild(upgradeImage);
+                        var upgradeText = new UIElement(new Rect(upgradeWidth / 2, 144, upgradeWidth - 10, 0));
+                        this.specificUpgrade = this.availableUpgrades[i].logging_equipment;
+                        console.log(this.specificUpgrade);
+                        upgradeText.text = this.specificUpgrade.name;
+                        upgradeText.enableText(function() {
+                                return this.text;
+                            },
+                            this.font, ig.Font.ALIGN.CENTER);
+                        upgrade.addChild(upgradeText);
+                        this.upgrades.push(upgrade);
+                    }
+                }
             },
+
+            onGetAvailableUpgradesForPlayer: function(upgrades) {
+                console.log("Got upgrades.");
+                this.availableUpgrades = upgrades;
+            },
+
+            generateUpgradeTooltip: function(upgradeInfo) {
+                if (!this.tooltip) {
+                    this.tooltip = new UIElement(new Rect(
+                        ig.input.mouse.x + 10,
+                        ig.input.mouse.y + 10,
+                        400,
+                        200
+                    ));
+                    this.tooltip.setImage("uibox");
+                    this.tooltip.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.tooltip);
+                }
+                this.tooltip.hide = false;
+                var text = "";
+                if (!this.tooltipText) {
+                    this.tooltipText = new UIElement(new Rect(0, 0, this.tooltip.getInnerWidth(), 10));
+                    for (var property in upgradeInfo) {
+                        if (upgradeInfo.hasOwnProperty(property)) {
+                            text += property + ": " + upgradeInfo[property] + "\n";
+                        }
+                    }
+                    this.tooltipText.enableText(function() { return text; }, this.font, ig.Font.ALIGN.LEFT);
+                    this.tooltip.addChild(this.tooltipText);
+                }
+            },
+
+            removeUpgradeTooltip: function() {
+                if (this.tooltip) {
+                    this.tooltip.hide = true;
+                    this.tooltip.clearChildren();
+                    this.tooltipText = null;
+                    this.tooltip = null;
+                }
+            },
+
+            onConfirmTakeUpgrade: function(upgradeInfo) {
+                ig.game.upgradesWindow.hide = true;
+                console.log("Upgrade accepted: " + upgradeInfo.codename);
+            },
+
+            // ******************* UTILITY FUNCTIONS **********************
+
+            /**
+             * Gets the boundaries of the viewport in world space as a Rect.
+             * @returns {Rect}
+             * @see Rect.js
+             */
+            getViewRect: function() {
+                return new Rect(this.screen.x - this.zoomPanOffsetX,
+                    this.screen.y - this.zoomPanOffsetY,
+                    ig.system.width / ig.system.imageZoom,
+                    ig.system.height / ig.system.imageZoom);
+            },
+
+            /**
+             * Centers the game screen on a point in world-space.
+             */
+            centerOnPoint: function(x, y) {
+                ig.game.screen.x -= (ig.game.screen.x + ig.system.width / 2) - x;
+                ig.game.screen.y -= (ig.game.screen.y + ig.system.height / 2) - y;
+            },
+
+            // ******************* UPGRADES **********************
 
             getShoreTypes: function(x, y) {
                 var megatile = this.terrainMap.getMegatile(x, y);

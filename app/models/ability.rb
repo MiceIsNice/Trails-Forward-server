@@ -131,9 +131,16 @@ class Ability
 
     can :harvest, ResourceTile do |rt|
       player = rt.megatile.world.player_for_user(user)
+      puts "megatile with id: #{rt.megatile.id} lives in world: #{rt.megatile.world.id}"
+      puts "player has id: #{player.id}"
       player && player == rt.megatile.owner
     end
 
+    can :player_stats, Player do
+      Player.where("user_id = ?", user.id).length == 1
+    end
+    
+    
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

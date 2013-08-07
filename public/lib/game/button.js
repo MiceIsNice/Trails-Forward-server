@@ -25,7 +25,7 @@ ig.module(
             this.onUnclick = function() {
                 // TODO: Call the function only if the mouse is still over the button when it's released.
                 this.setImage(this.buttonImage);
-                funcToCall(funcArgs);
+                this.funcToCall(this.funcArgs);
             };
             this.onEnter = function() {
                 this.setImage(this.hoverImage);

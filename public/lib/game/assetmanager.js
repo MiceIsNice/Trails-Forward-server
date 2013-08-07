@@ -109,7 +109,9 @@ ig.module(
                     "media/harvesting_tile.png",
                     "media/contract_picture.png",
                     "media/park_contract_picture.png",
-                    "media/mill_contract_picture.png"
+                    "media/mill_contract_picture.png",
+                    "media/upgrade_picture.png",
+                    "media/sawyer_upgrade_picture.png"
                 ];
             }
 

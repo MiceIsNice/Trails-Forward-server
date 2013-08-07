@@ -73,7 +73,7 @@ TrailsForwardDataController.prototype = {
 	getPlayerStats : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayerStats", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		this.serverAPI.getPlayerStatsForWorldIdAndPlayerId(this.gameDataCache.id, this.gameDataCache.player_id);
+		this.serverAPI.getPlayerStatsForPlayerId(this.gameDataCache.player_id);
 	},
 	
 	getAvailableUpgradesForPlayer : function(){
@@ -102,7 +102,7 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToClearCutTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 	
 		if(tile_id || tile_id == 0)
-			this.serverAPI.attemptToClearCutTileWithId(tile_id);
+			this.serverAPI.attemptToClearCutTileWithWorldIdAndTileId(this.gameDataCache.id, tile_id);
 		else console.log("bad input");	
 	},
 	
@@ -234,8 +234,7 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToClearCutTileWithId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToClearCutTileWithId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult, 
-											function(){"successfully clearcut tile "}));
+			TFglobals.IMPACT.onAttemptToClearCutTileWithId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 
@@ -243,7 +242,7 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onGetPlayerStats", ["theStats"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theStats)
-			TFglobals.IMPACT.onGetPlayerStats(theStats);
+			TFglobals.IMPACT.onGetPlayerStats(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theStats));
 		else console.log("bad input");
 	},
 	
@@ -255,7 +254,8 @@ TrailsForwardDataController.prototype = {
 
 	prepareImpactMessage : function(serverResponse){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.prepareImpactMessage", ["serverResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-		console.log("serverResponse message: " + serverResponse.message);
+		console.log("serverResponse: ");
+		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(serverResponse);
 		if(serverResponse){
 			if(serverResponse.errors)
 				serverResponse.status = TFglobals.FAILURE;

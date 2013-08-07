@@ -80,6 +80,20 @@ class UsersController < ApplicationController
       end
     end
   end
+ 
+  def player_stats 
+    
+    if params[:user_id] && params[:player_id]
+      player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+    else
+      render json: {:errors => ["need a valid user id and player id combination"]}
+    end 
+    
+    authorize! :player_stats, player
+    
+    render json: {:balance => player.balance, :turn_points => player.time_remaining_this_turn, :political_capital => 5}
+
+  end
 
   def destroy
     @user = User.find(params[:id])

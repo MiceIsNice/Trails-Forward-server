@@ -1,0 +1,1853 @@
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/megatiles_controller.rb:59: syntax error, unexpected tIDENTIFIER, expecting '}'
+    @theIds.each{|theValue| @theIds << Megatile.find theValue}
+                                                             ^):
+  
+
+
+NoMethodError (undefined method `each' for "":String):
+  app/controllers/megatiles_controller.rb:59:in `show'
+
+
+NoMethodError (undefined method `each' for "":String):
+  app/controllers/megatiles_controller.rb:59:in `show'
+
+
+NoMethodError (undefined method `each' for "":String):
+  app/controllers/megatiles_controller.rb:59:in `show'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.each):
+  app/controllers/megatiles_controller.rb:59:in `show'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.each):
+  app/controllers/megatiles_controller.rb:59:in `show'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.each):
+  app/controllers/megatiles_controller.rb:59:in `show'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/megatiles_controller.rb:65: syntax error, unexpected '|'
+...ml  { @megatiles.each {|tile| |render_for_api :megatile_with...
+...                               ^):
+  
+
+
+NameError (undefined local variable or method `i' for #<MegatilesController:0x007fcaf0e230c0>):
+  app/controllers/megatiles_controller.rb:66:in `block (2 levels) in show'
+  app/controllers/megatiles_controller.rb:64:in `show'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.as_api_response):
+  app/controllers/megatiles_controller.rb:66:in `block (2 levels) in show'
+  app/controllers/megatiles_controller.rb:64:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/world/1/resource_tiles"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world/1/resource_tiles/1"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world/3/resource_tiles/1"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world/3/resource_tiles"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world/3/resource_tiles.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world/3/resource_tiles/1.json"):
+  
+
+
+AbstractController::ActionNotFound (The action 'index' could not be found for ResourceTilesController):
+  
+
+
+AbstractController::ActionNotFound (The action 'index' could not be found for ResourceTilesController):
+  
+
+
+ActionView::MissingTemplate (Missing template resource_tiles/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template resource_tiles/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:63: syntax error, unexpected tIVAR, expecting keyword_end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:63: syntax error, unexpected tIVAR, expecting keyword_end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:63: syntax error, unexpected tIVAR, expecting keyword_end):
+  
+
+
+TypeError (can't convert nil into String):
+  app/controllers/resource_tiles_controller.rb:63:in `format'
+  app/controllers/resource_tiles_controller.rb:63:in `block in show'
+  app/controllers/resource_tiles_controller.rb:62:in `show'
+
+
+ActionView::MissingTemplate (Missing template resource_tiles/called with bounding_box values 0, 10, 0, 10, application/called with bounding_box values 0, 10, 0, 10 with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/resource_tiles_controller.rb:63:in `block in show'
+  app/controllers/resource_tiles_controller.rb:62:in `show'
+
+
+ActionView::MissingTemplate (Missing template resource_tiles/called with bounding_box values 0, 10, 0, 10, application/called with bounding_box values 0, 10, 0, 10 with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/resource_tiles_controller.rb:63:in `block in show'
+  app/controllers/resource_tiles_controller.rb:62:in `show'
+
+
+ActionView::MissingTemplate (Missing template resource_tiles/called with bounding_box values 0, 10, 0, 10, application/called with bounding_box values 0, 10, 0, 10 with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/resource_tiles_controller.rb:63:in `block in show'
+  app/controllers/resource_tiles_controller.rb:62:in `show'
+
+
+NameError (undefined local variable or method `resrouce_tile' for #<ResourceTilesController:0x007fbe592631e8>):
+  app/controllers/resource_tiles_controller.rb:64:in `block (2 levels) in show'
+  app/controllers/resource_tiles_controller.rb:62:in `show'
+
+
+NoMethodError (undefined method `as_api_response' for "called with bounding_box values 0, 10, 0, 10":String):
+  app/controllers/resource_tiles_controller.rb:64:in `block (2 levels) in show'
+  app/controllers/resource_tiles_controller.rb:62:in `show'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:66: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+        {render_for_api :resource, :json => resource_t...
+                         ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:66: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...json => resource_tile, :root => :resource_tile } }
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:66: syntax error, unexpected '}', expecting keyword_end
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:328: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:65: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+        {render_for_api :resource, format.json @tiles....
+                         ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:65: syntax error, unexpected tASSOC, expecting '}'
+... tile | accumulation + :json => tile }, 
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:66: syntax error, unexpected '}', expecting keyword_end
+              :root => :resource_tile } 
+                                       ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:328: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:66: syntax error, unexpected tASSOC, expecting '}'
+... tile | accumulation + :json => tile }, :root => :resource_t...
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:65: syntax error, unexpected tASSOC, expecting '}'
+... tile | accumulation + :json => tile }
+...                               ^):
+  
+
+
+TypeError (can't convert LandTile into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:71: syntax error, unexpected tASSOC, expecting '}'
+... tile | accumulation + :json => tile }
+...                               ^):
+  
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+TypeError (can't convert ActiveRecord::Relation into String):
+  app/controllers/resource_tiles_controller.rb:65:in `format'
+  app/controllers/resource_tiles_controller.rb:65:in `block in show'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:74: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+        { render_for_api :resource, :json => resource_t...
+                          ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:74: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...json => resource_tile, :root => :resource_tile  }
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:332: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ArgumentError (too few arguments):
+  app/controllers/resource_tiles_controller.rb:64:in `format'
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+NoMethodError (undefined method `json' for #<ResourceTilesController:0x007f9950fb9b40>):
+  app/controllers/resource_tiles_controller.rb:64:in `show'
+
+
+AbstractController::ActionNotFound (The action 'index' could not be found for ResourceTilesController):
+  
+
+
+NameError (undefined local variable or method `tempalte' for #<Class:0x007f995416a798>):
+  app/models/resource_tile.rb:244:in `block in <class:ResourceTile>'
+  app/models/resource_tile.rb:241:in `<class:ResourceTile>'
+  app/models/resource_tile.rb:1:in `<top (required)>'
+  app/controllers/resource_tiles_controller.rb:92:in `produce_tiles_in_rect'
+  app/controllers/resource_tiles_controller.rb:56:in `index'
+
+
+ActiveRecord::RecordNotFound (Couldn't find ResourceTile without an ID):
+  app/controllers/resource_tiles_controller.rb:24:in `block in <class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:59:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:345: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (undefined local variable or method `params' for ResourceTilesController:Class):
+  app/controllers/resource_tiles_controller.rb:24:in `<class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:14:in `<top (required)>'
+
+
+ActionController::RoutingError (undefined local variable or method `params' for ResourceTilesController:Class):
+  app/controllers/resource_tiles_controller.rb:24:in `<class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:14:in `<top (required)>'
+
+
+ActionController::RoutingError (undefined local variable or method `params' for ResourceTilesController:Class):
+  app/controllers/resource_tiles_controller.rb:24:in `<class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:14:in `<top (required)>'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:346: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find ResourceTile without an ID):
+  app/controllers/resource_tiles_controller.rb:25:in `block in <class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NameError (undefined local variable or method `resource_tile' for #<ResourceTilesController:0x007f9954253628>):
+  app/controllers/resource_tiles_controller.rb:59:in `index'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+NameError (undefined local variable or method `resource_tile' for #<ResourceTilesController:0x007f995402a220>):
+  app/controllers/resource_tiles_controller.rb:70:in `show'
+
+
+ArgumentError (too few arguments):
+  app/controllers/resource_tiles_controller.rb:73:in `format'
+  app/controllers/resource_tiles_controller.rb:73:in `block in show'
+  app/controllers/resource_tiles_controller.rb:72:in `show'
+
+
+NoMethodError (undefined method `world' for nil:NilClass):
+  app/controllers/resource_tiles_controller.rb:68:in `show'
+
+
+ActionController::RoutingError (undefined local variable or method `params' for ResourceTilesController:Class):
+  app/controllers/resource_tiles_controller.rb:24:in `<class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:14:in `<top (required)>'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/resoruce_tiles.json"):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:70: syntax error, unexpected tANDOP, expecting keyword_end
+             && params[:x_min] > 0 && params[:x_min] < params[:x_max]
+               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:71: syntax error, unexpected tANDOP, expecting keyword_end
+             && params[:y_min] > 0 && params[:y_min] < params[:y_max] 
+               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:72: syntax error, unexpected tANDOP, expecting keyword_end
+             && params[:x_max] <= world.widt...
+               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:70: syntax error, unexpected tANDOP, expecting ')'
+             && params[:x_min] > 0 && params[:x_min] < params[:x_max]
+               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:71: syntax error, unexpected tANDOP, expecting ')'
+             && params[:y_min] > 0 && params[:y_min] < params[:y_max] 
+               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:72: syntax error, unexpected tANDOP, expecting ')'
+             && params[:x_max] <= world.widt...
+               ^):
+  
+
+
+ArgumentError (comparison of String with 0 failed):
+  app/controllers/resource_tiles_controller.rb:70:in `>'
+  app/controllers/resource_tiles_controller.rb:70:in `valid_rect_params'
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+ArgumentError (comparison of String with 0 failed):
+  app/controllers/resource_tiles_controller.rb:70:in `>='
+  app/controllers/resource_tiles_controller.rb:70:in `valid_rect_params'
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+NoMethodError (undefined method `new' for Integer:Class):
+  app/controllers/resource_tiles_controller.rb:70:in `valid_rect_params'
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+ArgumentError (comparison of String with 0 failed):
+  app/controllers/resource_tiles_controller.rb:71:in `>='
+  app/controllers/resource_tiles_controller.rb:71:in `valid_rect_params'
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+ArgumentError (comparison of String with 126 failed):
+  app/controllers/resource_tiles_controller.rb:72:in `<='
+  app/controllers/resource_tiles_controller.rb:72:in `valid_rect_params'
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/models/resource_tile.rb:253: syntax error, unexpected keyword_end, expecting '}'
+                             end}, :as => :owner
+                                ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/models/resource_tile.rb:258: syntax error, unexpected keyword_end, expecting '}'
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/models/resource_tile.rb:356: syntax error, unexpected keyword_end, expecting '}'):
+  app/controllers/resource_tiles_controller.rb:24:in `block in <class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NoMethodError (undefined method `render_for_api' for #<LandTile:0x007fa8a1d64330>):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.length):
+  app/controllers/resource_tiles_controller.rb:60:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/models/resource_tile.rb:241: syntax error, unexpected '=', expecting tASSOC
+...       :small_tree_basal_area = > self.small_tree_basal_area...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/models/resource_tile.rb:242: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...      :large_tree_basal_area => self.large_tree_basal_area,
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/models/resource_tile.rb:243: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+                           :owner => owner == null ? "none" : "owned"
+                                    ^):
+  app/controllers/resource_tiles_controller.rb:24:in `block in <class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:55:in `index'
+
+
+NameError (undefined local variable or method `null' for #<LandTile:0x007fa8a1cc2c38>):
+  app/models/resource_tile.rb:239:in `to_simple_tile'
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NameError (undefined local variable or method `null' for #<LandTile:0x007fa8a1915478>):
+  app/models/land_tile.rb:90:in `to_simple_tile'
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NameError (undefined local variable or method `null' for #<LandTile:0x007fa8a1d69a38>):
+  app/models/resource_tile.rb:239:in `to_simple_tile'
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NameError (undefined local variable or method `null' for #<LandTile:0x007fa8a1a2c780>):
+  app/models/resource_tile.rb:239:in `to_simple_tile'
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NameError (undefined local variable or method `null' for #<LandTile:0x007fa8a1d6cda0>):
+  app/models/resource_tile.rb:239:in `to_simple_tile'
+  app/controllers/resource_tiles_controller.rb:61:in `block in index'
+  app/controllers/resource_tiles_controller.rb:61:in `index'
+
+
+NoMethodError (undefined method `json' for #<ResourceTilesController:0x007fa8a19e1488>):
+  app/controllers/resource_tiles_controller.rb:62:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/controllers/users_controller.rb:3: syntax error, unexpected '\n', expecting tASSOC):
+  
+
+
+ActionController::RoutingError (No route matches [POST] "/users/new"):
+  
+
+
+ActionView::MissingTemplate (Missing template users/new, application/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/users_controller.rb:41:in `new'
+
+
+ActionView::MissingTemplate (Missing template users/new, application/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/users_controller.rb:41:in `new'
+
+
+ActionController::RoutingError (No route matches [GET] "/sign_up.html"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionView::MissingTemplate (Missing template users/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/users_controller.rb:24:in `index'
+
+
+ActionView::MissingTemplate (Missing template users/new, application/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/users_controller.rb:41:in `new'
+
+
+ArgumentError (missing :action):
+  config/routes.rb:7:in `block in <top (required)>'
+  config/routes.rb:1:in `<top (required)>'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/controllers/players_controller.rb:25:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (undefined method `settings' for #<Player:0x007f952038e2c8>):
+  app/models/player.rb:8:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:9:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:13:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:13:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionController::RoutingError (No route matches [POST] "/users/4/players/new.json"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:13:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+AbstractController::ActionNotFound (The action 'create' could not be found for PlayersController):
+  
+
+
+ActionView::MissingTemplate (Missing template players/create, application/create with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template players/create, application/create with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:13:in `initialize'
+  app/controllers/players_controller.rb:38:in `new'
+  app/controllers/players_controller.rb:38:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:13:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/controllers/players_controller.rb:28:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:13:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionView::MissingTemplate (Missing template players/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/players_controller.rb:14:in `index'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionView::MissingTemplate (Missing template players/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/players_controller.rb:57:in `show'
+
+
+ActionView::MissingTemplate (Missing template players/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  app/controllers/players_controller.rb:57:in `show'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionController::RoutingError (No route matches [GET] "/sing_up"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/sign_up"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/sign_up.html"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/sign_in.html"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/sign_in.html"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/logging_equipment.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/log_in.html"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass2.png"):
+  
+
+
+ActionView::Template::Error (The single-table inheritance mechanism failed to locate the subclass: 'company'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite Company.inheritance_column to use another column for that information.):
+    6:   </div>
+    7: 
+    8:   <div class="form-inputs">
+    9:     <%= f.input :company_id, :collection => Company.all, :label_method => :codename %>
+    10:     <%= f.input :codename %>
+    11:     <%= f.input :name %>
+    12:     <%= f.input :role, :collection => ContractTemplate::Possible_Roles %>
+  app/views/contract_templates/_form.html.erb:9:in `block in _app_views_contract_templates__form_html_erb__2605041567502733503_70244384958620'
+  app/views/contract_templates/_form.html.erb:1:in `_app_views_contract_templates__form_html_erb__2605041567502733503_70244384958620'
+  app/views/contract_templates/new.html.erb:6:in `_app_views_contract_templates_new_html_erb__2846608605349921469_70244385107520'
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts/new.html"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts_templates"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/contract_templates.json"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.[]):
+  app/models/player.rb:12:in `initialize'
+  app/controllers/players_controller.rb:27:in `new'
+  app/controllers/players_controller.rb:27:in `new'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipmentundefined/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/logging_equipment_templates.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [OPTIONS] "/worlds/3/logging_equipment/1/buy.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/lib/impact/impact.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/world_logging_equipment/available.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/logging_equipment/available"):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template world_logging_equipment/available, application/available with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:24: syntax error, unexpected tLABEL, expecting keyword_do or '{' or '('
+      render json: "found this many available p...
+                  ^):
+  
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::NULL):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...ipment.where(player_id: nil AND world_id: params[:world_id]);
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+...ND world_id: params[:world_id]);
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...ment.where(player_id == nil AND world_id == params[:world_id...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+... world_id == params[:world_id]);
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...ment.where(player_id == nil AND world_id == params[:world_id...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+... world_id == params[:world_id]);
+...                               ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tCONSTANT, expecting ')'
+...pment.where(player_id = nil AND world_id = params[:world_id]...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+...D world_id = params[:world_id]);
+...                               ^):
+  
+
+
+NameError (uninitialized constant WorldLoggingEquipmentController::LoggingEquipments):
+  app/controllers/world_logging_equipment_controller.rb:23:in `available'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected tLABEL
+...ere(player_id: nil && world_id: params[:world_id]);
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:23: syntax error, unexpected ')', expecting keyword_end
+...&& world_id: params[:world_id]);
+...                               ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds3/logging_equipment/2/available.json"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:46: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/contracts"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/contracts_templates.json"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ArgumentError (wrong number of arguments(1 for 0)):
+  app/controllers/world_player_available_contracts_controller.rb:8:in `select'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+ArgumentError (wrong number of arguments(1 for 0)):
+  app/controllers/world_player_available_contracts_controller.rb:8:in `select'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+NoMethodError (undefined method `codename' for #<Contract:0x007f8dd2c98080>):
+  app/models/player.rb:72:in `block in available_contracts'
+  app/models/player.rb:70:in `uniq'
+  app/models/player.rb:70:in `available_contracts'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+NoMethodError (undefined method `name' for #<Contract:0x007f8dd2ed0aa0>):
+  app/models/player.rb:72:in `block in available_contracts'
+  app/models/player.rb:70:in `uniq'
+  app/models/player.rb:70:in `available_contracts'
+  app/controllers/world_player_available_contracts_controller.rb:8:in `index'
+
+
+ActionController::RoutingError (No route matches [POST] "/worlds/3/players/1/available_contracts/3accept.json"):
+  
+
+
+ActionController::RoutingError (No route matches [POST] "/worlds/3/players/1/available_contracts/3accept/.json"):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+NameError (uninitialized constant WorldPlayerAvailableContractsController::Contracts):
+  app/controllers/world_player_available_contracts_controller.rb:20:in `accept'
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/world_player_available_contracts_controller.rb:63:in `block (2 levels) in accept'
+  app/controllers/world_player_available_contracts_controller.rb:62:in `accept'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/world_player_available_contracts_controller.rb:63:in `block (2 levels) in accept'
+  app/controllers/world_player_available_contracts_controller.rb:62:in `accept'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NameError (undefined local variable or method `skip_authorization_check' for #<WorldPlayerAvailableContractsController:0x007ff07d111500>):
+  app/controllers/world_player_available_contracts_controller.rb:21:in `accept'
+
+
+NameError (undefined local variable or method `skip_authorize_resource' for #<WorldPlayerAvailableContractsController:0x007ff07aae2140>):
+  app/controllers/world_player_available_contracts_controller.rb:21:in `accept'
+
+
+NameError (uninitialized constant WorldPlayerAvailableContractsController::AccessDenied):
+  app/controllers/world_player_available_contracts_controller.rb:31:in `rescue in accept'
+  app/controllers/world_player_available_contracts_controller.rb:29:in `accept'
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/world_player_available_contracts_controller.rb:65:in `block (2 levels) in accept'
+  app/controllers/world_player_available_contracts_controller.rb:64:in `accept'
+
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:189: syntax error, unexpected tLABEL, expecting keyword_then or ';' or '\n'
+...ger.can_perform_action? player: player, cost: time_cost
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:354: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ArgumentError (wrong number of arguments (1 for 0)):
+  app/controllers/megatiles_controller.rb:99:in `buy'
+
+
+ArgumentError (wrong number of arguments (1 for 0)):
+  app/controllers/megatiles_controller.rb:99:in `buy'
+
+
+NoMethodError (undefined method `balance' for nil:NilClass):
+  app/controllers/megatiles_controller.rb:117:in `buy'
+
+
+NameError (undefined local variable or method `player' for #<MegatilesController:0x007fbaa2203460>):
+  app/controllers/megatiles_controller.rb:99:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007fbaa27da988>):
+  app/controllers/megatiles_controller.rb:107:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007fbaa221fe80>):
+  app/controllers/megatiles_controller.rb:107:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007fbaa2344540>):
+  app/controllers/megatiles_controller.rb:107:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007fbaa2428dd0>):
+  app/controllers/megatiles_controller.rb:107:in `buy'
+
+
+NameError (undefined local variable or method `player' for #<MegatilesController:0x007fbaa2207ec0>):
+  app/controllers/megatiles_controller.rb:102:in `buy'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007fbaa2403648>):
+  app/controllers/megatiles_controller.rb:103:in `buy'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007fbaa24f7fe0>):
+  app/controllers/megatiles_controller.rb:103:in `buy'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007f98a2277620>):
+  app/controllers/megatiles_controller.rb:103:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f98a266fed0>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f98a27881f0>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/megatiles_controller.rb:99:in `buy'
+
+
+NameError (undefined local variable or method `player' for #<MegatilesController:0x007f98a34dbe88>):
+  app/controllers/megatiles_controller.rb:102:in `buy'
+
+
+NoMethodError (undefined method `balance' for nil:NilClass):
+  app/controllers/megatiles_controller.rb:121:in `buy'
+
+
+NoMethodError (undefined method `balance' for nil:NilClass):
+  app/controllers/megatiles_controller.rb:120:in `buy'
+
+
+NoMethodError (undefined method `balance' for nil:NilClass):
+  app/controllers/megatiles_controller.rb:120:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f840fab34d0>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f840ff3a300>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f841094f750>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f89ca1ba840>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f89ca3f67f8>):
+  app/controllers/megatiles_controller.rb:108:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f89ca3f4b10>):
+  app/controllers/megatiles_controller.rb:110:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f89ca3f65f0>):
+  app/controllers/megatiles_controller.rb:110:in `buy'
+
+
+NoMethodError (undefined method `world' for #<ActiveRecord::Relation:0x007f89ca3fd918>):
+  app/controllers/megatiles_controller.rb:109:in `buy'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007f89ca3f3968>):
+  app/controllers/megatiles_controller.rb:107:in `buy'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007f89ca3f1398>):
+  app/controllers/megatiles_controller.rb:103:in `buy'
+
+
+NameError (undefined local variable or method `errors' for #<WorldPlayerAvailableContractsController:0x007f89c95f3688>):
+  app/controllers/world_player_available_contracts_controller.rb:27:in `rescue in accept'
+  app/controllers/world_player_available_contracts_controller.rb:24:in `accept'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:27: syntax error, unexpected ':', expecting tASSOC
+      render json: {errors : [e.message]}
+                            ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:27: syntax error, unexpected '}', expecting keyword_end
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:34: syntax error, unexpected keyword_do_block, expecting keyword_end
+    ActiveRecord::Base.transaction do  
+                                     ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:45: syntax error, unexpected keyword_do_block, expecting keyword_end
+      @contract.included_megatiles.each do |mt|
+                                          ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:72: syntax error, unexpected keyword_end, expecting $end
+  end #accept
+     ^):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/megatiles_controller.rb:138: syntax error, unexpected keyword_rescue, expecting keyword_end
+      rescue ActiveRecord::RecordInvalid
+            ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/megatiles_controller.rb:146: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/megatiles_controller.rb:139: syntax error, unexpected keyword_rescue, expecting keyword_end
+      rescue ActiveRecord::RecordInvalid
+            ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/megatiles_controller.rb:147: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:28: syntax error, unexpected ':', expecting tASSOC
+      render json: {message : e.message}
+                             ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:28: syntax error, unexpected '}', expecting keyword_end
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:35: syntax error, unexpected keyword_do_block, expecting keyword_end
+    ActiveRecord::Base.transaction do  
+                                     ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:46: syntax error, unexpected keyword_do_block, expecting keyword_end
+      @contract.included_megatiles.each do |mt|
+                                          ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_player_available_contracts_controller.rb:73: syntax error, unexpected keyword_end, expecting $end
+  end #accept
+     ^):
+  
+
+
+NameError (undefined local variable or method `message' for #<WorldPlayerAvailableContractsController:0x007f9a13f6bff8>):
+  app/controllers/world_player_available_contracts_controller.rb:28:in `rescue in accept'
+  app/controllers/world_player_available_contracts_controller.rb:24:in `accept'
+
+
+LocalJumpError (unexpected return):
+  app/models/ability.rb:82:in `block in initialize'
+  app/controllers/world_player_available_contracts_controller.rb:25:in `accept'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/world_logging_equipment_controller.rb:24: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+...: LoggingEquipment.update where("player_id IS NULL AND world...
+...                               ^):
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/world_player_available_contracts_controller.rb:5:in `index'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=2):
+  app/controllers/world_player_available_contracts_controller.rb:5:in `index'
+
+
+SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (C:/Users/Nick/Dropbox/Projects/TrailsForward/Trails-Forward-server/app/controllers/contract_templates_controller.rb:36: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:188: syntax error, unexpected tLABEL, expecting keyword_then or ';' or '\n'
+...ger.can_perform_action? player: player, cost: time_cost
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:353: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [POST] "/worlds/3/resource_tiles/clearcutundefined&id=1&auth_token=Zu8zzYrHxVShpXDzvhap&estimate=true"):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:134:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NameError (undefined local variable or method `world' for #<Ability:0x007ffa39e1c298>):
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NameError (undefined local variable or method `current_user' for #<Ability:0x007ffa38f4dbe0>):
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:134:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:134:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NameError (uninitialized constant World::Players):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for []:ActiveRecord::Relation):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:352:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:351:in `check_harvest_rights'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:357: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:356:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `each' for #<LandTile:0x007ffa398ddd18>):
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:356:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `each'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:356:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+CanCan::AccessDenied (You are not authorized to access this page.):
+  app/controllers/resource_tiles_controller.rb:357:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:355:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39982458>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39ccdae0>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39f3e4a0>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa38fc4f38>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39ae3b80>):
+  app/models/ability.rb:135:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39f4ce60>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39962c20>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39e22788>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa38f070c8>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+NoMethodError (undefined method `id' for #<ActiveRecord::Relation:0x007ffa39973fc0>):
+  app/models/world.rb:183:in `player_for_user'
+  app/models/ability.rb:133:in `block in initialize'
+  app/controllers/resource_tiles_controller.rb:354:in `block in check_harvest_rights'
+  app/controllers/resource_tiles_controller.rb:353:in `check_harvest_rights'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:360: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:60: syntax error, unexpected '{', expecting keyword_end
+    render :json {:balance => self.balance, :tu...
+                  ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:60: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...> self.balance, :turn_points => self.time_remaining_this_tur...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:60: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...his_turn, :political_capital => 5}
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/player.rb:101: syntax error, unexpected $end, expecting keyword_end):
+  app/models/ability.rb:22:in `initialize'
+  app/controllers/players_controller.rb:9:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/player_stats.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/users/1/players/1/stats.json"):
+  
+
+
+AbstractController::ActionNotFound (The action 'player_stats' could not be found for UsersController):
+  
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007ffaf1878ce8>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1d37590>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1b812f0>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1f2f348>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007ffaf1d19c98>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<ActiveRecord::Relation:0x007fa9d46f52b8>):
+  app/controllers/users_controller.rb:86:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007fa9d4685ad0>):
+  app/controllers/users_controller.rb:88:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007fa9d46a0970>):
+  app/controllers/users_controller.rb:87:in `player_stats'
+
+
+NoMethodError (undefined method `balance' for #<UsersController:0x007fa9d435e7d0>):
+  app/controllers/users_controller.rb:87:in `player_stats'
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+SystemStackError (stack level too deep):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/users_controller.rb:85:in `player_stats'
+
+
+NameError (undefined local variable or method `player' for #<Ability:0x007fee8afc94e8>):
+  app/models/ability.rb:139:in `initialize'
+  app/controllers/users_controller.rb:92:in `player_stats'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LASER/TrailsForward/Trails-Forward-server/app/models/ability.rb:139: syntax error, unexpected tIDENTIFIER, expecting keyword_end
+    can :get_player_stats player 
+                                ^):
+  app/controllers/players_controller.rb:9:in `index'
+
+
+NameError (undefined local variable or method `player' for #<Ability:0x007fee8b950fe8>):
+  app/models/ability.rb:139:in `initialize'
+  app/controllers/players_controller.rb:9:in `index'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
