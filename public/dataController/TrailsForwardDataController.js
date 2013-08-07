@@ -115,15 +115,21 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
-	requestSurveyForTileWithId : function(tile_id){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.requestSurveyForTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	conductSurveyOfTileWithId : function(tile_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(tile_id || tile_id == 0)
-			this.serverAPI.requestSurveyForTileWithId(tile_id);
+			this.serverAPI.conductSurveyOfTileWithWorldIdAndTileId(this.gameDataCache.id, tile_id);
 		else console.log("bad input");	
 	},
 	
+	viewExistingSurveyOfTileWithId : function(tile_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.viewExistingSurveyOfTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
+		if(tile_id || tile_id == 0)
+			this.serverAPI.viewExistingSurveyOfTileWithWorldIdAndTileId(this.gameDataCache.id, tile_id);
+		else console.log("bad input");	
+	},
 	
 /*****
 
@@ -220,14 +226,23 @@ TrailsForwardDataController.prototype = {
 	
 	onAttemptToPurchaseUpgradeFailure : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseUpgradeFailure", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+		console.log("DC.onAttemptToPurchaseUpgradeFailure");
 	},
 	
-	onRequestSurveyForTile : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onRequestSurveyForTile", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	onConductSurveyOfTileWithWorldIdAndTileId : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onConductSurveyOfTileWithWorldIdAndTileId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onRequestSurveyForTile(theResult);
+			TFglobals.IMPACT.onConductSurveyOfTileWithId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
+	},
+	
+	onViewExistingSurveyOfTileWithWorldIdAndTileId : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onViewExistingSurveyOfTileWithWorldIdAndTileId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if(theResult)
+			TFglobals.IMPACT.onViewExistingSurveyOfTileWithId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+		else console.log("bad input");		
 	},
 	
 	onAttemptToClearCutTileWithId : function(theResult){

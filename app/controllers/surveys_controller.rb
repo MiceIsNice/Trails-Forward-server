@@ -3,7 +3,9 @@ class SurveysController < ApplicationController
 
   def index
     world = World.find(params[:world_id])
-    megatile = world.megatiles.find(params[:megatile_id])
+    id = params[:resource_tile] ? ResourceTile.find(params[:resource_tile]).megatile_id : params[:megatile_id]
+    puts "index survey for megatile id #{id}"
+    megatile = world: world.megatiles.find(id)
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)
@@ -22,7 +24,9 @@ class SurveysController < ApplicationController
 
   def create
     world = World.find(params[:world_id])
-    megatile = world.megatiles.find(params[:megatile_id])
+    id = params[:resource_tile] ? ResourceTile.find(params[:resource_tile]).megatile_id : params[:megatile_id]
+    puts "create survey for megatile id #{id}"
+    megatile = world: world.megatiles.find(id)
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)

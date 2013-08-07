@@ -216,8 +216,26 @@ ImpactDummy.prototype = {
 		}			
 	},
 	
-	onRequestSurveyForTile : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onRequestSurveyForTile", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onConductSurveyOfTileWithId : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onConductSurveyOfTileWithId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onConductSurveyOfTileWithId success!");
+		}
+		else{
+			console.log("onConductSurveyOfTileWithId failure!");
+		}		
+	},
+
+	onViewExistingSurveyOfTileWithId : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onViewExistingSurveyOfTileWithId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onViewExistingSurveyOfTileWithId success!");
+		}
+		else{
+			console.log("onViewExistingSurveyOfTileWithId failure!");
+		}		
 	},
 
 	onGetPlayerStats : function(theResponse){
