@@ -174,16 +174,20 @@ ImpactDummy.prototype = {
 		else console.log("bad input");
 	},
 	
-	onAttemptToPurchaseTile : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseTile", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onAttemptToPurchaseMegatileIncludingResourceTileId : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseMegatileIncludingResourceTileId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+		if(this.serverResponseWasPositive(theResult)){
+			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId successfully purchased resource tile with origin x, y: " + theResult.megatile_upper_left_xy.x + ", " + theResult.megatile_upper_left_xy.y);
+		}
+		else{
+			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId failure!");
+		}
 	},
 	
 	onAttemptToPurchaseUpgradeResponse : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseUpgradeResponse", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
-
-		if(this.respondPositivelyToRequestResult(theResult, "onAttemptToPurchaseUpgradeResponse", 
-													"received upgrade purchase attempt:", "failure buying equipment")){
-			console.log("onAttemptToPurchaseUpgradeResponse success!");
+		if(this.serverResponseWasPositive(theResult)){
+			console.log("onAttemptToPurchaseUpgradeResponse successfully purchased equipment with id: " + theResult.logging_equipment_id);
 		}
 		else{
 			console.log("onAttemptToPurchaseUpgradeResponse failure!");
@@ -193,9 +197,8 @@ ImpactDummy.prototype = {
 	onAttemptToAcceptContract : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToAcceptContract", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
-		if(this.respondPositivelyToRequestResult(theResult, "onAttemptToAcceptContract", 
-													"accepted contract:", "failure accepting contract")){
-			console.log("onAttemptToAcceptContract success!");
+		if(this.serverResponseWasPositive(theResult)){
+			console.log("onAttemptToAcceptContract accepted contract with id: " + theResult.contract_id);
 		}
 		else{
 			console.log("onAttemptToAcceptContract failure!");
@@ -205,8 +208,7 @@ ImpactDummy.prototype = {
 	onAttemptToClearCutTileWithId : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutTileWithId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
-		if(this.respondPositivelyToRequestResult(theResult, "onAttemptToClearCutTileWithId", 
-													"successfully clear-cut tile:", "failure clear-cutting tile")){
+		if(this.serverResponseWasPositive(theResult)){
 			console.log("onAttemptToClearCutTileWithId success!");
 		}
 		else{
@@ -222,19 +224,31 @@ ImpactDummy.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayerStats", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 	},
 	
+/**
 	respondPositivelyToRequestResult : function(theResult, theFunctionName, successMessagePrefix, failureMessagePrefix){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.respondPositivelyToRequestResult", ["theResult", "theFunctionName", "successMessagePrefix", "failureMessagePrefix"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
 		if(theResult.status == TFglobals.SUCCESS){
-			console.log("ImpactDummy." + theFunctionName + ": " + successMessagePrefix + " + theResult.message");
+			console.log("ImpactDummy." + theFunctionName + ": " + successMessagePrefix + theResult.message);
 			return true;
 		}
 		
 		if(theResult.status == TFglobals.FAILURE)
-			console.log("ImpactDummy." + theFunctionName + ": " + failureMessagePrefix + ". Message is: " + theResult.message);
+			console.log("ImpactDummy." + theFunctionName + ": " + failureMessagePrefix + ". Message is: " + theResult.errors.join(", "));
 		else
 			console.log("ImpactDummy." + theFunctionName + ": received bad status code: " + theResult.status);
 		return false;
 	},
+**/
 
+	serverResponseWasPositive : function(theResponse){
+		if(theResponse.status == TFglobals.SUCCESS) 	
+			return true;
+		else if(theResponse.status = TFglobals.FAILURE) 
+			return false;
+		else{ 
+			console.log("bad status code: " + theResponse.status); 
+			return false;
+		}
+	},
 };

@@ -111,7 +111,6 @@ class ResourceTilesController < ApplicationController
     end
   end #build
 
-
   def build_outpost
     authorize! :build_outpost, resource_tile
     
@@ -161,6 +160,7 @@ class ResourceTilesController < ApplicationController
   
   # given a tile id, first looks for an attached tile 
   # 
+=begin
 def clearcut_list
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
@@ -169,15 +169,12 @@ def clearcut_list
     
     
     # 1. look for an attached contract, then an unattached one
-=begin
     contract_to_fufill = attached ? attached : 
     contract_to_fufill = attached?
     if contract_to_fufill.length = 
       contract_to_fufill = Contracts.where("player_id = ?", player.id).length > 0
-=end
 end
 
-=begin
   def clearcut_list
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i

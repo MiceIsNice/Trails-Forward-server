@@ -95,10 +95,18 @@ class MegatilesController < ApplicationController
 
 
   def buy
-    megatile = Megatile.find(params[:id])
-    authorize! :do_things, megatile.world
+    megatile = nil
+    player = Player.find(params[:player_id])
+    if params[:resource_tile_id]
+      resource_tile = ResourceTile.find(params[:resource_tile_id])
+      megatile = Megatile.where("id = ? AND world_id = ?", resource_tile.megatile_id, player.world_id)[0]
+    else
+      # the previous way
+      megatile = Megatile.find(params[:id])
+      player = megatile.world.player_for_user(current_user)
+    end
 
-    player = megatile.world.player_for_user(current_user)
+    authorize! :do_things, megatile.world
 
     if megatile.owner.present?
       respond_to do |format|
@@ -117,12 +125,17 @@ class MegatilesController < ApplicationController
 
         megatile.invalidate_cache
 
+        render json: {:message => "success", :megatile_upper_left_xy => {:x => megatile.x, :y => megatile.y}}
+        return
+
+=begin        
         # FIXME this is quick solution to make client side tile update
         # vs manually editing the tile in unity - for Mark 1/5/12
         respond_to do |format|
           format.xml  { render_for_api :megatile_with_resources, :xml  => megatile, :root => :megatile  }
           format.json { render_for_api :megatile_with_resources, :json => megatile, :root => :megatile  }
         end
+=end
       rescue ActiveRecord::RecordInvalid
         respond_to do |format|
           format.xml  { render  xml: { errors: ["Transaction Failed"] }, status: :unprocessable_entity }

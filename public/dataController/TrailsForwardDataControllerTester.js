@@ -42,7 +42,6 @@ TrailsForwardDataControllerTester.prototype = {
 					return;
 				}
 		}
-			
 		console.log("TrailsForwardDataControllerTester.getWorldDataForChosenPlayer: called with no player chosen.");
 	},
 	
