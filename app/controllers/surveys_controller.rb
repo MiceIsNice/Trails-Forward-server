@@ -49,10 +49,13 @@ class SurveysController < ApplicationController
         format.json { render_for_api :survey, json: @survey, status: :created }
       end
     rescue ActiveRecord::RecordInvalid
+      render json: {:errors => ["Trouble making new survey."]}
+=begin
       respond_to do |format|
         format.xml  { render  xml: { errors: ["Transaction Failed"] }, status: :unprocessable_entity }
         format.json { render json: { errors: ["Transaction Failed"] }, status: :unprocessable_entity }
       end
+=end
     end
   end
 end
