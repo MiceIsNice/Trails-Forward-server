@@ -30,7 +30,11 @@ class SurveysController < ApplicationController
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)
-
+=begin
+	exsiting_survey Survey.where
+	if megatile.world.year_current != 
+=end
+	
     @survey = Survey.of megatile: megatile, player: player
 
     player.balance -= Survey.cost
