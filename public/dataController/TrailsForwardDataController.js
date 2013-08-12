@@ -235,16 +235,22 @@ TrailsForwardDataController.prototype = {
 	onAttemptToPurchaseMegatileIncludingResourceTileXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseMegatileIncludingResourceTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult)
+		if(theResult){
 			TFglobals.IMPACT.onAttemptToPurchaseMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			if(theResult.status == TFglobals.SUCCESS)
+				TFglobals.DATA_CONTROLLER.getPlayerStats();
+		}
 		else console.log("bad input");
 	},
 	
 	onAttemptToPurchaseUpgradeSuccess : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseUpgradeSuccess", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult)
+		if(theResult){
 			TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			if(theResult.status == TFglobals.SUCCESS)
+				TFglobals.DATA_CONTROLLER.getPlayerStats();
+		}
 		else console.log("bad input");
 	},
 	
@@ -256,8 +262,11 @@ TrailsForwardDataController.prototype = {
 	onConductSurveyOfTileWithWorldIdAndTileXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onConductSurveyOfTileWithWorldIdAndTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult)
+		if(theResult){
 			TFglobals.IMPACT.onConductSurveyOfTileWithXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			if(theResult.status == TFglobals.SUCCESS)
+				TFglobals.DATA_CONTROLLER.getPlayerStats();
+		}
 		else console.log("bad input");
 	},
 	
@@ -272,8 +281,11 @@ TrailsForwardDataController.prototype = {
 	onAttemptToClearCutTileWithXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToClearCutTileWithXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult)
+		if(theResult){
 			TFglobals.IMPACT.onAttemptToClearCutTileWithXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			if(theResult.status == TFglobals.SUCCESS)
+				TFglobals.DATA_CONTROLLER.getPlayerStats();
+		}
 		else console.log("bad input");
 	},
 	

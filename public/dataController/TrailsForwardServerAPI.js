@@ -207,7 +207,7 @@ TrailsForwardServerAPI.prototype = {
 		if((world_id || world_id == 0) && (tile_x || tile_x == 0) && (tile_y || tile_y == 0)){
 			var resourceString = this.buildSurveyRSWithWorldId(world_id);
 			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["tile_x", "tile_y"], [tile_x, tile_y]);
-			this.sendPostMessage(resourceString, parameterString, {}, TFglobals.DATA_CONTROLLER.onViewExistingSurveyOfTileWithWorldIdAndTileXY);
+			this.sendPostMessage(resourceString, parameterString, {}, TFglobals.DATA_CONTROLLER.onConductSurveyOfTileWithWorldIdAndTileXY);
 		}
 		else console.log("bad input");
 	},
