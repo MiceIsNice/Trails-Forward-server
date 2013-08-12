@@ -133,14 +133,24 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 ***/
-	
+
 	getPlayerStatsForPlayerId : function(player_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayerStatsForPlayerId", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 
 		if(player_id || player_id == 0){
 			var resourceString = this.buildPlayerStatsRSWithUserIdAndPlayerId(this._userId, player_id);
 			var queryString = this.authString() + this.buildParameterStringWithNamesAndValues(["player_id"],[player_id]);
-			//this.makeGetRequest(resourceString, queryString, TFglobals.DATA_CONTROLLER.onGetPlayerStats);
+			this.makeGetRequest(resourceString, queryString, TFglobals.DATA_CONTROLLER.onGetPlayerStats);	
+		}
+		else console.log("bad input");		
+	},
+	
+	getPlayerStatsForPlayerIdPromise : function(player_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayerStatsForPlayerIdPromoise", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+
+		if(player_id || player_id == 0){
+			var resourceString = this.buildPlayerStatsRSWithUserIdAndPlayerId(this._userId, player_id);
+			var queryString = this.authString() + this.buildParameterStringWithNamesAndValues(["player_id"],[player_id]);
 			return this.makeGetRequestPromise(resourceString, queryString);
 		}
 		else console.log("bad input");		
