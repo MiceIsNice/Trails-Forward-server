@@ -524,19 +524,19 @@ ig.module(
                         }
                     }
 
-                    //// Step 5: High-res cache anything the player can see right now if past high zoom threshold
-                    //if (ig.system.imageZoom >= this.highResZoomThreshold) {
-                    //    this.status = "High-res caching visible";
-                    //    this._high_res_cached = this._high_res_cached || [];
-                    //    for (i = 0; i < visibleSections.length; i++) {
-                    //        this._high_res_cached[visibleSections[i].x] =
-                    //            this._high_res_cached[visibleSections[i].x] || [];
-                    //        if (!this._high_res_cached[visibleSections[i].x][visibleSections[i].y]) {
-                    //            this.cacheSection(visibleSections[i].x, visibleSections[i].y, "high_res");
-                    //            return; // Only one section per update
-                    //        }
-                    //    }
-                    //}
+                    // Step 5: High-res cache anything the player can see right now if past high zoom threshold
+                    if (ig.system.imageZoom >= this.highResZoomThreshold) {
+                        this.status = "High-res caching visible";
+                        this._high_res_cached = this._high_res_cached || [];
+                        for (i = 0; i < visibleSections.length; i++) {
+                            this._high_res_cached[visibleSections[i].x] =
+                                this._high_res_cached[visibleSections[i].x] || [];
+                            if (!this._high_res_cached[visibleSections[i].x][visibleSections[i].y]) {
+                                this.cacheSection(visibleSections[i].x, visibleSections[i].y, "high_res");
+                                return; // Only one section per update
+                            }
+                        }
+                    }
 
                     // Step 6: Low-res cache the immediate surroundings if past low res zoom threshold
                     if (ig.system.imageZoom >= this.lowResZoomThreshold) {

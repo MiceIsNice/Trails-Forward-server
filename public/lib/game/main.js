@@ -21,6 +21,7 @@ ig.module(
 
             // Load things
             font: new ig.Font("media/timeless_white_16.font.png"),
+            detailFont: new ig.Font("media/timeless_white_12.font.png"),
 
             ui: new UI(),
 
@@ -34,6 +35,8 @@ ig.module(
             minZoom:0.04,
             zoomPanOffsetX:0, // enables centered zooming
             zoomPanOffsetY:0, // " "
+            currentSurveyResults:"Loading survey data, one moment...",
+            tilesSurveyed: [],
 
             // Variables to aid in loading things in the correct order
             loadState:0,
@@ -210,6 +213,88 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 politicalCapitalBox.addChild(politicalCapitalText);
 
+                this.tileDetailsBox = new UIElement(new Rect(
+                    0,
+                    ig.system.height - 100,
+                    ig.system.width,
+                    110
+                ));
+                this.tileDetailsBox.setImage("uibox");
+                this.tileDetailsBox.enableNinePatch(5, 11, 5, 10);
+                this.ui.addElement(this.tileDetailsBox);
+
+                this.tileDetailsContentBox = new UIElement(new Rect(
+                    ig.system.width / 4 + 8 + 20,
+                    10,
+                    600,
+                    100
+                ));
+                this.tileDetailsBox.addChild(this.tileDetailsContentBox);
+
+                this.tileDetailsTileView = new UIElement(new Rect(
+                    0,
+                    0,
+                    200,
+                    100
+                ));
+                var i, imageName, tileImages;
+                this.displayingTileImage = document.createElement("canvas");
+                this.displayingTileImageCtx = this.displayingTileImage.getContext("2d");
+                this.tileDetailsTileView.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (!this.displayingTile || (ig.game.selectedTile[0] != this.displayingTile[0]
+                            || ig.game.selectedTile[1] != this.displayingTile[1])) {
+                            ig.game.displayingTileImage.width = ig.game.displayingTileImage.width;
+                            tileImages = ig.game.terrainMap.getTile(ig.game.selectedTile[0], ig.game.selectedTile[1]);
+                            if (tileImages) {
+                                for (i = 0; i < tileImages.length; i++) {
+                                    imageName = tileImages[i];
+                                    ig.game.displayingTileImageCtx.drawImage(
+                                        ig.game.assetManager.images[imageName],
+                                        0,
+                                        -(ig.game.terrainMap.tilesize / 2)
+                                    );
+                                }
+                            }
+                            tileImages = ig.game.featureMap.getTile(ig.game.selectedTile[0], ig.game.selectedTile[1]);
+                            if (tileImages) {
+                                for (i = 0; i < tileImages.length; i++) {
+                                    imageName = tileImages[i];
+                                    ig.game.displayingTileImageCtx.drawImage(
+                                        ig.game.assetManager.images[imageName],
+                                        0,
+                                        -(ig.game.featureMap.tilesize / 2)
+                                    );
+                                }
+                            }
+                            this.displayingTile = ig.game.selectedTile;
+                            this.setImageFromSource(ig.game.displayingTileImage);
+                        }
+                    }
+                    else {
+                        this.displayingTile = null;
+                        this.setImage(undefined);
+                        ig.game.displayingTileImage.width = ig.game.displayingTileImage.width;
+                    }
+                };
+                this.ui.updatingElements.push(this.tileDetailsTileView);
+                this.tileDetailsContentBox.addChild(this.tileDetailsTileView);
+
+                this.tileDetailsTextBox1 = new UIElement(new Rect(
+                    200,
+                    0,
+                    400,
+                    100
+                ));
+                this.tileDetailsTextBox1.enableText(function() {
+                    return "Type: Land\n" +
+                        "Surveyable: Yes\n" +
+                        "Features: Heavy forestation\n" +
+                        "Owned By: Me\n" +
+                        "(This text is static right now)";
+                    }, this.detailFont, ig.Font.ALIGN.LEFT);
+                this.tileDetailsContentBox.addChild(this.tileDetailsTextBox1);
+
                 this.minimapBox = new UIElement(new Rect(
                     0,
                     ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
@@ -237,9 +322,9 @@ ig.module(
 
                 var contractsButton, contractsButtonText;
                 contractsButton = new Button(new Rect(
-                        20,
+                        15,
                         30,
-                        ig.system.width / 4 - 42,
+                        ig.system.width / 8 - 21,
                         30),
                     "button",
                     "button_hover",
@@ -251,7 +336,7 @@ ig.module(
                     [3, 75, 4, 33]
                 );
                 actionsBox.addChild(contractsButton);
-                contractsButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 7, 1, 1));
+                contractsButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
                 contractsButtonText.enableText(function () {
                     return "Contracts";
                 }, this.font, ig.Font.ALIGN.CENTER);
@@ -259,9 +344,9 @@ ig.module(
 
                 var upgradesButton, upgradesButtonText;
                 upgradesButton = new Button(new Rect(
-                        20,
-                        60,
-                        ig.system.width / 4 - 42,
+                        10 + 15 + ig.system.width / 8 - 21,
+                        30,
+                        ig.system.width / 8 - 21,
                         30),
                     "button",
                     "button_hover",
@@ -273,11 +358,290 @@ ig.module(
                     [3, 75, 4, 33]
                 );
                 actionsBox.addChild(upgradesButton);
-                upgradesButtonText = new UIElement(new Rect((ig.system.width / 4) / 2 - 20, 7, 1, 1));
+                upgradesButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
                 upgradesButtonText.enableText(function () {
                     return "Upgrades";
                 }, this.font, ig.Font.ALIGN.CENTER);
                 upgradesButton.addChild(upgradesButtonText);
+
+                this.surveyButton = new Button(new Rect(
+                        15,
+                        60,
+                        ig.system.width / 8 - 21,
+                        30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        TFglobals.DATA_CONTROLLER.conductSurveyOfTileWithXY(self.selectedTile[0], self.selectedTile[1]);
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.surveyButton.setImage("button_inactive");
+                this.surveyButton.inactive = true;
+                this.ui.updatingElements.push(this.surveyButton);
+                this.surveyButton.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (this.inactive) {
+                            this.inactive = false;
+                            this.setImage("button");
+                        }
+                        if (self.tilesSurveyed[self.selectedTile[0]]) {
+                            if (self.tilesSurveyed[self.selectedTile[0]][self.selectedTile[1]]) {
+                                self.surveyButtonText._textFunction = function() {
+                                    return "View Survey";
+                                };
+                                this.onUnclick = function() {
+                                    self.viewSurveyResults(self.selectedTile[0], self.selectedTile[1]);
+                                };
+                            }
+                            else {
+                                self.surveyButtonText._textFunction = function() {
+                                    return "Survey";
+                                };
+                                this.onUnclick = function() {
+                                    TFglobals.DATA_CONTROLLER
+                                        .conductSurveyOfTileWithXY(self.selectedTile[0], self.selectedTile[1]);
+                                };
+                            }
+                        }
+                        else {
+                            self.surveyButtonText._textFunction = function() {
+                                return "Survey";
+                            };
+                            this.onUnclick = function() {
+                                TFglobals.DATA_CONTROLLER
+                                    .conductSurveyOfTileWithXY(self.selectedTile[0], self.selectedTile[1]);
+                            };
+                        }
+                        // change this.surveyButtonText to "View Survey"
+                        // change the associated function to viewing survey results
+                    }
+                    else {
+                        if (!this.inactive) {
+                            this.inactive = true;
+                            this.setImage("button_inactive");
+                        }
+                    }
+                };
+                actionsBox.addChild(this.surveyButton);
+                this.surveyButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.surveyButtonText.enableText(function () {
+                    return "Survey";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                this.surveyButton.addChild(this.surveyButtonText);
+
+                var harvestButtonText;
+                this.harvestButton = new Button(new Rect(
+                    10 + 15 + ig.system.width / 8 - 21,
+                    60,
+                    ig.system.width / 8 - 21,
+                    30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        ig.log("Attempted to harvest tile - not yet implemented!");
+                        self.harvestTile(self.selectedTile[0], self.selectedTile[1]);
+                        //Need to open a window to specify the type of cut
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.harvestButton.setImage("button_inactive");
+                this.harvestButton.inactive = true;
+                this.ui.updatingElements.push(this.harvestButton);
+                this.harvestButton.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (ig.game.canHarvestSelectedTile()) {
+                            if (this.inactive) {
+                                this.inactive = false;
+                                this.setImage("button");
+                            }
+                        }
+                    }
+                    else {
+                        if (!this.inactive) {
+                            this.inactive = true;
+                            this.setImage("button_inactive");
+                        }
+                    }
+                };
+                actionsBox.addChild(this.harvestButton);
+                harvestButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                harvestButtonText.enableText(function () {
+                    return "Harvest";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                this.harvestButton.addChild(harvestButtonText);
+
+                var plantButtonText;
+                this.plantButton = new Button(new Rect(
+                    15,
+                    90,
+                    ig.system.width / 8 - 21,
+                    30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function(selectedTile) {
+                        ig.log("Attempted to plant tile - not yet implemented!");
+                        //TFglobals.DATA_CONTROLLER.requestPlantForTileWithId(selectedTile)
+                    },
+                    self.selectedTile,
+                    [3, 75, 4, 33]
+                );
+                this.plantButton.setImage("button_inactive");
+                this.plantButton.inactive = true;
+                this.ui.updatingElements.push(this.plantButton);
+                this.plantButton.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (ig.game.canPlantSelectedTile()) {
+                            if (this.inactive) {
+                                this.inactive = false;
+                                this.setImage("button");
+                            }
+                        }
+                    }
+                    else {
+                        if (!this.inactive) {
+                            this.inactive = true;
+                            this.setImage("button_inactive");
+                        }
+                    }
+                };
+                actionsBox.addChild(this.plantButton);
+                plantButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                plantButtonText.enableText(function () {
+                    return "Plant";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                this.plantButton.addChild(plantButtonText);
+
+                var yardButtonText;
+                this.yardButton = new Button(new Rect(
+                    10 + 15 + ig.system.width / 8 - 21,
+                    90,
+                    ig.system.width / 8 - 21,
+                    30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function(selectedTile) {
+                        ig.log("Attempted to yard tile - not yet implemented!");
+                        //Need to open a window to specify the type of cut
+                    },
+                    self.selectedTile,
+                    [3, 75, 4, 33]
+                );
+                this.yardButton.setImage("button_inactive");
+                this.yardButton.inactive = true;
+                this.ui.updatingElements.push(this.yardButton);
+                this.yardButton.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (ig.game.canYardSelectedTile()) {
+                            if (this.inactive) {
+                                this.inactive = false;
+                                this.setImage("button");
+                            }
+                        }
+                    }
+                    else {
+                        if (!this.inactive) {
+                            this.inactive = true;
+                            this.setImage("button_inactive");
+                        }
+                    }
+                };
+                actionsBox.addChild(this.yardButton);
+                yardButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                yardButtonText.enableText(function () {
+                    return "Yard";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                this.yardButton.addChild(yardButtonText);
+
+                var purchaseButtonText;
+                this.purchaseButton = new Button(new Rect(
+                    15,
+                    120,
+                    ig.system.width / 8 - 21,
+                    30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        self.buyTile(self.selectedTile[0], self.selectedTile[1]);
+                    },
+                    undefined,
+                    [3, 75, 4, 33]
+                );
+                this.purchaseButton.setImage("button_inactive");
+                this.purchaseButton.inactive = true;
+                this.ui.updatingElements.push(this.purchaseButton);
+                this.purchaseButton.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (ig.game.canPurchaseSelectedTile()) {
+                            if (this.inactive) {
+                                this.inactive = false;
+                                this.setImage("button");
+                            }
+                        }
+                    }
+                    else {
+                        if (!this.inactive) {
+                            this.inactive = true;
+                            this.setImage("button_inactive");
+                        }
+                    }
+                };
+                actionsBox.addChild(this.purchaseButton);
+                purchaseButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                purchaseButtonText.enableText(function () {
+                    return "Purchase";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                this.purchaseButton.addChild(purchaseButtonText);
+
+                var transportButtonText;
+                this.transportButton = new Button(new Rect(
+                    10 + 15 + ig.system.width / 8 - 21,
+                    120,
+                    ig.system.width / 8 - 21,
+                    30),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function(selectedTile) {
+                        ig.log("Attempted to transport tile - not yet implemented!");
+                        //Need to open a window to specify the type of cut
+                    },
+                    self.selectedTile,
+                    [3, 75, 4, 33]
+                );
+                this.transportButton.setImage("button_inactive");
+                this.transportButton.inactive = true;
+                this.ui.updatingElements.push(this.transportButton);
+                this.transportButton.update = function() {
+                    if (ig.game.selectedTile) {
+                        if (ig.game.canTransportSelectedTile()) {
+                            if (this.inactive) {
+                                this.inactive = false;
+                                this.setImage("button");
+                            }
+                        }
+                    }
+                    else {
+                        if (!this.inactive) {
+                            this.inactive = true;
+                            this.setImage("button_inactive");
+                        }
+                    }
+                };
+                actionsBox.addChild(this.transportButton);
+                transportButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                transportButtonText.enableText(function () {
+                    return "Transport";
+                }, this.font, ig.Font.ALIGN.CENTER);
+                this.transportButton.addChild(transportButtonText);
+
             },
 
             constructMap: function() {
@@ -301,11 +665,27 @@ ig.module(
 
             onGetWorldData: function() {
                 ig.log("Got world data.");
-               // TFglobals.DATA_CONTROLLER.getMapChunkWithStartId(1); // TODO: Get more chunks
 				var rect = {x_min : 0, x_max : 64, y_min : 0, y_max : 64};
 				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
                 TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
                 TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
+                TFglobals.DATA_CONTROLLER.getPlayerStats();
+            },
+
+            onGetPlayerStats: function(theResponse) {
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onGetPlayerStats received balance: " + theResponse.balance
+                        + ", turn points: " + theResponse.turn_points
+                        + ", political capital: " + theResponse.political_capital);
+                    this.money = theResponse.balance;
+                    this.turnPoints = theResponse.turn_points;
+                    this.politicalCapital = theResponse.political_capital;
+                }
+                else{
+                    this.showNotificationWindow(function() {
+                        return "Uh oh! Something went wrong. Couldn't get player stats." } );
+                    console.log("onGetPlayerStats failure!");
+                }
             },
 
             onGetMapChunk: function(chunk) {
@@ -546,21 +926,25 @@ ig.module(
             // ******************* TILE SELECTION **********************
 
             /**
-             * Selects the tile at the specified location. Selection has a little highlight effect.
+             * Selects the tile at the specified location. Selection has a little highlight effect. This also enables
+             * actions requiring the context of a selected tile.
              * @param x
              * @param y
              */
             selectTile: function(x, y) {
-                if (this.selectedTile) {
-                    if (this.selectedTile[0] == x && this.selectedTile[1] == y) {
-                        this.buyTile(x, y); // TODO: Obviously this is not proper functionality ultimately
-                    }
+                var tile = this.terrainMap.getTile(x, y);
+                if (!tile || tile.length == 0) {
+                    this.unselectTile();
                 }
-                this.selectedTile = [x, y];
-                //ig.log("Selected tile: " + x + ", " + y);
-                //ig.log("Tile has the following shape with respect to trees: ");
-                //ig.log(this.featureMap.getForestTile(x, y));
-                //ig.log(this.terrainMap.getTile(x, y));
+                else {
+                    this.selectedTile = [x, y];
+                }
+            },
+
+            unselectTile: function() {
+                if (this.selectedTile) {
+                    this.selectedTile = null;
+                }
             },
 
             // ******************* BUYING LAND **********************
@@ -570,7 +954,7 @@ ig.module(
              * @param x
              * @param y
              */
-            buyTile: function(x, y) { //TODO Obviously this should be called under different circumstances ultimately
+            buyTile: function(x, y) {
                 this.showConfirmWindow(
                     function() { return "Are you sure you want to buy this tile?"; },
                     this.onConfirmBuyTile,
@@ -582,14 +966,36 @@ ig.module(
              * @param args A list containing [x, y]
              */
             onConfirmBuyTile: function(args) {
-                // Aaron's code here!
                 ig.log("Attempted to purchase tile at " + args.x + ", " + args.y);
-
-                args.that.featureMap.clearTile(args.x, args.y);
-                args.that.featureMap.addTile(args.x, args.y, "harvesting_tile");
+                TFglobals.DATA_CONTROLLER.attemptToPurchaseMegatileIncludingResourceTileXY(
+                    args.x, args.y);
             },
 
-            // ******************* CONFIRMATION **********************
+            onAttemptToPurchaseMegatileIncludingResourceTileXY: function(theResponse){
+                var i, j;
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onAttemptToPurchaseMegatileIncludingResourceTileXY successfully purchased resource " +
+                        "tile with origin x, y: " + theResponse.megatile_upper_left_xy.x
+                        + ", " + theResponse.megatile_upper_left_xy.y);
+                    var megatile = theResponse.megatile_upper_left_xy;
+                    for (i = 0; i < 3; i++) {
+                        for (j = 0; j < 3; j++) {
+                            this.featureMap.clearTile(megatile.x + i, megatile.y + j);
+                            this.featureMap.addTile(megatile.x + i, megatile.y + j, "harvesting_tile");
+                        }
+                    }
+                }
+                else{
+                    this.showNotificationWindow(
+                        function() {
+                            return "Unable to purchase tile. Someone may already\nown this tile, or there may " +
+                                "have been a server error.";
+                        }
+                    );
+                }
+            },
+
+            // ******************* BASIC DIALOG POP-UPS **********************
 
             /**
              * Displays a confirmation window with customizable displayed text and an arbitrary confirmation action.
@@ -666,6 +1072,50 @@ ig.module(
                     this.confirmNo.addChild(noText);
                 }
             },
+            
+            showNotificationWindow: function(textFunction) {
+                var self = this;
+
+                // Making sure the notification window exists
+                if (!this.notificationWindow) {
+                    this.notificationWindow = new UIElement(new Rect(
+                        ig.system.width / 2 - 200,
+                        ig.system.height / 2 - 100,
+                        400,
+                        200
+                    ));
+                    this.notificationWindow.setImage("uibox");
+                    this.notificationWindow.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.notificationWindow);
+                }
+                this.notificationWindow.hide = false;
+
+                // Text in the notification window
+                if (!this.notificationText) {
+                    this.notificationText = new UIElement(new Rect(
+                        200, 50, this.notificationWindow.getInnerWidth(), 1));
+                    this.notificationWindow.addChild(this.notificationText);
+                }
+                this.notificationText.enableText(textFunction, this.font, ig.Font.ALIGN.CENTER);
+
+                // Okay button
+                if (!this.notificationOkay) {
+                    this.notificationOkay = new Button(new Rect(165, 140, 70, 40),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.notificationWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.notificationWindow.addChild(this.notificationOkay);
+                    var yesText = new UIElement(new Rect(36, 12, 1, 1));
+                    yesText.enableText(function() { return "Okay"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.notificationOkay.addChild(yesText);
+                }
+            },
 
             // ******************* CONTRACTS **********************
 
@@ -715,8 +1165,8 @@ ig.module(
                         [3, 75, 4, 33],
                         "uibox",
                         [5, 11, 6, 11],
-                        "uibox",
-                        [5, 11, 6, 11],
+                        undefined,
+                        undefined,
                         this.ui
                     );
                     this.contractsWindow.addChild(this.contractScrollField);
@@ -783,7 +1233,7 @@ ig.module(
                             self.removeContractTooltip();
                         };
                         this.contractScrollField.contentPanel.addChild(contract);
-                        var contractImage = new UIElement(new Rect(9, 10, 128, 128));
+                        var contractImage = new UIElement(new Rect(4, 6, 128, 128));
                         contractImage.hoverPassThrough = true;
                         if (this.contractTooltipSource.name === "Lumberjack Easy Park") {
                             contractImage.setImage("park_contract_picture");
@@ -816,7 +1266,7 @@ ig.module(
 
             generateContractTooltip: function(contractInfo) {
                 if (!this.tooltip) {
-                    this.tooltip = new UIElement(new Rect(
+                    this.tooltip = new Panel(new Rect(
                         ig.input.mouse.x + 10,
                         ig.input.mouse.y + 10,
                         400,
@@ -851,7 +1301,18 @@ ig.module(
 
             onConfirmTakeContract: function(contractInfo) {
                 ig.game.contractsWindow.hide = true;
-                console.log("Contract accepted: " + contractInfo.codename);
+                TFglobals.DATA_CONTROLLER.attemptToAcceptContractWithId(contractInfo.id);
+            },
+
+            onAttemptToAcceptContract : function(theResponse){
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onAttemptToAcceptContract accepted contract with id: " + theResponse.contract_id);
+                }
+                else{
+                    this.showNotificationWindow(function() {
+                        return "Contract could not be accepted!\n" + theResponse.status } );
+                    console.log("onAttemptToAcceptContract failure!");
+                }
             },
 
             // ******************* UPGRADES **********************
@@ -860,7 +1321,7 @@ ig.module(
                 var self = this;
                 // Making sure the confirm window exists
                 if (!this.upgradesWindow) {
-                    this.upgradesWindow = new UIElement(new Rect(
+                    this.upgradesWindow = new Panel(new Rect(
                         ig.system.width / 2 - 250,
                         ig.system.height / 2 - 150,
                         500,
@@ -884,8 +1345,8 @@ ig.module(
                         [3, 75, 4, 33],
                         "uibox",
                         [5, 11, 6, 11],
-                        "uibox",
-                        [5, 11, 6, 11],
+                        undefined,
+                        undefined,
                         this.ui
                     );
                     this.upgradesWindow.addChild(this.upgradeScrollField);
@@ -947,7 +1408,7 @@ ig.module(
                                     return "Are you sure you want to purchase\nthe "
                                         + thisUpgrade.upgradeInfo.name + " upgrade?";
                                 },
-                                self.onConfirmTakeUpgrade,
+                                self.onConfirmPurchaseUpgrade,
                                 thisUpgrade.upgradeInfo);
                             self.removeUpgradeTooltip();
                         };
@@ -1015,9 +1476,142 @@ ig.module(
                 }
             },
 
-            onConfirmTakeUpgrade: function(upgradeInfo) {
+            onConfirmPurchaseUpgrade: function(upgradeInfo) {
                 ig.game.upgradesWindow.hide = true;
-                console.log("Upgrade accepted: " + upgradeInfo.codename);
+                TFglobals.DATA_CONTROLLER.attemptToPurchaseUpgradeWithId(upgradeInfo.id);
+            },
+
+            onAttemptToPurchaseUpgradeResponse : function(theResponse){
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onAttemptToPurchaseUpgradeResponse successfully purchased equipment with id: "
+                        + theResponse.logging_equipment_id);
+                    this.showNotificationWindow(function() { return "Success!"});
+                }
+                else{
+                    console.log("onAttemptToPurchaseUpgradeResponse failure!");
+                    this.showNotificationWindow(function() { return "Upgrade could not be purchased.\n" +
+                        "You may be ineligible for this upgrade, or there was a server error."});
+                }
+            },
+
+            // ******************* SURVEYING ***********************
+
+            viewSurveyResults: function(x, y) {
+                var self = this;
+                // Making sure the survey window exists
+                if (!this.surveyWindow) {
+                    this.surveyWindow = new Panel(new Rect(
+                        ig.system.width / 2 - 250,
+                        ig.system.height / 2 - 150,
+                        500,
+                        300
+                    ));
+                    this.surveyWindow.setImage("uibox");
+                    this.surveyWindow.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.surveyWindow);
+                }
+                this.surveyWindow.hide = false;
+
+                // A scroll field
+                if (!this.surveyScrollField) {
+                    this.surveyScrollField = new ScrollField(
+                        new Rect(
+                            10, 30, this.surveyWindow.bounds.width - 20, this.surveyWindow.bounds.height - 40
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        [3, 75, 4, 33],
+                        "uibox",
+                        [5, 11, 6, 11],
+                        undefined,
+                        undefined,
+                        this.ui
+                    );
+                    this.surveyWindow.addChild(this.surveyScrollField);
+                    this.surveyScrollField.horizontalScrollBar.hide = true;
+                }
+                this.surveyResultsText = new UIElement(
+                    new Rect(5, 5, this.surveyScrollField.contentPanel.getInnerWidth(), 1));
+                TFglobals.DATA_CONTROLLER.viewExistingSurveyOfTileWithXY(x, y);
+                this.surveyResultsText.enableText(function() { return self.currentSurveyResults; },
+                    this.detailFont, ig.Font.ALIGN.LEFT);
+                this.surveyResultsText.update = function() {
+                    this.bounds.height = self.detailFont.heightForString(this.formatText(this._textFunction()));
+                };
+                this.ui.updatingElements.push(this.surveyResultsText);
+                this.surveyScrollField.addChildToPanel(this.surveyResultsText);
+
+                if (!this.surveyWindowClose) {
+                    this.surveyWindowClose = new Button(
+                        new Rect(
+                            this.surveyWindow.bounds.width - 30, 0, 20, 20
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.surveyWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.surveyWindow.addChild(this.surveyWindowClose);
+                    var surveyWindowCloseText = new UIElement(new Rect(12, 1, 1, 1));
+                    surveyWindowCloseText.enableText(function() { return "x"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.surveyWindowClose.addChild(surveyWindowCloseText);
+                }
+            },
+
+            onConductSurveyOfTileWithXY: function(theResponse) {
+                if(this.serverResponseWasPositive(theResponse)){
+                    ig.log(theResponse);
+                    ig.log(theResponse.survey.x + ", " + theResponse.survey.y);
+                    this.tilesSurveyed[theResponse.survey.x] = this.tilesSurveyed[theResponse.survey.x] || [];
+                    this.tilesSurveyed[theResponse.survey.x][theResponse.survey.y] = true;
+                }
+                else{
+                    console.log("onConductSurveyOfTileWithXY failure with message: " + theResponse.errors.join(", "));
+                }
+            },
+
+            onViewExistingSurveyOfTileWithXY: function(theResponse) {
+                this.currentSurveyResults =  "Coordinates: 102039, 9001" +
+                    "\nLand Type: Forest" +
+                    "\nOwner: Professor Oak" +
+                    "\nSurvey Source: SaveTheTrees Nature Conciliatorium" +
+                    "\nNumber of 12-inch trees: 92" +
+                    "\nNumber of 14-inch trees: 184" +
+                    "\nNumber of 16-inch trees: 568" +
+                    "\nDesirability: Fourth-level" +
+                    "\nMajor Religion: Zoroastrianism" +
+                    "\nMana: Subtle" +
+                    "\nPriuses per gallon: 40" +
+                    "\nPrimary wildlife: Zubat" +
+                    "\nPreferences: Long walks on the beach, picnics, wheat" +
+                    "\nFavorite animal: Liger" +
+                    "\nPreferenced Andrew Bird Song: Nyatiti" +
+                    "\nSeriously: That album was great" +
+                    "\nWhen It Grows Up: It wants to be a firetruck" +
+                    "\nGames per capita per fireplace: 14" +
+                    "\nMedian Ruler Length: 12\" (30.48 cm)" +
+                    "\nLargest observed number: A hundredy-two";
+
+            },
+
+            // ******************* HARVESTING *************************
+
+            harvestTile: function(x, y) {
+                TFglobals.DATA_CONTROLLER.attemptToClearCutTileWithXY(x, y);
+            },
+
+            onAttemptToClearCutTileWithXY: function(theResponse) {
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onAttemptToClearCutTileWithId success!");
+                }
+                else{
+                    console.log("onAttemptToClearCutTileWithId failure with message: " + theResponse.errors.join(", "));
+                }
             },
 
             // ******************* UTILITY FUNCTIONS **********************
@@ -1042,7 +1636,29 @@ ig.module(
                 ig.game.screen.y -= (ig.game.screen.y + ig.system.height / 2) - y;
             },
 
-            // ******************* UPGRADES **********************
+            // ******************* ACTION-CHECKING ******************
+
+            canHarvestSelectedTile: function() {
+                return true;
+            },
+
+            canPlantSelectedTile: function() {
+                return false;
+            },
+
+            canYardSelectedTile: function() {
+                return false;
+            },
+
+            canPurchaseSelectedTile: function() {
+                return true;
+            },
+
+            canTransportSelectedTile: function() {
+                return false;
+            },
+
+            // ******************* SHORELINES **********************
 
             getShoreTypes: function(x, y) {
                 var megatile = this.terrainMap.getMegatile(x, y);
@@ -1178,6 +1794,19 @@ ig.module(
                     else return null;
                 }
                 return shoreTypes;
+            },
+
+            // *********************** SERVER FUNCTIONS ************************
+
+            serverResponseWasPositive : function(theResponse){
+                if(theResponse.status == TFglobals.SUCCESS)
+                    return true;
+                else if(theResponse.status = TFglobals.FAILURE)
+                    return false;
+                else{
+                    console.log("bad status code: " + theResponse.status);
+                    return false;
+                }
             }
 
         });

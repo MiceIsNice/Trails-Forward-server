@@ -32,8 +32,8 @@ ig.module(
             click: function(x, y) {
                 var miniToMapRatio = this.getMinimapToMapSizeRatio();
                 ig.game.centerOnPoint(
-                    (x - this.bounds.width / 2 - this._parent.getOffsetX()) / miniToMapRatio,
-                    (y - this._parent.getOffsetY()) / miniToMapRatio);
+                    (x - this.bounds.width / 2 - this._parent.getPositionX()) / miniToMapRatio,
+                    (y - this._parent.getPositionY()) / miniToMapRatio);
             },
 
             /**
@@ -94,8 +94,8 @@ ig.module(
 
                     // Draw relative to parent position if a parent exists
                     if (this._parent) {
-                        parentOffsetX = this._parent.getOffsetX();
-                        parentOffsetY = this._parent.getOffsetY();
+                        parentOffsetX = this._parent.getPositionX();
+                        parentOffsetY = this._parent.getPositionY();
                         if (this._parent._ninePatch) {
                             parentOffsetX += this._parent._ninePatchData.x1;
                             parentOffsetY += this._parent._ninePatchData.y1;

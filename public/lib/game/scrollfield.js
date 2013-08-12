@@ -265,8 +265,8 @@ ig.module(
 
             // Draw relative to parent position if a parent exists
             if (this._parent) {
-                parentOffsetX = this._parent.getOffsetX();
-                parentOffsetY = this._parent.getOffsetY();
+                parentOffsetX = this._parent.getPositionX();
+                parentOffsetY = this._parent.getPositionY();
                 if (this._parent._ninePatch) {
                     parentOffsetX += this._parent._ninePatchData.x1;
                     parentOffsetY += this._parent._ninePatchData.y1;
@@ -363,11 +363,11 @@ ig.module(
                 for (var i = 0; i < this._children.length; i++) {
                     child = this._children[i];
                     if (!child.hide) {
-                        if (child == this.contentPanel) {
+                        /*if (child == this.contentPanel) {
                             ctx.save();
                             ctx.beginPath();
-                            ctx.rect(child.bounds.x + child.getOffsetX() + ((child._ninePatch) ? child._ninePatchData.x1 : 0),
-                                child.bounds.y + child.getOffsetY() + ((child._ninePatch) ? child._ninePatchData.y1 : 0),
+                            ctx.rect(child.bounds.x + child.getPositionX() + ((child._ninePatch) ? child._ninePatchData.x1 : 0),
+                                child.bounds.y + child.getPositionY() + ((child._ninePatch) ? child._ninePatchData.y1 : 0),
                                 child.bounds.width - ((child._ninePatch) ? child._ninePatchData.x1 : 0) * 2,
                                 child.bounds.height - ((child._ninePatch) ? child._ninePatchData.y1 : 0) * 2);
                             ctx.clip();
@@ -376,7 +376,8 @@ ig.module(
                         }
                         else {
                             child.draw();
-                        }
+                        }*/
+                        child.draw();
                     }
                 }
             }

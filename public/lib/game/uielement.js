@@ -167,6 +167,11 @@ ig.module(
             }
         },
 
+        setImageFromSource: function(canvas) {
+            this.imageName = "sourced";
+            this.image = canvas;
+        },
+
         /**
          * @returns {boolean} True if the element's load-requiring properties (its image, for instance, if it has one)
          * are loaded. If no image is set, returns true, since there isn't anything else in default UIElements that need
@@ -296,16 +301,16 @@ ig.module(
             }
         },
 
-        getOffsetX: function() {
+        getPositionX: function() {
             if (this._parent) {
-                return this._parent.getOffsetX() + this.bounds.x;
+                return this._parent.getPositionX() + this.bounds.x;
             }
             else return this.bounds.x;
         },
 
-        getOffsetY: function() {
+        getPositionY: function() {
             if (this._parent) {
-                return this._parent.getOffsetY() + this.bounds.y;
+                return this._parent.getPositionY() + this.bounds.y;
             }
             else return this.bounds.y;
         },
@@ -325,8 +330,8 @@ ig.module(
 
             // Draw relative to parent position if a parent exists
             if (this._parent) {
-                parentOffsetX = this._parent.getOffsetX();
-                parentOffsetY = this._parent.getOffsetY();
+                parentOffsetX = this._parent.getPositionX();
+                parentOffsetY = this._parent.getPositionY();
                 if (this._parent._ninePatch) {
                     parentOffsetX += this._parent._ninePatchData.x1;
                     parentOffsetY += this._parent._ninePatchData.y1;
@@ -410,6 +415,13 @@ ig.module(
                             this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
                             this.bounds.width, this.bounds.height);
                     }
+                }
+                else if (this.imageName === "sourced") {
+                    ctx.drawImage(this.image,
+                        0, 0,
+                        this.image.width, this.image.height,
+                        this.bounds.x + parentOffsetX, this.bounds.y + parentOffsetY,
+                        this.bounds.width, this.bounds.height);
                 }
             }
 

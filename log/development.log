@@ -1851,3 +1851,71 @@ CanCan::AuthorizationNotPerformed (This action failed the check_authorization be
 CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
   
 
+
+NoMethodError (undefined method `world' for nil:NilClass):
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+NoMethodError (undefined method `world' for nil:NilClass):
+  app/controllers/resource_tiles_controller.rb:57:in `index'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:49:12', 3615, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, '2013-08-12 18:49:12', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)):
+  app/controllers/surveys_controller.rb:40:in `block in create'
+  app/controllers/surveys_controller.rb:39:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:52:57', 3657, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, '2013-08-12 18:52:57', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:53:49', 3698, 171.0, 169.0, 14.0, 8.0, 4.0, 3.0, 3.0, 26.0, 6.0, 98.0, 317.0, 148.0, 1, '2013-08-12 18:53:49', 1674.3046320382482, 1314.8233784708332, 180.72454823215318, 138.05571383980396, 101.46595283418793, 93.63960292454234, 121.9634560213903, 1331.6252979105013, 0.0, 0.0, 1130.7633397358404, 881.7434207140125)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:53:54', 3530, 184.0, 179.0, 97.0, 43.0, 33.0, 24.0, 18.0, 9.0, 110.0, 225.0, 321.0, 245.0, 1, '2013-08-12 18:53:54', 1799.9623349274982, 1391.929502906104, 1274.7529805007077, 851.0976038788559, 916.4061932545213, 886.1849047619567, 856.3895350274249, 533.1743864359895, 0.0, 0.0, 1142.2794636987887, 1453.0731126943422)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:53:59', 3571, 2.0, 39.0, 40.0, 3.0, 7.0, 1.0, 5.0, 9.0, 2.0, 92.0, 301.0, 83.0, 1, '2013-08-12 18:53:59', 19.501979807754882, 300.33620998597223, 519.4462722075046, 58.88343605331935, 192.56263048659707, 36.651853895817304, 235.20822665118928, 528.0279479445976, 0.0, 0.0, 1073.3275525675429, 494.19785399028376)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:54:06', 3571, 2.0, 39.0, 40.0, 3.0, 7.0, 1.0, 5.0, 9.0, 2.0, 92.0, 301.0, 83.0, 1, '2013-08-12 18:54:06', 19.501979807754882, 300.33620998597223, 519.4462722075046, 58.88343605331935, 192.56263048659707, 36.651853895817304, 235.20822665118928, 528.0279479445976, 0.0, 0.0, 1073.3275525675429, 494.19785399028376)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:57:45', 3614, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, '2013-08-12 18:57:45', 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:58:30', 3571, 2.0, 39.0, 40.0, 3.0, 7.0, 1.0, 5.0, 9.0, 2.0, 92.0, 301.0, 83.0, 1, '2013-08-12 18:58:30', 19.501979807754882, 300.33620998597223, 519.4462722075046, 58.88343605331935, 192.56263048659707, 36.651853895817304, 235.20822665118928, 528.0279479445976, 0.0, 0.0, 1073.3275525675429, 494.19785399028376)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 18:59:44', 4042, 244.0, 71.0, 48.0, 74.0, 44.0, 16.0, 26.0, 12.0, 185.0, 183.0, 342.0, 292.0, 1, '2013-08-12 18:59:44', 1616.7911414534924, 407.8582942066606, 493.13939110129536, 1184.1519409332961, 1023.4303250672345, 514.109478766027, 1077.2300226700977, 616.9841926630448, 0.0, 0.0, 376.8845127213286, 930.5905302839731)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 19:04:51', 3571, 2.0, 39.0, 40.0, 3.0, 7.0, 1.0, 5.0, 9.0, 2.0, 92.0, 301.0, 83.0, 1, '2013-08-12 19:04:51', 19.501979807754882, 300.33620998597223, 519.4462722075046, 58.88343605331935, 192.56263048659707, 36.651853895817304, 235.20822665118928, 528.0279479445976, 0.0, 0.0, 1073.3275525675429, 494.19785399028376)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 19:26:36', 3613, 194.0, 120.0, 77.0, 61.0, 44.0, 32.0, 18.0, 17.0, 369.0, 304.0, 218.0, 213.0, 1, '2013-08-12 19:26:36', 1828.4972180124535, 862.4241120162393, 961.052383051659, 1171.14249954214, 1178.7391668290445, 1164.1398703557197, 786.0185375889818, 958.7232994550243, 0.0, 0.0, 718.6463906343521, 1190.9830701438937)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for column 'capture_date' at row 1: INSERT INTO `surveys` (`capture_date`, `created_at`, `megatile_id`, `num_10in_trees`, `num_12in_trees`, `num_14in_trees`, `num_16in_trees`, `num_18in_trees`, `num_20in_trees`, `num_22in_trees`, `num_24in_trees`, `num_2in_trees`, `num_4in_trees`, `num_6in_trees`, `num_8in_trees`, `player_id`, `updated_at`, `vol_10in_trees`, `vol_12in_trees`, `vol_14in_trees`, `vol_16in_trees`, `vol_18in_trees`, `vol_20in_trees`, `vol_22in_trees`, `vol_24in_trees`, `vol_2in_trees`, `vol_4in_trees`, `vol_6in_trees`, `vol_8in_trees`) VALUES (1800, '2013-08-12 19:27:51', 3613, 194.0, 120.0, 77.0, 61.0, 44.0, 32.0, 18.0, 17.0, 369.0, 304.0, 218.0, 213.0, 1, '2013-08-12 19:27:51', 1828.4972180124535, 862.4241120162393, 961.052383051659, 1171.14249954214, 1178.7391668290445, 1164.1398703557197, 786.0185375889818, 958.7232994550243, 0.0, 0.0, 718.6463906343521, 1190.9830701438937)):
+  app/controllers/surveys_controller.rb:44:in `block in create'
+  app/controllers/surveys_controller.rb:43:in `create'
+

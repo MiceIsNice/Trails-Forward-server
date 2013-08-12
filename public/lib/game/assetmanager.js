@@ -86,6 +86,7 @@ ig.module(
                     "media/button.png",
                     "media/button_hover.png",
                     "media/button_click.png",
+                    "media/button_inactive.png",
                     "media/shoreline_A.png",
                     "media/shoreline_B.png",
                     "media/shoreline_C.png",

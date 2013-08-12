@@ -41,8 +41,8 @@ ig.module(
 
             // Draw relative to parent position if a parent exists
             if (this._parent) {
-                parentOffsetX = this._parent.getOffsetX();
-                parentOffsetY = this._parent.getOffsetY();
+                parentOffsetX = this._parent.getPositionX();
+                parentOffsetY = this._parent.getPositionY();
                 if (this._parent._ninePatch) {
                     parentOffsetX += this._parent._ninePatchData.x1;
                     parentOffsetY += this._parent._ninePatchData.y1;
@@ -138,7 +138,8 @@ ig.module(
             if (this._children.length > 0) {
                 ctx.save();
                 ctx.translate(this.offset.x, this.offset.y);
-                ctx.rect(this.bounds.x + this.getOffsetX(), this.bounds.y + this.getOffsetY(), this.bounds.width, this.bounds.height);
+                ctx.rect(this.getPositionX() - this.offset.x, this.getPositionY() - this.offset.y,
+                    this.bounds.width, this.bounds.height);
                 ctx.clip();
                 for (var i = 0; i < this._children.length; i++) {
                     if (!this._children[i].hide) {
