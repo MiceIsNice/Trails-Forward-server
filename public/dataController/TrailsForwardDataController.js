@@ -148,7 +148,7 @@ TrailsForwardDataController.prototype = {
 
 		if((tile_x || tile_x == 0) && (tile_x || tile_x == 0))
 			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.conductSurveyOfTileWithWorldIdAndTileXY(this.gameDataCache.id, tile_x, tile_y), 
-				this.onConductSurveyOfTileWithXY);
+				this.onConductSurveyOfTileWithWorldIdAndTileXY);
 		else console.log("bad input");	
 	},
 	
