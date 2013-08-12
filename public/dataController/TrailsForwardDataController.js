@@ -84,7 +84,7 @@ TrailsForwardDataController.prototype = {
 	getPlayerStats : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayerStats", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		this.serverAPI.getPlayerStatsForPlayerId(this.gameDataCache.player_id);
+		return this.serverAPI.getPlayerStatsForPlayerId(this.gameDataCache.player_id);
 	},
 	
 	getAvailableUpgradesForPlayer : function(){
@@ -112,8 +112,19 @@ TrailsForwardDataController.prototype = {
 	attemptToClearCutTileWithXY : function(x,y){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToClearCutTileWithXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if((x || x == 0) && (y || y == 0))
-			this.serverAPI.attemptToClearCutTileWithWorldIdAndTileXYWithEstimate(this.gameDataCache.id, x, y, false);
+		if((x || x == 0) && (y || y == 0)){
+			$.when(this.serverAPI.attemptToClearCutTileWithWorldIdAndTileXYWithEstimate(this.gameDataCache.id, x, y, false))
+			  .done(function(firstResponse, firstSuccess){
+			  				$.when(TFglobals.DATA_CONTROLLER.getPlayerStats())
+			  				 .done(function(secondResponse, secondSuccess){
+			  				 	TFglobals.DATA_CONTROLLER.onAttemptToClearCutTileWithXY(firstResponse);
+			  				 	TFglobals.DATA_CONTROLLER.onGetPlayerStats(secondResponse);
+			  					//console.log("first response ", firstResponse);
+			  					//console.log("second response", secondResponse);
+			  				});
+			  });
+		}
+//			this.serverAPI.attemptToClearCutTileWithWorldIdAndTileXYWithEstimate(this.gameDataCache.id, x, y, false);
 		else console.log("bad input");
 	},
 	
@@ -281,11 +292,8 @@ TrailsForwardDataController.prototype = {
 	onAttemptToClearCutTileWithXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToClearCutTileWithXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult){
+		if(theResult)
 			TFglobals.IMPACT.onAttemptToClearCutTileWithXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
-			if(theResult.status == TFglobals.SUCCESS)
-				TFglobals.DATA_CONTROLLER.getPlayerStats();
-		}
 		else console.log("bad input");
 	},
 	
@@ -310,6 +318,10 @@ TrailsForwardDataController.prototype = {
 		HELPER FUNCTIONS
 	
 *****/	
+
+    makeRequestWithPlayerStatsUpdate : function(){
+    
+    },
 
 	prepareImpactMessage : function(serverResponse){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.prepareImpactMessage", ["serverResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));

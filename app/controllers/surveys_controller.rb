@@ -8,7 +8,7 @@ class SurveysController < ApplicationController
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)
-
+    puts "megatile id #{megatile.id} and player id #{player.id}"
 	@surveys = Survey.where("megatile_id = ? AND player_id = ?", megatile.id, player.id)
 #    @surveys = megatile.surveys.where(player_id: player.id)
     puts "SurveysController.index found this many surveys for this tile from this user: #{@surveys.length}"

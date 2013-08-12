@@ -3,6 +3,15 @@ class Survey < ActiveRecord::Base
 
   belongs_to :megatile
   belongs_to :player
+  attr_accessible :megatile_id
+  
+  def megatile_x
+    Megatile.find(@megatile_id).x
+  end
+  
+  def megatile_y
+    Megatile.find(@megatile_id).y
+  end 
 
   def self.cost
     25
@@ -46,7 +55,11 @@ class Survey < ActiveRecord::Base
 
 
   api_accessible :survey do |template|
+    megatile = Megatile.find(self.megatile_id).x
+  
     template.add :id
+    template.add :megatile_x
+    template.add :megatile_y
     template.add :player_id
     template.add :num_2in_trees
     template.add :num_4in_trees
