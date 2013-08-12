@@ -54,7 +54,7 @@ class ResourceTilesController < ApplicationController
   end
   
   def index
-    authorize! :do_things, resource_tile.world
+    authorize! :do_things, World.find(params[:world_id]) #resource_tile.world
     
     if valid_rect_params? params
       @result = produce_tiles_in_rect params

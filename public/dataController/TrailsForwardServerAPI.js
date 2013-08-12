@@ -219,7 +219,20 @@ TrailsForwardServerAPI.prototype = {
 			0; // CHANGE ME
 		else console.log("bad input");	
 	},
+	
+	conductSurveyOfTileWithWorldIdAndTileXY : function (world_id, tile_x, tile_y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.conductSurveyOfTileWithWorldIdAndTileXY", ["world_id", "tile_x", "tile_y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 
+		if((world_id || world_id == 0) && (tile_x || tile_x == 0) && (tile_y || tile_y == 0)){
+			
+		}
+		else console.log("bad input");
+	},
+
+	viewExistingSurveyOfTileWithWorldIdAndTileXY : function (world_id, tile_x, tile_y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.viewExistingSurveyOfTileWithWorldIdAndTileXY", ["world_id", "tile_x", "tile_y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+
+	},
 	
 /*****    
 

@@ -135,6 +135,23 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	//conductSurveyOfTileWithXY
+	conductSurveyOfTileWithXY : function(tile_x, tile_y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithXY", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if((tile_x || tile_x == 0) && (tile_x || tile_x == 0))
+			this.serverAPI.conductSurveyOfTileWithWorldIdAndTileXY(this.gameDataCache.id, tile_x, tile_y);
+		else console.log("bad input");	
+	},
+	
+	//conductSurveyOfTileWithXY
+	viewExistingSurveyOfTileWithXY : function(tile_x, tile_y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.viewExistingSurveyOfTileWithXY", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if((tile_x || tile_x == 0) && (tile_x || tile_x == 0))
+			this.serverAPI.viewExistingSurveyOfTileWithWorldIdAndTileXY(this.gameDataCache.id, tile_x, tile_y);
+		else console.log("bad input");	
+	},
+/**
 	conductSurveyOfTileWithId : function(tile_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -151,6 +168,7 @@ TrailsForwardDataController.prototype = {
 			this.serverAPI.viewExistingSurveyOfTileWithWorldIdAndTileId(this.gameDataCache.id, tile_id);
 		else console.log("bad input");	
 	},
+**/
 	
 /*****
 
