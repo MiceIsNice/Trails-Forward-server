@@ -15,7 +15,6 @@ class Survey < ActiveRecord::Base
       rt.can_harvest? && rt.respond_to?(:estimated_tree_volume_for_size)
     end
 
-    survey.capture_date   = survey.megatile.world.year_current 
     survey.num_2in_trees  = tiles_with_trees.collect(&:num_2_inch_diameter_trees ).sum
     survey.num_4in_trees  = tiles_with_trees.collect(&:num_4_inch_diameter_trees ).sum
     survey.num_6in_trees  = tiles_with_trees.collect(&:num_6_inch_diameter_trees ).sum
