@@ -131,15 +131,22 @@ class Ability
 
     can :harvest, ResourceTile do |rt|
       player = rt.megatile.world.player_for_user(user)
-      puts "megatile with id: #{rt.megatile.id} lives in world: #{rt.megatile.world.id}"
-      puts "player has id: #{player.id}"
-      player && player == rt.megatile.owner
+#      puts "megatile with id: #{rt.megatile.id} lives in world: #{rt.megatile.world.id} and has owner #{rt.megatile.owner}"
+#      puts "requesting player has id: #{player.id}"
+      if !player
+        raise CanCan::AccessDenied.new("Cannot find a player for user #{user.id} in world #{rt.megatile.world.id}", :harvest, rt)
+      elsif player != rt.megatile.owner
+        raise CanCan::AccessDenied.new("Player does not have harvest rights for megatile id #{rt.megatile.id}", :harvest, rt)
+      else
+        true
+      end
     end
 
-    can :player_stats, Player do
-      Player.where("user_id = ?", user.id).length == 1
+    can :player_stats, Player do |player|
+      Player.where("user_id = ? AND id= ? ", user.id, player.id).length == 1
+      #Player.where("user_id = ?", user.id).length == 1 # <= original 
     end
-    
+
     
     # Define abilities for the passed in user here. For example:
     #

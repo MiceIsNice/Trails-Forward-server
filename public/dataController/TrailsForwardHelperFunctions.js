@@ -24,6 +24,10 @@ TrailsForwardHelperFunctions.prototype = {
 				}
 				else if(typeof theObj[key] === 'object'){
 					console.log(key);
+					console.log("typeof theObj[key]: " + typeof theObj[key]);
+					if(typeof theObj[key] === 'function' && !TFglobals.VERBOSE_FUNCTION_PRINTING)
+						return;
+					
 					this.prettyPrintObject(theObj[key]);
 				}
 				else 
@@ -100,7 +104,12 @@ TrailsForwardHelperFunctions.prototype = {
 		for(var i = 0; i < length; i++){
 			theString += namesList.length > i ? namesList[i] : "NoNameGivenError";
 			theString += " = ";
-			theString += valuesList.length > i ? valuesList[i] : "NoValueGivenError";
+			if(valuesList.length <= i)
+				theString += "NoValueGivenError";
+			else if(typeof valuesList[i] === 'function' && !TFglobals.VERBOSE_FUNCTION_PRINTING)
+				theString += "()";
+			else
+				theString += valuesList[i];
 			if (i < length - 1) theString += ", ";
 		}
 		return theString + ")";

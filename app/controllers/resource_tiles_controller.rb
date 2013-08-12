@@ -18,14 +18,16 @@ class ResourceTilesController < ApplicationController
   before_filter :authenticate_user!
   skip_authorization_check :only => :permitted_actions
 
-  before_filter :check_harvest_rights, only: [:clearcut_list, :diameter_limit_cut_list, :partial_selection_cut_list]
+#  before_filter :check_harvest_rights, only: [:clearcut_list, :diameter_limit_cut_list, :partial_selection_cut_list]
 
   expose(:world) { World.find params[:world_id] }
-  expose(:resource_tile) { ResourceTile.find (params[:tile_id] ? params[:tile_id] : 1) }
+  expose(:resource_tile) { ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]}
+ # expose(:resource_tile) { ResourceTile.find (params[:tile_id] ? params[:tile_id] : 1) }
 
   expose(:resource_tiles) do
-    if params[:resource_tile_ids]
-      tiles = ResourceTile.where(id: params["resource_tile_ids"])
+    if params[:tile_x] && params[:tile_y]
+      tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]
+      tiles = ResourceTile.where("megatile_id = ?", tile.megatile_id)
       tiles = tiles.harvestable if @clearcut
       tiles
     else
@@ -157,51 +159,40 @@ class ResourceTilesController < ApplicationController
       end
     end
   end
-  
-  # given a tile id, first looks for an attached tile 
-  # 
-=begin
-def clearcut_list
+
+# changed from clearcut_list
+  def clearcut
+    begin 
+      check_harvest_rights
+    rescue CanCan::AccessDenied => e
+      render json: {:errors => [e.message] }
+      return
+    end
+    
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-    
-    tile = Tile.find(params[:id])
-    
-    
-    # 1. look for an attached contract, then an unattached one
-    contract_to_fufill = attached ? attached : 
-    contract_to_fufill = attached?
-    if contract_to_fufill.length = 
-      contract_to_fufill = Contracts.where("player_id = ?", player.id).length > 0
-end
-=end
-
-  def clearcut_list
-    time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-    money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-
-    puts "resource_tiles_controller.clearcut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
+   #puts "resource_tiles_controller.clearcut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
 	
 =begin
     if params[:estimate] == true
       params[:estimate] = 'true'
     end
-
-    unless params[:estimate] == 'true'
 =end
-    unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
-        respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
+
+    unless params[:estimate] == true
+	  unless TimeManager.can_perform_action?(player: player, cost: time_cost)
+    	render json: {:errors => ["Not enough time left to perform harvest"]}
+        #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
         return
       end
-#    end
+    end
 
     player.balance -= money_cost
     player.time_remaining_this_turn -= time_cost
     results = harvestable_tiles.collect(&:clearcut)
     summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
 
-#    if params[:estimate] == 'true'
-    if params[:estimate] == true 
+    if params[:estimate] == true
       respond_with summary
     else
       begin
@@ -222,14 +213,16 @@ end
             elsif contract.contract_template.wood_type == "pole_timber"
               Contract.update_counters contract.id, volume_harvested_of_required_type: summary[:poletimber_volume].to_i
             else
-              respond_with({errors: ["Don't know how to handle timber type: #{contract.contract_template.wood_type}"]}, status: :unprocessable_entity)
+              #respond_with({errors: ["Don't know how to handle timber type: #{contract.contract_template.wood_type}"]}, status: :unprocessable_entity)
+           	  render json: {:errors => ["Don't know how to handle timber type: #{contract.contract_template.wood_type}"]}       
             end
           end
 
           respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
-        respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
+    	render json: {:errors => ["Transaction Failed: #{e.message}"]}       
+        #respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
       end
     end
   end
@@ -240,6 +233,14 @@ end
 
 
   def diameter_limit_cut_list
+    begin 
+      check_harvest_rights
+    rescue CanCan::AccessDenied => e
+      render json: {:errors => [e.message] }
+      return
+    end
+  
+  
     time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
 
@@ -288,21 +289,20 @@ end
 
 
   def partial_selection_cut_list
+    begin 
+      check_harvest_rights
+    rescue CanCan::AccessDenied => e
+      render json: {:errors => [e.message] }
+      return
+    end 
+  
     time_cost = TimeManager.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
 
-=begin
-    if params[:estimate] == true
-      params[:estimate] = 'true'
-    end
-
-    unless params[:estimate] == 'true'
-=end
       unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
         respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
         return
       end
-#    end
 
     player.balance -= money_cost
     player.time_remaining_this_turn -= time_cost
@@ -354,7 +354,8 @@ end
 
   def check_harvest_rights
     resource_tiles.each do |tile|
-      authorize! :harvest, tile
+        authorize! :harvest, tile
     end
   end
+
 end

@@ -22,6 +22,17 @@ TrailsForwardDataController.prototype = {
 
 	constructor : TrailsForwardDataController,
 	
+	logInAaronsWorldThreeLumberjack : function(){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.logInAaronsWorldThreeLumberjack", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		var AARONS_EMAIL = "aaron.tietz@tufts.edu";
+		var AARONS_PASSWORD = "letmein";
+		this.CHOOSE_LUMBERJACK = true;
+		this.AARONS_PLAYER_ID = 1;
+	
+		this.logInUserWithEmailAndPassword(AARONS_EMAIL, AARONS_PASSWORD);
+	},
+	
 /*****
 
 		'PUBLIC' FUNCTIONS CALLED BY Impact 
@@ -45,7 +56,7 @@ TrailsForwardDataController.prototype = {
 			if(player && player.world_id)
 				this.serverAPI.getWorldDataForWorldId(player.world_id);
 			else
-				console.log("DC.getWorldDataForPlayerId found no world for player_id: " + anId);
+				console.log("DC.getWorldDataForPlayerId found no world for player_id: " + player_id);
 		}
 		else console.log("bad input");
 	},
@@ -98,23 +109,32 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
-	attemptToClearCutTileWithId : function(tile_id){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToClearCutTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-	
-		if(tile_id || tile_id == 0)
-			this.serverAPI.attemptToClearCutTileWithWorldIdAndTileId(this.gameDataCache.id, tile_id);
-		else console.log("bad input");	
-	},
-	
-	attemptToPurchaseMegatileIncludingResourceTileId : function(tile_id){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithWorldIdAndResourceTileId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	attemptToClearCutTileWithXY : function(x,y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToClearCutTileWithXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(tile_id || tile_id == 0)
-			this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileId(this.gameDataCache.id, 
-																							this.gameDataCache.player_id, tile_id)
+		if((x || x == 0) && (y || y == 0))
+			this.serverAPI.attemptToClearCutTileWithWorldIdAndTileXYWithEstimate(this.gameDataCache.id, x, y, false);
+		else console.log("bad input");
+	},
+	
+	getEstimateForClearCutTileWithXY : function(x, y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getEstimateForClearCutTileWithXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if((x || x == 0) && (y || y == 0))
+			this.serverAPI.attemptToClearCutTileWithWorldIdAndTileXYWithEstimate(this.gameDataCache.id, x, y, true);
 		else console.log("bad input");	
 	},
 	
+	attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY : function(x, y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if((x || x == 0) && (y || y == 0))
+			this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, 
+																							this.gameDataCache.player_id, x, y)
+		else console.log("bad input");	
+	},
+	
+	//conductSurveyOfTileWithXY
 	conductSurveyOfTileWithId : function(tile_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -123,6 +143,7 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
+	//conductSurveyOfTileWithXY
 	viewExistingSurveyOfTileWithId : function(tile_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.viewExistingSurveyOfTileWithId", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -139,16 +160,19 @@ TrailsForwardDataController.prototype = {
 
 	onGetUserPlayers : function(thePlayers){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onGetUserPlayers", ["thePlayers"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-
+		
 		if(thePlayers){
 			if(thePlayers.players.length > 0){
 				TFglobals.DATA_CONTROLLER.gameDataCache.setUserPlayers(thePlayers.players);
 				TFglobals.IMPACT.onGetUserPlayers(thePlayers.players);
 			}
 			else{
+				console.log("no players for user found!");
+			/**
 				user = TFglobals.DATA_CONTROLLER.serverAPI._userId;
 				world_id = 3; // hard-coded to our practice world now 
 				TFglobals.DATA_CONTROLLER.serverAPI.makeLumberJackForUserInWorld(user, world_id);
+			**/
 			}
 		}
 		else console.log("bad input");	
@@ -208,11 +232,11 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");
 	},
 	
-	onAttemptToPurchaseMegatileIncludingResourceTileId : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseMegatileIncludingResourceTileId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	onAttemptToPurchaseMegatileIncludingResourceTileXY : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseMegatileIncludingResourceTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToPurchaseMegatileIncludingResourceTileId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			TFglobals.IMPACT.onAttemptToPurchaseMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
@@ -245,12 +269,20 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");		
 	},
 	
-	onAttemptToClearCutTileWithId : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToClearCutTileWithId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	onAttemptToClearCutTileWithXY : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToClearCutTileWithXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToClearCutTileWithId(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			TFglobals.IMPACT.onAttemptToClearCutTileWithXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
+	},
+	
+	onGetEstimateForClearCutTileWithXY : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onGetEstimateForClearCutTileWithXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if(theResult)
+			TFglobals.IMPACT.onGetEstimateForClearCutTileWithXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+		else console.log("bad input");	
 	},
 
 	onGetPlayerStats : function(theStats){

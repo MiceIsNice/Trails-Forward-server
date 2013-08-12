@@ -39,6 +39,7 @@ TrailsForwardGlobals.prototype = {
  		this.I_DUMMY_DEBUGGING_VERBOSE = false;
  		this.DC_TESTER_DEBUGGING = false;
  		this.DC_TESTER_DEBUGGING_VERBOSE = false;
+ 		this.VERBOSE_FUNCTION_PRINTING = false;
  		
  		this.CHUNK_WIDTH = 16;
  		this.SUCCESS = 1;

@@ -60,7 +60,7 @@ class TimeManager
 
     volume = options[:tile].send("estimated_#{options[:diameter]}_inch_tree_volume")
     
-    puts "clearcut_cost_for_diameter #{options[:diameter]}: harvest_ability = #{harvest_ability}, volume = #{volume}"
+    #puts "clearcut_cost_for_diameter #{options[:diameter]}: harvest_ability = #{harvest_ability}, volume = #{volume}"
     
     return 0.0 if volume == 0.0
     return 0.0 if harvest_ability == 0.0

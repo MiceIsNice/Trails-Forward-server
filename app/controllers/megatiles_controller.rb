@@ -95,8 +95,17 @@ class MegatilesController < ApplicationController
 
 
   def buy
-    megatile = nil
+    unless params[:tile_x] && params[:tile_y] && params[:player_id]
+    	render json: {errors: ["Needs :tile_x, :tile_y and "]}
+    	return
+    end 
+  
     player = Player.find(params[:player_id])
+    resource_tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y] ,params[:world_id])[0]
+    megatile = Megatile.where("id = ? AND world_id = ?", resource_tile.megatile_id, player.world_id)[0]
+    
+    puts "player: #{player.id}, resource_tile #{resource_tile.id}, megatile #{megatile.id}"
+=begin
     if params[:resource_tile_id]
       resource_tile = ResourceTile.find(params[:resource_tile_id])
       megatile = Megatile.where("id = ? AND world_id = ?", resource_tile.megatile_id, player.world_id)[0]
@@ -105,14 +114,18 @@ class MegatilesController < ApplicationController
       megatile = Megatile.find(params[:id])
       player = megatile.world.player_for_user(current_user)
     end
+=end
 
     authorize! :do_things, megatile.world
 
     if megatile.owner.present?
+      render json: {:errors => ["Already owned"]}
+=begin
       respond_to do |format|
         format.xml  { render  xml: { errors: ["Already owned"] }, status: :unprocessable_entity }
         format.json { render json: { errors: ["Already owned"] }, status: :unprocessable_entity }
       end
+=end
     else
       megatile.owner = player
       player.balance -= Megatile.cost

@@ -22,6 +22,13 @@ ImpactDummy.prototype = {
 	onGetUserPlayers : function(players){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetUserPlayers", ["players"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
+		if(TFglobals.DATA_CONTROLLER.CHOOSE_LUMBERJACK){
+			TFglobals.DATA_CONTROLLER.getWorldDataForPlayerId(TFglobals.DATA_CONTROLLER.AARONS_PLAYER_ID);
+			return;
+		}
+
+
+/**
 		if(players){
 			var theForm = document.getElementById("playerForm");
 			var element;
@@ -43,25 +50,29 @@ ImpactDummy.prototype = {
 			element.setAttribute("type", "submit");
 			element.setAttribute("value", "load game");
 			element.setAttribute("id", "submitPlayer");
-			element.addEventListener("click", tester.getWorldDataForChosenPlayer);
+			element.addEventListener("click", TFtestingGlobals.TESTER.getWorldDataForChosenPlayer);
 			theForm.appendChild(element);
 		
 			document.getElementById("playerChoiceDiv").style.display = "inline";
 		}
 		else console.log("bad input");
+**/
 	},
 	
 	onLogin : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onLogin", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
-
+/**
 		var messageP = document.getElementById("message");
 		var loginDiv = document.getElementById("loginDiv");
 		loginDiv.style.display = "none";
+**/
 	},
 	
 	onGetWorldData : function(theData){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetWorldData", ["theData"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
+		TF_DC_API_TESTER.showAvailableTests();
+/**
 		if(theData){
 			document.getElementById("playerChoiceDiv").style.display = "none";
 			var messageP = document.getElementById("message");
@@ -75,6 +86,7 @@ ImpactDummy.prototype = {
 			messageP.appendChild(element);
 		}
 		else console.log("bad input");
+**/
 	},
 	
 	onGetMapChunk : function(theData){
@@ -129,7 +141,7 @@ ImpactDummy.prototype = {
 			element.setAttribute("type", "submit");
 			element.setAttribute("value", "Accept contract");
 			element.setAttribute("id", "viewContract");
-			element.addEventListener("click", tester.acceptContract);
+			element.addEventListener("click", TFtestingGlobals.TESTER.acceptContract);
 			theForm.appendChild(element);
 		
 			document.getElementById("playerChoiceDiv").style.display = "inline";
@@ -166,7 +178,7 @@ ImpactDummy.prototype = {
 			element.setAttribute("type", "submit");
 			element.setAttribute("value", "Purchase upgrade");
 			element.setAttribute("id", "purchaseUpgrade");
-			element.addEventListener("click", tester.tryToPurchaseUpgrade);
+			element.addEventListener("click", TFtestingGlobals.TESTER.tryToPurchaseUpgrade);
 			theForm.appendChild(element);
 		
 			document.getElementById("playerChoiceDiv").style.display = "inline";
@@ -174,13 +186,13 @@ ImpactDummy.prototype = {
 		else console.log("bad input");
 	},
 	
-	onAttemptToPurchaseMegatileIncludingResourceTileId : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseMegatileIncludingResourceTileId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onAttemptToPurchaseMegatileIncludingResourceTileXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToPurchaseMegatileIncludingResourceTileXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 		if(this.serverResponseWasPositive(theResponse)){
-			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId successfully purchased resource tile with origin x, y: " + theResponse.megatile_upper_left_xy.x + ", " + theResponse.megatile_upper_left_xy.y);
+			console.log("onAttemptToPurchaseMegatileIncludingResourceTileXY successfully purchased resource tile with origin x, y: " + theResponse.megatile_upper_left_xy.x + ", " + theResponse.megatile_upper_left_xy.y);
 		}
 		else{
-			console.log("onAttemptToPurchaseMegatileIncludingResourceTileId failure!");
+			console.log("onAttemptToPurchaseMegatileIncludingResourceTileXY failure!" + theResponse.errors.join(", "));
 		}
 	},
 	
@@ -190,7 +202,7 @@ ImpactDummy.prototype = {
 			console.log("onAttemptToPurchaseUpgradeResponse successfully purchased equipment with id: " + theResponse.logging_equipment_id);
 		}
 		else{
-			console.log("onAttemptToPurchaseUpgradeResponse failure!");
+			console.log("onAttemptToPurchaseUpgradeResponse failure!" + theResponse.errors.join(", "));
 		}
 	},
 	
@@ -205,14 +217,25 @@ ImpactDummy.prototype = {
 		}
 	},
 	
-	onAttemptToClearCutTileWithId : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutTileWithId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onAttemptToClearCutTileWithXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutTileWithXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
 		if(this.serverResponseWasPositive(theResponse)){
 			console.log("onAttemptToClearCutTileWithId success!");
 		}
 		else{
 			console.log("onAttemptToClearCutTileWithId failure with message: " + theResponse.errors.join(", "));
+		}			
+	},
+	
+	onGetEstimateForClearCutTileWithXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetEstimateForClearCutTileWithXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onGetEstimateForClearCutTileWithXY success!");
+		}
+		else{
+			console.log("onGetEstimateForClearCutTileWithXY failure with message: " + theResponse.errors.join(", "));
 		}			
 	},
 	
