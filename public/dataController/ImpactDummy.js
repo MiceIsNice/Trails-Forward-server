@@ -239,25 +239,25 @@ ImpactDummy.prototype = {
 		}			
 	},
 	
-	onConductSurveyOfTileWithId : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onConductSurveyOfTileWithId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onConductSurveyOfTileWithXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onConductSurveyOfTileWithXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
 		if(this.serverResponseWasPositive(theResponse)){
-			console.log("onConductSurveyOfTileWithId success!");
+			console.log("onConductSurveyOfTileWithXY success!");
 		}
 		else{
-			console.log("onConductSurveyOfTileWithId failure with message: " + theResponse.errors.join(", "));
+			console.log("onConductSurveyOfTileWithXY failure with message: " + theResponse.errors.join(", "));
 		}		
 	},
 
-	onViewExistingSurveyOfTileWithId : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onViewExistingSurveyOfTileWithId", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onViewExistingSurveyOfTileWithXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onViewExistingSurveyOfTileWithXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 	
 		if(this.serverResponseWasPositive(theResponse)){
-			console.log("onViewExistingSurveyOfTileWithId success!");
+			console.log("onViewExistingSurveyOfTileWithXY success!");
 		}
 		else{
-			console.log("onViewExistingSurveyOfTileWithId failure with message: " + theResponse.errors.join(", "));
+			console.log("onViewExistingSurveyOfTileWithXY failure with message: " + theResponse.errors.join(", "));
 		}		
 	},
 

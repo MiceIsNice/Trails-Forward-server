@@ -33,7 +33,6 @@ class Ability
 
     # users can only do things in worlds they inhabit
     can :do_things, World do |world|
-     puts "world: #{world.id} player world: #{world.player_for_user(user).id}"
       true || world.player_for_user(user)
     end
 

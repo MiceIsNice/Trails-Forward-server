@@ -3,15 +3,13 @@ class SurveysController < ApplicationController
 
   def index
     world = World.find(params[:world_id])
-    id = params[:resource_tile] ? ResourceTile.find(params[:resource_tile]).megatile_id : params[:megatile_id]
-    puts "index survey for megatile id #{id}"
-#    megatile = world: world.megatiles.find(id)
-    megatile = Megatile.find(id)
+    resource_tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]
+    megatile = Megatile.find(resource_tile.megatile_id)
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)
 
-	@surveys = Survey.where("megatile_id = ? AND player_id = ?", id, player.id)
+	@surveys = Survey.where("megatile_id = ? AND player_id = ?", megatile.id, player.id)
 #    @surveys = megatile.surveys.where(player_id: player.id)
     puts "SurveysController.index found this many surveys for this tile from this user: #{@surveys.length}"
 
@@ -29,10 +27,8 @@ class SurveysController < ApplicationController
 
   def create
     world = World.find(params[:world_id])
-    id = params[:resource_tile] ? ResourceTile.find(params[:resource_tile]).megatile_id : params[:megatile_id]
-    puts "create survey for megatile id #{id}"
-#    megatile = world: world.megatiles.find(id)
-    megatile = Megatile.find(id)
+    resource_tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]
+    megatile = Megatile.find(resource_tile.megatile_id)
     authorize! :do_things, world
 
     player = megatile.world.player_for_user(current_user)
