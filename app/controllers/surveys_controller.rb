@@ -45,8 +45,8 @@ class SurveysController < ApplicationController
         player.save!
       end
       respond_to do |format|
-        format.xml  { render_for_api :survey,  xml: @survey, status: :created }
-        format.json { render_for_api :survey, json: @survey, status: :created }
+        #format.xml  { render_for_api :survey,  xml: @survey, status: :created }
+        format.json { render_for_api :survey, json: @survey}
       end
     rescue ActiveRecord::RecordInvalid
       render json: {:errors => ["Trouble making new survey."]}
