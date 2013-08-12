@@ -171,8 +171,7 @@ TrailsForwardServerAPI.prototype = {
 	
 		if((world_id || world_id == 0) && (equipment_id || equipment_id == 0)){
 			var resourceString = this.buildPurchaseLoggingEquipmentRSForWorldIdAndEquipmentId(world_id, equipment_id);
-			this.makePutRequest(resourceString, this.authString(), {}, TFglobals.DATA_CONTROLLER.onAttemptToPurchaseUpgradeSuccess,
-						TFglobals.DATA_CONTROLLER.onAttemptToPurchaseUpgradeFailure);
+			return this.makePutRequestPromise(resourceString, this.authString(), {}, TFglobals.DATA_CONTROLLER.onAttemptToPurchaseUpgradeSuccess);
 		}
 		else console.log("bad input");
 	},
@@ -194,7 +193,6 @@ TrailsForwardServerAPI.prototype = {
 			var resourceString = this.buildAttemptToClearCutTileRSWithWorldId(world_id);
 			var parameterString = this.authString(); // + this.buildParameterStringWithNamesAndValues(["estimate"],[estimate]);
 			var callback = the_estimate ? TFglobals.DATA_CONTROLLER.onAttemptToClearCutTileWithXY : TFglobals.DATA_CONTROLLER.onGetEstimateForClearCutTileWithXY;
-			//this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, callback);
 			return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
 
 		}
@@ -207,8 +205,7 @@ TrailsForwardServerAPI.prototype = {
 		if((world_id || world_id == 0) && (player_id || player_id == 0) && (tile_x || tile_x == 0) && (tile_y || tile_y == 0)){
 			var resourceString = this.buildPurchaseMegatileRSWithWorldId(world_id);
 			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["tile_x", "tile_y", "player_id"], [tile_x, tile_y, player_id]);
-			this.makePutRequest(resourceString, parameterString, {}, 
-									TFglobals.DATA_CONTROLLER.onAttemptToPurchaseMegatileIncludingResourceTileXY, null);
+			return this.makePutRequestPromise(resourceString, parameterString, {});
 		}
 		else console.log("bad input");	
 	},
@@ -219,7 +216,7 @@ TrailsForwardServerAPI.prototype = {
 		if((world_id || world_id == 0) && (tile_x || tile_x == 0) && (tile_y || tile_y == 0)){
 			var resourceString = this.buildSurveyRSWithWorldId(world_id);
 			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["tile_x", "tile_y"], [tile_x, tile_y]);
-			this.sendPostMessage(resourceString, parameterString, {}, TFglobals.DATA_CONTROLLER.onConductSurveyOfTileWithWorldIdAndTileXY);
+			return this.sendPostMessagePromise(resourceString, parameterString, {});
 		}
 		else console.log("bad input");
 	},
@@ -250,7 +247,7 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 	makeGetRequestPromise : function(aResourcePath, urlParameters){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.makeGetRequest", ["aResourcePath", "urlParameters"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.makeGetRequestPromise", ["aResourcePath", "urlParameters"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 												
 		if(aResourcePath && urlParameters)
 			return $.getJSON(this.SERVER_URL + aResourcePath + urlParameters, null);
@@ -274,6 +271,20 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
+	makePutRequestPromise : function(aResourcePath, urlParameters, messagePayload){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.makePutRequestPromise", ["aResourcePath", "urlParameters", "messagePayload"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));	
+	
+		if(aResourcePath && urlParameters && messagePayload){		
+			messagePayload._method = 'PUT';
+			return $.ajax({
+				type: "POST",
+				url: this.SERVER_URL + aResourcePath + urlParameters,
+				data: messagePayload,
+			});
+		}
+		else console.log("bad input");
+	},	
+	
 	  /* send POST message to TF server */
 	sendPostMessage : function(aResourcePath, urlParameters, messagePayload, aCallbackFunction){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.sendPostMessage", ["aResourcePath", "urlParameters", "messagePayload", "aCallbackFunction"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
@@ -284,7 +295,7 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 	sendPostMessagePromise : function(aResourcePath, urlParameters, messagePayload){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.sendPostMessage", ["aResourcePath", "urlParameters", "messagePayload"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.sendPostMessagePromise", ["aResourcePath", "urlParameters", "messagePayload"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 	
 		if(aResourcePath && urlParameters && messagePayload)
 			return $.post(this.SERVER_URL + aResourcePath + urlParameters, messagePayload, null);

@@ -103,7 +103,8 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseUpgradeWithId", ["equipment_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 	
 		if(equipment_id || equipment_id == 0)
-			this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipment_id);
+			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipment_id), 
+				this.onAttemptToPurchaseUpgradeSuccess);
 		else console.log("bad input");	
 	},
 	
@@ -133,25 +134,24 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
-	attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY : function(x, y){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	attemptToPurchaseMegatileIncludingResourceTileXY : function(x, y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if((x || x == 0) && (y || y == 0))
-			this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, 
-																							this.gameDataCache.player_id, x, y)
+			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, this.gameDataCache.player_id, x, y), 
+				this.onAttemptToPurchaseMegatileIncludingResourceTileXY);
 		else console.log("bad input");	
 	},
 	
-	//conductSurveyOfTileWithXY
 	conductSurveyOfTileWithXY : function(tile_x, tile_y){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithXY", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if((tile_x || tile_x == 0) && (tile_x || tile_x == 0))
-			this.serverAPI.conductSurveyOfTileWithWorldIdAndTileXY(this.gameDataCache.id, tile_x, tile_y);
+			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.conductSurveyOfTileWithWorldIdAndTileXY(this.gameDataCache.id, tile_x, tile_y), 
+				this.onConductSurveyOfTileWithXY);
 		else console.log("bad input");	
 	},
 	
-	//conductSurveyOfTileWithXY
 	viewExistingSurveyOfTileWithXY : function(tile_x, tile_y){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.viewExistingSurveyOfTileWithXY", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -243,22 +243,16 @@ TrailsForwardDataController.prototype = {
 	onAttemptToPurchaseMegatileIncludingResourceTileXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseMegatileIncludingResourceTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult){
+		if(theResult)
 			TFglobals.IMPACT.onAttemptToPurchaseMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
-			if(theResult.status == TFglobals.SUCCESS)
-				TFglobals.DATA_CONTROLLER.getPlayerStats();
-		}
 		else console.log("bad input");
 	},
 	
 	onAttemptToPurchaseUpgradeSuccess : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseUpgradeSuccess", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult){
+		if(theResult)
 			TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
-			if(theResult.status == TFglobals.SUCCESS)
-				TFglobals.DATA_CONTROLLER.getPlayerStats();
-		}
 		else console.log("bad input");
 	},
 	
@@ -270,11 +264,8 @@ TrailsForwardDataController.prototype = {
 	onConductSurveyOfTileWithWorldIdAndTileXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onConductSurveyOfTileWithWorldIdAndTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult){
+		if(theResult)
 			TFglobals.IMPACT.onConductSurveyOfTileWithXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
-			if(theResult.status == TFglobals.SUCCESS)
-				TFglobals.DATA_CONTROLLER.getPlayerStats();
-		}
 		else console.log("bad input");
 	},
 	
