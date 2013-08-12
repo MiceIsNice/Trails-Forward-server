@@ -453,7 +453,7 @@ TrailsForwardServerAPI.prototype = {
     	TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildSurveyRSWithWorldId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 	
 		if(world_id || world_id == 0)
-			return this.WORLDS + this.FORWARD_SLASH + world_id + this.MEGATILES + this.FORWARD_SLASH + this.UNUSED_NUMBER + this.SURVEYS + this.JSON;
+			return this.WORLDS + this.FORWARD_SLASH + world_id + this.MEGATILES + this.UNUSED_NUMBER + this.SURVEYS + this.JSON;
 		else console.log("bad input");	
  	},
  	

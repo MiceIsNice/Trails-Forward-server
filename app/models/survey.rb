@@ -3,15 +3,6 @@ class Survey < ActiveRecord::Base
 
   belongs_to :megatile
   belongs_to :player
-  attr_accessible :megatile_id
-  
-  def megatile_x
-    Megatile.find(@megatile_id).x
-  end
-  
-  def megatile_y
-    Megatile.find(@megatile_id).y
-  end 
 
   def self.cost
     25
@@ -24,6 +15,7 @@ class Survey < ActiveRecord::Base
       rt.can_harvest? && rt.respond_to?(:estimated_tree_volume_for_size)
     end
 
+    survey.capture_date   = survey.megatile.world.year_current 
     survey.num_2in_trees  = tiles_with_trees.collect(&:num_2_inch_diameter_trees ).sum
     survey.num_4in_trees  = tiles_with_trees.collect(&:num_4_inch_diameter_trees ).sum
     survey.num_6in_trees  = tiles_with_trees.collect(&:num_6_inch_diameter_trees ).sum
@@ -55,11 +47,9 @@ class Survey < ActiveRecord::Base
 
 
   api_accessible :survey do |template|
-    megatile = Megatile.find(self.megatile_id).x
-  
     template.add :id
-    template.add :megatile_x
-    template.add :megatile_y
+    template.add lambda{|survey| Megatile.find(survey.megatile_id).x}, :as => :x
+    template.add lambda{|survey| Megatile.find(survey.megatile_id).y}, :as => :y
     template.add :player_id
     template.add :num_2in_trees
     template.add :num_4in_trees
