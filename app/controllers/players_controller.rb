@@ -82,7 +82,47 @@ class PlayersController < ApplicationController
       format.xml  { render_for_api :bid_private, :xml  => @bids, :root => :bids }
     end
   end
+  
+  def player_stats 
+    if params[:user_id] && params[:player_id]
+      @player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+    else
+      render json: {:errors => ["need a valid user id and player id combination"]}
+    end 
+    
+    authorize! :player_stats, player
+    
+    render json: {:balance => player.balance, :turn_points => player.time_remaining_this_turn, :political_capital => 5}
+  end
 
+  def owned_resource_tiles
+      player = Player.find(params[:player_id])
+      players_megatiles = nil
+      
+    if player != nil
+      players_megatiles = Megatile.where("owner_id = ? AND world_id = ?", player.id, player.world_id)
+    else
+      render json: { :errors => ["No player found for given player id and user id."] }
+      return
+    end
+    
+    response = nil
+    if players_megatiles != nil && players_megatiles.length > 0
+      resource_tiles = players_megatiles.collect { |megatile| megatile.resource_tile_xys}
+      resource_tiles = resource_tiles.flatten
+      begin
+        players_megatiles.each do |mt| authorize! :see_player_tiles, player, mt end
+      rescue CanCan::AccessDenied => e
+        render json: {:errors => [e.message] }
+        return
+      end
+      response = { :message => "Found #{resource_tiles.length} resource_tiles for given player id", :resource_tiles => resource_tiles}
+    else
+      response = { :message => "No tiles found for given player id." }
+    end
+    
+    render json: response
+  end 
 
   def update
     @user = User.find params[:user_id]

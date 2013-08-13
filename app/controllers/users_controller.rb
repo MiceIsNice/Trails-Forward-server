@@ -80,7 +80,8 @@ class UsersController < ApplicationController
       end
     end
   end
- 
+
+=begin
   def player_stats 
     
     if params[:user_id] && params[:player_id]
@@ -92,8 +93,8 @@ class UsersController < ApplicationController
     authorize! :player_stats, player
     
     render json: {:balance => player.balance, :turn_points => player.time_remaining_this_turn, :political_capital => 5}
-
   end
+=end
 
   def destroy
     @user = User.find(params[:id])

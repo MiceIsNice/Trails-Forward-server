@@ -13,6 +13,7 @@ class Megatile < ActiveRecord::Base
   has_and_belongs_to_many :contracts_included_with, :class_name => 'Contract', :join_table => 'contract_included_megatiles'
   has_and_belongs_to_many :contracts_attached_to,   :class_name => 'Contract', :join_table => 'contract_attached_megatiles'
 
+  attr_reader :owner_id
 
   has_many :surveys
 
@@ -49,6 +50,11 @@ class Megatile < ActiveRecord::Base
 
   def active_bids_offering
     bids_offering.where(status: 'Offered')
+  end
+  
+  def resource_tile_xys
+    the_tiles = resource_tiles.map { |rt| [:x => rt.x, :y => rt.y]} 
+    the_tiles.flatten
   end
 
   def estimated_value

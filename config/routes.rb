@@ -11,8 +11,10 @@ TrailsForwardWorld::Application.routes.draw do
   end
  
   resources :users do 
-    resources :players 
+    resources :players do
       get :player_stats
+      get :owned_resource_tiles
+    end
   end 
 
   resources :worlds, :only => [:index, :show, :update] do
@@ -24,7 +26,6 @@ TrailsForwardWorld::Application.routes.draw do
     resource :pricing, :controller => :world_pricing, :only => [] do
       get :pine_sawtimber
     end
-    
 
     resources :players, :only => [:index, :create, :destroy], :controller => :world_players do
       get :bids_placed

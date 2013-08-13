@@ -31,6 +31,7 @@ function TrailsForwardServerAPI(){
 	this.PLAYER_STATS = "/player_stats";
 	this.AUTH_TOKEN = "auth_token";
 	this.AVAILABLE_CONTRACTS = "/available_contracts";
+	this.OWNED_RESOURCE_TILES = "/owned_resource_tiles";
 	this.AVAILABLE_LOGGING_EQUIPMENT = "/available"; // this will change to something like 'equipment'
 													 // and the server will filter by player type
 	this.UNUSED_NUMBER = "/2";
@@ -107,6 +108,17 @@ TrailsForwardServerAPI.prototype = {
 		}
 		else console.log("bad input");
 	},
+	
+	getPlayersOwnedResourceTilesWithPlayerId : function(player_id){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayersOwnedResourceTilesWithPlayerId", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+
+		if((this._userId || this._userId == 0) && (player_id || player_id == 0)){
+			var resourceString = this.buildPlayerResourceTilesRSWithUserIdAndPlayerId(this._userId, player_id);
+			var parameterString = this.authString();
+			this.makeGetRequest(resourceString, parameterString, TFglobals.DATA_CONTROLLER.onGetPlayersOwnedResourceTilesWithPlayerId);
+		}
+		else console.log("bad input");
+	},
 
 /***
 
@@ -139,7 +151,7 @@ TrailsForwardServerAPI.prototype = {
 
 		if(player_id || player_id == 0){
 			var resourceString = this.buildPlayerStatsRSWithUserIdAndPlayerId(this._userId, player_id);
-			var queryString = this.authString() + this.buildParameterStringWithNamesAndValues(["player_id"],[player_id]);
+			var queryString = this.authString();
 			this.makeGetRequest(resourceString, queryString, TFglobals.DATA_CONTROLLER.onGetPlayerStats);	
 		}
 		else console.log("bad input");		
@@ -450,12 +462,12 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
  	},
  	
- 	  /* produces: /worlds/world_id/stats.json? */
+ 	  /* produces: /users/user_id/players/player_id/player_stats.json? */
  	buildPlayerStatsRSWithUserIdAndPlayerId : function(user_id, player_id){
    		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPlayerStatsRSWithUserIdAndPlayerId", ["user_id", "player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 
  		if((user_id || user_id == 0) && (player_id || player_id == 0))
- 			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYER_STATS + this.JSON;
+ 			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.PLAYER_STATS + this.JSON;
  		else console.log("bad input");	
  	},
  	
@@ -467,6 +479,15 @@ TrailsForwardServerAPI.prototype = {
 			return this.WORLDS + this.FORWARD_SLASH + world_id + this.MEGATILES + this.UNUSED_NUMBER + this.SURVEYS + this.JSON;
 		else console.log("bad input");	
  	},
+ 	
+ 	  /* /users/user_id/players/player_id/owned_resource_tiles.json */
+	buildPlayerResourceTilesRSWithUserIdAndPlayerId : function(user_id, player_id){
+    	TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPlayerResourceTilesRSWithUserIdAndPlayerId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+		if((user_id || user_id == 0) && (player_id || player_id == 0))
+			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.OWNED_RESOURCE_TILES + this.JSON;
+		else console.log("bad input")
+	},
  	
 /** NOT USING WORLD ID YET!!! 
  

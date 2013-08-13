@@ -272,6 +272,21 @@ ImpactDummy.prototype = {
 		}		
 	},
 	
+	onGetPlayersOwnedResourceTiles : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayersOwnedResourceTiles", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
+			theResponse.resource_tiles.reduce(
+				function(previousValue, currentValue, index, array){
+					console.log("",currentValue);
+				}
+			);
+		}
+		else{
+			console.log("onGetPlayersOwnedResourceTiles failure with message: " + theResponse.errors.join(", "));
+		}		
+	},
+	
 /**
 	respondPositivelyToRequestResult : function(theResponse, theFunctionName, successMessagePrefix, failureMessagePrefix){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.respondPositivelyToRequestResult", ["theResponse", "theFunctionName", "successMessagePrefix", "failureMessagePrefix"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));

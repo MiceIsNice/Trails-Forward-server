@@ -128,6 +128,14 @@ class Ability
       [21,22,23,24].include?(rt.landcover_class_code) &&
       rt.zoning_code >= 3 && ![6,10,16, 255].include?(rt.zoning_code)
     end
+    
+    can :see_player_tiles, Player, Megatile do |player, mt|
+     if mt.owner_id = player.id
+       true
+    else
+       raise CanCan::AccessDenied.new("Player does not own this tile and therefore can't see who does.")
+     end
+    end 
 
     can :harvest, ResourceTile do |rt|
       player = rt.megatile.world.player_for_user(user)

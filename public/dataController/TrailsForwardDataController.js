@@ -93,6 +93,12 @@ TrailsForwardDataController.prototype = {
 		return this.serverAPI.getPlayerStatsForPlayerIdPromise(this.gameDataCache.player_id);
 	},
 	
+	getPlayersOwnedResourceTiles : function(){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayersOwnedResourceTiles", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		this.serverAPI.getPlayersOwnedResourceTilesWithPlayerId(this.gameDataCache.player_id);
+	},
+	
 	getAvailableUpgradesForPlayer : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getAvailableUpgradesForPlayer", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -298,6 +304,14 @@ TrailsForwardDataController.prototype = {
 
 		if(theStats)
 			TFglobals.IMPACT.onGetPlayerStats(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theStats));
+		else console.log("bad input");
+	},
+	
+	onGetPlayersOwnedResourceTilesWithPlayerId : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onGetPlayersOwnedResourceTilesWithUserIdAndPlayerId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if(theResult)
+			TFglobals.IMPACT.onGetPlayersOwnedResourceTiles(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
