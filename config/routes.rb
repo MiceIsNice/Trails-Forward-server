@@ -84,6 +84,7 @@ TrailsForwardWorld::Application.routes.draw do
         post :clearcut
         post :build
         post :build_outpost
+        post :diameter_limit_cut, action: :diameter_limit_cut_list
       end
 
       collection do

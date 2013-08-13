@@ -171,13 +171,6 @@ class ResourceTilesController < ApplicationController
     
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-   #puts "resource_tiles_controller.clearcut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
-	
-=begin
-    if params[:estimate] == true
-      params[:estimate] = 'true'
-    end
-=end
 
     unless params[:estimate] == true
 	  unless TimeManager.can_perform_action?(player: player, cost: time_cost)
@@ -261,19 +254,13 @@ class ResourceTilesController < ApplicationController
       return
     end
   
-  
     time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
 
-    if params[:estimate] == true
-      params[:estimate] = 'true'
-    end
-
-    unless params[:estimate] == 'true'
-      unless TimeManager.can_perform_action? player: player, cost: time_cost
-        respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
-        return
-      end
+    unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
+      render json: {:errors => ["Not enough time left to perform harvest"]}
+      #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
+      return
     end
 
     player.balance -= money_cost
@@ -281,7 +268,7 @@ class ResourceTilesController < ApplicationController
     results = harvestable_tiles.collect{|tile| tile.diameter_limit_cut!(above: params[:above], below: params[:below])}
     summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
 
-    if params[:estimate] == 'true'
+    if params[:estimate] == true
       respond_with summary
     else
       begin
@@ -303,7 +290,8 @@ class ResourceTilesController < ApplicationController
           respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
-        respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
+        render json: {:errors => ["Transaction Failed: #{e.message}"]}
+        #respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
       end
     end
   end
