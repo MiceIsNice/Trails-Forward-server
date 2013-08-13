@@ -16,6 +16,12 @@ TrailsForwardWorld::Application.routes.draw do
       get :owned_resource_tiles
     end
   end 
+  
+  resources :worlds do
+    resources :resource_tiles do
+      get :owned_by_others
+    end
+  end
 
   resources :worlds, :only => [:index, :show, :update] do
     member do

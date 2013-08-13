@@ -13,8 +13,6 @@ class Megatile < ActiveRecord::Base
   has_and_belongs_to_many :contracts_included_with, :class_name => 'Contract', :join_table => 'contract_included_megatiles'
   has_and_belongs_to_many :contracts_attached_to,   :class_name => 'Contract', :join_table => 'contract_attached_megatiles'
 
-  attr_reader :owner_id
-
   has_many :surveys
 
   validates_presence_of :world
@@ -35,6 +33,10 @@ class Megatile < ActiveRecord::Base
   def width
     world.try(:megatile_width)
   end
+  
+  def self.owner_id
+    owner
+  end
 
   def height
     world.try(:megatile_height)
@@ -54,7 +56,7 @@ class Megatile < ActiveRecord::Base
   
   def resource_tile_xys
     the_tiles = resource_tiles.map { |rt| [:x => rt.x, :y => rt.y]} 
-    the_tiles.flatten
+  #  the_tiles.flatten
   end
 
   def estimated_value

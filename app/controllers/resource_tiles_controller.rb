@@ -230,7 +230,28 @@ class ResourceTilesController < ApplicationController
   def build_list
     raise 'not yet implemented'
   end
+  
+  def owned_by_others
+    if params[:player_id]
+      world = World.find(params[:world_id])
+      begin
+        authorize! :do_things, world 
+      rescue CanCan::AccessDenied => e
+        render json: {:errors => [e.message] }
+        return
+      end
+    else
+      render json: { :errors => ["No player id query parameter given"] }
+      return
+    end
 
+    player = Player.find(params[:player_id])
+    owned_megatiles = Megatile.where("world_id = ? AND owner_id IS NOT NULL", world.id)
+    owned_by_others = owned_megatiles.select {|mt| mt.owner_id != player.id} 
+    rts_owned_by_others = owned_by_others.collect { |megatile| megatile.resource_tile_xys}
+    rts_owned_by_others = rts_owned_by_others.flatten
+    render json: { :message => "Found #{resource_tiles.length} resource_tiles owned by other players", :resource_tiles => rts_owned_by_others}
+  end 
 
   def diameter_limit_cut_list
     begin 

@@ -99,6 +99,12 @@ TrailsForwardDataController.prototype = {
 		this.serverAPI.getPlayersOwnedResourceTilesWithPlayerId(this.gameDataCache.player_id);
 	},
 	
+	getResourceTilesOwnedByOthers : function(){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getResourceTilesOwnedByOthers", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		this.serverAPI.getResourceTilesOwnedByOthersWithWorldIdAndPlayerId(this.gameDataCache.id, this.gameDataCache.player_id);
+	},
+	
 	getAvailableUpgradesForPlayer : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getAvailableUpgradesForPlayer", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -312,6 +318,14 @@ TrailsForwardDataController.prototype = {
 
 		if(theResult)
 			TFglobals.IMPACT.onGetPlayersOwnedResourceTiles(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+		else console.log("bad input");
+	},
+	
+	onGetResourceTilesOwnedByOthersWithWorldIdAndPlayerId : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onGetResourceTilesOwnedByOthersWithWorldIdAndPlayerId", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if(theResult)
+			TFglobals.IMPACT.onGetResourceTilesOwnedByOthers(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
