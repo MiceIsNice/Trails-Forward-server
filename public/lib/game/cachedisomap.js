@@ -49,6 +49,7 @@ ig.module(
              * @param {Number} x The tile x co-ordinate.
              * @param {Number} y The tile y co-ordinate.
              * @param {string} imageName The name of the image in the assetManager to be used.
+             * @param {bool} ignoreCallback Whether or not to ignore the mapChangeCallback
              */
             addTile: function (x, y, imageName) {
                 var realX, realY, sectionX, sectionY;
@@ -66,7 +67,7 @@ ig.module(
                         this.sectionContainsData = this.sectionContainsData || {};
                         this.sectionContainsData[sectionX + ", " + sectionY] = true;
                         if (this.mapChangeCallback && typeof this.mapChangeCallback === "function") {
-                            this.mapChangeCallback();
+                            this.mapChangeCallback(x, y);
                         }
                     }
                 }
@@ -74,7 +75,6 @@ ig.module(
 
             clearTile: function(x, y) {
                 var i, j;
-                console.log(x + ", " + y);
                 if (x || x == 0) {
                     if (y || y == 0) {
                         this.data = this.data || [];
@@ -87,7 +87,7 @@ ig.module(
                             }
                         }
                         if (this.mapChangeCallback && typeof this.mapChangeCallback === "function") {
-                            this.mapChangeCallback();
+                            this.mapChangeCallback(x, y);
                         }
                     }
                 }
@@ -771,6 +771,10 @@ ig.module(
                         canvas = this._highResSections[sectionX][sectionY];
                         canvas.width = canvas.width;
                     }
+                }
+
+                if (this.onTileInvalidated && typeof this.onTileInvalidated === "function") {
+                    this.onTileInvalidated(x, y);
                 }
             },
 

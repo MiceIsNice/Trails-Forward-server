@@ -305,6 +305,31 @@ ig.module(
                 this.minimapBox.enableNinePatch(5, 11, 5, 10);
                 this.ui.addElement(this.minimapBox);
 
+                this.viewOwnedTilesButton = new Button(new Rect(
+                    this.minimapBox.bounds.x + 10,
+                    this.minimapBox.bounds.y + this.minimapBox.bounds.height - 20,
+                    10,
+                    10),
+                    "button",
+                    "button_hover",
+                    "button_click",
+                    function() {
+                        if (!self.viewOwnedTiles) {
+                            self.viewOwnedTilesText._textFunction = function() { return "X"; };
+                            self.viewOwnedTiles = true;
+                        }
+                        else {
+                            self.viewOwnedTilesText._textFunction = function() { return ""; };
+                            self.viewOwnedTiles = false;
+                        }
+                    },
+                    [3, 75, 4, 33]
+                );
+                this.ui.addElement(this.viewOwnedTilesButton);
+                this.viewOwnedTilesText = new UIElement(new Rect(0, 0, 1, 1));
+                this.viewOwnedTilesText.enableText(function() { return ""; }, this.detailFont, ig.Font.ALIGN.CENTER);
+                this.viewOwnedTilesButton.addChild(this.viewOwnedTilesText);
+
                 var actionsBox, actionsText;
                 actionsBox = new UIElement(new Rect(
                     ig.system.width - ig.system.width / 4 - 8,
@@ -609,11 +634,11 @@ ig.module(
                     "button",
                     "button_hover",
                     "button_click",
-                    function(selectedTile) {
+                    function() {
                         ig.log("Attempted to transport tile - not yet implemented!");
                         //Need to open a window to specify the type of cut
                     },
-                    self.selectedTile,
+                    undefined,
                     [3, 75, 4, 33]
                 );
                 this.transportButton.setImage("button_inactive");
@@ -641,12 +666,12 @@ ig.module(
                     return "Transport";
                 }, this.font, ig.Font.ALIGN.CENTER);
                 this.transportButton.addChild(transportButtonText);
-
             },
 
             constructMap: function() {
                 this.terrainMap = new CachedIsoMap(128, this.assetManager);
                 this.featureMap = new CachedIsoMap(128, this.assetManager);
+                this.ownershipMap = new CachedIsoMap(128, this.assetManager);
 
                 TFglobals.DATA_CONTROLLER.getUserPlayers();
 
@@ -689,9 +714,11 @@ ig.module(
             },
 
             onGetMapChunk: function(chunk) {
+                var self = this;
                 ig.log("Got map chunk.");
-                var i, j, k, tile, shoreTypes, tileFeature, landType;
+                var i, j, k, tile, shoreTypes, ownershipTypes, tileFeature, landType;
                 //ig.log(chunk);
+                // Interpret chunk data
                 for (i = 0; i < chunk.length; i++) {
                     //ig.log("Reading index " + i + " of chunk");
                     tile = chunk[i].table;
@@ -730,6 +757,7 @@ ig.module(
                         //ig.log("Added tile at " + tile.x + ", " + tile.y);
                     }
                 }
+                // Manage shorelines
                 for (i = 0; i < this.terrainMap.data.length; i++) {
                     if (this.terrainMap.data[i]) {
                         for (j = 0; j < this.terrainMap.data[i].length; j++) {
@@ -742,8 +770,31 @@ ig.module(
                         }
                     }
                 }
+                // Get ownership data if any
+                TFglobals.DATA_CONTROLLER.getPlayersOwnedResourceTiles();
                 ig.log("Done getting map chunk");
                 this.gotMapChunk = true;
+            },
+
+            onGetPlayersOwnedResourceTiles : function(theResponse){
+                var tile, i;
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
+                    theResponse.resource_tiles.reduce(
+                        function(previousValue, currentValue, index, array) {
+                            console.log("",currentValue);
+                        }
+                    );
+                    for (i = 0; i < theResponse.resource_tiles.length; i++) {
+                        tile = theResponse.resource_tiles[i];
+                        this.ownedTiles = this.ownedTiles || [];
+                        this.ownedTiles[tile.x] = this.ownedTiles[tile.x] || [];
+                        this.ownedTiles[tile.x][tile.y] = true;
+                    }
+                }
+                else {
+                    console.log("onGetPlayersOwnedResourceTiles failure with message: " + theResponse.errors.join(", "));
+                }
             },
 
             /**
@@ -855,7 +906,7 @@ ig.module(
 
             draw: function() {
 
-                var ctx, scale, realX, realY, x, y;
+                var ctx, scale, realX, realY, x, y, tile, i, j;
 
                //if (ig.input.pressed("click")) {
                //    this.shouldTime = true;
@@ -885,6 +936,23 @@ ig.module(
                             ctx.drawImage(this.assetManager.images["selection_highlight"],
                                 realX,
                                 realY);
+                        }
+                    }
+
+                    if (this.ownedTiles && this.viewOwnedTiles) {
+                        for (i = 0; i < this.ownedTiles.length; i++) {
+                            if (this.ownedTiles[i]) {
+                                for (j = 0; j < this.ownedTiles[i].length; j++) {
+                                    tile = this.ownedTiles[i][j];
+                                    if (tile) {
+                                        realX = (i - j) * this.terrainMap.tilesize;
+                                        realY = (i + j) / 2 * this.terrainMap.tilesize;
+                                        ctx.drawImage(this.assetManager.images["ownership_Q"],
+                                            realX,
+                                            realY);
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -1794,6 +1862,146 @@ ig.module(
                     else return null;
                 }
                 return shoreTypes;
+            },
+
+            // ******************* OWNERSHIP HIGHLIGHTS **********************
+
+            getOwnershipTypes: function(x, y) {
+                var megatile = this.ownershipMap.getOwnershipMegatile(x, y);
+                var ownershipTypes = [], A, B, C, D, E, F, G, H;
+                console.log(megatile);
+                if (megatile[0] == null) {
+                    return null;
+                }
+                else if (megatile[0] !== "me") {
+                    return null;
+                }
+                else if (megatile[0] === "me") {
+                    if (megatile[1] !== "me") {
+                        A = true;
+                    }
+                    if (megatile[2] !== "me") {
+                        B = true;
+                    }
+                    if (megatile[3] !== "me") {
+                        C = true;
+                    }
+                    if (megatile[4] !== "me") {
+                        D = true;
+                    }
+                    if (megatile[5] !== "me") {
+                        E = true;
+                    }
+                    if (megatile[6] !== "me") {
+                        F = true;
+                    }
+                    if (megatile[7] !== "me") {
+                        G = true;
+                    }
+                    if (megatile[8] !== "me") {
+                        H = true;
+                    }
+                    console.log(A, B, C, D, E, F, G, H);
+                    if (A && C && E && G) {
+                        ownershipTypes.push("Q");
+                    }
+                    else if (A && C && E && !G) {
+                        ownershipTypes.push("N");
+                    }
+                    else if (A && C && !E && G) {
+                        ownershipTypes.push("M");
+                    }
+                    else if (A && C && !E && !G) {
+                        ownershipTypes.push("K");
+                        if (F) {
+                            ownershipTypes.push("B");
+                        }
+                    }
+                    else if (A && !C && E && G) {
+                        ownershipTypes.push("P");
+                    }
+                    else if (A && !C && E && !G) {
+                        ownershipTypes.push("A");
+                        ownershipTypes.push("E");
+                    }
+                    else if (A && !C && !E && G) {
+                        ownershipTypes.push("J");
+                        if (D) {
+                            ownershipTypes.push("H");
+                        }
+                    }
+                    else if (A && !C && !E && !G) {
+                        ownershipTypes.push("E");
+                        if (D) {
+                            ownershipTypes.push("H");
+                        }
+                        if (F) {
+                            ownershipTypes.push("B");
+                        }
+                    }
+                    else if (!A && C && E && G) {
+                        ownershipTypes.push("O");
+                    }
+                    else if (!A && C && E && !G) {
+                        ownershipTypes.push("L");
+                        if (H) {
+                            ownershipTypes.push("D");
+                        }
+                    }
+                    else if (!A && C && !E && G) {
+                        ownershipTypes.push("G");
+                        ownershipTypes.push("C");
+                    }
+                    else if (!A && C && !E && !G) {
+                        ownershipTypes.push("G");
+                        if (F) {
+                            ownershipTypes.push("B");
+                        }
+                        if (H) {
+                            ownershipTypes.push("D");
+                        }
+                    }
+                    else if (!A && !C && E && G) {
+                        ownershipTypes.push("I");
+                        if (B) {
+                            ownershipTypes.push("F");
+                        }
+                    }
+                    else if (!A && !C && E && !G) {
+                        ownershipTypes.push("A");
+                        if (B) {
+                            ownershipTypes.push("F");
+                        }
+                        if (H) {
+                            ownershipTypes.push("D");
+                        }
+                    }
+                    else if (!A && !C && !E && G) {
+                        ownershipTypes.push("C");
+                        if (B) {
+                            ownershipTypes.push("F");
+                        }
+                        if (D) {
+                            ownershipTypes.push("H");
+                        }
+                    }
+                    else if (!A && !C && !E && !G) {
+                        if (B) {
+                            ownershipTypes.push("F");
+                        }
+                        if (F) {
+                            ownershipTypes.push("B");
+                        }
+                        if (H) {
+                            ownershipTypes.push("D");
+                        }
+                        if (D) {
+                            ownershipTypes.push("H");
+                        }
+                    }
+                    else return null;
+                }
+                return ownershipTypes;
             },
 
             // *********************** SERVER FUNCTIONS ************************

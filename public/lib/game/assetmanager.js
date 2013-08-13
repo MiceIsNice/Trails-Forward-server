@@ -81,6 +81,7 @@ ig.module(
                 return [
                     "media/water.png",
                     "media/grass.png",
+                    //"media/grassK.png",
                     "media/trees_10_0.png",
                     "media/uibox.png",
                     "media/button.png",
@@ -112,7 +113,24 @@ ig.module(
                     "media/park_contract_picture.png",
                     "media/mill_contract_picture.png",
                     "media/upgrade_picture.png",
-                    "media/sawyer_upgrade_picture.png"
+                    "media/sawyer_upgrade_picture.png",
+                    "media/ownership_A.png",
+                    "media/ownership_B.png",
+                    "media/ownership_C.png",
+                    "media/ownership_D.png",
+                    "media/ownership_E.png",
+                    "media/ownership_F.png",
+                    "media/ownership_G.png",
+                    "media/ownership_H.png",
+                    "media/ownership_I.png",
+                    "media/ownership_J.png",
+                    "media/ownership_K.png",
+                    "media/ownership_L.png",
+                    "media/ownership_M.png",
+                    "media/ownership_N.png",
+                    "media/ownership_O.png",
+                    "media/ownership_P.png",
+                    "media/ownership_Q.png"
                 ];
             }
 
