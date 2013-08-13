@@ -171,13 +171,6 @@ class ResourceTilesController < ApplicationController
     
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-   #puts "resource_tiles_controller.clearcut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
-	
-=begin
-    if params[:estimate] == true
-      params[:estimate] = 'true'
-    end
-=end
 
     unless params[:estimate] == true
 	  unless TimeManager.can_perform_action?(player: player, cost: time_cost)
@@ -230,7 +223,28 @@ class ResourceTilesController < ApplicationController
   def build_list
     raise 'not yet implemented'
   end
+  
+  def owned_by_others
+    if params[:player_id]
+      world = World.find(params[:world_id])
+      begin
+        authorize! :do_things, world 
+      rescue CanCan::AccessDenied => e
+        render json: {:errors => [e.message] }
+        return
+      end
+    else
+      render json: { :errors => ["No player id query parameter given"] }
+      return
+    end
 
+    player = Player.find(params[:player_id])
+    owned_megatiles = Megatile.where("world_id = ? AND owner_id IS NOT NULL", world.id)
+    owned_by_others = owned_megatiles.select {|mt| mt.owner_id != player.id} 
+    rts_owned_by_others = owned_by_others.collect { |megatile| megatile.resource_tile_xys}
+    rts_owned_by_others = rts_owned_by_others.flatten
+    render json: { :message => "Found #{resource_tiles.length} resource_tiles owned by other players", :resource_tiles => rts_owned_by_others}
+  end 
 
   def diameter_limit_cut_list
     begin 
@@ -240,19 +254,13 @@ class ResourceTilesController < ApplicationController
       return
     end
   
-  
     time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
 
-    if params[:estimate] == true
-      params[:estimate] = 'true'
-    end
-
-    unless params[:estimate] == 'true'
-      unless TimeManager.can_perform_action? player: player, cost: time_cost
-        respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
-        return
-      end
+    unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
+      render json: {:errors => ["Not enough time left to perform harvest"]}
+      #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
+      return
     end
 
     player.balance -= money_cost
@@ -260,7 +268,7 @@ class ResourceTilesController < ApplicationController
     results = harvestable_tiles.collect{|tile| tile.diameter_limit_cut!(above: params[:above], below: params[:below])}
     summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
 
-    if params[:estimate] == 'true'
+    if params[:estimate] == true
       respond_with summary
     else
       begin
@@ -282,7 +290,8 @@ class ResourceTilesController < ApplicationController
           respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
-        respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
+        render json: {:errors => ["Transaction Failed: #{e.message}"]}
+        #respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
       end
     end
   end

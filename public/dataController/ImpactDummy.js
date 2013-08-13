@@ -217,26 +217,48 @@ ImpactDummy.prototype = {
 		}
 	},
 	
-	onAttemptToClearCutTileWithXY : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutTileWithXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onAttemptToClearCutMegatileIncludingResourceTileXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToClearCutMegatileIncludingResourceTileXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
 		if(this.serverResponseWasPositive(theResponse)){
-			console.log("onAttemptToClearCutTileWithId success!");
+			console.log("onAttemptToClearCutMegatileIncludingResourceTileXY success!");
 		}
 		else{
-			console.log("onAttemptToClearCutTileWithId failure with message: " + theResponse.errors.join(", "));
+			console.log("onAttemptToClearCutMegatileIncludingResourceTileXY failure with message: " + theResponse.errors.join(", "));
 		}			
 	},
 	
-	onGetEstimateForClearCutTileWithXY : function(theResponse){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetEstimateForClearCutTileWithXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+	onGetEstimateForClearCutMegatileIncludingResourceTileXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetEstimateForClearCutMegatileIncludingResourceTileXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
 		if(this.serverResponseWasPositive(theResponse)){
-			console.log("onGetEstimateForClearCutTileWithXY success!");
+			console.log("onGetEstimateForClearCutMegatileIncludingResourceTileXY success!");
 		}
 		else{
-			console.log("onGetEstimateForClearCutTileWithXY failure with message: " + theResponse.errors.join(", "));
+			console.log("onGetEstimateForClearCutMegatileIncludingResourceTileXY failure with message: " + theResponse.errors.join(", "));
 		}			
+	},
+	
+	onAttemptToDiameterLimitCutMegatileWithResourceTileXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onAttemptToDiameterLimitCutMegatileWithResourceTileXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onAttemptToDiameterLimitCutMegatileWithResourceTileXY success!");
+		}
+		else{
+			console.log("onAttemptToDiameterLimitCutMegatileWithResourceTileXY failure with message: " + theResponse.errors.join(", "));
+		}				
+	},
+
+	onGetEstimateForDiameterLimitCutIncludingResourceTileXY : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetEstimateForDiameterLimitCutIncludingResourceTileXY", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onGetEstimateForDiameterLimitCutIncludingResourceTileXY success!");
+		}
+		else{
+			console.log("onGetEstimateForDiameterLimitCutIncludingResourceTileXY failure with message: " + theResponse.errors.join(", "));
+		}		
 	},
 	
 	onConductSurveyOfTileWithXY : function(theResponse){
@@ -276,14 +298,23 @@ ImpactDummy.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayersOwnedResourceTiles", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 		if(this.serverResponseWasPositive(theResponse)){
 			console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
-			theResponse.resource_tiles.reduce(
-				function(previousValue, currentValue, index, array){
-					console.log("",currentValue);
-				}
-			);
+			for(var i = 0; i < theResponse.resource_tiles.length; i++)
+				console.log("", theResponse.resource_tiles[i]);
 		}
 		else{
 			console.log("onGetPlayersOwnedResourceTiles failure with message: " + theResponse.errors.join(", "));
+		}		
+	},
+	
+	onGetResourceTilesOwnedByOthers : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetResourceTilesOwnedByOthers", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onGetResourceTilesOwnedByOthers received " + theResponse.resource_tiles.length + " tiles: ");
+			for(var i = 0; i < theResponse.resource_tiles.length; i++)
+				console.log("", theResponse.resource_tiles[i]);
+		}
+		else{
+			console.log("onGetResourceTilesOwnedByOthers failure with message: " + theResponse.errors.join(", "));
 		}		
 	},
 	

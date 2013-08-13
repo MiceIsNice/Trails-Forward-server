@@ -32,6 +32,8 @@ function TrailsForwardServerAPI(){
 	this.AUTH_TOKEN = "auth_token";
 	this.AVAILABLE_CONTRACTS = "/available_contracts";
 	this.OWNED_RESOURCE_TILES = "/owned_resource_tiles";
+	this.OWNED_BY_OTHERS = "/owned_by_others";
+	this.DIAMETER_LIMIT_CUT = "/diameter_limit_cut";
 	this.AVAILABLE_LOGGING_EQUIPMENT = "/available"; // this will change to something like 'equipment'
 													 // and the server will filter by player type
 	this.UNUSED_NUMBER = "/2";
@@ -119,6 +121,15 @@ TrailsForwardServerAPI.prototype = {
 		}
 		else console.log("bad input");
 	},
+	
+	getResourceTilesOwnedByOthersWithWorldIdAndPlayerId : function(world_id, player_id){
+		if((world_id || world_id == 0) && (player_id || player_id == 0)){
+			var resourceString = this.buildGetResourceTilesOwnedByOthersRSWithWorldId(world_id);
+			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["player_id"],[player_id]);
+			this.makeGetRequest(resourceString, parameterString, TFglobals.DATA_CONTROLLER.onGetResourceTilesOwnedByOthersWithWorldIdAndPlayerId);
+		}
+		else console.log("bad input");	
+	},
 
 /***
 
@@ -198,17 +209,34 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
-	attemptToClearCutTileWithWorldIdAndTileXYWithEstimate : function(world_id, x, y, the_estimate){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToClearCutTileWithWorldIdAndTileXY", ["world_id","x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+	attemptToClearCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, the_estimate){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToClearCutMegatileWithWorldIdResourceTileXYAndEstimate", ["world_id","x","y", "the_estimate"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 												
 		if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
 			var resourceString = this.buildAttemptToClearCutTileRSWithWorldId(world_id);
-			var parameterString = this.authString(); // + this.buildParameterStringWithNamesAndValues(["estimate"],[estimate]);
-			var callback = the_estimate ? TFglobals.DATA_CONTROLLER.onAttemptToClearCutTileWithXY : TFglobals.DATA_CONTROLLER.onGetEstimateForClearCutTileWithXY;
-			return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
-
+			var parameterString = this.authString();
+			if(the_estimate)
+				this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
+										TFglobals.DATA_CONTROLLER.onGetEstimateForClearCutMegatileIncludingResourceTileXY);
+			else
+				return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
 		}
 		else console.log("bad input");
+	},
+	
+	attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, the_estimate){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate", ["world_id","x","y", "the_estimate"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+		
+		if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
+			var resourceString = this.buildAttemptToDiameterLimitCutTileRSWithWorldId(world_id);
+			var parameterString = this.authString();
+			if(the_estimate)
+				this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
+										TFglobals.DATA_CONTROLLER.onGetEstimateForDiameterLimitCutIncludingResourceTileXY);
+			else
+				return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
+		}
+		else console.log("bad input");		
 	},
 
 	attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY : function(world_id, player_id, tile_x, tile_y){
@@ -462,6 +490,15 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
  	},
  	
+ 	  /* produces: /worlds/world_id/resource_tiles/this.UNUSED_NUMBER/diameter_limit_cut.json? */
+ 	buildAttemptToDiameterLimitCutTileRSWithWorldId : function(world_id){
+   		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildAttemptToDiameterLimitCutTileRSWithWorldId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+		if(world_id || world_id == 0)
+			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.UNUSED_NUMBER + this.DIAMETER_LIMIT_CUT + this.JSON;
+		else console.log("bad input");	
+	},
+ 	
  	  /* produces: /users/user_id/players/player_id/player_stats.json? */
  	buildPlayerStatsRSWithUserIdAndPlayerId : function(user_id, player_id){
    		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPlayerStatsRSWithUserIdAndPlayerId", ["user_id", "player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
@@ -480,12 +517,21 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");	
  	},
  	
- 	  /* /users/user_id/players/player_id/owned_resource_tiles.json */
+ 	  /* produces: /users/user_id/players/player_id/owned_resource_tiles.json? */
 	buildPlayerResourceTilesRSWithUserIdAndPlayerId : function(user_id, player_id){
     	TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPlayerResourceTilesRSWithUserIdAndPlayerId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
 
 		if((user_id || user_id == 0) && (player_id || player_id == 0))
 			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.OWNED_RESOURCE_TILES + this.JSON;
+		else console.log("bad input")
+	},
+	
+	  /* produces: /worlds/world_id/resource_tiles/this.UNUSED_NUMBER/owned_by_others.json? */
+	buildGetResourceTilesOwnedByOthersRSWithWorldId : function(world_id, player_id){
+    	TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildGetResourceTilesOwnedByOthersRSWithWorldId", ["world_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+		if(world_id || world_id == 0)
+			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.UNUSED_NUMBER + this.OWNED_BY_OTHERS + this.JSON;
 		else console.log("bad input")
 	},
  	
