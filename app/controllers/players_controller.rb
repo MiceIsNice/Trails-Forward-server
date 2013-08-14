@@ -85,7 +85,7 @@ class PlayersController < ApplicationController
   
   def player_stats 
     if params[:user_id] && params[:player_id]
-      @player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+      player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
     else
       render json: {:errors => ["need a valid user id and player id combination"]}
     end 

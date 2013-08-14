@@ -326,9 +326,12 @@ ig.module(
                     [3, 75, 4, 33]
                 );
                 this.ui.addElement(this.viewOwnedTilesButton);
-                this.viewOwnedTilesText = new UIElement(new Rect(0, 0, 1, 1));
+                this.viewOwnedTilesText = new UIElement(new Rect(5, -2, 1, 1));
                 this.viewOwnedTilesText.enableText(function() { return ""; }, this.detailFont, ig.Font.ALIGN.CENTER);
                 this.viewOwnedTilesButton.addChild(this.viewOwnedTilesText);
+                this.viewOwnedTilesLabel = new UIElement(new Rect(12, -2, 1, 1));
+                this.viewOwnedTilesLabel.enableText(function() { return "Show Ownership Layer"; }, this.detailFont, ig.Font.ALIGN.LEFT);
+                this.viewOwnedTilesButton.addChild(this.viewOwnedTilesLabel);
 
                 var actionsBox, actionsText;
                 actionsBox = new UIElement(new Rect(
@@ -772,6 +775,8 @@ ig.module(
                 }
                 // Get ownership data if any
                 TFglobals.DATA_CONTROLLER.getPlayersOwnedResourceTiles();
+                // Get OTHER ownership data if any
+                TFglobals.DATA_CONTROLLER.getResourceTilesOwnedByOthers();
                 ig.log("Done getting map chunk");
                 this.gotMapChunk = true;
             },
@@ -794,6 +799,24 @@ ig.module(
                 }
                 else {
                     console.log("onGetPlayersOwnedResourceTiles failure with message: " + theResponse.errors.join(", "));
+                }
+            },
+
+            onGetResourceTilesOwnedByOthers : function(theResponse){
+                var tile, i;
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onGetResourceTilesOwnedByOthers received " + theResponse.resource_tiles.length + " tiles: ");
+                    for(var i = 0; i < theResponse.resource_tiles.length; i++)
+                        console.log("", theResponse.resource_tiles[i]);
+                    for (i = 0; i < theResponse.resource_tiles.length; i++) {
+                        tile = theResponse.resource_tiles[i];
+                        this.otherOwnedTiles = this.otherOwnedTiles || [];
+                        this.otherOwnedTiles[tile.x] = this.otherOwnedTiles[tile.x] || [];
+                        this.otherOwnedTiles[tile.x][tile.y] = true;
+                    }
+                }
+                else{
+                    console.log("onGetResourceTilesOwnedByOthers failure with message: " + theResponse.errors.join(", "));
                 }
             },
 
@@ -939,6 +962,7 @@ ig.module(
                         }
                     }
 
+                    // Viewing tiles this player owns
                     if (this.ownedTiles && this.viewOwnedTiles) {
                         for (i = 0; i < this.ownedTiles.length; i++) {
                             if (this.ownedTiles[i]) {
@@ -947,7 +971,25 @@ ig.module(
                                     if (tile) {
                                         realX = (i - j) * this.terrainMap.tilesize;
                                         realY = (i + j) / 2 * this.terrainMap.tilesize;
-                                        ctx.drawImage(this.assetManager.images["ownership_Q"],
+                                        ctx.drawImage(this.assetManager.images["ownership_solid"],
+                                            realX,
+                                            realY);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Viewing tiles other players own
+                    if (this.otherOwnedTiles && this.viewOwnedTiles) {
+                        for (i = 0; i < this.otherOwnedTiles.length; i++) {
+                            if (this.otherOwnedTiles[i]) {
+                                for (j = 0; j < this.otherOwnedTiles[i].length; j++) {
+                                    tile = this.otherOwnedTiles[i][j];
+                                    if (tile) {
+                                        realX = (i - j) * this.terrainMap.tilesize;
+                                        realY = (i + j) / 2 * this.terrainMap.tilesize;
+                                        ctx.drawImage(this.assetManager.images["ownershipOther_solid"],
                                             realX,
                                             realY);
                                     }
@@ -1015,7 +1057,7 @@ ig.module(
                 }
             },
 
-            // ******************* BUYING LAND **********************
+            // ******************* BUYING TILES **********************
 
             /**
              * Called when the player clicks on a tile that is already selected.
@@ -1045,13 +1087,6 @@ ig.module(
                     console.log("onAttemptToPurchaseMegatileIncludingResourceTileXY successfully purchased resource " +
                         "tile with origin x, y: " + theResponse.megatile_upper_left_xy.x
                         + ", " + theResponse.megatile_upper_left_xy.y);
-                    var megatile = theResponse.megatile_upper_left_xy;
-                    for (i = 0; i < 3; i++) {
-                        for (j = 0; j < 3; j++) {
-                            this.featureMap.clearTile(megatile.x + i, megatile.y + j);
-                            this.featureMap.addTile(megatile.x + i, megatile.y + j, "harvesting_tile");
-                        }
-                    }
                 }
                 else{
                     this.showNotificationWindow(
