@@ -131,10 +131,16 @@ TrailsForwardDataController.prototype = {
 	
 	attemptToPurchaseUpgradeWithId : function(equipment_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseUpgradeWithId", ["equipment_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-	
-		if(equipment_id || equipment_id == 0)
-			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipment_id), 
-				this.onAttemptToPurchaseUpgrade);
+		if(equipment_id || equipment_id == 0){
+			this.makeRequestWithCallbackAndTwoUpdateCallsWithCallbacks(
+				this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipment_id),
+				this.onAttemptToPurchaseUpgrade,
+				this.getPlayerStatsPromise,
+				this.onGetPlayerStats,		
+				this.getPlayersOwnedEquipmentPromise,
+				this.onGetPlayersOwnedEquipment
+			);
+		}
 		else console.log("bad input");	
 	},
 	
@@ -188,17 +194,6 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if((x || x == 0) && (y || y == 0)){
-/**
-			    	this.makeRequestWithCallbackAndUpdateCallWithCallback(
-			    		this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, this.gameDataCache.player_id, x, y), 
-			    		this.onAttemptToPurchaseMegatileIncludingResourceTileXY,
-			    		this.makeRequestWithCallbackAndUpdateCallWithCallback(
-			    			this.getPlayersOwnedResourceTilesPromise,
-			    			this.onGetPlayersOwnedResourceTiles,
-			    			this.getPlayerStatsForPlayerIdPromise,
-			    			this.onGetPlayerStats),
-			    		function(request_response, request_success){});
-**/
 			this.makeRequestWithCallbackAndTwoUpdateCallsWithCallbacks(
 				this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, this.gameDataCache.player_id, x, y),
 				this.onAttemptToPurchaseMegatileIncludingResourceTileXY,
