@@ -294,12 +294,28 @@ ImpactDummy.prototype = {
 		}		
 	},
 	
+	onGetPlayersOwnedEquipment : function(theResponse){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayersOwnedEquipment", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+		if(this.serverResponseWasPositive(theResponse)){
+			console.log("onGetPlayersOwnedEquipment success!");
+			console.log("player's equipment: ", theResponse);
+		}
+		else{
+			console.log("onGetPlayersOwnedEquipment failure with message: " + theResponse.errors.join(", "));
+		}		
+	},
+	
 	onGetPlayersOwnedResourceTiles : function(theResponse){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayersOwnedResourceTiles", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 		if(this.serverResponseWasPositive(theResponse)){
-			console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
-			for(var i = 0; i < theResponse.resource_tiles.length; i++)
-				console.log("", theResponse.resource_tiles[i]);
+			if(theResponse.resource_tiles){
+				console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
+					for(var i = 0; i < theResponse.resource_tiles.length; i++)
+						console.log("", theResponse.resource_tiles[i]);
+			}
+			else
+				console.log("onGetPlayersOwnedResourceTiles didn't get any tiles!");
 		}
 		else{
 			console.log("onGetPlayersOwnedResourceTiles failure with message: " + theResponse.errors.join(", "));

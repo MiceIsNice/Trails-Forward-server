@@ -103,29 +103,20 @@ class MegatilesController < ApplicationController
     player = Player.find(params[:player_id])
     resource_tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y] ,params[:world_id])[0]
     megatile = Megatile.where("id = ? AND world_id = ?", resource_tile.megatile_id, player.world_id)[0]
-    
-    puts "player: #{player.id}, resource_tile #{resource_tile.id}, megatile #{megatile.id}"
-=begin
-    if params[:resource_tile_id]
-      resource_tile = ResourceTile.find(params[:resource_tile_id])
-      megatile = Megatile.where("id = ? AND world_id = ?", resource_tile.megatile_id, player.world_id)[0]
-    else
-      # the previous way
-      megatile = Megatile.find(params[:id])
-      player = megatile.world.player_for_user(current_user)
-    end
-=end
 
     authorize! :do_things, megatile.world
+    
+    errors = [];
 
     if megatile.owner.present?
-      render json: {:errors => ["Already owned"]}
-=begin
-      respond_to do |format|
-        format.xml  { render  xml: { errors: ["Already owned"] }, status: :unprocessable_entity }
-        format.json { render json: { errors: ["Already owned"] }, status: :unprocessable_entity }
-      end
-=end
+      errors.push("Megatile is already owned.")
+    end
+    if player.balance < Megatile.cost 
+      errors.push("Not enough money to buy tile.")
+    end 
+    
+    if errors.length > 0
+      render json: {:errors => errors}
     else
       megatile.owner = player
       player.balance -= Megatile.cost
@@ -141,19 +132,8 @@ class MegatilesController < ApplicationController
         render json: {:message => "success", :megatile_upper_left_xy => {:x => megatile.x, :y => megatile.y}}
         return
 
-=begin        
-        # FIXME this is quick solution to make client side tile update
-        # vs manually editing the tile in unity - for Mark 1/5/12
-        respond_to do |format|
-          format.xml  { render_for_api :megatile_with_resources, :xml  => megatile, :root => :megatile  }
-          format.json { render_for_api :megatile_with_resources, :json => megatile, :root => :megatile  }
-        end
-=end
-      rescue ActiveRecord::RecordInvalid
-        respond_to do |format|
-          format.xml  { render  xml: { errors: ["Transaction Failed"] }, status: :unprocessable_entity }
-          format.json { render json: { errors: ["Transaction Failed"] }, status: :unprocessable_entity }
-        end
+      rescue ActiveRecord::RecordInvalid => invalid
+        render json: {:errors => ["Transaction Failed with message #{invalid.record.errors}"]}
       end
     end
   end

@@ -795,18 +795,21 @@ ig.module(
             onGetPlayersOwnedResourceTiles : function(theResponse){
                 var tile, i;
                 if(this.serverResponseWasPositive(theResponse)){
-                    console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
-                    theResponse.resource_tiles.reduce(
-                        function(previousValue, currentValue, index, array) {
-                            console.log("",currentValue);
-                        }
-                    );
-                    for (i = 0; i < theResponse.resource_tiles.length; i++) {
-                        tile = theResponse.resource_tiles[i];
-                        this.ownedTiles = this.ownedTiles || [];
-                        this.ownedTiles[tile.x] = this.ownedTiles[tile.x] || [];
-                        this.ownedTiles[tile.x][tile.y] = true;
+                	if(theResponse.resource_tiles){
+						console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
+						theResponse.resource_tiles.reduce(
+							function(previousValue, currentValue, index, array) {
+								console.log("",currentValue);
+							}
+						);
+						for (i = 0; i < theResponse.resource_tiles.length; i++) {
+							tile = theResponse.resource_tiles[i];
+							this.ownedTiles = this.ownedTiles || [];
+							this.ownedTiles[tile.x] = this.ownedTiles[tile.x] || [];
+							this.ownedTiles[tile.x][tile.y] = true;
+						}
                     }
+                    else console.log("no resource tiles given to onGetPlayersOwnedResourceTiles");
                 }
                 else {
                     console.log("onGetPlayersOwnedResourceTiles failure with message: " + theResponse.errors.join(", "));
@@ -1103,7 +1106,7 @@ ig.module(
                     this.showNotificationWindow(
                         function() {
                             return "Unable to purchase tile. Someone may already\nown this tile, or there may " +
-                                "have been a server error.";
+                                "have been a server error: " + theResponse.errors.join(", ");
                         }
                     );
                 }
@@ -1902,15 +1905,15 @@ ig.module(
             },
 
             harvestTile: function(x, y) {
-                TFglobals.DATA_CONTROLLER.attemptToClearCutTileWithXY(x, y);
+                TFglobals.DATA_CONTROLLER.attemptToClearCutMegatileIncludingResourceTileXY(x, y);
             },
 
-            onAttemptToDiameterLimitCutMegatileWithResourceTileXY: function(theResponse) {
+            onAttemptToClearCutMegatileIncludingResourceTileXY: function(theResponse) {
                 if(this.serverResponseWasPositive(theResponse)){
-                    console.log("onGetEstimateForClearCutMegatileIncludingResourceTileXY success!");
+                    console.log("onAttemptToClearCutMegatileIncludingResourceTileXY success!");
                 }
                 else{
-                    console.log("onGetEstimateForClearCutMegatileIncludingResourceTileXY failure with message: " + theResponse.errors.join(", "));
+                    console.log("onAttemptToClearCutMegatileIncludingResourceTileXY failure with message: " + theResponse.errors.join(", "));
                 }
             },
 

@@ -13,6 +13,7 @@ TrailsForwardWorld::Application.routes.draw do
   resources :users do 
     resources :players do
       get :player_stats
+      get :player_equipment
       get :owned_resource_tiles
     end
   end 

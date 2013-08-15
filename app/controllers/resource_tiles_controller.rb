@@ -256,8 +256,9 @@ class ResourceTilesController < ApplicationController
   
     time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
-
-    unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
+    
+    puts "diameter_limit_cut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
+    if params[:estimate] == false && !TimeManager.can_perform_action?(player: player, cost: time_cost)
       render json: {:errors => ["Not enough time left to perform harvest"]}
       #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
       return
@@ -349,6 +350,7 @@ class ResourceTilesController < ApplicationController
   private
 
   def results_hash(results, resource_tiles)
+puts "results length: #{results.length} first one #{results[0]}"
     poletimber_value  = results.collect{|result| result[:poletimber_value ]}.sum
     poletimber_volume = results.collect{|result| result[:poletimber_volume]}.sum
     sawtimber_value   = results.collect{|result| result[:sawtimber_value  ]}.sum

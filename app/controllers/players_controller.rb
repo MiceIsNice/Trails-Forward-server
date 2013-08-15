@@ -90,9 +90,22 @@ class PlayersController < ApplicationController
       render json: {:errors => ["need a valid user id and player id combination"]}
     end 
     
-    authorize! :player_stats, player
+    authorize! :player_info, player
     
     render json: {:balance => player.balance, :turn_points => player.time_remaining_this_turn, :political_capital => 5}
+  end
+  
+  def player_equipment
+    if params[:user_id] && params[:player_id]
+      player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+      equipment = LoggingEquipment.where("player_id = ? AND world_id = ?", params[:player_id], player.world_id)[0]
+    else
+      render json: {:errors => ["need a valid world id and player id combination"]}
+    end 
+    
+    authorize! :player_info, player
+    
+    render json: {:playersEquipment => equipment}  
   end
 
   def owned_resource_tiles
