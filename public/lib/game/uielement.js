@@ -317,7 +317,8 @@ ig.module(
 
         getInnerWidth: function() {
             return this.bounds.width
-                - ((this._ninePatch)? (this._ninePatchData.x1 + this._ninePatchData.x2 - this.bounds.width) : 0);
+                - (((this._ninePatch && !(!this.imageName))?
+                    (this._ninePatchData.x1 + (this.assetManager.images[this.imageName].width - this._ninePatchData.x2)) : 0));
         },
 
         /**
