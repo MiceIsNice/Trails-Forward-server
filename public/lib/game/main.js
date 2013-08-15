@@ -21,6 +21,7 @@ ig.module(
 
             // Load things
             font: new ig.Font("media/timeless_white_16.font.png"),
+            disableFont: new ig.Font("media/timeless_gray_16.font.png"),
             detailFont: new ig.Font("media/timeless_white_12.font.png"),
 
             ui: new UI(),
@@ -421,11 +422,16 @@ ig.module(
                 this.surveyButton.setImage("button_inactive");
                 this.surveyButton.inactive = true;
                 this.ui.updatingElements.push(this.surveyButton);
+                this.surveyButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.surveyButtonText.enableText(function () {
+                    return "Survey";
+                }, this.disableFont, ig.Font.ALIGN.CENTER);
                 this.surveyButton.update = function() {
                     if (ig.game.selectedTile) {
                         if (this.inactive) {
                             this.inactive = false;
                             this.setImage("button");
+                            self.surveyButtonText._font = self.font;
                         }
                         if (self.tilesSurveyed[self.selectedTile[0]]) {
                             if (self.tilesSurveyed[self.selectedTile[0]][self.selectedTile[1]]) {
@@ -462,17 +468,13 @@ ig.module(
                         if (!this.inactive) {
                             this.inactive = true;
                             this.setImage("button_inactive");
+                            self.surveyButtonText._font = self.disableFont;
                         }
                     }
                 };
                 actionsBox.addChild(this.surveyButton);
-                this.surveyButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.surveyButtonText.enableText(function () {
-                    return "Survey";
-                }, this.font, ig.Font.ALIGN.CENTER);
                 this.surveyButton.addChild(this.surveyButtonText);
 
-                var harvestButtonText;
                 this.harvestButton = new Button(new Rect(
                     10 + 15 + ig.system.width / 8 - 21,
                     60,
@@ -492,12 +494,18 @@ ig.module(
                 this.harvestButton.setImage("button_inactive");
                 this.harvestButton.inactive = true;
                 this.ui.updatingElements.push(this.harvestButton);
+                this.harvestButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.harvestButtonText.enableText(function () {
+                    return "Harvest";
+                }, this.disableFont, ig.Font.ALIGN.CENTER);
                 this.harvestButton.update = function() {
                     if (ig.game.selectedTile) {
                         if (ig.game.canHarvestSelectedTile()) {
                             if (this.inactive) {
                                 this.inactive = false;
                                 this.setImage("button");
+                                self.harvestButtonText.enableText(self.harvestButtonText._textFunction,
+                                    self.font, ig.Font.ALIGN.CENTER);
                             }
                         }
                     }
@@ -505,17 +513,14 @@ ig.module(
                         if (!this.inactive) {
                             this.inactive = true;
                             this.setImage("button_inactive");
+                            self.harvestButtonText.enableText(self.harvestButtonText._textFunction,
+                                self.disableFont, ig.Font.ALIGN.CENTER);
                         }
                     }
                 };
                 actionsBox.addChild(this.harvestButton);
-                harvestButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                harvestButtonText.enableText(function () {
-                    return "Harvest";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                this.harvestButton.addChild(harvestButtonText);
+                this.harvestButton.addChild(this.harvestButtonText);
 
-                var plantButtonText;
                 this.plantButton = new Button(new Rect(
                     15,
                     90,
@@ -534,12 +539,18 @@ ig.module(
                 this.plantButton.setImage("button_inactive");
                 this.plantButton.inactive = true;
                 this.ui.updatingElements.push(this.plantButton);
+                this.plantButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.plantButtonText.enableText(function () {
+                    return "Plant";
+                }, this.disableFont, ig.Font.ALIGN.CENTER);
                 this.plantButton.update = function() {
                     if (ig.game.selectedTile) {
                         if (ig.game.canPlantSelectedTile()) {
                             if (this.inactive) {
                                 this.inactive = false;
                                 this.setImage("button");
+                                self.plantButtonText.enableText(self.plantButtonText._textFunction,
+                                    self.font, ig.Font.ALIGN.CENTER);
                             }
                         }
                     }
@@ -547,17 +558,14 @@ ig.module(
                         if (!this.inactive) {
                             this.inactive = true;
                             this.setImage("button_inactive");
+                            self.plantButtonText.enableText(self.plantButtonText._textFunction,
+                                self.disableFont, ig.Font.ALIGN.CENTER);
                         }
                     }
                 };
                 actionsBox.addChild(this.plantButton);
-                plantButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                plantButtonText.enableText(function () {
-                    return "Plant";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                this.plantButton.addChild(plantButtonText);
+                this.plantButton.addChild(this.plantButtonText);
 
-                var yardButtonText;
                 this.yardButton = new Button(new Rect(
                     10 + 15 + ig.system.width / 8 - 21,
                     90,
@@ -576,12 +584,18 @@ ig.module(
                 this.yardButton.setImage("button_inactive");
                 this.yardButton.inactive = true;
                 this.ui.updatingElements.push(this.yardButton);
+                this.yardButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.yardButtonText.enableText(function () {
+                    return "Yard";
+                }, this.disableFont, ig.Font.ALIGN.CENTER);
                 this.yardButton.update = function() {
                     if (ig.game.selectedTile) {
                         if (ig.game.canYardSelectedTile()) {
                             if (this.inactive) {
                                 this.inactive = false;
                                 this.setImage("button");
+                                self.yardButtonText.enableText(self.yardButtonText._textFunction,
+                                    self.font, ig.Font.ALIGN.CENTER);
                             }
                         }
                     }
@@ -589,17 +603,14 @@ ig.module(
                         if (!this.inactive) {
                             this.inactive = true;
                             this.setImage("button_inactive");
+                            self.yardButtonText.enableText(self.yardButtonText._textFunction,
+                                self.disableFont, ig.Font.ALIGN.CENTER);
                         }
                     }
                 };
                 actionsBox.addChild(this.yardButton);
-                yardButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                yardButtonText.enableText(function () {
-                    return "Yard";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                this.yardButton.addChild(yardButtonText);
+                this.yardButton.addChild(this.yardButtonText);
 
-                var purchaseButtonText;
                 this.purchaseButton = new Button(new Rect(
                     15,
                     120,
@@ -617,12 +628,18 @@ ig.module(
                 this.purchaseButton.setImage("button_inactive");
                 this.purchaseButton.inactive = true;
                 this.ui.updatingElements.push(this.purchaseButton);
+                this.purchaseButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.purchaseButtonText.enableText(function () {
+                    return "Purchase";
+                }, this.disableFont, ig.Font.ALIGN.CENTER);
                 this.purchaseButton.update = function() {
                     if (ig.game.selectedTile) {
                         if (ig.game.canPurchaseSelectedTile()) {
                             if (this.inactive) {
                                 this.inactive = false;
                                 this.setImage("button");
+                                self.purchaseButtonText.enableText(self.purchaseButtonText._textFunction,
+                                    self.font, ig.Font.ALIGN.CENTER);
                             }
                         }
                     }
@@ -630,17 +647,14 @@ ig.module(
                         if (!this.inactive) {
                             this.inactive = true;
                             this.setImage("button_inactive");
+                            self.purchaseButtonText.enableText(self.purchaseButtonText._textFunction,
+                                self.disableFont, ig.Font.ALIGN.CENTER);
                         }
                     }
                 };
                 actionsBox.addChild(this.purchaseButton);
-                purchaseButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                purchaseButtonText.enableText(function () {
-                    return "Purchase";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                this.purchaseButton.addChild(purchaseButtonText);
+                this.purchaseButton.addChild(this.purchaseButtonText);
 
-                var transportButtonText;
                 this.transportButton = new Button(new Rect(
                     10 + 15 + ig.system.width / 8 - 21,
                     120,
@@ -659,12 +673,18 @@ ig.module(
                 this.transportButton.setImage("button_inactive");
                 this.transportButton.inactive = true;
                 this.ui.updatingElements.push(this.transportButton);
+                this.transportButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
+                this.transportButtonText.enableText(function () {
+                    return "Transport";
+                }, this.disableFont, ig.Font.ALIGN.CENTER);
                 this.transportButton.update = function() {
                     if (ig.game.selectedTile) {
                         if (ig.game.canTransportSelectedTile()) {
                             if (this.inactive) {
                                 this.inactive = false;
                                 this.setImage("button");
+                                self.transportButtonText.enableText(self.transportButtonText._textFunction,
+                                    self.font, ig.Font.ALIGN.CENTER);
                             }
                         }
                     }
@@ -672,15 +692,13 @@ ig.module(
                         if (!this.inactive) {
                             this.inactive = true;
                             this.setImage("button_inactive");
+                            self.transportButtonText.enableText(self.transportButtonText._textFunction,
+                                self.disableFont, ig.Font.ALIGN.CENTER);
                         }
                     }
                 };
                 actionsBox.addChild(this.transportButton);
-                transportButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                transportButtonText.enableText(function () {
-                    return "Transport";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                this.transportButton.addChild(transportButtonText);
+                this.transportButton.addChild(this.transportButtonText);
             },
 
             constructMap: function() {
@@ -726,6 +744,7 @@ ig.module(
                     this.showNotificationWindow(function() {
                         return "Uh oh! Something went wrong. Couldn't get player stats." } );
                     console.log("onGetPlayerStats failure!");
+                    console.log(theResponse);
                 }
             },
 
@@ -1533,7 +1552,7 @@ ig.module(
                             self.removeUpgradeTooltip();
                         };
                         this.upgradeScrollField.contentPanel.addChild(upgrade);
-                        var upgradeImage = new UIElement(new Rect(9, 10, 128, 128));
+                        var upgradeImage = new UIElement(new Rect(2, 10, 128, 128));
                         upgradeImage.hoverPassThrough = true;
                         if (this.upgradeTooltipSource.name === "Sawyer Crew") {
                             upgradeImage.setImage("sawyer_upgrade_picture");
@@ -1878,7 +1897,9 @@ ig.module(
                     ));
                     harvestOptionClearcutText.enableText(function() {
                             return "Clearcut:\n" +
-                                "Clear the tile of any loggable trees. This option RELEVANT INFORMATION HERE.";
+                                "Clear the tile of any loggable trees. This option will allow this land to be built" +
+                                " upon, but will also prevent this tile from growing more trees in the future, unless" +
+                                " it is replanted.";
                         },
                         this.font, ig.Font.ALIGN.LEFT);
                     this.harvestOptionClearcut.addChild(harvestOptionClearcutText);
@@ -1911,7 +1932,9 @@ ig.module(
                     ));
                     harvestOptionDiameterLimitText.enableText(function() {
                             return "Diameter Limit:\n" +
-                                "Clear the tile of any trees greater than 12 inches in diameter. This option STUFF";
+                                "Clear the tile of any trees greater than 12 inches in diameter. This option will" +
+                                " yield the same number of saleable logs as clearcutting, and it will also allow the" +
+                                " land to grow more trees in the future.";
                         },
                         this.font, ig.Font.ALIGN.LEFT);
                     this.harvestOptionDiameterLimit.addChild(harvestOptionDiameterLimitText);
