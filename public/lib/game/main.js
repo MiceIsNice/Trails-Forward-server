@@ -194,9 +194,19 @@ ig.module(
                 moneyBox.enableNinePatch(5, 11, 5, 10);
                 this.ui.addElement(moneyBox);
                 moneyText = new UIElement(new Rect(148, 1, 1, 1));
-                this.money = "$1,000,000.00";
+                this.money = 0;
                 moneyText.enableText(function () {
-                    return self.money;
+                    var num = self.money, sign, cents;
+                    num = num.toString().replace(/\$|\,/g, '');
+                    if (isNaN(num)) num = "0";
+                    sign = (num == (num = Math.abs(num)));
+                    num = Math.floor(num * 100 + 0.50000000001);
+                    cents = num % 100;
+                    num = Math.floor(num / 100).toString();
+                    if (cents < 10) cents = "0" + cents;
+                    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+                        num = num.substring(0, num.length - (4 * i + 3)) + ',' + num.substring(num.length - (4 * i + 3));
+                    return (((sign) ? '' : '-') + '$' + num + '.' + cents);
                 }, this.font, ig.Font.ALIGN.RIGHT);
                 moneyBox.addChild(moneyText);
 
@@ -471,7 +481,7 @@ ig.module(
                     "button_click",
                     function() {
                         ig.log("Attempted to harvest tile - not yet implemented!");
-                        self.harvestTile(self.selectedTile[0], self.selectedTile[1]);
+                        self.showHarvestWindow(self.selectedTile[0], self.selectedTile[1]);
                         //Need to open a window to specify the type of cut
                     },
                     undefined,
@@ -734,7 +744,8 @@ ig.module(
                                     tileFeature = "forest_tileset_light";
                                 }
                                 else {
-                                    tileFeature = "forest_tileset_heavy";
+                                    tileFeature =
+                                        "forest_tileset_heavy_" + Math.floor((Math.random() * 3) + 1);
                                 }
                                 break;
                             case "cultivated_crops":
@@ -952,19 +963,6 @@ ig.module(
 
                     this.terrainMap.draw();
 
-                    if (this.selectedTile) {
-                        x = this.selectedTile[0];
-                        y = this.selectedTile[1];
-                        realX = (x - y) * this.terrainMap.tilesize;
-                        realY = (x + y) / 2 * this.terrainMap.tilesize;
-                        var highlight = this.assetManager.images["selection_highlight"];
-                        if (highlight) {
-                            ctx.drawImage(this.assetManager.images["selection_highlight"],
-                                realX,
-                                realY);
-                        }
-                    }
-
                     // Viewing tiles this player owns
                     if (this.ownedTiles && this.viewOwnedTiles) {
                         for (i = 0; i < this.ownedTiles.length; i++) {
@@ -998,6 +996,19 @@ ig.module(
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    if (this.selectedTile) {
+                        x = this.selectedTile[0];
+                        y = this.selectedTile[1];
+                        realX = (x - y) * this.terrainMap.tilesize;
+                        realY = (x + y) / 2 * this.terrainMap.tilesize;
+                        var highlight = this.assetManager.images["selection_highlight"];
+                        if (highlight) {
+                            ctx.drawImage(this.assetManager.images["selection_highlight"],
+                                realX,
+                                realY);
                         }
                     }
 
@@ -1539,7 +1550,89 @@ ig.module(
                         upgrade.addChild(upgradeText);
                         this.upgrades.push(upgrade);
                     }
+                    var startY = upgrade.bounds.y + upgrade.bounds.height + 20;
+                    this.ownedUpgradesText = new UIElement(new Rect(
+                        0,
+                        startY,
+                        1,
+                        1
+                    ));
+                    if (this.ownedUpgrades) {
+                        this.ownedUpgradesText.enableText(
+                            function() { return " Owned Upgrades: " },
+                            this.font,
+                            ig.Font.ALIGN.LEFT
+                        );
+                        if (this.upgradesChanged) {
+                            if (!this.ownedUpgradesArray) {
+                                this.ownedUpgradesArray = [];
+                            }
+                            for (i = 0; i < this.ownedUpgradesArray.length; i++) {
+                                upgrade = this.ownedUpgradesArray[i];
+                                this.upgradeScrollField.contentPanel.removeChild(upgrade);
+                            }
+                            this.ownedUpgradesArray = [];
+                            for (i = 0; i < this.ownedUpgrades.length; i++) {
+                                upgrade = new Button(
+                                    new Rect(
+                                        upgradeSpacing + (i % 3) * upgradeWidth + (i % 3) * upgradeSpacing,
+                                        startY + upgradeSpacing + ((i / 3) | 0) * upgradeHeight + ((i / 3) | 0) * upgradeSpacing,
+                                        upgradeWidth,
+                                        upgradeHeight
+                                    ),
+                                    "uibox",
+                                    "uibox",
+                                    "uibox",
+                                    function() {
+
+                                    },
+                                    undefined,
+                                    [3, 75, 4, 33]
+                                );
+                                this.upgradeTooltipSource = this.ownedUpgrades[i].logging_equipment;
+                                upgrade.upgradeInfo = this.ownedUpgrades[i].logging_equipment;
+                                upgrade.onLongHover = function() {
+                                    self.generateUpgradeTooltip(this.upgradeInfo);
+                                };
+                                upgrade.onUnLongHover = function() {
+                                    self.removeUpgradeTooltip();
+                                };
+                                upgrade.funcToCall = function() {
+                                    var thisUpgrade = this;
+                                    self.showConfirmWindow(function() {
+                                            return "Are you sure you want to purchase\nthe "
+                                                + thisUpgrade.upgradeInfo.name + " upgrade?";
+                                        },
+                                        self.onConfirmPurchaseUpgrade,
+                                        thisUpgrade.upgradeInfo);
+                                    self.removeUpgradeTooltip();
+                                };
+                                this.upgradeScrollField.contentPanel.addChild(upgrade);
+                                var upgradeImage = new UIElement(new Rect(9, 10, 128, 128));
+                                upgradeImage.hoverPassThrough = true;
+                                if (this.upgradeTooltipSource.name === "Sawyer Crew") {
+                                    upgradeImage.setImage("sawyer_upgrade_picture");
+                                }
+                                else {
+                                    upgradeImage.setImage("upgrade_picture");
+                                }
+                                upgrade.addChild(upgradeImage);
+                                var upgradeText = new UIElement(new Rect(upgradeWidth / 2, 144, upgradeWidth - 10, 0));
+                                this.specificUpgrade = this.availableUpgrades[i].logging_equipment;
+                                console.log(this.specificUpgrade);
+                                upgradeText.text = this.specificUpgrade.name;
+                                upgradeText.enableText(function() {
+                                        return this.text;
+                                    },
+                                    this.font, ig.Font.ALIGN.CENTER);
+                                upgrade.addChild(upgradeText);
+                                this.ownedUpgradesArray.push(upgrade);
+                            }
+                            this.upgradesChanged = false;
+                        }
+                    }
                 }
+
             },
 
             onGetAvailableUpgradesForPlayer: function(upgrades) {
@@ -1707,8 +1800,121 @@ ig.module(
 
             // ******************* HARVESTING *************************
 
+            showHarvestWindow: function(x, y) {
+                var self = this;
+                // Making sure the confirm window exists
+                if (!this.harvestWindow) {
+                    this.harvestWindow = new UIElement(new Rect(
+                        ig.system.width / 2 - 250,
+                        ig.system.height / 2 - 150,
+                        500,
+                        300
+                    ));
+                    this.harvestWindow.setImage("uibox");
+                    this.harvestWindow.enableNinePatch(5, 11, 6, 11);
+                    this.ui.addElement(this.harvestWindow);
+                }
+                this.harvestWindow.hide = false;
+
+                if (!this.harvestWindowClose) {
+                    this.harvestWindowClose = new Button(
+                        new Rect(
+                            this.harvestWindow.bounds.width - 30, 0, 20, 20
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            self.harvestWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.harvestWindow.addChild(this.harvestWindowClose);
+                    var harvestWindowCloseText = new UIElement(new Rect(12, 1, 1, 1));
+                    harvestWindowCloseText.enableText(function() { return "x"; }, this.font, ig.Font.ALIGN.CENTER);
+                    this.harvestWindowClose.addChild(harvestWindowCloseText);
+                }
+
+                if (!this.harvestOptionClearcut) {
+                    this.harvestOptionClearcut = new Button(
+                        new Rect(
+                            0,
+                            20,
+                            this.harvestWindow.getInnerWidth(),
+                            135
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            TFglobals.DATA_CONTROLLER.attemptToClearCutMegatileIncludingResourceTileXY(x, y);
+                            self.harvestWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.harvestWindow.addChild(this.harvestOptionClearcut);
+                    var harvestOptionClearcutText = new UIElement(new Rect(
+                        10,
+                        10,
+                        this.harvestOptionClearcut.getInnerWidth() - 20,
+                        0
+                    ));
+                    harvestOptionClearcutText.enableText(function() {
+                            return "Clearcut:\n" +
+                                "Clear the tile of any loggable trees. This option RELEVANT INFORMATION HERE.";
+                        },
+                        this.font, ig.Font.ALIGN.LEFT);
+                    this.harvestOptionClearcut.addChild(harvestOptionClearcutText);
+                }
+
+                if (!this.harvestOptionDiameterLimit) {
+                    this.harvestOptionDiameterLimit = new Button(
+                        new Rect(
+                            0,
+                            155,
+                            this.harvestWindow.getInnerWidth(),
+                            135
+                        ),
+                        "button",
+                        "button_hover",
+                        "button_click",
+                        function() {
+                            TFglobals.DATA_CONTROLLER.attemptToDiameterLimitCutMegatileWithResourceTileXY(x, y);
+                            self.harvestWindow.hide = true;
+                        },
+                        undefined,
+                        [3, 75, 4, 33]
+                    );
+                    this.harvestWindow.addChild(this.harvestOptionDiameterLimit);
+                    var harvestOptionDiameterLimitText = new UIElement(new Rect(
+                        10,
+                        10,
+                        this.harvestOptionDiameterLimit.getInnerWidth() - 20,
+                        0
+                    ));
+                    harvestOptionDiameterLimitText.enableText(function() {
+                            return "Diameter Limit:\n" +
+                                "Clear the tile of any trees greater than 12 inches in diameter. This option STUFF";
+                        },
+                        this.font, ig.Font.ALIGN.LEFT);
+                    this.harvestOptionDiameterLimit.addChild(harvestOptionDiameterLimitText);
+                }
+
+            },
+
             harvestTile: function(x, y) {
                 TFglobals.DATA_CONTROLLER.attemptToClearCutMegatileIncludingResourceTileXY(x, y);
+            },
+
+            onAttemptToClearCutMegatileIncludingResourceTileXY: function(theResponse) {
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onAttemptToClearCutMegatileIncludingResourceTileXY success!");
+                }
+                else{
+                    console.log("onAttemptToClearCutMegatileIncludingResourceTileXY failure with message: " + theResponse.errors.join(", "));
+                }
             },
 
             onAttemptToClearCutMegatileIncludingResourceTileXY: function(theResponse) {
@@ -1745,7 +1951,10 @@ ig.module(
             // ******************* ACTION-CHECKING ******************
 
             canHarvestSelectedTile: function() {
-                return true;
+                return (this.ownedTiles
+                            && this.selectedTile
+                            && this.ownedTiles[this.selectedTile[0]]
+                            && this.ownedTiles[this.selectedTile[0]][this.selectedTile[1]]);
             },
 
             canPlantSelectedTile: function() {
