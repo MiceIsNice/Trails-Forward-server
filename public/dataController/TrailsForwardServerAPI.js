@@ -32,7 +32,9 @@ function TrailsForwardServerAPI(){
 	this.AUTH_TOKEN = "auth_token";
 	this.AVAILABLE_CONTRACTS = "/available_contracts";
 	this.OWNED_RESOURCE_TILES = "/owned_resource_tiles";
+	this.OWNED = "/owned";
 	this.OWNED_BY_OTHERS = "/owned_by_others";
+	this.PLAYER_EQUIPMENT = "/player_equipment";
 	this.DIAMETER_LIMIT_CUT = "/diameter_limit_cut";
 	this.AVAILABLE_LOGGING_EQUIPMENT = "/available"; // this will change to something like 'equipment'
 													 // and the server will filter by player type
@@ -208,6 +210,21 @@ TrailsForwardServerAPI.prototype = {
 		if((world_id || world_id == 0) && (player_id || player_id == 0) && (contract_id || contract_id == 0)){
 			var resourceString = this.buildAcceptContractRSForWorldIdPlayerIdAndContractId(world_id, player_id, contract_id);
 			this.sendPostMessage(resourceString, this.authString(), {}, TFglobals.DATA_CONTROLLER.onAttemptToAcceptContract);
+		}
+		else console.log("bad input");
+	},
+	
+	getPlayersOwnedEquipmentWithPlayerIdAndPromise : function(player_id, promise){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayersOwnedEquipmentWithPlayerIdAndPromise", ["player_id", "promise"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+
+		if((player_id || player_id == 0) && (promise == true || promise == false)){
+			var resourceString = this.buildPlayersOwnedEquipmentRSWithUserIdAndPlayerId(this._userId, player_id);
+			var parameterString = this.authString();
+			
+			if(promise)
+				return this.makeGetRequestPromise(resourceString, parameterString);
+			else
+				this.makeGetRequest(resourceString, parameterString, TFglobals.DATA_CONTROLLER.onGetPlayersOwnedEquipmentWithWorldIdAndPromise);
 		}
 		else console.log("bad input");
 	},
@@ -536,6 +553,15 @@ TrailsForwardServerAPI.prototype = {
 		if(world_id || world_id == 0)
 			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.UNUSED_NUMBER + this.OWNED_BY_OTHERS + this.JSON;
 		else console.log("bad input")
+	},
+	
+	/* produces: /users/user_id/players/player_id/player_equipment(.:format) */
+	buildPlayersOwnedEquipmentRSWithUserIdAndPlayerId : function(user_id, player_id){
+    	TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildPlayersOwnedEquipmentRSWithUserIdAndPlayerId", ["user_id", "player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
+
+		if((user_id || user_id == 0) && (player_id || player_id == 0))
+			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.PLAYER_EQUIPMENT + this.JSON;
+		else console.log("bad input")		
 	},
  	
 /** NOT USING WORLD ID YET!!! 

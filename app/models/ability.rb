@@ -150,9 +150,8 @@ class Ability
       end
     end
 
-    can :player_stats, Player do |player|
+    can :player_info, Player do |player|
       Player.where("user_id = ? AND id= ? ", user.id, player.id).length == 1
-      #Player.where("user_id = ?", user.id).length == 1 # <= original 
     end
 
     

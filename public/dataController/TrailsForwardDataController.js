@@ -93,6 +93,18 @@ TrailsForwardDataController.prototype = {
 		return TFglobals.DATA_CONTROLLER.serverAPI.getPlayerStatsForPlayerIdPromise(TFglobals.DATA_CONTROLLER.gameDataCache.player_id);
 	},
 	
+	getPlayersOwnedEquipment : function(){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayersOwnedEquipment", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		this.serverAPI.getPlayersOwnedEquipmentWithPlayerIdAndPromise(this.gameDataCache.player_id, false);
+	},
+	
+	getPlayersOwnedEquipmentPromise : function(){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayersOwnedEquipmentPromise", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		return this.serverAPI.getPlayersOwnedEquipmentWithPlayerIdAndPromise(this.gameDataCache.player_id, true);
+	},
+	
 	getPlayersOwnedResourceTiles : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayersOwnedResourceTiles", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -388,6 +400,13 @@ TrailsForwardDataController.prototype = {
 			TFglobals.IMPACT.onGetResourceTilesOwnedByOthers(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
+	
+	onGetPlayersOwnedEquipmentWithWorldIdAndPromise : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onGetPlayersOwnedEquipmentWithWorldIdAndPromise", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		if(theResult)
+			TFglobals.IMPACT.onGetPlayersOwnedEquipment(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+		else console.log("bad input");	},
 	
 /*****
 
