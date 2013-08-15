@@ -90,13 +90,19 @@ TrailsForwardDataController.prototype = {
 	getPlayerStatsPromise : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayerStatsPromise", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		return this.serverAPI.getPlayerStatsForPlayerIdPromise(this.gameDataCache.player_id);
+		return TFglobals.DATA_CONTROLLER.serverAPI.getPlayerStatsForPlayerIdPromise(TFglobals.DATA_CONTROLLER.gameDataCache.player_id);
 	},
 	
 	getPlayersOwnedResourceTiles : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayersOwnedResourceTiles", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		this.serverAPI.getPlayersOwnedResourceTilesWithPlayerId(this.gameDataCache.player_id);
+		this.serverAPI.getPlayersOwnedResourceTilesWithPlayerIdAndPromise(this.gameDataCache.player_id, false);
+	},
+	
+	getPlayersOwnedResourceTilesPromise : function(){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayersOwnedResourceTilesPromise", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+		return TFglobals.DATA_CONTROLLER.serverAPI.getPlayersOwnedResourceTilesWithPlayerIdAndPromise(TFglobals.DATA_CONTROLLER.gameDataCache.player_id, true);	
 	},
 	
 	getResourceTilesOwnedByOthers : function(){
@@ -116,7 +122,7 @@ TrailsForwardDataController.prototype = {
 	
 		if(equipment_id || equipment_id == 0)
 			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToPurchaseUpgradeWithWorldIdAndEquipmentId(this.gameDataCache.id, equipment_id), 
-				this.onAttemptToPurchaseUpgradeSuccess);
+				this.onAttemptToPurchaseUpgrade);
 		else console.log("bad input");	
 	},
 	
@@ -145,29 +151,51 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
+	/* NEXT STEP IS TO CHANGE TO ACCEPT AN ABOVE AND BELOW DIAMETER FROM IMPACT */
 	attemptToDiameterLimitCutMegatileWithResourceTileXY : function(x, y){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToDiameterLimitCutMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
+		var cut_above = 8;
+		var cut_below = 18;
 		if((x || x == 0) && (y || y == 0))
-			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate(this.gameDataCache.id, x, y, true), 
+			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate(this.gameDataCache.id, x, y, cut_above, cut_below, false), 
 				this.onAttemptToDiameterLimitCutMegatileWithResourceTileXY);
 		else console.log("bad input");		
 	},
 	
+	/* NEXT STEP IS TO CHANGE TO ACCEPT AN ABOVE AND BELOW DIAMETER FROM IMPACT */
 	getEstimateForDiameterLimitCutMegatileWithResourceTileXY : function(x, y){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getEstimateForDiameterLimitCutMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if((x || x == 0) && (y || y == 0))
-			this.serverAPI.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate(this.gameDataCache.id, x, y, true);
+			this.serverAPI.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate(this.gameDataCache.id, x, y, cut_above, cut_below, true);
 		else console.log("bad input");	
 	},
 	
 	attemptToPurchaseMegatileIncludingResourceTileXY : function(x, y){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToPurchaseMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if((x || x == 0) && (y || y == 0))
-			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, this.gameDataCache.player_id, x, y), 
-				this.onAttemptToPurchaseMegatileIncludingResourceTileXY);
+		if((x || x == 0) && (y || y == 0)){
+/**
+			    	this.makeRequestWithCallbackAndUpdateCallWithCallback(
+			    		this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, this.gameDataCache.player_id, x, y), 
+			    		this.onAttemptToPurchaseMegatileIncludingResourceTileXY,
+			    		this.makeRequestWithCallbackAndUpdateCallWithCallback(
+			    			this.getPlayersOwnedResourceTilesPromise,
+			    			this.onGetPlayersOwnedResourceTiles,
+			    			this.getPlayerStatsForPlayerIdPromise,
+			    			this.onGetPlayerStats),
+			    		function(request_response, request_success){});
+**/
+			this.makeRequestWithCallbackAndTwoUpdateCallsWithCallbacks(
+				this.serverAPI.attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY(this.gameDataCache.id, this.gameDataCache.player_id, x, y),
+				this.onAttemptToPurchaseMegatileIncludingResourceTileXY,
+				this.getPlayerStatsPromise,
+				this.onGetPlayerStats,		
+				this.getPlayersOwnedResourceTilesPromise,
+				this.onGetPlayersOwnedResourceTilesWithPlayerId
+			);
+		}		
 		else console.log("bad input");	
 	},
 	
@@ -276,8 +304,8 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");
 	},
 	
-	onAttemptToPurchaseUpgradeSuccess : function(theResult){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseUpgradeSuccess", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	onAttemptToPurchaseUpgrade : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseUpgrade", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
 			TFglobals.IMPACT.onAttemptToPurchaseUpgradeResponse(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
@@ -367,17 +395,77 @@ TrailsForwardDataController.prototype = {
 	
 *****/	
 
-    makeRequestWithPlayerStatsUpdate : function(func, callback){
-			$.when(func)
-			  .done(function(firstResponse, firstSuccess){
-			  				$.when(TFglobals.DATA_CONTROLLER.getPlayerStatsPromise())
-			  				 .done(function(secondResponse, secondSuccess){
-			  				 	TFglobals.DATA_CONTROLLER.onGetPlayerStats(secondResponse);
-						  		callback(firstResponse);
-			  				});
-			  }); 	
+    makeRequestWithPlayerStatsUpdate : function(request, request_callback){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.makeRequestWithPlayerStatsUpdate", ["request", "request_callback"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+    	this.makeRequestWithCallbackAndUpdateCallWithCallback(request, request_callback,
+				this.getPlayerStatsPromise, this.onGetPlayerStats);
     },
     
+    makeRequestWithCallbackAndUpdateCallWithCallback : function(request, request_callback, update, update_callback){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.makeRequestWithCallbackAndUpdateCallWithCallback", ["request", "request_callback", "update","update_callback"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+    	var prepare = TFglobals.DATA_CONTROLLER.prepareImpactMessage;
+    	var request_response = null;
+    	
+		var req = request,
+		  chained = req.then(function(req_response){
+		  						request_response = req_response;
+		  						if(!request_response.errors)
+									return update();
+							});
+ 
+		chained.done(function(update_response){
+			console.log("player stats response: ",update_response);
+			if(!request_response.errors)
+				update_callback(prepare(update_response));
+				
+			request_callback(prepare(request_response));			
+		});
+
+/**
+		$.when(request)
+		  .done(function(request_response, request_success){
+				if(request_response.errors)
+					request_callback(prepare(request_response));
+				else{
+					$.when(update)
+					 .done(function(update_response, update_success){
+								update_callback(prepare(update_response));
+								request_callback(prepare(request_response));
+							});
+				}
+		  });
+**/
+    },
+    
+    makeRequestWithCallbackAndTwoUpdateCallsWithCallbacks : function(request, request_callback, update, update_callback, update_two, update_two_callback){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.makeRequestWithCallbackAndTwoUpdateCallsWithCallbacks", ["request", "request_callback", "update", "update_callback", "update_two", "update_two_callback"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+    	var prepare = TFglobals.DATA_CONTROLLER.prepareImpactMessage;
+    	var response_one = null;
+    	var update_response = null;
+    	
+		var req = request,
+		  chained = req.then(function(first_response){
+		  						request_response = first_response;
+		  						if(!request_response.errors)
+									return update();
+							}).then(function(second_response){
+							if(!request_response.errors){
+								update_response = second_response;
+								return update_two();
+							}
+						});
+ 
+		chained.done(function(update_two_response){
+		  	if(!request_response.errors){
+				update_callback(prepare(update_response));
+				update_two_callback(prepare(update_two_response));		
+			}
+			request_callback(prepare(request_response));
+		});
+    },
 
 	prepareImpactMessage : function(serverResponse){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.prepareImpactMessage", ["serverResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));

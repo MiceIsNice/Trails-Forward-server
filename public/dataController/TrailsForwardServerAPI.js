@@ -111,13 +111,16 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
-	getPlayersOwnedResourceTilesWithPlayerId : function(player_id){
+	getPlayersOwnedResourceTilesWithPlayerIdAndPromise : function(player_id, promise){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayersOwnedResourceTilesWithPlayerId", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 
 		if((this._userId || this._userId == 0) && (player_id || player_id == 0)){
 			var resourceString = this.buildPlayerResourceTilesRSWithUserIdAndPlayerId(this._userId, player_id);
 			var parameterString = this.authString();
-			this.makeGetRequest(resourceString, parameterString, TFglobals.DATA_CONTROLLER.onGetPlayersOwnedResourceTilesWithPlayerId);
+			if(promise)
+				return this.makeGetRequestPromise(resourceString, parameterString);
+			else
+				this.makeGetRequest(resourceString, parameterString, TFglobals.DATA_CONTROLLER.onGetPlayersOwnedResourceTilesWithPlayerId);
 		}
 		else console.log("bad input");
 	},
@@ -224,12 +227,12 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
-	attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, the_estimate){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate", ["world_id","x","y", "the_estimate"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+	attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, cut_above, cut_below, the_estimate){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate", ["world_id","x","y", "cut_above", "cut_below" , "the_estimate"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
 		
 		if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
 			var resourceString = this.buildAttemptToDiameterLimitCutTileRSWithWorldId(world_id);
-			var parameterString = this.authString();
+			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["above", "below"],[cut_above, cut_below]);
 			if(the_estimate)
 				this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
 										TFglobals.DATA_CONTROLLER.onGetEstimateForDiameterLimitCutIncludingResourceTileXY);

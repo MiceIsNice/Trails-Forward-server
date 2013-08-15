@@ -7,9 +7,10 @@ class TimeManager
     options.required_keys! :player, :cost
 
     # Need a positive balance before considering cost.
-    return false if options[:player].time_remaining_this_turn <= 0
+    #return false if options[:player].time_remaining_this_turn <= 0
 
     # Can drop balance to 0
+    puts "TimeManager.can_perform_action? player time left: #{options[:player].time_remaining_this_turn}, cost: #{options[:cost]}"
     (options[:player].time_remaining_this_turn - options[:cost]) >= 0
   end
 
