@@ -423,13 +423,15 @@ TrailsForwardDataController.prototype = {
     	var request_response = null;
     	
 		var req = request,
+		  chained = req.then(update);
+/**
 		  chained = req.then(function(req_response){
 		  						request_response = req_response;
 		  						if(!request_response.errors)
 									return update();
 							});
- 
-		chained.done(function(update_response){
+ **/
+		chained.done(function(request_response, update_response){
 			console.log("player stats response: ",update_response);
 			if(!request_response.errors)
 				update_callback(prepare(update_response));

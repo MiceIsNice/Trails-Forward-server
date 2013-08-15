@@ -98,7 +98,7 @@ class PlayersController < ApplicationController
   def player_equipment
     if params[:user_id] && params[:player_id]
       player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
-      equipment = LoggingEquipment.where("player_id = ? AND world_id = ?", params[:player_id], player.world_id)[0]
+      equipment = LoggingEquipment.where("player_id = ? AND world_id = ?", params[:player_id], player.world_id)
     else
       render json: {:errors => ["need a valid world id and player id combination"]}
     end 
