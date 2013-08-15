@@ -197,6 +197,8 @@ ig.module(
                 this.money = 0;
                 moneyText.enableText(function () {
                     var num = self.money, sign, cents;
+                    if (!num)
+                        num = 0;
                     num = num.toString().replace(/\$|\,/g, '');
                     if (isNaN(num)) num = "0";
                     sign = (num == (num = Math.abs(num)));
