@@ -170,8 +170,8 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	/* NEXT STEP IS TO CHANGE TO ACCEPT AN ABOVE AND BELOW DIAMETER FROM IMPACT */
-	attemptToDiameterLimitCutMegatileWithResourceTileXY : function(x, y){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToDiameterLimitCutMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	attemptToDiameterLimitCutMegatileIncludingResourceTileXY : function(x, y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.attemptToDiameterLimitCutMegatileIncludingResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		var cut_above = 8;
 		var cut_below = 18;
@@ -182,8 +182,8 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	/* NEXT STEP IS TO CHANGE TO ACCEPT AN ABOVE AND BELOW DIAMETER FROM IMPACT */
-	getEstimateForDiameterLimitCutMegatileWithResourceTileXY : function(x, y){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getEstimateForDiameterLimitCutMegatileWithResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+	getEstimateForDiameterLimitCutMegatileIncludingResourceTileXY : function(x, y){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getEstimateForDiameterLimitCutMegatileIncludingResourceTileXY", ["x","y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if((x || x == 0) && (y || y == 0))
 			this.serverAPI.attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate(this.gameDataCache.id, x, y, cut_above, cut_below, true);
@@ -360,7 +360,7 @@ TrailsForwardDataController.prototype = {
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToDiameterLimitCutMegatileWithResourceTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToDiameterLimitCutMegatileWithResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			TFglobals.IMPACT.onAttemptToDiameterLimitCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");		},
 	
 	
@@ -401,7 +401,10 @@ TrailsForwardDataController.prototype = {
 
 		if(theResult)
 			TFglobals.IMPACT.onGetPlayersOwnedEquipment(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
-		else console.log("bad input");	},
+		else console.log("bad input");	
+	},
+	
+	//TFglobals.IMPACT.onContractComplete theResponse.name, theResponse.payout 
 	
 /*****
 
