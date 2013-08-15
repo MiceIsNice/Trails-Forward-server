@@ -250,7 +250,7 @@ ig.module(
                         bottomMostPoint = child.bounds.y + child.bounds.height + 100;
                     }
                 }
-                return bottomMostPoint;
+                return bottomMostPoint + 350;
             }
             return 1;
         },
