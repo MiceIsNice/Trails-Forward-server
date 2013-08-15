@@ -25,7 +25,7 @@ TrailsForwardGlobals.prototype = {
  		  /* shared values */
  		  
  		  // debugging status codes: 
- 		this.FULL_DEBUGGING = true;
+ 		this.FULL_DEBUGGING = false;
  		this.FULL_DEBUGGING_VERBOSE = false;
  		this.DC_DEBUGGING = false;
  		this.DC_DEBUGGING_VERBOSE = false;

@@ -207,7 +207,7 @@ TrailsForwardDataController.prototype = {
 	},
 	
 	conductSurveyOfTileWithXY : function(tile_x, tile_y){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithXY", ["tile_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.conductSurveyOfTileWithXY", ["tile_x", "tile_y"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
 		if((tile_x || tile_x == 0) && (tile_x || tile_x == 0))
 			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.conductSurveyOfTileWithWorldIdAndTileXY(this.gameDataCache.id, tile_x, tile_y), 
@@ -421,18 +421,40 @@ TrailsForwardDataController.prototype = {
 
     	var prepare = TFglobals.DATA_CONTROLLER.prepareImpactMessage;
     	var request_response = null;
-    	
-		var req = request,
-		  chained = req.then(update);
 /**
+		var req = request;
+		var up = $.Deferred(update);
+		up.then(function(update_response){
+					console.log("request_response", request_response);
+					console.log("update_response", update_response);
+					update_callback(prepare(update_response));
+					request_callback(prepare(request_response));			
+		});
+		req.then(function(req_response){
+			console.log("req.then called with: ", req_response);
+		  						request_response = req_response;
+		  						if(!request_response.errors)
+									up.resolve();
+								else
+									request_callback(prepare(req_response));
+							});
+		req.done(function(rd){
+			console.log("req.done called with: ", rd);
+		});
+		up.done(function(ud){
+			console.log("up.done called with: ", ud);		
+		});
+**/	
+
+		var req = request,
 		  chained = req.then(function(req_response){
 		  						request_response = req_response;
 		  						if(!request_response.errors)
 									return update();
 							});
- **/
-		chained.done(function(request_response, update_response){
-			console.log("player stats response: ",update_response);
+		chained.done(function(update_response, success){
+		console.log("update_response: ", update_response);
+		console.log("success: " + success);
 			if(!request_response.errors)
 				update_callback(prepare(update_response));
 				
@@ -447,6 +469,8 @@ TrailsForwardDataController.prototype = {
 				else{
 					$.when(update)
 					 .done(function(update_response, update_success){
+					 console.log("update response: ", update_response);
+					 console.log("update_success: ", update_success);
 								update_callback(prepare(update_response));
 								request_callback(prepare(request_response));
 							});
