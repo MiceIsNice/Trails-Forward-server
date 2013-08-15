@@ -1553,13 +1553,21 @@ ig.module(
                         upgrade.addChild(upgradeText);
                         this.upgrades.push(upgrade);
                     }
-                    var startY = upgrade.bounds.y + upgrade.bounds.height + 20;
+                    var startY;
+                    if (upgrade) {
+                        startY = upgrade.bounds.y + upgrade.bounds.height + 20;
+                    }
+                    else {
+                        startY = 0;
+                    }
                     this.ownedUpgradesText = new UIElement(new Rect(
                         0,
                         startY,
                         1,
                         1
                     ));
+                    this.upgradeScrollField.contentPanel.addChild(this.ownedUpgradesText);
+                    console.log(this.ownedUpgrades);
                     if (this.ownedUpgrades) {
                         this.ownedUpgradesText.enableText(
                             function() { return " Owned Upgrades: " },
@@ -1579,7 +1587,7 @@ ig.module(
                                 upgrade = new Button(
                                     new Rect(
                                         upgradeSpacing + (i % 3) * upgradeWidth + (i % 3) * upgradeSpacing,
-                                        startY + upgradeSpacing + ((i / 3) | 0) * upgradeHeight + ((i / 3) | 0) * upgradeSpacing,
+                                        startY + 20 + upgradeSpacing + ((i / 3) | 0) * upgradeHeight + ((i / 3) | 0) * upgradeSpacing,
                                         upgradeWidth,
                                         upgradeHeight
                                     ),
@@ -1590,7 +1598,7 @@ ig.module(
 
                                     },
                                     undefined,
-                                    [3, 75, 4, 33]
+                                    [5, 11, 6, 11]
                                 );
                                 this.upgradeTooltipSource = this.ownedUpgrades[i].logging_equipment;
                                 upgrade.upgradeInfo = this.ownedUpgrades[i].logging_equipment;
@@ -1600,18 +1608,8 @@ ig.module(
                                 upgrade.onUnLongHover = function() {
                                     self.removeUpgradeTooltip();
                                 };
-                                upgrade.funcToCall = function() {
-                                    var thisUpgrade = this;
-                                    self.showConfirmWindow(function() {
-                                            return "Are you sure you want to purchase\nthe "
-                                                + thisUpgrade.upgradeInfo.name + " upgrade?";
-                                        },
-                                        self.onConfirmPurchaseUpgrade,
-                                        thisUpgrade.upgradeInfo);
-                                    self.removeUpgradeTooltip();
-                                };
                                 this.upgradeScrollField.contentPanel.addChild(upgrade);
-                                upgradeImage = new UIElement(new Rect(9, 10, 128, 128));
+                                upgradeImage = new UIElement(new Rect(2, 10, 128, 128));
                                 upgradeImage.hoverPassThrough = true;
                                 if (this.upgradeTooltipSource.name === "Sawyer Crew") {
                                     upgradeImage.setImage("sawyer_upgrade_picture");
@@ -1621,7 +1619,7 @@ ig.module(
                                 }
                                 upgrade.addChild(upgradeImage);
                                 upgradeText = new UIElement(new Rect(upgradeWidth / 2, 144, upgradeWidth - 10, 0));
-                                this.specificUpgrade = this.availableUpgrades[i].logging_equipment;
+                                this.specificUpgrade = this.ownedUpgrades[i].logging_equipment;
                                 console.log(this.specificUpgrade);
                                 upgradeText.text = this.specificUpgrade.name;
                                 upgradeText.enableText(function() {
@@ -1649,6 +1647,8 @@ ig.module(
                 if(this.serverResponseWasPositive(theResponse)){
                     console.log("onGetPlayersOwnedEquipment success!");
                     console.log("player's equipment: ", theResponse);
+                    this.ownedUpgrades = theResponse.playersEquipment;
+                    this.upgradesChanged = true;
                 }
                 else{
                     console.log("onGetPlayersOwnedEquipment failure with message: " + theResponse.errors.join(", "));
@@ -1657,7 +1657,7 @@ ig.module(
 
             generateUpgradeTooltip: function(upgradeInfo) {
                 if (!this.tooltip) {
-                    this.tooltip = new UIElement(new Rect(
+                    this.tooltip = new Panel(new Rect(
                         ig.input.mouse.x + 10,
                         ig.input.mouse.y + 10,
                         400,
