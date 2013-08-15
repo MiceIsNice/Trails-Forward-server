@@ -710,6 +710,7 @@ ig.module(
                 TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
                 TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
                 TFglobals.DATA_CONTROLLER.getPlayerStats();
+                TFglobals.DATA_CONTROLLER.getPlayersOwnedEquipment();
             },
 
             onGetPlayerStats: function(theResponse) {
@@ -1610,7 +1611,7 @@ ig.module(
                                     self.removeUpgradeTooltip();
                                 };
                                 this.upgradeScrollField.contentPanel.addChild(upgrade);
-                                var upgradeImage = new UIElement(new Rect(9, 10, 128, 128));
+                                upgradeImage = new UIElement(new Rect(9, 10, 128, 128));
                                 upgradeImage.hoverPassThrough = true;
                                 if (this.upgradeTooltipSource.name === "Sawyer Crew") {
                                     upgradeImage.setImage("sawyer_upgrade_picture");
@@ -1619,7 +1620,7 @@ ig.module(
                                     upgradeImage.setImage("upgrade_picture");
                                 }
                                 upgrade.addChild(upgradeImage);
-                                var upgradeText = new UIElement(new Rect(upgradeWidth / 2, 144, upgradeWidth - 10, 0));
+                                upgradeText = new UIElement(new Rect(upgradeWidth / 2, 144, upgradeWidth - 10, 0));
                                 this.specificUpgrade = this.availableUpgrades[i].logging_equipment;
                                 console.log(this.specificUpgrade);
                                 upgradeText.text = this.specificUpgrade.name;
@@ -1640,6 +1641,18 @@ ig.module(
             onGetAvailableUpgradesForPlayer: function(upgrades) {
                 console.log("Got upgrades.");
                 this.availableUpgrades = upgrades;
+            },
+
+            onGetPlayersOwnedEquipment : function(theResponse){
+                TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayersOwnedEquipment", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
+
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("onGetPlayersOwnedEquipment success!");
+                    console.log("player's equipment: ", theResponse);
+                }
+                else{
+                    console.log("onGetPlayersOwnedEquipment failure with message: " + theResponse.errors.join(", "));
+                }
             },
 
             generateUpgradeTooltip: function(upgradeInfo) {
