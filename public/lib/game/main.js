@@ -1455,6 +1455,23 @@ ig.module(
                 }
             },
 
+            onContractComplete: function(theResponse) {
+                if(this.serverResponseWasPositive(theResponse)){
+                    console.log("Positive response, contract completed: " + theResponse.contract_id);
+                    this.showNotificationWindow(
+                        function() {
+                            return "Congratulations! You completed the " + theResponse.name + " contract!\nYou have been" +
+                            "paid $" + theResponse.payout + " for your efforts.";
+                        }
+                    );
+                }
+                else{
+                    this.showNotificationWindow(function() {
+                        return "Contract could not be completed!\n" + theResponse.status } );
+                    console.log("onContractCompleted failure!");
+                }
+            },
+
             // ******************* UPGRADES **********************
 
             showUpgradesWindow: function() {
@@ -1918,7 +1935,7 @@ ig.module(
                         "button_hover",
                         "button_click",
                         function() {
-                            TFglobals.DATA_CONTROLLER.attemptToDiameterLimitCutMegatileWithResourceTileXY(x, y);
+                            TFglobals.DATA_CONTROLLER.attemptToDiameterLimitCutMegatileIncludingResourceTileXY(x, y);
                             self.harvestWindow.hide = true;
                         },
                         undefined,
@@ -1956,7 +1973,7 @@ ig.module(
                 }
             },
 
-            onAttemptToClearCutMegatileIncludingResourceTileXY: function(theResponse) {
+            onAttemptToDiameterLimitCutMegatileIncludingResourceTileXY: function(theResponse) {
                 if(this.serverResponseWasPositive(theResponse)){
                     console.log("onAttemptToClearCutMegatileIncludingResourceTileXY success!");
                 }
