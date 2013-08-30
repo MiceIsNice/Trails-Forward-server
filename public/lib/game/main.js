@@ -17,18 +17,39 @@ ig.module(
     )
     .defines(function(){
 
+        /*
+        main.js
+        This is the main file that operates the Impact client for Trails Forward. It's admittedly not the greatest
+        design decision that this class is so gigantic, but Javascript isn't inherently structured with classes, so
+        there were some situations where code was placed into this class rather than placing it into its own class
+        simply to speed up the coding process over the summer and produce a working prototype of various features.
+
+        The comments should aid in understanding this class, as they're used to delimit sections of code as well as
+        explain them. In general, this class handles input handling, the visual design and top-level logic of the UI,
+        and the base game logic/draw loops.
+
+        Nick Benson
+        8/26/2013
+         */
+
         var game = ig.Game.extend({
 
-            // Load things
+            // Load some fonts - ig.Font is all proprietary Impact code
             font: new ig.Font("media/timeless_white_16.font.png"),
             disableFont: new ig.Font("media/timeless_gray_16.font.png"),
             detailFont: new ig.Font("media/timeless_white_12.font.png"),
 
+            // This sets up the basic logic for the UI, and the fact that it's called here means that it is done
+            // during the loading screen
             ui: new UI(),
 
+            // The AssetManager will load all of its assets as soon as it is constructed; again, during the loading
+            // screen because it's called here
             assetManager: new AssetManager(),
 
-            // Declare variables
+            // Declare some variables
+            // Strictly speaking a lot of these don't NEED to be declared ahead of time, but this is a nice place for
+            // some initialization of values
             oldMouseX:0,
             oldMouseY:0,
             zoomMul:0.4,
@@ -108,6 +129,10 @@ ig.module(
 
             init: function() {
                 // This injection is a part of the modified scaling implementation of Trails Forward's Impact framework
+                // Specifically, I modified the Impact engine slightly by making it use the Canvas API's default scaling
+                // algorithm - bilinear - as opposed to Impact's nearest neighbor scaling. Impact was designed with
+                // pixelated games in mind, thus the use of nearest neighbor scaling - our game would look crappy if we
+                // used it.
                 ig.System.inject({
                     imageZoom:this.zoomMul
                 });
@@ -118,9 +143,21 @@ ig.module(
                 ig.input.bind(ig.KEY.MWHEEL_DOWN, 'zoomBlipOut');
                 ig.input.bind(ig.KEY.MWHEEL_UP, 'zoomBlipIn');
 
-                // UI
+                // Otherwise known as "that = this", used identically
                 var self = this;
 
+                // ------------------------------ UI INSTANTIATION -----------------------------
+                // Most of this UI code has hard-coded numbers, making them not really translate well
+                // to screens of sizes other than 1200 x 675. Making the UI scaleable is something that will
+                // have to be done in future versions of TF if we ever want to support mobile UIs. (Tablet UIs probably
+                // already have the ability to support 1200 x 675 screen sizes, but touch functionality will need to
+                // be improved for these devices.)
+
+                // In an ideal world this code would be data-driven, in a slightly less ideal world it would be put
+                // in a different class than this one. In this world it's here. This is probably not the best place for
+                // it.
+
+                // Box with the current player's name in the upper left
                 var playerNameBox, playerNameText;
                 playerNameBox = new UIElement(new Rect(0, 0, 180, 30));
                 playerNameBox.setImage("uibox");
@@ -133,6 +170,7 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 playerNameBox.addChild(playerNameText);
 
+                // Zooming in and out via buttons on the side of the screen
                 var zoomInButton, zoomOutButton, zoomInText, zoomOutText;
                 zoomInButton = new Button(new Rect(0, ig.system.height / 2 - 70, 30, 30),
                     "button",
@@ -176,6 +214,7 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 zoomOutButton.addChild(zoomOutText);
 
+                // Box in the upper right of the screen showing how many turn points the player has left
                 var turnPointsBox, turnPointsBar, turnPointsText;
                 turnPointsBox = new UIElement(new Rect(ig.system.width - 160, 0, 160, 30));
                 turnPointsBox.setImage("uibox");
@@ -189,6 +228,7 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 turnPointsBox.addChild(turnPointsText);
 
+                // Box below turn points showing how much money the player has
                 var moneyBox, moneyText;
                 moneyBox = new UIElement(new Rect(ig.system.width - 160, 30, 160, 30));
                 moneyBox.setImage("uibox");
@@ -213,6 +253,7 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.RIGHT);
                 moneyBox.addChild(moneyText);
 
+                // Box below money showing how much political capital the player has (currently unused)
                 var politicalCapitalBox, politicalCapitalText;
                 politicalCapitalBox = new UIElement(new Rect(ig.system.width - 160, 60, 160, 30));
                 politicalCapitalBox.setImage("uibox");
@@ -226,6 +267,8 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 politicalCapitalBox.addChild(politicalCapitalText);
 
+                // Box in the center of the screen that displays information about the currently selected tile
+                // Currently, this gets dummy data only //TODO: Make it display dynamic information from this.selectedTile
                 this.tileDetailsBox = new UIElement(new Rect(
                     0,
                     ig.system.height - 100,
@@ -308,6 +351,10 @@ ig.module(
                     }, this.detailFont, ig.Font.ALIGN.LEFT);
                 this.tileDetailsContentBox.addChild(this.tileDetailsTextBox1);
 
+                // Display a box in the lower left corner that contains the minimap
+                // The minimap will need to be revamped to be more friendly with map changes, because right now it has
+                // to step through the entire map dataset in order to make any visual changes to itself. There's a lot
+                // of data, so this won't scale well as our maps get larger.
                 this.minimapBox = new UIElement(new Rect(
                     0,
                     ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
@@ -318,6 +365,8 @@ ig.module(
                 this.minimapBox.enableNinePatch(5, 11, 5, 10);
                 this.ui.addElement(this.minimapBox);
 
+                // Display a checkbox in the minimap to enable/disable showing tiles that the player owns
+                // TODO: Make owned tiles appear in the minimap (probably want a separate overlaying minimap object)
                 this.viewOwnedTilesButton = new Button(new Rect(
                     this.minimapBox.bounds.x + 10,
                     this.minimapBox.bounds.y + this.minimapBox.bounds.height - 20,
@@ -346,6 +395,9 @@ ig.module(
                 this.viewOwnedTilesLabel.enableText(function() { return "Show Ownership Layer"; }, this.detailFont, ig.Font.ALIGN.LEFT);
                 this.viewOwnedTilesButton.addChild(this.viewOwnedTilesLabel);
 
+                // Box containing all of the actions a player can do. Note that all of these actions assume the player
+                // is of the Logger (Lumberjack, whatever you want to call it) class. When classes are implemented
+                // the actions here will be very different per class.
                 var actionsBox, actionsText;
                 actionsBox = new UIElement(new Rect(
                     ig.system.width - ig.system.width / 4 - 8,
@@ -361,6 +413,7 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 actionsBox.addChild(actionsText);
 
+                // Button for opening up the contracts window
                 var contractsButton, contractsButtonText;
                 contractsButton = new Button(new Rect(
                         15,
@@ -383,6 +436,7 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 contractsButton.addChild(contractsButtonText);
 
+                // Buton for opening up the upgrades window
                 var upgradesButton, upgradesButtonText;
                 upgradesButton = new Button(new Rect(
                         10 + 15 + ig.system.width / 8 - 21,
@@ -405,6 +459,12 @@ ig.module(
                 }, this.font, ig.Font.ALIGN.CENTER);
                 upgradesButton.addChild(upgradesButtonText);
 
+                // Button for surveying tiles, only active if a surveyable tile is selected. If a tile is selected
+                // that has already been surveyed, the text of the button changes to "View Survey". But right now
+                // there's a bug: Since surveys survey _megatiles,_ View Survey only works on the upper corners of
+                // surveyed megatiles. Really, selection needs to show the relevant megatile via a slighly less opaque
+                // highlight, and then the logic for this button needs to use the megatile's coordinates rather than
+                // the selected tile's.
                 this.surveyButton = new Button(new Rect(
                         15,
                         60,
@@ -475,6 +535,8 @@ ig.module(
                 actionsBox.addChild(this.surveyButton);
                 this.surveyButton.addChild(this.surveyButtonText);
 
+                // The button for harvesting, which opens up a window allowing the user to pick which kind of
+                // harvesting they want to perform. All of the UI could use a lot of polishing, but this one especially.
                 this.harvestButton = new Button(new Rect(
                     10 + 15 + ig.system.width / 8 - 21,
                     60,
@@ -521,6 +583,10 @@ ig.module(
                 actionsBox.addChild(this.harvestButton);
                 this.harvestButton.addChild(this.harvestButtonText);
 
+                // Planting trees isn't implemented Impact-wise and Data Controller-wise. It should already be in the
+                // Ruby server/simulation, though. Planting will definitely need a pop-up window for specifying the
+                // parameters of planting - unless planting is a completely homogenous action, which I doubt.
+                // How many / what kinds of trees?
                 this.plantButton = new Button(new Rect(
                     15,
                     90,
@@ -566,6 +632,12 @@ ig.module(
                 actionsBox.addChild(this.plantButton);
                 this.plantButton.addChild(this.plantButtonText);
 
+                // Yarding is a step required to prep logs for transport, separate from transporting itself. Though
+                // admittedly, I believe it does technically involve MOVING the logs - as I understand, moving them to
+                // the place from which they're loaded up to be transported to their ultimate destination. Yarding
+                // isn't an implemented action yet - really it's just something that has to be done before logs can be
+                // sold. The novelty of having this be a separate action - something that might be split between turns,
+                // which is problematic given the timesteps of turns - needs discussion.
                 this.yardButton = new Button(new Rect(
                     10 + 15 + ig.system.width / 8 - 21,
                     90,
@@ -611,6 +683,10 @@ ig.module(
                 actionsBox.addChild(this.yardButton);
                 this.yardButton.addChild(this.yardButtonText);
 
+                // This button is for buying land, which you have to do right now to be able to log tiles. (Actually,
+                // I'm not sure that's true. But it's a bug if you can log tiles that aren't yours.) Of course,
+                // contracts will probably need to circumvent this rule - e.g. you should be able to log a Developer's
+                // property if he wants you to.
                 this.purchaseButton = new Button(new Rect(
                     15,
                     120,
@@ -655,6 +731,9 @@ ig.module(
                 actionsBox.addChild(this.purchaseButton);
                 this.purchaseButton.addChild(this.purchaseButtonText);
 
+                // Transporting is the last step in the process of getting logs from the forest to the distributor, so
+                // it's the last thing loggers need to do in order to be done logging a tile and deliver on contracts.
+                // Disclaimer: I'm not an expert on lumberjackery.
                 this.transportButton = new Button(new Rect(
                     10 + 15 + ig.system.width / 8 - 21,
                     120,
@@ -699,12 +778,21 @@ ig.module(
                 };
                 actionsBox.addChild(this.transportButton);
                 this.transportButton.addChild(this.transportButtonText);
+
+                // End of UI instantiation
             },
 
+            // There are two maps; The terrainmap is just water or land tiles. The feature map has forests,
+            // coastlines, and anything else static that sits on the map (like buildings, once they're implemented.)
+            // These maps are the most intensive objects in the game, because they handle all of the caching and drawing,
+            // which is the most intensive task for TF right now.
             constructMap: function() {
                 this.terrainMap = new CachedIsoMap(128, this.assetManager);
                 this.featureMap = new CachedIsoMap(128, this.assetManager);
-                this.ownershipMap = new CachedIsoMap(128, this.assetManager);
+
+                // After constructing the maps, nothing happens immediately because they have no data.
+                // But in this method the act of logging in will trigger a chain of functions that eventually will
+                // populate the data in the maps.
 
                 TFglobals.DATA_CONTROLLER.getUserPlayers();
 
@@ -712,6 +800,11 @@ ig.module(
                 TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
             },
 
+            // The Impact/Data Controller paradigm involves asking the Data Controller for things from Impact, and
+            // one the Data Controller has finished getting whatever data was asked it will call callback functions in
+            // Impact. Sometimes the Data Controller will call callback functions without being asked, such as if the
+            // server tells the Data Controller something has changed due to actions other than this client's.
+            // The callbacks are all "onX", while the functions that expect a callback are generally the "X".
             onGetUserPlayers: function(players) {
                 ig.log("Got user players.");
                 TFglobals.DATA_CONTROLLER.getWorldDataForPlayerId(players[0].id);
@@ -749,6 +842,12 @@ ig.module(
                 }
             },
 
+            /**
+             * This is the function from which data is loaded into the map, because the "chunk" contains all of the
+             * data to load. It's all json from the server, so an understanding of how data is stored in the server
+             * will help explain some of the logic here. There are some base_cover_types that aren't handled yet.
+             * @param chunk
+             */
             onGetMapChunk: function(chunk) {
                 var self = this;
                 ig.log("Got map chunk.");
@@ -795,6 +894,9 @@ ig.module(
                     }
                 }
                 // Manage shorelines
+                // getShoreTypes is a function that returns a list of which shorelines apply for a particular tile.
+                // Shorelines draw right on top of normal water tiles; this was the solution that required the least
+                // amount of work and headaches.
                 for (i = 0; i < this.terrainMap.data.length; i++) {
                     if (this.terrainMap.data[i]) {
                         for (j = 0; j < this.terrainMap.data[i].length; j++) {
@@ -815,6 +917,10 @@ ig.module(
                 this.gotMapChunk = true;
             },
 
+            /**
+             * This function updates the list of tiles that are owned by the player. It's called by the Data Controller.
+             * @param theResponse
+             */
             onGetPlayersOwnedResourceTiles : function(theResponse){
                 var tile, i;
                 if(this.serverResponseWasPositive(theResponse)){
@@ -839,11 +945,15 @@ ig.module(
                 }
             },
 
+            /**
+             * By contrast, this function updates the list of tiles owned by players who are not this player.
+             * @param theResponse
+             */
             onGetResourceTilesOwnedByOthers : function(theResponse){
                 var tile, i;
                 if(this.serverResponseWasPositive(theResponse)){
                     console.log("onGetResourceTilesOwnedByOthers received " + theResponse.resource_tiles.length + " tiles: ");
-                    for(var i = 0; i < theResponse.resource_tiles.length; i++)
+                    for(i = 0; i < theResponse.resource_tiles.length; i++)
                         console.log("", theResponse.resource_tiles[i]);
                     for (i = 0; i < theResponse.resource_tiles.length; i++) {
                         tile = theResponse.resource_tiles[i];
@@ -859,6 +969,10 @@ ig.module(
 
             /**
              * Call this method on any tiles that have changed to have the map update them.
+             * Invalidating a tile on a cachedisomap clears the cached section in its entirety and redraws every
+             * resolution (in order) as quickly as possible if necessary (e.g. if the player is currently looking
+             * at that section of the map). Visually, it looks like the map goes blurry for a second and gradually
+             * improves in resolution as the sections are finished being drawn.
              */
             onInvalidateTile: function(x, y) {
                 if (this.featureMap) {
@@ -876,6 +990,8 @@ ig.module(
                 // Update all entities and backgroundMaps
                 this.parent();
 
+                // initialize the Impact module reference in TFglobals, the thing that allows Impact and the
+                // Data Controller to talk to one another.
                 if (!TFglobals.IMPACT) {
                     TFglobals.IMPACT = this;
                     ig.log("Constructing map");
@@ -883,19 +999,21 @@ ig.module(
                     ig.log("Finished calling construct map");
                 }
 
+                // Convenience.
                 var mouseX = ig.input.mouse.x;
                 var mouseY = ig.input.mouse.y;
 
+                // Input handling
                 if (ig.input.pressed('click') && !this.ui.overlaps(mouseX, mouseY)) {
                     this.panning = true;
                     this.origClickMouseX = mouseX;
                     this.origClickMouseY = mouseY;
                 }
-                else if (this.panning && ig.input.state('click')) {
+                else if (this.panning && ig.input.state('click')) { // panning
                     this.screen.x += (this.oldMouseX - mouseX) / ig.system.imageZoom;
                     this.screen.y += (this.oldMouseY - mouseY) / ig.system.imageZoom;
                 }
-                else if (this.panning && !ig.input.state('click')) {
+                else if (this.panning && !ig.input.state('click')) { // stopping panning, selecting
                     this.panning = false;
                     if (this.origClickMouseX == mouseX && this.origClickMouseY == mouseY) { // SELECTION!
                         var viewRect = this.getViewRect();
@@ -906,28 +1024,30 @@ ig.module(
                         this.selectTile(tileToSelect.isoX, tileToSelect.isoY);
                     }
                 }
-                else if (ig.input.state('rclick')) {
+                else if (ig.input.state('rclick')) { // Zooming with right click
                     this.zoomMul += (this.oldMouseY - mouseY) / 300.0;
                     this.zoomMul = Math.min((Math.max(this.zoomMul, this.minZoom)), this.maxZoom);
                     ig.system.imageZoom = this.zoomMul;
                 }
-                else if (ig.input.state('zoomBlipOut')) {
+                else if (ig.input.state('zoomBlipOut')) { // Scroll wheel zooming out
                     this.zoomMul -= 0.03;
                     this.zoomMul = Math.min((Math.max(this.zoomMul, this.minZoom)), this.maxZoom);
                     ig.system.imageZoom = this.zoomMul;
                 }
-                else if (ig.input.state('zoomBlipIn')) {
+                else if (ig.input.state('zoomBlipIn')) { // Scroll wheel zooming in
                     this.zoomMul += 0.03;
                     this.zoomMul = Math.min((Math.max(this.zoomMul, this.minZoom)), this.maxZoom);
                     ig.system.imageZoom = this.zoomMul;
                 }
 
+                // These offsets keep the "camera" centered on the center point on the screen while zooming
                 this.zoomPanOffsetX = ((ig.system.width / 2) / this.zoomMul) - (ig.system.width / 2);
                 this.zoomPanOffsetY = ((ig.system.height / 2) / this.zoomMul) - (ig.system.height / 2);
 
                 this.oldMouseX = mouseX;
                 this.oldMouseY = mouseY;
 
+                // Loading, updating the map and anything else that needs updating
                 if (!this.assetManager.loaded() && !this.assetsLoadingText) {
                     ig.log("Loading assets...");
                     this.assetsLoadingText = true;
@@ -961,6 +1081,7 @@ ig.module(
                     }
                 }
 
+                // Finally, update the UI
                 this.ui.update();
             },
 
@@ -973,10 +1094,15 @@ ig.module(
                //    time.start("draw");
                //}
 
-                // Draw all entities and backgroundMaps
-                // TODO: Have IsomapEntities draw after featureMap and automatically re-draw trees below them
+                // The parent function draws all Entities and backgroundMaps
+                // However, we don't use any of them because we couldn't use the Entity System built into Impact for
+                // drawing the map. Strictly speaking, CachedIsoMaps could be entities, but being an entity simply
+                // wasn't very valuable. When the game ultimately needs dynamic entities moving around on the screen,
+                // we'll want to do something like have them tell the map to redraw everything "beneath" them on the
+                // screen (or just things immediately "beneath" them) so that draw ordering makes sense.
                 this.parent();
 
+                // Draw the terrain map
                 if (this.terrainMap) {
                     ctx = ig.system.context;
                     ctx.save();
@@ -1022,6 +1148,8 @@ ig.module(
                         }
                     }
 
+                    // Viewing the currently selected tile
+                    // TODO: Display the currently selected megatile as well
                     if (this.selectedTile) {
                         x = this.selectedTile[0];
                         y = this.selectedTile[1];
@@ -1038,13 +1166,14 @@ ig.module(
                     ctx.restore();
                 }
 
+                // This was code I used to help diagnose speed issues. It helped show me which parts of drawing took
+                // the most time; unsurprisingly, the actual draw calls to the Canvas API take the most time.
+                // There's a sweet spot between number-of-calls and amount-of-pixels-drawn-per-call.
                 //if (this.shouldTime) {
                 //    time.stop("draw");
                 //    time.report();
                 //    this.shouldTime = null;
                 //}
-
-                // Draw things between the maps like tile selection highlights
 
 
                 if (this.featureMap) {
@@ -1057,9 +1186,12 @@ ig.module(
                     ctx.restore();
                 }
 
+                // Finally, draw everything registered with the UI
                 this.ui.draw();
 
-                //// Add your own drawing code here
+                // This was used as a part of debugging the cachedisomap class. Prints debug information pertaining to
+                // what the cachedisomap is doing at any given time - which resolution(s) it's trying to render or
+                // display on the screen
                 //if (this.terrainMap) {
                 //    if (this.terrainMap.status) {
                 //        this.font.draw("Current zoom level: " + ig.system.imageZoom
@@ -1097,7 +1229,9 @@ ig.module(
             // ******************* BUYING TILES **********************
 
             /**
-             * Called when the player clicks on a tile that is already selected.
+             * This is the function to call when the player first indicates they want to purchase a tile. It will open
+             * up a confirmation window, and then initiate the request to the server (and wait for the relevant
+             * callback).
              * @param x
              * @param y
              */
@@ -1110,6 +1244,7 @@ ig.module(
 
             /**
              * Called when the player has confirmed they want to purchase the tile at the specified location.
+             * Primarily, this function calls the Data Controller's request to the server to purchase the megatile.
              * @param args A list containing [x, y]
              */
             onConfirmBuyTile: function(args) {
@@ -1212,7 +1347,11 @@ ig.module(
                     this.confirmNo.addChild(noText);
                 }
             },
-            
+
+            /**
+             * Displays a notification window with a message and an 'Okay' button that closes the window.
+             * @param textFunction
+             */
             showNotificationWindow: function(textFunction) {
                 var self = this;
 
@@ -1265,6 +1404,7 @@ ig.module(
             showContractsWindow: function() {
                 var self = this;
                 // Making sure the confirm window exists
+                // TODO: Rewrite this function slightly so that the window is renewed/refreshed whenever it is opened
                 if (!this.contractsWindow) {
                     this.contractsWindow = new UIElement(new Rect(
                         ig.system.width / 2 - 250,
@@ -1279,6 +1419,7 @@ ig.module(
                 this.contractsWindow.hide = false;
 
                 // A contract
+                // Kept as a reference; multiple contracts are made in a for loop down below
                 //if (!this.contract) {
                 //    this.contract = new Button(new Rect(10, 140, 70, 40),
                 //        "button",
@@ -1313,6 +1454,7 @@ ig.module(
                     this.contractScrollField.horizontalScrollBar.hide = true;
                 }
 
+                // A button with an 'X' in the upper right corner that closes the window
                 if (!this.contractsWindowClose) {
                     this.contractsWindowClose = new Button(
                         new Rect(
@@ -1333,11 +1475,14 @@ ig.module(
                     this.contractsWindowClose.addChild(contractsWindowCloseText);
                 }
 
+                // Generating all of the contracts
+                // TODO: This doesn't refresh when there's a change in this.contracts, but it should!
                 var i = 0, contractHeight = 190, contractWidth = 142, contractSpacing = 5, contract;
                 // a contract
                 if (!this.contracts) {
                     this.contracts = [];
                     for (i = 0; i < this.availableContracts.length; i++) {
+                        // Make the contract
                         contract = new Button(
                             new Rect(
                                 contractSpacing + (i % 3) * contractWidth + (i % 3) * contractSpacing,
@@ -1354,14 +1499,20 @@ ig.module(
                             undefined,
                             [3, 75, 4, 33]
                         );
+
+                        // Get the information for the tooltip
                         this.contractTooltipSource = this.availableContracts[i];
                         contract.contractInfo = this.availableContracts[i];
+
+                        // Generate the tooltip when there's a "long hover" event triggered on the contract
                         contract.onLongHover = function() {
                             self.generateContractTooltip(this.contractInfo);
                         };
                         contract.onUnLongHover = function() {
                             self.removeContractTooltip();
                         };
+
+                        // Assign the function to call when the contract is clicked
                         contract.funcToCall = function() {
                             var thisContract = this;
                             self.showConfirmWindow(function() {
@@ -1372,9 +1523,21 @@ ig.module(
                                 thisContract.contractInfo);
                             self.removeContractTooltip();
                         };
+
+                        // Add the contract to the contentPanel of the scroll field UIElement.
+                        // TODO: Fix a problem where the contentPanel isn't clipping its contents properly
+                        // ^^ I think it's because the canvas clipped area isn't reset in the middle of drawing;
+                        // ^^ the clipping area for the entire window is used rather than the contentPanel
                         this.contractScrollField.contentPanel.addChild(contract);
+
+                        // Generate the contract image, and assign the hoverPassThrough attribute to true so that
+                        // long hovers can trigger on the contract beneath the image even when the mouse is hovering
+                        // over the image (normally hover events don't cascade down the UI chain).
                         var contractImage = new UIElement(new Rect(4, 6, 128, 128));
                         contractImage.hoverPassThrough = true;
+
+                        // This logic will eventually need to move elsewhere when there start being large amounts of
+                        // different contracts
                         if (this.contractTooltipSource.name === "Lumberjack Easy Park") {
                             contractImage.setImage("park_contract_picture");
                         }
@@ -1384,7 +1547,11 @@ ig.module(
                         else {
                             contractImage.setImage("contract_picture");
                         }
+
+                        // Finally, add the image to the contract
                         contract.addChild(contractImage);
+
+                        // Finally finally, add the text of the contract and push the finished contract
                         var contractText = new UIElement(new Rect(contractWidth / 2, 144, contractWidth - 10, 0));
                         this.specificContract = this.availableContracts[i];
                         console.log(this.specificContract);
@@ -1405,6 +1572,7 @@ ig.module(
             },
 
             generateContractTooltip: function(contractInfo) {
+                // Generate a tooltip Panel UIElement offset from the mouse
                 if (!this.tooltip) {
                     this.tooltip = new Panel(new Rect(
                         ig.input.mouse.x + 10,
@@ -1418,6 +1586,8 @@ ig.module(
                 }
                 this.tooltip.hide = false;
                 var text = "";
+
+                // TODO: Make tooltips only display useful/formatted information rather than just a list of properties
                 if (!this.tooltipText) {
                     this.tooltipText = new UIElement(new Rect(0, 0, this.tooltip.getInnerWidth(), 10));
                     for (var property in contractInfo) {
@@ -1474,6 +1644,10 @@ ig.module(
 
             // ******************* UPGRADES **********************
 
+            /**
+             * The logic of this function follows very closely the logic of the contracts window, so refer to
+             * showContractsWindow to understand what this function is doing.
+             */
             showUpgradesWindow: function() {
                 var self = this;
                 // Making sure the confirm window exists
@@ -1590,6 +1764,11 @@ ig.module(
                         upgrade.addChild(upgradeText);
                         this.upgrades.push(upgrade);
                     }
+
+                    // This enables the display of owned upgrades beneath non-owned upgrades in the upgrades list
+                    // so that the player can see what upgrades they own
+                    // TODO: There's probably a better way to show the player which upgrades they already own, and it
+                    // TODO: may require an overhaul of the design of the upgrades window
                     var startY;
                     if (upgrade) {
                         startY = upgrade.bounds.y + upgrade.bounds.height + 20;
@@ -1747,6 +1926,11 @@ ig.module(
 
             // ******************* SURVEYING ***********************
 
+            /**
+             * See showContractsWindow for a more thorough walkthrough of how windows like this are generated.
+             * @param x tile coordinate of the tile that was surveyed
+             * @param y tile coordinate of the tile that was surveyed
+             */
             viewSurveyResults: function(x, y) {
                 var self = this;
                 // Making sure the survey window exists
@@ -1782,6 +1966,7 @@ ig.module(
                     this.surveyWindow.addChild(this.surveyScrollField);
                     this.surveyScrollField.horizontalScrollBar.hide = true;
                 }
+
                 this.surveyResultsText = new UIElement(
                     new Rect(5, 5, this.surveyScrollField.contentPanel.getInnerWidth(), 1));
                 TFglobals.DATA_CONTROLLER.viewExistingSurveyOfTileWithXY(x, y);
@@ -1826,6 +2011,7 @@ ig.module(
                 }
             },
 
+            // TODO: Make this reflect the actual content of theResponse rather than prewritten debug info
             onViewExistingSurveyOfTileWithXY: function(theResponse) {
                 this.currentSurveyResults =  "Coordinates: 102039, 9001" +
                     "\nLand Type: Forest" +
@@ -1852,6 +2038,11 @@ ig.module(
 
             // ******************* HARVESTING *************************
 
+            // TODO: This window will ultimately want to look nicer, or it should be a less intrusive popup
+            /**
+             * This function opens a window allowing the user to choose which kind of cut they want to use to harvest
+             * the argument tile. Or the user can cancel with the harvestWindowClose button.
+             */
             showHarvestWindow: function(x, y) {
                 var self = this;
                 // Making sure the confirm window exists
@@ -1900,6 +2091,7 @@ ig.module(
                         "button_hover",
                         "button_click",
                         function() {
+                            // Note that harvesting harvests entire megatiles, not just resource tiles
                             TFglobals.DATA_CONTROLLER.attemptToClearCutMegatileIncludingResourceTileXY(x, y);
                             self.harvestWindow.hide = true;
                         },
@@ -2004,7 +2196,25 @@ ig.module(
                 ig.game.screen.y -= (ig.game.screen.y + ig.system.height / 2) - y;
             },
 
+            /**
+             * Returns true if the argument is considered a positive response indicating success.
+             */
+            serverResponseWasPositive : function(theResponse){
+                if(theResponse.status == TFglobals.SUCCESS)
+                    return true;
+                else if(theResponse.status = TFglobals.FAILURE)
+                    return false;
+                else{
+                    console.log("bad status code: " + theResponse.status);
+                    return false;
+                }
+            },
+
             // ******************* ACTION-CHECKING ******************
+
+            // TODO: All of these functions need either better implementation or implementation at-all.
+            // They are used by the relevant buttons to determine whether or not the buttons should be "active" and
+            // clickable, or inactive, unclickable, and grayed out.
 
             canHarvestSelectedTile: function() {
                 return (this.ownedTiles
@@ -2031,6 +2241,16 @@ ig.module(
 
             // ******************* SHORELINES **********************
 
+            /**
+             * Gets a megatile centered around the argument coordinates and, based on the land/water data contained in
+             * that 3 by 3 tile (accessed from the terrainMap), determines what letter code(s) correspond to the correct
+             * shoreline for that tile, and returns a list of them. The correct shoreline can then be drawn by
+             * referring to "shoreline_XYZ" where X, Y, and Z are letters A-H.
+             * Note that not ALL possible 256 permutations of shorelines are considered, because that would be insane.
+             * @param x
+             * @param y
+             * @returns {*}
+             */
             getShoreTypes: function(x, y) {
                 var megatile = this.terrainMap.getMegatile(x, y);
                 var shoreTypes = [], A, B, C, D, E, F, G, H;
@@ -2165,159 +2385,6 @@ ig.module(
                     else return null;
                 }
                 return shoreTypes;
-            },
-
-            // ******************* OWNERSHIP HIGHLIGHTS **********************
-
-            getOwnershipTypes: function(x, y) {
-                var megatile = this.ownershipMap.getOwnershipMegatile(x, y);
-                var ownershipTypes = [], A, B, C, D, E, F, G, H;
-                console.log(megatile);
-                if (megatile[0] == null) {
-                    return null;
-                }
-                else if (megatile[0] !== "me") {
-                    return null;
-                }
-                else if (megatile[0] === "me") {
-                    if (megatile[1] !== "me") {
-                        A = true;
-                    }
-                    if (megatile[2] !== "me") {
-                        B = true;
-                    }
-                    if (megatile[3] !== "me") {
-                        C = true;
-                    }
-                    if (megatile[4] !== "me") {
-                        D = true;
-                    }
-                    if (megatile[5] !== "me") {
-                        E = true;
-                    }
-                    if (megatile[6] !== "me") {
-                        F = true;
-                    }
-                    if (megatile[7] !== "me") {
-                        G = true;
-                    }
-                    if (megatile[8] !== "me") {
-                        H = true;
-                    }
-                    console.log(A, B, C, D, E, F, G, H);
-                    if (A && C && E && G) {
-                        ownershipTypes.push("Q");
-                    }
-                    else if (A && C && E && !G) {
-                        ownershipTypes.push("N");
-                    }
-                    else if (A && C && !E && G) {
-                        ownershipTypes.push("M");
-                    }
-                    else if (A && C && !E && !G) {
-                        ownershipTypes.push("K");
-                        if (F) {
-                            ownershipTypes.push("B");
-                        }
-                    }
-                    else if (A && !C && E && G) {
-                        ownershipTypes.push("P");
-                    }
-                    else if (A && !C && E && !G) {
-                        ownershipTypes.push("A");
-                        ownershipTypes.push("E");
-                    }
-                    else if (A && !C && !E && G) {
-                        ownershipTypes.push("J");
-                        if (D) {
-                            ownershipTypes.push("H");
-                        }
-                    }
-                    else if (A && !C && !E && !G) {
-                        ownershipTypes.push("E");
-                        if (D) {
-                            ownershipTypes.push("H");
-                        }
-                        if (F) {
-                            ownershipTypes.push("B");
-                        }
-                    }
-                    else if (!A && C && E && G) {
-                        ownershipTypes.push("O");
-                    }
-                    else if (!A && C && E && !G) {
-                        ownershipTypes.push("L");
-                        if (H) {
-                            ownershipTypes.push("D");
-                        }
-                    }
-                    else if (!A && C && !E && G) {
-                        ownershipTypes.push("G");
-                        ownershipTypes.push("C");
-                    }
-                    else if (!A && C && !E && !G) {
-                        ownershipTypes.push("G");
-                        if (F) {
-                            ownershipTypes.push("B");
-                        }
-                        if (H) {
-                            ownershipTypes.push("D");
-                        }
-                    }
-                    else if (!A && !C && E && G) {
-                        ownershipTypes.push("I");
-                        if (B) {
-                            ownershipTypes.push("F");
-                        }
-                    }
-                    else if (!A && !C && E && !G) {
-                        ownershipTypes.push("A");
-                        if (B) {
-                            ownershipTypes.push("F");
-                        }
-                        if (H) {
-                            ownershipTypes.push("D");
-                        }
-                    }
-                    else if (!A && !C && !E && G) {
-                        ownershipTypes.push("C");
-                        if (B) {
-                            ownershipTypes.push("F");
-                        }
-                        if (D) {
-                            ownershipTypes.push("H");
-                        }
-                    }
-                    else if (!A && !C && !E && !G) {
-                        if (B) {
-                            ownershipTypes.push("F");
-                        }
-                        if (F) {
-                            ownershipTypes.push("B");
-                        }
-                        if (H) {
-                            ownershipTypes.push("D");
-                        }
-                        if (D) {
-                            ownershipTypes.push("H");
-                        }
-                    }
-                    else return null;
-                }
-                return ownershipTypes;
-            },
-
-            // *********************** SERVER FUNCTIONS ************************
-
-            serverResponseWasPositive : function(theResponse){
-                if(theResponse.status == TFglobals.SUCCESS)
-                    return true;
-                else if(theResponse.status = TFglobals.FAILURE)
-                    return false;
-                else{
-                    console.log("bad status code: " + theResponse.status);
-                    return false;
-                }
             }
 
         });
