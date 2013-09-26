@@ -15,6 +15,7 @@ TrailsForwardWorld::Application.routes.draw do
       get :player_stats
       get :player_equipment
       get :owned_resource_tiles
+      put :set_player_balance_and_turn_points
     end
   end 
   

@@ -22,6 +22,13 @@ class Player < ActiveRecord::Base
 
   attr_accessible :name, :user, :world, :balance, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
 
+  def set_balance new_balance
+    balance = new_balance
+  end
+  
+  def set_turn_points turn_points
+    time_remaining_this_turn = turn_points
+  end
 
   # ASSOCIATIONS #########################
   #

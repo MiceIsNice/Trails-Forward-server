@@ -36,6 +36,7 @@ function TrailsForwardServerAPI(){
 	this.OWNED_BY_OTHERS = "/owned_by_others";
 	this.PLAYER_EQUIPMENT = "/player_equipment";
 	this.DIAMETER_LIMIT_CUT = "/diameter_limit_cut";
+	this.SET_BALANCE_AND_TURN_POINTS = "/set_player_balance_and_turn_points";
 	this.AVAILABLE_LOGGING_EQUIPMENT = "/available"; // this will change to something like 'equipment'
 													 // and the server will filter by player type
 	this.UNUSED_NUMBER = "/2";
@@ -161,6 +162,17 @@ TrailsForwardServerAPI.prototype = {
 	},
 	
 ***/
+
+	setPlayerBalanceAndTurnPointsWithPlayerIdBalanceAndTurnPointsPromise : function(player_id, new_balance, new_turn_points){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.setPlayerBalanceAndTurnPointsWithPlayerIdBalanceAndTurnPointsPromise", ["player_id", "new_balance", "new_turn_points"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
+
+		if((player_id || player_id == 0) && (new_balance || new_balance == 0) && (new_turn_points || new_turn_points == 0)){
+			var resourceString = this.buildSetPlayerBalanceAndTurnPointsRSWithUserIdAndPlayerId(this._userId, player_id);
+			var queryString = this.authString();
+			return this.makePutRequestPromise(resourceString, queryString, {balance : new_balance, turn_points : new_turn_points});
+		}
+		else console.log("bad input");
+	},
 
 	getPlayerStatsForPlayerId : function(player_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.getPlayerStatsForPlayerId", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
@@ -562,6 +574,13 @@ TrailsForwardServerAPI.prototype = {
 		if((user_id || user_id == 0) && (player_id || player_id == 0))
 			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.PLAYER_EQUIPMENT + this.JSON;
 		else console.log("bad input")		
+	},
+	
+	/* /users/user_id/players/player_id/set_player_balance_and_turn_points.json? */
+	buildSetPlayerBalanceAndTurnPointsRSWithUserIdAndPlayerId : function(user_id, player_id){
+		if((user_id || user_id == 0) && (player_id || player_id == 0))
+			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.SET_BALANCE_AND_TURN_POINTS + this.JSON;
+		else console.log("bad input");
 	},
  	
 /** NOT USING WORLD ID YET!!! 

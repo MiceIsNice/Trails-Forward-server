@@ -7,6 +7,7 @@ class Contract < ActiveRecord::Base
   has_and_belongs_to_many :included_megatiles, :join_table => 'contract_included_megatiles', :association_foreign_key => :megatile_id, :class_name => 'Megatile'
   has_and_belongs_to_many :attached_megatiles, :join_table => 'contract_attached_megatiles', :association_foreign_key => :megatile_id, :class_name => 'Megatile'
 
+  attr_accessor :volume_harvested_of_required_type
   validates :world, presence: true
   validates :contract_template_id, presence: true
 
@@ -21,6 +22,10 @@ class Contract < ActiveRecord::Base
       when "Conserver"
         raise "Conserver contracts not yet implemented"
     end
+  end
+  
+  def add_volume amount
+    @volume_harvested_of_required_type += amount || 0
   end
 
   def deliver

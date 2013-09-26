@@ -108,7 +108,7 @@ class MegatilesController < ApplicationController
     
     errors = [];
 
-    if megatile.owner.present?
+    if  megatile.owner_id  
       errors.push("Megatile is already owned.")
     end
     if player.balance < Megatile.cost 
@@ -117,6 +117,7 @@ class MegatilesController < ApplicationController
     
     if errors.length > 0
       render json: {:errors => errors}
+      return
     else
       megatile.owner = player
       player.balance -= Megatile.cost

@@ -91,7 +91,6 @@ class PlayersController < ApplicationController
     end 
     
     authorize! :player_info, player
-    
     render json: {:balance => player.balance, :turn_points => player.time_remaining_this_turn, :political_capital => 5}
   end
   
@@ -104,34 +103,71 @@ class PlayersController < ApplicationController
     end 
     
     authorize! :player_info, player
-    
     render json: {:playersEquipment => equipment}  
   end
 
-  def owned_resource_tiles
-      player = Player.find(params[:player_id])
-      players_megatiles = nil
-      
-    if player != nil
-      players_megatiles = Megatile.where("owner_id = ? AND world_id = ?", player.id, player.world_id)
+=begin
+  def player_contracts
+    if params[:user_id] && params[:player_id]
+    
     else
-      render json: { :errors => ["No player found for given player id and user id."] }
-      return
+      render json: {ClientResponseHandler.new_error_message ""}
     end
     
-    response = nil
-    if players_megatiles != nil && players_megatiles.length > 0
-      resource_tiles = players_megatiles.collect { |megatile| megatile.resource_tile_xys}
-      resource_tiles = resource_tiles.flatten
-      begin
-        players_megatiles.each do |mt| authorize! :see_player_tiles, player, mt end
+    authorize! :player_info, player
+    render json: {:active_contracts => active, :satisfied_contracts => satisfied}     
+  end
+=end  
+
+  def get_player_with_userid_and_playerid params
+    Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+  end
+  
+  # Returns an array of errors.  If empty, player is valid and authorized for :player_info
+  def check_for_userid_and_playerid_params_and_authorize_player given_parameters
+    errors = []
+    required_params = [:user_id, :player_id]
+
+    unless ClientResponseHandler.all_parameters_given params, required_params
+      errors.push "user_id and player_id needed as parameters"
+    end 
+    
+    player = get_player_with_userid_and_playerid given_parameters
+    
+    if player
+      begin 
+        authorize! :player_info, player
       rescue CanCan::AccessDenied => e
-        render json: {:errors => [e.message] }
-        return
+        errors.push e.message
       end
-      response = { :message => "Found #{resource_tiles.length} resource_tiles for given player id", :resource_tiles => resource_tiles}
-    else
-      response = { :message => "No tiles found for given player id." }
+    else 
+      errors.push "No player matches user id #{params[:user_id]} and player id #{params[:player_id]}" 
+    end    
+    return errors
+  end 
+
+  def owned_resource_tiles
+    response = nil
+    errors = check_for_userid_and_playerid_params_and_authorize_player params
+    if errors.length != 0
+      response = ClientResponseHandler.new_error_message errors
+    end
+      
+    player = get_player_with_userid_and_playerid params
+    if response == nil 
+      players_megatiles = Megatile.where("owner_id = ? AND world_id = ?", player.id, player.world_id)
+      if players_megatiles != nil && players_megatiles.length > 0
+        resource_tiles = players_megatiles.collect { |megatile| megatile.resource_tile_xys}
+        resource_tiles = resource_tiles.flatten
+        begin
+          players_megatiles.each do |mt| authorize! :see_player_tiles, player, mt end
+        rescue CanCan::AccessDenied => e
+          response = ClientResponseHandler.new_error_message e.message 
+        end
+        response = { :message => "Found #{resource_tiles.length} resource_tiles for given player id", :resource_tiles => resource_tiles}
+      else
+        response = { :message => "No tiles found for given player id." }
+      end
     end
     
     render json: response
@@ -154,5 +190,68 @@ class PlayersController < ApplicationController
       end
     end
   end
+  
+  
+  
+##########
+##########
+# For development convenience 
+# Comment out in production
+  
+  def clear_player_tiles
+    required_params = [:user_id, :player_id]
+  end
+  
+  def clear_player_upgrades
+    required_params = [:user_id, :player_id]  
+  end
+  
+  def clear_player_contracts 
+    response = nil
+    required_params = [:user_id, :player_id] 
+    
+    if ClientResponseHandler.all_parameters_given params, required_params
+      player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+      authorize! :player_info, player
+      if player 
+        Contracts.where('player_id = ? ', player.id).update_all(:player_id => nil)
+        response = ["player #{player.id} now has no contracts}"]    
+      else
+        response = ClientResponseHandler.new_error_message "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"
+      end
+    else
+      response = ClientResponseHandler.new_error_message ClientResponseHandler.missing_parameters_message(params, required_params)
+    end 
+    
+    render json: response
+  end 
+
+  def set_player_balance_and_turn_points
+    response = nil
+    required_params = [:user_id, :player_id, :balance, :turn_points]
+    
+    if ClientResponseHandler.all_parameters_given params, required_params
+      player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+      authorize! :player_info, player
+      if player 
+        #player.set_balance params[:balance].to_i
+        #player.set_turn_points params[:turn_points].to_i
+        player.balance = params[:balance].to_i
+        player.time_remaining_this_turn =  params[:turn_points].to_i
+        player.save!
+        response = ["Set player balance to #{params[:balance]} and turn points to #{params[:turn_points]}"]    
+      else
+        response = ClientResponseHandler.new_error_message "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"
+      end
+    else
+      response = ClientResponseHandler.new_error_message ClientResponseHandler.missing_parameters_message(params, required_params)
+    end 
+    
+    render json: response
+  end
+# For development convenience 
+# Comment out in production 
+##########
+##########
   
 end

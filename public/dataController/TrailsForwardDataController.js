@@ -87,6 +87,13 @@ TrailsForwardDataController.prototype = {
 		this.serverAPI.getPlayerStatsForPlayerId(this.gameDataCache.player_id);
 	},
 	
+	setPlayerBalanceAndTurnPoints : function(new_balance, new_turn_points){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.setPlayerBalanceAndTurnPoints", ["new_balance", "new_turn_points"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+
+			this.makeRequestWithPlayerStatsUpdate(this.serverAPI.setPlayerBalanceAndTurnPointsWithPlayerIdBalanceAndTurnPointsPromise(this.gameDataCache.player_id, new_balance, new_turn_points), 
+				this.onSetPlayerBalanceAndTurnPoints);
+	},
+
 	getPlayerStatsPromise : function(){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getPlayerStatsPromise", [], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -359,9 +366,12 @@ TrailsForwardDataController.prototype = {
 	onAttemptToDiameterLimitCutMegatileWithResourceTileXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToDiameterLimitCutMegatileWithResourceTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
-		if(theResult)
+		if(theResult){
+			TFglobals.DATA_CONTROLLER.contractComplete(theResult);
 			TFglobals.IMPACT.onAttemptToDiameterLimitCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
-		else console.log("bad input");		},
+		}
+		else console.log("bad input");		
+	},
 	
 	
 	onGetEstimateForDiameterLimitCutIncludingResourceTileXY : function(theResult){
@@ -404,7 +414,19 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");	
 	},
 	
-	//TFglobals.IMPACT.onContractComplete theResponse.name, theResponse.payout 
+	contractComplete : function(theResult){
+		TFglobals.IMPACT.onContractComplete(theResult.contractComplete);
+	},
+	
+	onSetPlayerBalanceAndTurnPoints : function(theResult){
+		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onSetPlayerBalanceAndTurnPoints", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
+		
+		if(theResult){
+			//TFglobals.IMPACT.onSetPlayerBalanceAndTurnPoints(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			console.log("successfully set user balance and turn points! ", theResult);
+		}
+		else console.log("bad input");
+	},
 	
 /*****
 

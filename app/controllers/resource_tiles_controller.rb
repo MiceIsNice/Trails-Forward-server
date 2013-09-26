@@ -275,7 +275,6 @@ class ResourceTilesController < ApplicationController
       begin
         ActiveRecord::Base.transaction do
           player.save!
-
           harvestable_tiles.each(&:save!)
 
           # Update the market for viable tiles
@@ -283,11 +282,25 @@ class ResourceTilesController < ApplicationController
             tile.update_market! results[index]
           end
 
+=begin
           if params[:contract_id]
             contract = Contract.find(params[:contract_id])
             Contract.update_counters contract.id, volume_harvested_of_required_type: (summary[:sawtimber_volume] + summary[:poletimber_volume]).to_i
           end
+=end 
 
+=begin
+          contracts = Contract.where("player_id = ?", player.id)
+          if contracts
+            contract = Contract.where("player_id = ?", player.id)[0]
+          end
+          if can_satisfy_contract? contract, summary
+             render json: {:message => summary, :contract_satisfied => [:name => contract.name, :payout => contract.points_earned]}           
+          else
+=end 
+            render json: {:message => summary}
+#          end
+          
           respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
@@ -360,6 +373,17 @@ puts "results length: #{results.length} first one #{results[0]}"
        sawtimber_value: sawtimber_value,   sawtimber_volume: sawtimber_volume,
         resource_tiles: resource_tiles.as_api_response(:resource)
     }
+  end
+  
+  def can_satisfy_contract? contract, stats
+    if contract && stats
+      contract.add_volume stats[:poletimber_volume] || 0
+      contract.add_volume stats[:sawtimber_volume]  || 0
+      if contract.is_satisfied?
+        return contract.deliver
+      end
+    end
+    return false
   end
 
 

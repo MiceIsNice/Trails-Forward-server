@@ -34,6 +34,10 @@ class SurveysController < ApplicationController
 	exsiting_survey Survey.where
 	if megatile.world.year_current != 
 =end
+	if player.balance < Survey.cost
+	  render json: {:errors => ["Not enough money to conduct a survey. You need #{Survey.cost}"]}
+	  return
+	end
 	
     @survey = Survey.of megatile: megatile, player: player
 
