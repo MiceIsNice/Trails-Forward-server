@@ -1,0 +1,171 @@
+body{background: url(../img/bg_tile.png) repeat-x #aadd5a;}
+ul {list-style:none;}
+p{color:#5a5a5a; font-family:georgia; font-size:14px; text-align:justify;}
+a{text-decoration:none;}
+h2{margin:0;padding:0;}
+
+
+.tf-wrapper{
+	width:960px;
+	margin:0 auto;
+	overflow:hidden;
+}
+
+.main-header{
+	display:block;
+	height:89px;
+}
+.main-header .the-logo{
+	float:left;
+	margin:0;
+}
+.main-header nav{
+	float:right;
+	margin-top:10px;
+}
+.main-header nav a{
+	display:block;
+	float:left;
+	
+	font-size:20px;
+	text-align:center;
+	color:#fae2b8;
+	padding:15px 25px 15px 25px;
+	
+	   -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+            border-radius: 8px;
+     -khtml-border-radius: 8px;
+}
+.main-header nav a:hover{
+    color:#fcf1db;
+    background:#0c0d12;
+}
+
+
+
+
+.content{
+	position:relative;
+	
+}
+
+
+.tf-page{
+	display:none;
+	
+}
+.tf-page.active{
+	display:block;
+}
+
+
+.white-panel{
+	background:rgba(255,255,255,.5);
+	border:solid 2px black;
+	padding:20px;
+	   -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+            border-radius: 8px;
+     -khtml-border-radius: 8px;
+
+}
+.black-panel{
+	background:#151926;
+	border:solid 2px black;
+	padding:20px;
+	   -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+            border-radius: 8px;
+     -khtml-border-radius: 8px;
+
+     color:white;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+ _             _                                _     _            
+| | ___   __ _(_)_ __      _     _ __ ___  __ _(_)___| |_ ___ _ __ 
+| |/ _ \ / _` | | '_ \   _| |_  | '__/ _ \/ _` | / __| __/ _ \ '__|
+| | (_) | (_| | | | | | |_   _| | | |  __/ (_| | \__ \ ||  __/ |   
+|_|\___/ \__, |_|_| |_|   |_|   |_|  \___|\__, |_|___/\__\___|_|   
+         |___/                            |___/                    
+
+begin: login + register
+
+*/
+
+.login-register{
+	overflow:hidden;
+}
+.login-register input[type="text"],
+.login-register input[type="password"]{
+	width:98%;
+}
+.login-register h2{
+	margin-bottom:10px;
+	color:#D58800;
+}
+.login-register aside{
+	position:relative;
+
+}
+.login-register table{
+	width:100%;
+
+}
+.login-register tr{
+	line-height:30px;
+}
+
+.login-register label{
+	margin-right:20px;
+}
+
+.login-register .submit{
+	float:left;
+	margin-right:10px;
+}
+
+.login-register .status{
+	text-align:right;
+	float:right;
+}
+.login-register .status .wait{
+	float:right;
+	display:none;
+}
+.login-register .status .fail{
+	display:none;
+
+}
+
+
+
+.login-wrapper{
+	width:400px;
+	float:left;
+}
+.register-wrapper{
+	width:400px;
+	float:right;
+}
+
+
+
+
+
+/*
+end: login and register
+*/
+
