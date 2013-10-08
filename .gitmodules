@@ -1,0 +1,3 @@
+[submodule "public/js/vendor/impact"]
+	path = public/js/vendor/impact
+	url = https://github.com/tufts-LASER/TF-Impact
