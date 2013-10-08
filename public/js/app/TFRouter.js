@@ -12,7 +12,11 @@ var TFRouter = Backbone.Router.extend({
 	},
 	game: function(){
 		$(".tf-page").removeClass("active");
+		TFApp.models.worldModel.loadWorld(3);
 		TFApp.views.gameView.$el.addClass("active");
+		
+
+
 	},
 	index: function(){
 
@@ -24,7 +28,6 @@ var TFRouter = Backbone.Router.extend({
 		//Otherwise, show the game client
 		else{
 			this.navigate("game", true);
-			//TODO: Load up the game client
 		}
 	}
 

@@ -20,14 +20,13 @@ TFApp = (function(win, doc, $) {
 
 	TFApp.prototype.init = function(){
 		
-		
+		this.models.user = new UserModel();
+		this.models.worldModel = new WorldModel();
+
 		this.views.loginRegisterView = new _self.LoginRegisterView();
 		this.views.registerView = new _self.RegisterView();
 		this.views.loginView = new _self.LoginView();
-		
 		this.views.gameView = new _self.GameView();
-
-		this.models.user = new UserModel();
 
 		this.router = new TFRouter();
 		Backbone.history.start();
