@@ -1919,3 +1919,14 @@ ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for 
   app/controllers/surveys_controller.rb:44:in `block in create'
   app/controllers/surveys_controller.rb:43:in `create'
 
+
+ActionView::MissingTemplate (Missing template welcome/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
