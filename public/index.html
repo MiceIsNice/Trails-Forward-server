@@ -32,24 +32,18 @@
                 <a href="index.html" class="the-logo"><img src="img/header_bg.png"/></a>
                 
                 <nav>
-                    
                     <a href="http://tfnew.dax.getdown.org/login.html">Log In</a>
-                    
                     <a href="">Media</a>
-                    
                     <a href="http://tfnew.dax.getdown.org/login.html">Play</a>
-                    
                     <a href="">Information</a>            
-                              
                 </nav>
-                
             </header>
 
 
 
 
 
-
+            <!-- BEGIN: .login-register -->
             <section class="tf-page login-register">
                 <h1>Login or Register to Play</h1>
                 <div class="black-panel login-wrapper">
@@ -59,11 +53,11 @@
                         <table>
                             <tr>
                                 <td><label>Email:</label></td>
-                                <td><input name="user[email]" type="text"></td>
+                                <td><input name="user[email]" type="text" value="aaron.tietz@tufts.edu"></td>
                             </tr>
                             <tr>
                                 <td><label>Password:</label></td>
-                                <td><input name="user[password]" type="password"></td>
+                                <td><input name="user[password]" type="password" value="letmein"></td>
                             </tr>
                         </table>
                     </form>
@@ -73,7 +67,7 @@
                             <img src="img/common/ajax-loader.gif" />
                         </div>
                         <div class="fail">
-                            <p>FAILED</p>
+                            FAILED
                         </div>
                     </div>
                     <input type="button" value="Login" class="submit" />
@@ -109,28 +103,80 @@
                             <img src="img/common/ajax-loader.gif" />
                         </div>
                         <div class="fail">
-                            <p>FAILED</p>
+                            FAILED
                         </div>
                     </div>
                     <input type="button" value="Register" class="submit" />
 
                 </div>
-
-
-
-
             </section>
+            <!-- END: .login-register -->
+
+            <!--BEGIN: .lobby-wrapper-->
+            <section class="tf-page lobby-wrapper">
+                <h1>Lobby</h1>
+                <div class="my-players">
+                    <h2>My Players</h2>
+                    <ul class="my-player-list">
+
+                    </li>
+                </div>
+                <div class="worlds">
+                    <div class="my-worlds">
+                        <h2>My Worlds</h2>
+                        <table class="my-world-table">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>World Name</td>
+                                    <td>Player Class</td>
+                                    <td>Time Remaining This Turn</td>
+                                    <td>GO!!!</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="all-worlds">
+                        <h2>All Worlds</h2>
+
+                        <table class="all-world-table">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>World Name</td>
+                                    <td>Join</td>
+                                    <td>View</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                        <ul class="all-world-list">
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!--END: .lobby-wrapper-->
 
 
-            <section class="tf-page game-wrapper">
-                <h1>THE GAME</h1>
+            <!--BEGIN: .world-wrapper-->
+            <section class="tf-page world-wrapper">
+                <!--<h1>THE GAME</h1>-->
                 <div class="three-container"></div>
+                 <canvas id="canvas"></canvas>
             </section>
+            <!--END: .world-wrapper-->
 
 
 
         </div>
-
+       
 
 
 
@@ -151,25 +197,65 @@
 
         <!-- Start: Vendor includes -->
         <script src="js/vendor/jquery-1.10.2.min.js"></script>
+        <script src="js/vendor/jquery.cookie.js"></script>
+
+
         <script src="js/vendor/underscore-1.5.2.min.js"></script>
         <script src="js/vendor/backbone-1.0.0.min.js"></script>
+
         <script src="js/vendor/three.min.js"></script>
         <!-- End: Vendor includes -->
 
 
+
+
+
+
+
+
+
+
+        <script type="text/javascript" src="js/dataController/TrailsForwardGlobals.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardDataController.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardServerAPI.js"></script>
+        <!--Start: ye olde impact stuff-->
+        <script type="text/javascript" src="lib/impact/impact.js"></script>
+        <script type="text/javascript" src="lib/game/main.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardGameDataCache.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardHelperFunctions.js"></script>
+        <script type="text/javascript" src="js/wtfglobal.js"></script>
+        <script type="text/javascript" src="lib/game/time.js"></script>
+        <!--End: ye olde impact stuff-->
+
+
+
+
+
         <script src="js/app/TFApp.js"></script>
+
+
+
 
         <!-- Start: Backbone Models -->
         <script src="js/app/models/UserModel.js"></script>
+        <script src="js/app/models/PlayerModel.js"></script>
         <script src="js/app/models/WorldModel.js"></script>
+        <script src="js/app/models/GameModel.js"></script>
         <!-- End: Backbone Models -->
+
+        <!-- Start: Backbone Collections -->
+        <script src="js/app/collections/PlayerCollection.js"></script>
+        <script src="js/app/collections/WorldCollection.js"></script>
+        <!-- End: Backbone Collections -->
 
 
         <!-- Start: Backbone Views -->
         <script src="js/app/views/LoginRegisterView.js"></script>
         <script src="js/app/views/LoginView.js"></script>
+        <script src="js/app/views/LobbyView.js"></script>
         <script src="js/app/views/RegisterView.js"></script>
         <script src="js/app/views/GameView.js"></script>
+        <script src="js/app/views/WorldView.js"></script>
         <!-- End: Backbone Views -->
 
 
@@ -177,6 +263,12 @@
         <script src="js/app/TFRouter.js"></script>
         <script src="js/app/TFBootstrap.js"></script>
         <!-- End: Backbone Bootstrappage -->
+
+
+
+
+
+
 
 
 

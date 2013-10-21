@@ -1,6 +1,8 @@
 TrailsForwardWorld::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users,
+             :controllers => {:sessions => 'sessions'}
+             #:controllers => {:sessions => 'users/sessions'}
   #get "sign_up" => "users#new", :as => "sign_up"
 
   match "/users/authenticate_for_token" => "users#authenticate_for_token"

@@ -1,26 +1,13 @@
 var WorldModel = Backbone.Model.extend({
 	defaults:{
 		world_id: -1,
-		created_at: "",
-		current_turn: 1,
-		height: 64,
-		width: 64,
-		human_population: 0,
-		livable_tiles_count: 0,
-		marten_suitable_tile_count: 2840,
-		megatile_height: 3,
-		megatile_width: 3,
-		name: "",
-		players: [],
-		turn_started_at: "",
-		updated_at: "",
-		year_current: 1800,
-		year_start: 1800,
-		tiles: []
-
 	},
 	initialize: function(){
-		this.on("change:world_id", this.loadWorldTiles);
+		//this.on("change:world_id", this.loadWorldTiles);
+
+
+
+
 	},
 	loadWorld: function(worldId){
 		that = this;

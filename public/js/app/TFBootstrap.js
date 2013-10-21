@@ -1,6 +1,4 @@
-
-	var TFApp = window.TFApp || {};
-
-	TFApp.init();
+var TFApp = window.TFApp || {};
+TFApp.init();
 
 

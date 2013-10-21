@@ -4,13 +4,15 @@ class Player < ActiveRecord::Base
 
   serialize :quests, Hash
   
-  def initialize stats
-    puts "Player.initialize in world #{stats[:world_id]} for user #{stats[:user_id]} of type #{stats[:player_type]}"
-    @world = stats[:world_id]
-    @user = stats[:user_id]
-    @type = stats[:player_type]
-    #puts "Player.initialize set world #{self.world} for user #{self.user} of type #{self.type}"
-  end
+  # def initialize(attributes=nil, stats={})
+  #   puts "-------------------player.initialize START-------------------"
+
+  #   @world = attributes[:world_id]
+  #   @user = attributes[:user_id]
+  #   @type = attributes[:type]
+
+  #   puts "-------------------player.initialize END-------------------"
+  # end
 
   def self.default_balance
     50000

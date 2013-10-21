@@ -6,7 +6,7 @@ h2{margin:0;padding:0;}
 
 
 .tf-wrapper{
-	width:960px;
+	
 	margin:0 auto;
 	overflow:hidden;
 }
@@ -14,6 +14,8 @@ h2{margin:0;padding:0;}
 .main-header{
 	display:block;
 	height:89px;
+	width:960px;
+	margin:0 auto;
 }
 .main-header .the-logo{
 	float:left;
@@ -107,6 +109,9 @@ begin: login + register
 
 .login-register{
 	overflow:hidden;
+		width:960px;
+	margin:0 auto;
+
 }
 .login-register input[type="text"],
 .login-register input[type="password"]{
@@ -147,7 +152,7 @@ begin: login + register
 }
 .login-register .status .fail{
 	display:none;
-
+	color:#BB0000;
 }
 
 
@@ -162,7 +167,7 @@ begin: login + register
 }
 
 
-
+/*ヽ༼ຈل͜ຈ༽ﾉ */
 
 
 /*
@@ -173,8 +178,47 @@ end: login and register
 
 
 
+/*
+ _       _     _           
+| | ___ | |__ | |__  _   _ 
+| |/ _ \| '_ \| '_ \| | | |
+| | (_) | |_) | |_) | |_| |
+|_|\___/|_.__/|_.__/ \__, |
+                     |___/ 
+begin lobby
+*/
+.lobby-wrapper{
+	width:960px;
+	margin:0 auto;
+
+}
+.lobby-wrapper table{
+	border:solid 1px black;
+	padding:20px;
+	background:white;
+}
+.lobby-wrapper thead{
+	font-weight:bold;
+	border-bottom:solid 1px black;
+	color:white;
+	background:black;
+}
+.lobby-wrapper td{
+	width:100px;
+	padding:10px;
+}
+.lobby-wrapper h2{
+	margin-top:20px;
+}
+.lobby-wrapper tbody tr{
+	border-bottom:dotted 1px black;
+}
 
 
+
+
+
+/* end: lobbys
 
 
 
@@ -183,6 +227,7 @@ end: login and register
 
 
 .three-container{
+	display:none;
 }
 .three-container canvas{
 	background-color: #000000;

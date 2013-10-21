@@ -13,12 +13,13 @@ TFApp.LoginView = Backbone.View.extend({
 		this.$fail = $(this.$el.find(".fail"));
 	},
 	attemptLoginPost: function(e){
-
 		e.preventDefault();
 		var that = this;
 
-		//show the loader gif
+
+		that.$fail.hide();
 		that.$wait.show();
+
 
 		//do the needful
 		$.ajax({
@@ -27,27 +28,44 @@ TFApp.LoginView = Backbone.View.extend({
 			data: that.$form.serialize(),
 			dataType: "json",
 			success: function(data){
-
-				console.log("Login Success: ", data);
-				console.log(data.user.authentication_token);
-
-				that.$wait.hide();
-				TFApp.models.user.set({"authentication_token": data.user.authentication_token});
-				TFApp.router.navigate("", true);
-
+				that.handleLoginSuccess(data);
 			},
 			error: function(data){
-
-				console.log("Login Error: ", data);
-
+				that.$wait.hide();
+				that.$fail.show();
+				console.error("Login Error: ", data);
 			}
 		});
 
 		//prevent the form from submitting "naturally"
 		return false;
 	},
+	handleLoginSuccess: function(data){
+		var that = this;
+		console.log("Login Success: ", data);
+
+		$.cookie("user_id", data.id);
+		$.cookie("authentication_token", data.authentication_token);
+
+		that.$wait.hide();
+		TFApp.models.userModel.set({ "user_id": data.id,
+									 "authentication_token": data.authentication_token,
+									 "name": data.name,
+									 "email": data.email
+
+									});
+
+		//TODO: Determine where the user came from, and route
+		//      them back to there.
+		TFApp.router.navigate("lobby", true);
+	},
+
+
+
+
 	render: function(){
 		//TODO
-	}
+	},
+
 
 });

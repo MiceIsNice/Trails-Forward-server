@@ -52,12 +52,16 @@ class WorldPlayersController < ApplicationController
 
   def create
     authorize! :create_player, current_user
-    @player = current_user.players.build params[:player]
-    @player.world = World.find params[:world_id]
+    @player = current_user.players.build(params[:player])
+
+    p @player
+
+    # p params[:player][:world_id]
+    @player.world = World.find params[:player][:world_id]
+    @player.type = params[:player][:type]
     @player.balance = Player.default_balance
     @player.time_remaining_this_turn = Player.default_time_remaining
-    @player.type = params[:player][:type]
-
+    
     respond_to do |format|
       if @player.save
         format.xml  { render_for_api :player_private, :xml  => @player }
@@ -66,6 +70,11 @@ class WorldPlayersController < ApplicationController
         format.xml  { render :xml  => @player.errors, :status => :unprocessable_entity }
         format.json { render :json => @player.errors, :status => :unprocessable_entity }
       end
+
     end
+
+
+
+
   end
 end
