@@ -828,7 +828,7 @@ ig.module(
             },
 
             onGetPlayerStats: function(theResponse) {
-            console.log("Impact onGetPlayerStats got: ", theResponse);
+                console.log("Impact onGetPlayerStats got: ", theResponse);
                 if(this.serverResponseWasPositive(theResponse)){
                     console.log("onGetPlayerStats received balance: " + theResponse.balance
                         + ", turn points: " + theResponse.turn_points

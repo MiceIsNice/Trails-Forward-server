@@ -11,8 +11,6 @@ TFApp.WorldView = Backbone.View.extend({
 	initialize: function(){
 		var that = this;
 		console.log("WorldView.initialize");
-		//this.start();
-		//TFApp.models.gameModel.on("change:impactgame", this.start)
 
 		var thegame = TFApp.models.gameModel.get("impactgame");
 
@@ -20,18 +18,23 @@ TFApp.WorldView = Backbone.View.extend({
 			console.log("thegame was not undefined");
 			that.start();
 		}
-			TFApp.models.gameModel.on("change:impactgame", function(){
-				that.start();
-			});	
+		TFApp.models.gameModel.on("change:impactgame", function(){
+			that.start();
+		});	
 		
 
-
+		TFApp.models.worldModel.on("change:world_id", function(){
+			ig.game.init();
+		});
 	},
 	render: function(){
 		//TODO
 	},
 	start: function(){
 		console.log("Starting World View");
+
+
+		
 		var thegame = TFApp.models.gameModel.get("impactgame");
 		
 
@@ -47,16 +50,8 @@ TFApp.WorldView = Backbone.View.extend({
             ig.Loader
         );
 
-
-
-
-
 		TFglobals.DATA_CONTROLLER.serverAPI._auth_token = TFApp.models.userModel.get("authentication_token");
 		TFglobals.DATA_CONTROLLER.serverAPI._userId = TFApp.models.userModel.get("user_id");
-
-
-
-
 
 
 

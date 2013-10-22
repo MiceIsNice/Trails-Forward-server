@@ -23,8 +23,6 @@ var UserModel = Backbone.Model.extend({
 			//TFApp.router.navigate("lobby", true);
 		});
 
-
-
 	},
 
 	getUserPlayers: function(){
@@ -66,7 +64,11 @@ var UserModel = Backbone.Model.extend({
 			data: dataString,
 			dataType: "json",
 			success: function(data){
-				console.log("join world success: ", data)
+				console.log("join world success: ", data);
+
+				//TODO: Handle errors
+				TFApp.collections.userPlayers.fetch();
+				TFApp.collections.allWorlds.fetch();
 			},
 			error: function(data){
 				console.error("join world error: ", data.statusText);

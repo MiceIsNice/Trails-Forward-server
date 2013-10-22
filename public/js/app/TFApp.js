@@ -37,7 +37,6 @@ TFApp = (function(win, doc, $) {
 		//this.views.gameView = new _self.GameView();
 
 
-
 		//some global events
 		this.models.userModel.on("change:authQueryString", function(){
 			that.models.userModel.getUserPlayers();

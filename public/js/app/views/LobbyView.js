@@ -55,7 +55,6 @@ TFApp.LobbyView = Backbone.View.extend({
 		var allWorlds = TFApp.collections.allWorlds;
 		var userPlayers = TFApp.collections.userPlayers;
 		var userWorldsWithPlayer = [];
-
 		_.each(userPlayers.models, function(player){
 			_.each(allWorlds.models, function(world){
 				if(player.get("world_id")==world.get("id")){
@@ -94,9 +93,12 @@ TFApp.LobbyView = Backbone.View.extend({
 
 
 		var allWorlds = TFApp.collections.allWorlds;
+		var userPlayers = TFApp.collections.userPlayers;
+
+		that.$allWorldTableBody.empty();
 
 		_.each(allWorlds.models, function(world){
-			
+
 			var tr = $("<tr></tr>");
 
 			var worldIdTd = $("<td>" + world.get("id") + "</td>");
@@ -108,18 +110,17 @@ TFApp.LobbyView = Backbone.View.extend({
 			var joinAnchor = $("<input type=\"button\" value=\"join\" class=\"join\" data-world-id=\""+ world.get("id") +"\">");
 			joinTd.append(joinAnchor);
 
-			//view button
-			var viewTd = $("<td class=\"view\"></td>");
-			var viewAnchor = $("<a href=#world/" + world.get("id") + ">View</a>");
-			viewTd.append(viewAnchor);
 
 			tr.append(worldIdTd);
 			tr.append(worldNameTd);
 			tr.append(joinTd);
-			tr.append(viewTd);
 
 			that.$allWorldTableBody.append(tr);
+
+
 		});
+
+
 
 	},
 	attemptJoin: function(e){
