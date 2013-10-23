@@ -1,3 +1,3 @@
-[submodule "public/libs/impact"]
-	path = public/libs/impact
+[submodule "public/lib/impact"]
+	path = public/lib/impact
 	url = https://github.com/tufts-LPC/TF-Impact
