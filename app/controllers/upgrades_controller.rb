@@ -2,7 +2,7 @@ class UpgradesController < ApplicationController
   
   # GET /worlds/:world_id/players/:player_id ??
   def index
-    if(params[:world_id] && params[:player_id]
+    if(params[:world_id] && params[:player_id])
       case Player.find(params[:player_id]).type
         when "Lumberjack"
           render json: LoggingEquipment.where(world_id: params[:world_id])

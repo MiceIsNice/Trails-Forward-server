@@ -1,4 +1,4 @@
-qclass ContractTemplatesController < ApplicationController
+class ContractTemplatesController < ApplicationController
   skip_authorization_check
   expose(:contract_templates)
   expose(:contract_template)
@@ -25,7 +25,6 @@ qclass ContractTemplatesController < ApplicationController
       render :new
     end
   end
-
 
   def update
     flash[:notice] = "Template Updated" if contract_template.update_attributes params[:contract_template]

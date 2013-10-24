@@ -12,6 +12,7 @@ class HarvestResponder < ActionController::Responder # This can become a generic
 end
 
 class ResourceTilesController < ApplicationController
+  include TFClientResponder
   respond_to :xml, :json
   self.responder = HarvestResponder
 
@@ -161,21 +162,32 @@ class ResourceTilesController < ApplicationController
   end
 
 # changed from clearcut_list
+#1 add in client responder module
+#2 work on completing a contract
   def clearcut
+   #  result = can_perform_action params, [:user_id, :player_id], 
+    #           get_player_with_userid_and_playerid, Object_required, :player_info 
+               
     begin 
       check_harvest_rights
     rescue CanCan::AccessDenied => e
-      render json: {:errors => [e.message] }
+      render json: client_response_with_errors_array_from_response nil, [e.message]
       return
     end
     
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
 
-    unless params[:estimate] == true
+    if params[:estimate] == false
 	  unless TimeManager.can_perform_action?(player: player, cost: time_cost)
-    	render json: {:errors => ["Not enough time left to perform harvest"]}
-        #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
+    	render json: client_response_with_errors_array_from_response nil, ["Not enough time left to perform harvest"]
+        return
+      end
+    end
+    
+    if params[:estimate] == false
+      unless player.balance >= money_cost
+      render json: client_response_with_errors_array_from_response nil, ["Not enough money to perform harvest, you need #{money_cost}"]
         return
       end
     end
@@ -199,6 +211,21 @@ class ResourceTilesController < ApplicationController
             tile.update_market! results[index]
           end
 
+# do they have a contract that isn't ended yet?
+# how much wood do they need to end it?
+# how much wood you just cut
+# automatically apply all the wood of the needed cut (pole/saw) to the contract?
+# 
+
+
+       contracts = Contract.where("player_id = ? AND world_id = ? AND ended = 0", player.id, params[:world_id])
+		# for now, you lose leftover wood
+		# for now, we ONLY let you have one contract
+       if contacts.length > 0
+         contracts[0].add_volume
+       end 
+       
+
           if params[:contract_id]
             contract = Contract.find(params[:contract_id])
             if contract.contract_template.wood_type == "saw_timber"
@@ -211,12 +238,16 @@ class ResourceTilesController < ApplicationController
             end
           end
 
+
+
           respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
     	render json: {:errors => ["Transaction Failed: #{e.message}"]}       
         #respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
       end
+      
+      
     end
   end
 

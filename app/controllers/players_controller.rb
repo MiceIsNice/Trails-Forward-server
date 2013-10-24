@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  
   before_filter :authenticate_user!
 
   # GET /users/:id/players
@@ -119,59 +120,46 @@ class PlayersController < ApplicationController
   end
 =end  
 
-  def get_player_with_userid_and_playerid params
-    Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
+  def get_player_with_userid_and_playerid_with_message params
+    {:objects => Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id]), 
+     :not_found_message => "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"}
   end
   
-  # Returns an array of errors.  If empty, player is valid and authorized for :player_info
-  def check_for_userid_and_playerid_params_and_authorize_player given_parameters
-    errors = []
-    required_params = [:user_id, :player_id]
-
-    unless ClientResponseHandler.all_parameters_given params, required_params
-      errors.push "user_id and player_id needed as parameters"
-    end 
-    
-    player = get_player_with_userid_and_playerid given_parameters
-    
-    if player
-      begin 
-        authorize! :player_info, player
-      rescue CanCan::AccessDenied => e
-        errors.push e.message
-      end
-    else 
-      errors.push "No player matches user id #{params[:user_id]} and player id #{params[:player_id]}" 
-    end    
-    return errors
+  def get_megatiles_with_playerid_and_worldid params
+    {:objects => Megatile.where("owner_id = ? AND world_id = ?", params[:player_id], params[:world_id]), 
+     :not_found_message => "No tiles found for given player id.", :resource_tiles => []}  
   end 
-
-  def owned_resource_tiles
-    response = nil
-    errors = check_for_userid_and_playerid_params_and_authorize_player params
-    if errors.length != 0
-      response = ClientResponseHandler.new_error_message errors
+  
+  def try_to_save! object
+    begin
+      object.save!
+    rescue ActiveRecord::RecordInvalid => invalid
+      result[:client_response] = client_response_with_errors_array_from_response response, [invalid.record.errors]
+      result[:success] = false
     end
+    
+    return result
+  end
+
+
+  # returns all resource tiles owned by a player 
+  def owned_resource_tiles
+     result = can_perform_action params, [:user_id, :player_id], 
+               get_player_with_userid_and_playerid, Object_required, :player_info 
       
-    player = get_player_with_userid_and_playerid params
-    if response == nil 
-      players_megatiles = Megatile.where("owner_id = ? AND world_id = ?", player.id, player.world_id)
-      if players_megatiles != nil && players_megatiles.length > 0
+    if result[:success] && result[:objects].length > 0
+      can_perform_action nil, {:player_id => result[:objects][0].id, :world_id => result[:objects][0].world_id}, 
+                          get_megatiles_with_playerid_and_worldid, Object_not_required, :see_player_tiles                    
+      if players_megatiles != nil
         resource_tiles = players_megatiles.collect { |megatile| megatile.resource_tile_xys}
-        resource_tiles = resource_tiles.flatten
-        begin
-          players_megatiles.each do |mt| authorize! :see_player_tiles, player, mt end
-        rescue CanCan::AccessDenied => e
-          response = ClientResponseHandler.new_error_message e.message 
-        end
-        response = { :message => "Found #{resource_tiles.length} resource_tiles for given player id", :resource_tiles => resource_tiles}
-      else
-        response = { :message => "No tiles found for given player id." }
+        response = client_response_with_message_array_from_response result[:client_response], ["Found #{resource_tiles.length} resource_tiles for given player id"]
+        response = client_response_from_response response, :resource_tiles, resource_tiles.flatten
       end
     end
     
     render json: response
   end 
+  
 
   def update
     @user = User.find params[:user_id]
@@ -208,50 +196,42 @@ class PlayersController < ApplicationController
   
   def clear_player_contracts 
     response = nil
-    required_params = [:user_id, :player_id] 
+    all_params = all_parameters_given params, [:user_id, :player_id] 
     
-    if ClientResponseHandler.all_parameters_given params, required_params
+    if all_params[:status] == true
       player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
       authorize! :player_info, player
       if player 
         Contracts.where('player_id = ? ', player.id).update_all(:player_id => nil)
-        response = ["player #{player.id} now has no contracts}"]    
+        response = client_response_with_message_array_from_response response, ["player #{player.id} now has no contracts}"]    
       else
-        response = ClientResponseHandler.new_error_message "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"
+        response = client_response_with_errors_array_from_response response, 
+          "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"
       end
     else
-      response = ClientResponseHandler.new_error_message ClientResponseHandler.missing_parameters_message(params, required_params)
+      response = all_params[:client_response]
     end 
     
     render json: response
   end 
 
   def set_player_balance_and_turn_points
-    response = nil
-    required_params = [:user_id, :player_id, :balance, :turn_points]
+    result = can_perform_action params, [:user_id, :player_id, :balance, :turn_points], 
+               get_player_with_userid_and_playerid, Object_required, :player_info
+	
+	if result[:success]
+      player.balance = params[:balance].to_i
+      player.time_remaining_this_turn =  params[:turn_points].to_i
+      result[:client_response] = client_response_with_message_array_from_response(result[:client_response], ["Set player balance to #{params[:balance]} and turn points to #{params[:turn_points]}"]) 
+      result = try_to_save! player, result
+      #player.save!
+    end
     
-    if ClientResponseHandler.all_parameters_given params, required_params
-      player = Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id])[0]
-      authorize! :player_info, player
-      if player 
-        #player.set_balance params[:balance].to_i
-        #player.set_turn_points params[:turn_points].to_i
-        player.balance = params[:balance].to_i
-        player.time_remaining_this_turn =  params[:turn_points].to_i
-        player.save!
-        response = ["Set player balance to #{params[:balance]} and turn points to #{params[:turn_points]}"]    
-      else
-        response = ClientResponseHandler.new_error_message "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"
-      end
-    else
-      response = ClientResponseHandler.new_error_message ClientResponseHandler.missing_parameters_message(params, required_params)
-    end 
-    
-    render json: response
+    render json: result[:client_response]
   end
 # For development convenience 
 # Comment out in production 
 ##########
 ##########
-  
+
 end

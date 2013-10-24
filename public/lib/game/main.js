@@ -343,11 +343,8 @@ ig.module(
                     100
                 ));
                 this.tileDetailsTextBox1.enableText(function() {
-                    return "Type: Land\n" +
-                        "Surveyable: Yes\n" +
-                        "Features: Heavy forestation\n" +
-                        "Owned By: Me\n" +
-                        "(This text is static right now)";
+                    return "Year: 2000\n" +
+                        "Turn: 5 / 20\n";
                     }, this.detailFont, ig.Font.ALIGN.LEFT);
                 this.tileDetailsContentBox.addChild(this.tileDetailsTextBox1);
 
@@ -1567,7 +1564,7 @@ ig.module(
             },
 
             onGetAvailableContracts: function(contracts) {
-                console.log("Got contracts.");
+                console.log("Got contracts.", contracts);
                 this.availableContracts = contracts.lumberjack_contracts;
             },
 
@@ -1587,14 +1584,23 @@ ig.module(
                 this.tooltip.hide = false;
                 var text = "";
 
-                // TODO: Make tooltips only display useful/formatted information rather than just a list of properties
+                // TODO: Make tooltips only display information more intelligently (e.g. type and amount of wood 
+                //	for lumberjacks, etc)
                 if (!this.tooltipText) {
                     this.tooltipText = new UIElement(new Rect(0, 0, this.tooltip.getInnerWidth(), 10));
+                    text += "Name: " + contractInfo["codename"] + "\n";
+                    text += "Company: " + contractInfo["company_codename"] + "\n";
+                    text += "Description: " + contractInfo["description"] + "\n";
+                    text += "Payout: $" + contractInfo["earnings"] + "\n";
+                    text += "Land included: "; text += contractInfo["includes_land"] ? "yes" : "no"; text += "\n";
+                    text += "Months to complete: " + contractInfo["delivery_window"] + "\n";
+                    /**
                     for (var property in contractInfo) {
                         if (contractInfo.hasOwnProperty(property)) {
                             text += property + ": " + contractInfo[property] + "\n";
                         }
                     }
+                    **/
                     this.tooltipText.enableText(function() { return text; }, this.font, ig.Font.ALIGN.LEFT);
                     this.tooltip.addChild(this.tooltipText);
                 }
@@ -2013,7 +2019,32 @@ ig.module(
 
             // TODO: Make this reflect the actual content of theResponse rather than prewritten debug info
             onViewExistingSurveyOfTileWithXY: function(theResponse) {
-                this.currentSurveyResults =  "Coordinates: 102039, 9001" +
+                console.log("got survey: ", theResponse);
+                
+                volume_4_inch = volume_8_inch = volume_12_inch = volume_16_inch = volume_20_inch = volume_24_inch = 0;
+                
+                for(i = 0; i < theResponse.length; i++){
+					volume_4_inch += theResponse[i]["vol_4in_trees"];
+					volume_8_inch += theResponse[i]["vol_8in_trees"];
+					volume_12_inch += theResponse[i]["vol_12in_trees"];
+					volume_16_inch += theResponse[i]["vol_16in_trees"];
+					volume_20_inch += theResponse[i]["vol_20in_trees"];
+					volume_24_inch += theResponse[i]["vol_24in_trees"];                 
+                }
+                
+                this.currentSurveyResults =  "Trees by volume\n"; 
+                this.currentSurveyResults +=  "4 inch: " + volume_4_inch + "\n";
+                this.currentSurveyResults +=  "8 inch: " + volume_8_inch + "\n";
+                this.currentSurveyResults +=  "12 inch: " + volume_12_inch + "\n";
+                this.currentSurveyResults +=  "16 inch: " + volume_16_inch + "\n";
+                this.currentSurveyResults +=  "20 inch: " + volume_20_inch + "\n";
+                this.currentSurveyResults +=  "24 inch: " + volume_24_inch + "\n";
+                
+                /* This is hard coded for now */
+                this.currentSurveyResults += "\n Marten Population \n 12 (est.)";
+                
+                /**
+                	"Coordinates: 102039, 9001" +
                     "\nLand Type: Forest" +
                     "\nOwner: Professor Oak" +
                     "\nSurvey Source: SaveTheTrees Nature Conciliatorium" +
@@ -2033,6 +2064,7 @@ ig.module(
                     "\nGames per capita per fireplace: 14" +
                     "\nMedian Ruler Length: 12\" (30.48 cm)" +
                     "\nLargest observed number: A hundredy-two";
+                **/
 
             },
 

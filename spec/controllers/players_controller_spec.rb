@@ -6,7 +6,7 @@ describe PlayersController do
 
   describe '#index' do
     let(:user) { player.user }
-    let(:player) { create :lumberjack }
+    let(:player) { create(:lumberjack) }
     let(:other_user) { other_player.user }
     let(:other_player) { create :developer }
     let(:json) { JSON.parse(response.body) }
@@ -54,5 +54,33 @@ describe PlayersController do
     end
   end
     
+=begin 
+  describe '#owned_resource_tiles' do
   
+    context 'logged in as another user' do 
+      let(:user_to_sign_in) { other_user }
+      
+      it "returns a JSON representation of an error list" do
+        expect(response).to respond_with_content_type(:json)
+        #expect(response).to 
+      end
+      
+        json{"errors"}.kind_of?(Array).should == be_true && 
+        json{"success"}.should == be_false
+      
+    end 
+  
+    context 'logged in as the requested user' do
+      let(:user_to_sign_in) { user }
+      
+      it "returns a JSON representation of success and an array of >= 0 tiles" do
+        json{"success"}.should == be_true &&
+        json{"resource_tiles"}.kind_of?(Array).should == be_true
+      end
+      
+    end
+  
+  end 
+=end 
+
 end
