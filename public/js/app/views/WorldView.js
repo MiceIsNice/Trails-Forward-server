@@ -10,7 +10,6 @@ TFApp.WorldView = Backbone.View.extend({
 
 	initialize: function(){
 		var that = this;
-		console.log("WorldView.initialize");
 
 		var thegame = TFApp.models.gameModel.get("impactgame");
 
@@ -23,9 +22,9 @@ TFApp.WorldView = Backbone.View.extend({
 		});	
 		
 
-		TFApp.models.worldModel.on("change:world_id", function(){
-			ig.game.init();
-		});
+		// TFApp.models.worldModel.on("change:world_id", function(){
+		// 	ig.game.init();
+		// });
 	},
 	render: function(){
 		//TODO
@@ -44,8 +43,8 @@ TFApp.WorldView = Backbone.View.extend({
             '#canvas',
             thegame,
             60,
-            1200,
-            675,
+            1024,
+            768,
             1,
             ig.Loader
         );

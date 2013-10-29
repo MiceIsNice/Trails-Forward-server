@@ -11,7 +11,6 @@ TFApp.LobbyView = Backbone.View.extend({
 
 	initialize: function(){
 		var that = this;
-		console.log("LobbyView.initialize");
 		this.$myPlayerList = this.$el.find(".my-player-list");
 		this.$myWorldList = this.$el.find(".my-world-list");
 		this.$myWorldTableBody = this.$el.find(".my-world-table tbody");

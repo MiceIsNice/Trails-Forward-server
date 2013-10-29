@@ -2,7 +2,7 @@ var TFAPP = window.TFAPP || {};
 
 var PlayerCollection = Backbone.Collection.extend({
 
-	model: PlayerModel,
+	model: TFApp.PlayerModel,
 
 	initialize: function(args){
 	},
