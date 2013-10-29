@@ -1,144 +1,281 @@
-<!DOCTYPE HTML >
-<html lang="en">
-<head>
-    
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    
-</head>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
-    
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    
-<div id="page_wrap">
-    
-    <div id="page_top" class="header">
-        
-        <a href="index.html"><img src="images/header_bg.png"/></a>
-        
-        <ul class="navigation">
-            
-            <li><span><a href="http://tfnew.dax.getdown.org/login.html">Log In</a></span></li>
-            
-            <li><span><a href="">Media</a></span></li>
-            
-            <li><span><a href="http://tfnew.dax.getdown.org/login.html">Play</a></span></li>
-            
-            <li><span><a href="">Information</a></span></li>            
-                      
-        </ul>
-        
-    </div>
-    
-    <div class="advertisement_container">
-        
-        <div class="ad_left">
-            
-            <img src="images/introducing.png"/>
-            
-            <p class="introductory_text">A game that lets your delve deep into the world of 
-            conservation, development, and park management.
-            </p>
-            
-            <div class="play_now">
-                <a href="login.html"><div></div></a>
-            </div>
-            
-        </div>
-        
-        <div class="screenshot">
-        </div>
-        
-    </div>
-    
-    <div class="info_text">
-        
-            <div class="info_text_left">
-                        
-                <div class="info_div_top">
-                    <img src="images/little_background.png"/>
-                </div>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <div class="tf-wrapper">
+
+
+
+            <header class="main-header">
                 
-                <div class="info_paragraph">
-                    <p>Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
-                    
-                    <br />
-                    
-                    <br />
-                    Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                    </p>
-                </div>
+                <a href="index.html" class="the-logo"><img src="img/header_bg.png"/></a>
                 
-                <div class="read_more">
-                    <br/>
-                    <a href="">Read More...</a>
-                    <br />
-                    <br />
-                </div>
-                
-            </div>       
-        
-        
-            <div class="info_text_right">
-                
-                <div class="info_div_top">
-                    <img src="images/little_background.png"/>
-                </div>
-                
-                <div class="info_paragraph">
-                        <p>Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.
-                            <br />
-                            <br />
-                            Donec sed odio dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit.
-                        </p>
-                        
+                <nav>
+                    <a href="http://tfnew.dax.getdown.org/login.html">Log In</a>
+                    <a href="">Media</a>
+                    <a href="http://tfnew.dax.getdown.org/login.html">Play</a>
+                    <a href="">Information</a>            
+                </nav>
+            </header>
+
+
+
+
+
+            <!-- BEGIN: .login-register -->
+            <section class="tf-page login-register">
+                <h1>Login or Register to Play</h1>
+                <div class="black-panel login-wrapper">
+                    <h2>Login</h2>
+                    <hr />
+                    <form>
+                        <table>
+                            <tr>
+                                <td><label>Email:</label></td>
+                                <td><input name="user[email]" type="text" value="aaron.tietz@tufts.edu"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Password:</label></td>
+                                <td><input name="user[password]" type="password" value="letmein"></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <hr />
+                    <div class="status">
+                        <div class="wait">
+                            <img src="img/common/ajax-loader.gif" />
+                        </div>
+                        <div class="fail">
+                            FAILED
+                        </div>
                     </div>
-                
-                <div class="read_more">
-                    <br/>
-                    <a href="">Read More...</a>
-                    <br />
-                    <br />
+                    <input type="button" value="Login" class="submit" />
                 </div>
-                
-            </div>
-            
+
+
+                <div class="black-panel register-wrapper">
+                    <h2>Register</h2>
+                    <hr />
+                    <form>
+                        <table>
+                            <tr>
+                                <td><label>Name:</label></td>
+                                <td><input name="user[name]" type="text"></td>
+                            </tr>                            
+                            <tr>
+                                <td><label>Email:</label></td>
+                                <td><input name="user[email]" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Password:</label></td>
+                                <td><input name="user[password]" type="password"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Confirm Password:</label></td>
+                                <td><input name="user[password_confirmation]" type="password"></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <hr />
+                    <div class="status">
+                        <div class="wait">
+                            <img src="img/common/ajax-loader.gif" />
+                        </div>
+                        <div class="fail">
+                            FAILED
+                        </div>
+                    </div>
+                    <input type="button" value="Register" class="submit" />
+
+                </div>
+            </section>
+            <!-- END: .login-register -->
+
+            <!--BEGIN: .lobby-wrapper-->
+            <section class="tf-page lobby-wrapper">
+                <h1>Lobby</h1>
+                <div class="my-players">
+                    <h2>My Players</h2>
+                    <ul class="my-player-list">
+
+                    </li>
+                </div>
+                <div class="worlds">
+                    <div class="my-worlds">
+                        <h2>My Worlds</h2>
+                        <table class="my-world-table">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>World Name</td>
+                                    <td>Player Class</td>
+                                    <td>Time Remaining</td>
+                                    <td>GO!!!</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="all-worlds">
+                        <h2>All Worlds</h2>
+
+                        <table class="all-world-table">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>World Name</td>
+                                    <td>Join</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </section>
+            <!--END: .lobby-wrapper-->
+
+
+            <!--BEGIN: .world-wrapper-->
+            <section class="tf-page world-wrapper">
+                <!--<h1>THE GAME</h1>-->
+                <div class="three-container"></div>
+                 <canvas id="canvas"></canvas>
+            </section>
+            <!--END: .world-wrapper-->
+
+
+
         </div>
-    
-    <div class="footer">
-           
-           <img src="images/tf_footer_logo.png"/>
-           
-           <ul class="footer_navigation">
-               <li class="footer_divider"></li>
-               <li><a href="">Information</a></li>
-               <li class="footer_divider"></li>
-               <li><a href="">Play</a></li>
-               <li class="footer_divider"></li>
-               <li><a href="">Media</a></li>
-               <li class="footer_divider"></li>
-               <li><a href="login.html">Log In</a></li>
-           </ul>
-           
-           <div class="back_to_top">
-               <a href="#page_top"><img src="images/top.png"/></a>
-           </div>     
-           
-       </div>
-        
-        
-</div>
-
-                   
-    <div class="clouds"></div> 
-    
-<div class="clear">
-</div>
- 
-</body>
+       
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Start: Vendor includes -->
+        <script src="js/vendor/jquery-1.10.2.min.js"></script>
+        <script src="js/vendor/jquery.cookie.js"></script>
+
+
+        <script src="js/vendor/underscore-1.5.2.min.js"></script>
+        <script src="js/vendor/backbone-1.0.0.min.js"></script>
+
+        <script src="js/vendor/three.min.js"></script>
+        <!-- End: Vendor includes -->
+
+
+
+
+
+
+
+
+
+
+        <script type="text/javascript" src="js/dataController/TrailsForwardGlobals.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardDataController.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardServerAPI.js"></script>
+        <!--Start: ye olde impact stuff-->
+        <script type="text/javascript" src="lib/impact/impact.js"></script>
+        <script type="text/javascript" src="lib/game/main.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardGameDataCache.js"></script>
+        <script type="text/javascript" src="js/dataController/TrailsForwardHelperFunctions.js"></script>
+        <script type="text/javascript" src="js/wtfglobal.js"></script>
+        <script type="text/javascript" src="lib/game/time.js"></script>
+        <!--End: ye olde impact stuff-->
+
+
+
+
+
+        <script src="js/app/TFApp.js"></script>
+
+
+
+
+        <!-- Start: Backbone Models -->
+        <script src="js/app/models/UserModel.js"></script>
+        <script src="js/app/models/PlayerModel.js"></script>
+        <script src="js/app/models/WorldModel.js"></script>
+        <script src="js/app/models/GameModel.js"></script>
+        <!-- End: Backbone Models -->
+
+        <!-- Start: Backbone Collections -->
+        <script src="js/app/collections/PlayerCollection.js"></script>
+        <script src="js/app/collections/WorldCollection.js"></script>
+        <!-- End: Backbone Collections -->
+
+
+        <!-- Start: Backbone Views -->
+        <script src="js/app/views/LoginRegisterView.js"></script>
+        <script src="js/app/views/LoginView.js"></script>
+        <script src="js/app/views/LobbyView.js"></script>
+        <script src="js/app/views/RegisterView.js"></script>
+        <script src="js/app/views/WorldView.js"></script>
+        <!-- End: Backbone Views -->
+
+
+        <!-- Start: Backbone Bootstrappage -->
+        <script src="js/app/TFRouter.js"></script>
+        <script src="js/app/TFBootstrap.js"></script>
+        <!-- End: Backbone Bootstrappage -->
+
+
+
+
+
+
+
+
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
 </html>

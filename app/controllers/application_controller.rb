@@ -8,5 +8,7 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Request-Method'] = '*'
   end
 
+
+
   check_authorization :unless => :devise_controller?
 end

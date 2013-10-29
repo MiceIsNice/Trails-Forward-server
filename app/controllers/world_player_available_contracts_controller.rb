@@ -20,6 +20,7 @@ class WorldPlayerAvailableContractsController < ApplicationController
     
     #@contract = Contract.find(params[:id] || params[:available_contract_id])
     @contract = Contract.find(params[:available_contract_id])
+    puts "WorldPlayerAvailableContractsController.accept: found contract with id: #{@contract.id}"
 
     begin
       authorize! :accept_contract, @contract

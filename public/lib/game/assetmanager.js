@@ -72,7 +72,7 @@ ig.module(
                     assetUrl = assetsToLoad[i];
                     filename = assetUrl.replace(/^.*[\\\/]/, '');
                     filename = filename.replace(/\..*/, ''); // remove the trailing filetype, e.g. .png
-                    ig.log("Loading asset " + filename + " from " + assetUrl);
+                    //ig.log("Loading asset " + filename + " from " + assetUrl);
                     this.loadImage(assetUrl, filename);
                 }
             },

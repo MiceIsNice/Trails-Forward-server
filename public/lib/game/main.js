@@ -1,3 +1,4 @@
+var TFApp = window.TFApp || {};
 ig.module(
     	'game.main'
     )
@@ -32,7 +33,7 @@ ig.module(
         8/26/2013
          */
 
-        var game = ig.Game.extend({
+        TFApp.game = ig.Game.extend({
 
             // Load some fonts - ig.Font is all proprietary Impact code
             font: new ig.Font("media/timeless_white_16.font.png"),
@@ -779,6 +780,8 @@ ig.module(
                 // End of UI instantiation
             },
 
+            //END INIT
+
             // There are two maps; The terrainmap is just water or land tiles. The feature map has forests,
             // coastlines, and anything else static that sits on the map (like buildings, once they're implemented.)
             // These maps are the most intensive objects in the game, because they handle all of the caching and drawing,
@@ -794,7 +797,7 @@ ig.module(
                 TFglobals.DATA_CONTROLLER.getUserPlayers();
 
                 //TFglobals.DATA_CONTROLLER.logInWithCookies();
-                TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
+                //TFglobals.DATA_CONTROLLER.logInUserWithEmailAndPassword("aaron.tietz@tufts.edu", "letmein");
             },
 
             // The Impact/Data Controller paradigm involves asking the Data Controller for things from Impact, and
@@ -822,7 +825,7 @@ ig.module(
             },
 
             onGetPlayerStats: function(theResponse) {
-            console.log("Impact onGetPlayerStats got: ", theResponse);
+                console.log("Impact onGetPlayerStats got: ", theResponse);
                 if(this.serverResponseWasPositive(theResponse)){
                     console.log("onGetPlayerStats received balance: " + theResponse.balance
                         + ", turn points: " + theResponse.turn_points
@@ -1076,6 +1079,7 @@ ig.module(
                              }
                         }
                     }
+
                 }
 
                 // Finally, update the UI
@@ -2418,16 +2422,16 @@ ig.module(
                 }
                 return shoreTypes;
             }
-
         });
 
-        ig.main( // This is the call that actually fires up the Impact engine
-            '#canvas',
-            game,
-            60,
-            1200,
-            675,
-            1,
-            ig.Loader
-        );
+        TFApp.models.gameModel.set("impactgame", TFApp.game);
+        // ig.main( // This is the call that actually fires up the Impact engine
+        //     '#canvas',
+        //     game,
+        //     60,
+        //     1200,
+        //     675,
+        //     1,
+        //     ig.Loader
+        // );
     });

@@ -38,6 +38,8 @@ class ResourceTilesController < ApplicationController
     end
   end
 
+    #puts "world id: #{world.id}, current user: #{current_user.id}"
+
   expose(:player) { world.player_for_user(current_user) }
 
   expose(:harvestable_tiles) { resource_tiles.select(&:can_harvest?) }
@@ -161,6 +163,33 @@ class ResourceTilesController < ApplicationController
     end
   end
 
+
+  def build_list
+    raise 'not yet implemented'
+  end
+  
+  def owned_by_others
+    if params[:player_id]
+      world = World.find(params[:world_id])
+      begin
+        authorize! :do_things, world 
+      rescue CanCan::AccessDenied => e
+        render json: {:errors => [e.message] }
+        return
+      end
+    else
+      render json: { :errors => ["No player id query parameter given"] }
+      return
+    end
+
+    player = Player.find(params[:player_id])
+    owned_megatiles = Megatile.where("world_id = ? AND owner_id IS NOT NULL", world.id)
+    owned_by_others = owned_megatiles.select {|mt| mt.owner_id != player.id} 
+    rts_owned_by_others = owned_by_others.collect { |megatile| megatile.resource_tile_xys}
+    rts_owned_by_others = rts_owned_by_others.flatten
+    render json: { :message => "Found #{resource_tiles.length} resource_tiles owned by other players", :resource_tiles => rts_owned_by_others}
+  end 
+
 # changed from clearcut_list
 #1 add in client responder module
 #2 work on completing a contract
@@ -174,6 +203,9 @@ class ResourceTilesController < ApplicationController
       render json: client_response_with_errors_array_from_response nil, [e.message]
       return
     end
+
+    puts "player_id: #{player.id}"
+    
     
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
@@ -210,37 +242,9 @@ class ResourceTilesController < ApplicationController
           harvestable_tiles.each_with_index do |tile, index|
             tile.update_market! results[index]
           end
-
-# do they have a contract that isn't ended yet?
-# how much wood do they need to end it?
-# how much wood you just cut
-# automatically apply all the wood of the needed cut (pole/saw) to the contract?
-# 
-
-
-       contracts = Contract.where("player_id = ? AND world_id = ? AND ended = 0", player.id, params[:world_id])
-		# for now, you lose leftover wood
-		# for now, we ONLY let you have one contract
-       if contacts.length > 0
-         contracts[0].add_volume
-       end 
-       
-
-          if params[:contract_id]
-            contract = Contract.find(params[:contract_id])
-            if contract.contract_template.wood_type == "saw_timber"
-              Contract.update_counters contract.id, volume_harvested_of_required_type: summary[:sawtimber_volume].to_i
-            elsif contract.contract_template.wood_type == "pole_timber"
-              Contract.update_counters contract.id, volume_harvested_of_required_type: summary[:poletimber_volume].to_i
-            else
-              #respond_with({errors: ["Don't know how to handle timber type: #{contract.contract_template.wood_type}"]}, status: :unprocessable_entity)
-           	  render json: {:errors => ["Don't know how to handle timber type: #{contract.contract_template.wood_type}"]}       
-            end
-          end
-
-
-
-          respond_with summary
+          result = cut_completes_open_contract params
+          puts "contract was compelted by cut == #{result}"
+          render json: {:message => summary, :contact_completed => result}
         end
       rescue ActiveRecord::RecordInvalid => e
     	render json: {:errors => ["Transaction Failed: #{e.message}"]}       
@@ -251,31 +255,6 @@ class ResourceTilesController < ApplicationController
     end
   end
 
-  def build_list
-    raise 'not yet implemented'
-  end
-  
-  def owned_by_others
-    if params[:player_id]
-      world = World.find(params[:world_id])
-      begin
-        authorize! :do_things, world 
-      rescue CanCan::AccessDenied => e
-        render json: {:errors => [e.message] }
-        return
-      end
-    else
-      render json: { :errors => ["No player id query parameter given"] }
-      return
-    end
-
-    player = Player.find(params[:player_id])
-    owned_megatiles = Megatile.where("world_id = ? AND owner_id IS NOT NULL", world.id)
-    owned_by_others = owned_megatiles.select {|mt| mt.owner_id != player.id} 
-    rts_owned_by_others = owned_by_others.collect { |megatile| megatile.resource_tile_xys}
-    rts_owned_by_others = rts_owned_by_others.flatten
-    render json: { :message => "Found #{resource_tiles.length} resource_tiles owned by other players", :resource_tiles => rts_owned_by_others}
-  end 
 
   def diameter_limit_cut_list
     begin 
@@ -284,7 +263,7 @@ class ResourceTilesController < ApplicationController
       render json: {:errors => [e.message] }
       return
     end
-  
+
     time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     
@@ -313,26 +292,12 @@ class ResourceTilesController < ApplicationController
             tile.update_market! results[index]
           end
 
-=begin
-          if params[:contract_id]
-            contract = Contract.find(params[:contract_id])
-            Contract.update_counters contract.id, volume_harvested_of_required_type: (summary[:sawtimber_volume] + summary[:poletimber_volume]).to_i
-          end
-=end 
-
-=begin
-          contracts = Contract.where("player_id = ?", player.id)
-          if contracts
-            contract = Contract.where("player_id = ?", player.id)[0]
-          end
-          if can_satisfy_contract? contract, summary
-             render json: {:message => summary, :contract_satisfied => [:name => contract.name, :payout => contract.points_earned]}           
-          else
-=end 
-            render json: {:message => summary}
+            result = cut_completes_open_contract params
+            puts "contract was compelted by cut == #{result}"
+            render json: {:message => summary, :contact_completed => result}
 #          end
           
-          respond_with summary
+          #respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
         render json: {:errors => ["Transaction Failed: #{e.message}"]}
@@ -377,11 +342,9 @@ class ResourceTilesController < ApplicationController
             tile.update_market! results[index]
           end
 
-          if params[:contract_id]
-            contract = Contract.find(params[:contract_id])
-            Contract.update_counters contract.id, volume_harvested_of_required_type: (summary[:sawtimber_volume] + summary[:poletimber_volume]).to_i
-          end
-
+          result = cut_completes_open_contract params
+          puts "contract was compelted by cut == #{result}"
+          # add contract completion data here when upgrading to TFClientResponder module
           respond_with summary
         end
       rescue ActiveRecord::RecordInvalid => e
@@ -404,6 +367,19 @@ puts "results length: #{results.length} first one #{results[0]}"
        sawtimber_value: sawtimber_value,   sawtimber_volume: sawtimber_volume,
         resource_tiles: resource_tiles.as_api_response(:resource)
     }
+  end
+
+  def cut_completes_open_contract stats 
+      player_contracts = player_open_contracts stats
+      if player_contracts.length == 0
+        false
+      else
+        can_satisfy_contract? player_contracts[0], stats
+      end
+  end
+
+  def player_open_contracts stats
+    Contract.where("player_id = ? AND world_id = ? AND ended = 0", stats[:player_id], stats[:world_id])    
   end
   
   def can_satisfy_contract? contract, stats
