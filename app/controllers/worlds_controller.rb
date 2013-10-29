@@ -123,6 +123,21 @@ class WorldsController < ApplicationController
     end
   end
 
+
+  def end_turn_for_all_players
+    world = World.find(params[:id])
+    authorize! :show_world, world
+
+    manager = WorldTurn.new world: world 
+    manager.simple_turn
+    if world.save
+      render :json => { :message => "success" }      
+    else
+      render :json => { :errors => world.errors, :status => :unprocessable_entity }
+    end
+  end
+
+
   def turn
     world = World.find(params[:id])
     authorize! :show_world, world

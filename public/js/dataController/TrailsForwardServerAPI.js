@@ -39,6 +39,7 @@ function TrailsForwardServerAPI(){
 	this.SET_BALANCE_AND_TURN_POINTS = "/set_player_balance_and_turn_points";
 	this.AVAILABLE_LOGGING_EQUIPMENT = "/available"; // this will change to something like 'equipment'
 													 // and the server will filter by player type
+	this.END_ALL_PLAYER_TURNS = "/end_turn_for_all_players";
 	this.UNUSED_NUMBER = "/2";
 	this.ID = "id";
 	this.OPENING_BRACKET = "&#91";
@@ -63,6 +64,12 @@ TrailsForwardServerAPI.prototype = {
 		'PUBLIC' FUNCTIONS CALLED BY TrailsForwardDataController OBJECT
 		
 *****/
+
+    endTurnForAllPlayers : function (world_id){
+    	var resourceString = this.buildEndAllPlayerTurnsRSWithWorldId(world_id);
+	  	var queryString = this.authString();
+    	this.makePutRequest(resourceString, queryString, {}, TFglobals.DATA_CONTROLLER.onEndTurnForAllPlayers);
+    },
 
 	logInUserWithEmailAndPassword : function(anEmail, aPassword){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.logInUserWithEmailAndPassword", ["anEmail","aPassword"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));
@@ -328,7 +335,7 @@ TrailsForwardServerAPI.prototype = {
 	  /* send PUT message to TF server */
 	makePutRequest : function(aResourcePath, urlParameters, messagePayload, aCallbackFunction, aFailureContinuation){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.makePutRequest", ["aResourcePath", "urlParameters", "messagePayload", "aCallbackFunction", "aFailureContinuation"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));	
-	
+
 		if(aResourcePath && urlParameters && messagePayload && aCallbackFunction && aFailureContinuation || aFailureContinuation == null){		
 			messagePayload._method = 'PUT';
 			$.ajax({
@@ -413,6 +420,13 @@ TrailsForwardServerAPI.prototype = {
 		'RS' == 'RESOURCE STRING'
 	
 *****/
+
+	  /* produces: "/worlds/world_id/end_turn_for_all_players.json" */
+    buildEndAllPlayerTurnsRSWithWorldId : function (world_id){
+		if(world_id) 
+			return (this.WORLDS + this.FORWARD_SLASH + world_id + this.END_ALL_PLAYER_TURNS + this.JSON);
+		else console.log("bad input");
+    },
 	
 	  /* produces: "/worlds/world_id.json" */
 	buildWorldRSForWorldId : function(world_id){

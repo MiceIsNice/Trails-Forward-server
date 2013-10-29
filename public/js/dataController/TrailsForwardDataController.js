@@ -39,6 +39,15 @@ TrailsForwardDataController.prototype = {
 		
 *****/
 
+    endTurnForAllPlayers : function(){
+    	if(this.gameDataCache.id){
+    		console.log("calling this.serverAPI.endTurnForAllPlayers(" + this.gameDataCache.id + ")");
+       		this.serverAPI.endTurnForAllPlayers(this.gameDataCache.id);
+    	}
+        else
+        	console.log("No world_id in the gameDataCache");
+    },
+
 	logInUserWithEmailAndPassword : function(an_email, a_password){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.logInUserWithEmailAndPassword", ["an_email","a_password"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
 
@@ -49,7 +58,7 @@ TrailsForwardDataController.prototype = {
 	
 	getWorldDataForPlayerId : function(player_id){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.getWorldDataForPlayerId", ["player_id"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-
+ 
 		if(player_id || player_id == 0){
 			this.gameDataCache.player_id = player_id;
 			var player = this.gameDataCache.getPlayerById(player_id);
@@ -427,6 +436,14 @@ TrailsForwardDataController.prototype = {
 		}
 		else console.log("bad input");
 	},
+
+	onEndTurnForAllPlayers : function(theResult){
+		if(theResult){
+			//TFglobals.IMPACT.onSetPlayerBalanceAndTurnPoints(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			console.log("successfully ended turn", theResult);
+		}
+		else console.log("bad input");		
+	},
 	
 /*****
 
@@ -537,8 +554,10 @@ TrailsForwardDataController.prototype = {
 		console.log("serverResponse: ");
 		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(serverResponse);
 		if(serverResponse){
-			if(serverResponse.errors)
+			if(serverResponse.errors){
 				serverResponse.status = TFglobals.FAILURE;
+				console.log("the errors were:",serverResponse.errors);
+			}
 			else
 				serverResponse.status = TFglobals.SUCCESS;
 			return serverResponse;

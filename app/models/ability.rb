@@ -72,6 +72,7 @@ class Ability
     end
 
     can :accept_contract, Contract do |contract|
+      puts "verifying player's ability to accept contract with id: #{contract.id}"
       player = contract.world.player_for_user(user)
 
       if Contract.where("player_id = ?", player.id).length > 0

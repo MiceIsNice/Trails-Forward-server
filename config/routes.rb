@@ -22,6 +22,7 @@ TrailsForwardWorld::Application.routes.draw do
   end 
   
   resources :worlds do
+    put :end_turn_for_all_players
     resources :resource_tiles do
       get :owned_by_others
     end
