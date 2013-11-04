@@ -28,9 +28,6 @@ TFApp.PlayerModel = Backbone.Model.extend({
 				i = worldPlayers.length;
 			}
 		}
-
-
-
 	},
 	loadPlayerData: function(){
 		var player_id = this.get("player_id");
@@ -56,6 +53,9 @@ TFApp.PlayerModel = Backbone.Model.extend({
 				console.log("Getting Player Data Error: ", data);
 			}
 		});
+
+	},
+	getOwnedTiles: function(){
 
 	}
 

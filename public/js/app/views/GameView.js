@@ -17,6 +17,8 @@ TFApp.GameView = Backbone.View.extend({
 
 		//creat and cache some backbone views that are exclusive to this view
 		this.QuickBarView = new TFApp.QuickBarView();
+		this.ActionButtonsView = new TFApp.ActionButtonsView();
+		this.TileDetailsView = new TFApp.TileDetailsView();
 
 		
 
@@ -25,7 +27,7 @@ TFApp.GameView = Backbone.View.extend({
 		//TODO
 	},
 	start: function(){
-		console.log("Starting World View");
+		console.log("Starting Game View");
 	},
 
 	toggleAccordianSection: function(e){
@@ -45,11 +47,16 @@ TFApp.GameView = Backbone.View.extend({
 		if(!$container.hasClass("active")){
 			
 			$containerTableWrap.animate({height: autoHeight}, function(){
-				$containerTableWrap.height("auto");
+				$containerTableWrap.height("100%");
 				$container.addClass("active");
 			});
 		}
 		return false;
+
+	},
+	showErrorModal: function(errorText){
+		errorText = errorText || "SOMETHING BAD HAPPENED";
+		alert(errorText);
 
 	}
 

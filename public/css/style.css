@@ -246,7 +246,11 @@ begin: game
 	top:0;
 	overflow:hidden;
 }
-
+	
+.game-wrapper h4{
+	margin:0;
+	padding:0;
+}
 .world-wrapper{
 	position:absolute;
 	height:100%;
@@ -256,22 +260,16 @@ begin: game
 	left:0;
 	overflow:hidden;
 }
-.world-wrapper canvas{
+/*.world-wrapper canvas,*/
+.world-wrapper .three-container{
 	width:100%;
-	position:absolute;
-	bottom:0;
 
 
 }
 
 
-.game-wrapper .right-panel{
-	position:absolute;
-	right:1%;
-	top:2%;
-	background:none;
-}
-.game-wrapper aside{
+
+.game-wrapper .other-info{
 	padding:0;
 	background:white;
 	overflow:hidden;
@@ -279,44 +277,124 @@ begin: game
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
-}
-.game-wrapper aside>div{
-	padding-top:0;
-	margin:0;
+	position:absolute;
+	right:1%;
+	top:2%;
 
 }
-.game-wrapper aside h1{
+.game-wrapper .other-info h1{
 	font-size:16px;
-	margin-bottom:0;
-	padding-bottom:0;
-	padding:5px 10px;
 	margin:0;
+	padding:5px;
 }
 
-.game-wrapper aside .table-wrap{
+
+
+.game-wrapper .accordian-section .table-wrap{
 	overflow:hidden;
 	width:100%;
 	height:0;
+	font-size:12px;
 
 }
-.game-wrapper aside .accordian-section:first-child .table-wrap{
-	height:auto;
+.game-wrapper .accordian-section:first-child .table-wrap{
+	height:100%;
 }
 
-.game-wrapper aside table{
+.game-wrapper .accordian-section table{
 	width:100%;
 }
-.game-wrapper aside tr{
+
+
+.game-wrapper .accordian-section tr{
 	border-bottom:dotted 1px #333;
 	cursor:pointer;
+	height:auto;
 }
-.game-wrapper aside tr:last-child{
+.game-wrapper .accordian-section tr:last-child{
 	border-bottom:none;
 }
-aside td{
-	padding:5px 10px;
+.game-wrapper td{
+	padding:5px 5px;
 	font-size:12px;
 }
+
+
+
+
+
+
+
+
+
+
+
+/*************************************
+			Always Visible
+*************************************/
+.game-wrapper .always-visible{
+	position:absolute;
+	bottom:35px;
+	width:98%;
+	left:1%;
+}
+
+
+.game-wrapper .tile-details{
+	display:inline;
+	float:left;
+	width:20%;
+	left:1%;
+	bottom:10px;
+	position:absolute;
+	bottom:40px;
+	border-radius:5px;
+	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
+}
+.game-wrapper .tile-details .inner{
+	padding:10px;
+}
+
+
+.game-wrapper .tile-details table{
+	font-size:13px;
+}
+.game-wrapper .tile-details td:first-child{
+}
+
+
+.game-wrapper .action-bar{
+	width:55%;
+	padding-top:10px;
+	position:absolute;
+	bottom:40px;
+	left:22%;
+}
+
+.game-wrapper .action-bar button{
+	border:none;
+	width:7%;
+	margin:0;
+	margin-right:5px;
+	border-radius:5px;
+	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
+	outline:none;
+	display:inline;
+	float:left;
+
+}
+.game-wrapper .action-bar button:nth-child(4){
+}
+
+.game-wrapper .action-bar button img{
+	width:100%;
+
+}
+
+
+
+
+
 
 
 
@@ -329,27 +407,6 @@ aside td{
 	overflow:hidden;
 
 }
-
-.game-wrapper footer .action-bar{
-	width:98%;
-	margin:0 auto;
-	margin-bottom:10px;
-}
-
-.game-wrapper .action-bar button{
-	border:none;
-	width:4%;
-	height:4%;
-	border-radius:5px;
-	margin-right:5px;
-	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
-	outline:none;
-}
-.game-wrapper .action-bar button img{
-	width:100%;
-
-}
-
 .game-wrapper .quick-bar{
 	width:100%;
 	overflow:hidden;
@@ -464,7 +521,6 @@ end: game
 
 
 .three-container{
-	display:none;
 }
 .three-container canvas{
 	background-color: #000000;

@@ -11,8 +11,7 @@ var GameModel = Backbone.Model.extend({
 	initialize: function(){
 		var that = this;
 		this.on("change:selectedTileCoords", function(){
-			console.log("SELECTED TILE CHANGE");
-			console.log(that.get("selectedTileCoords"));
+			//console.log(that.get("selectedTileCoords"));
 		});
 	}
 

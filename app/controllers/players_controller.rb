@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   before_filter :authenticate_user!
-
+  skip_authorization_check :only => [:surveys_for_player]
   # GET /users/:id/players
   def index
     @user = User.find(params[:user_id])
@@ -192,7 +192,33 @@ class PlayersController < ApplicationController
   end
   
   
-  
+  #---------------------------------
+  def surveys_for_player
+
+    player = Player.find(params[:player_id])
+    
+    if(player)
+      surveys = Survey.where("player_id = ?", params[:player_id])
+      foo = surveys.map { |survey| 
+        m = Megatile.find(survey.megatile_id);
+        OpenStruct.new(:x => m.x, :y => m.y, :survey => survey)
+      }
+
+      response = { :surveys => foo}
+    
+    else
+      response = { :errors => ["No player found or... something"] }
+
+    end
+
+    render json: response
+    return
+  end
+  #---------------------------------
+
+
+
+
 ##########
 ##########
 # For development convenience 

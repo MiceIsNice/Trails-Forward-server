@@ -180,8 +180,18 @@
 
 
 
-                <aside class="right-panel">
 
+
+
+
+                <!-- 
+                Didn't know what to call this, sorry
+                -Contracts
+                -Upgrades
+                -Expandable things
+                -->
+
+                <div class="other-info">
 
                     <div class="contracts active accordian-section">
                         <h1 class="black-bar">Contracts</h1>
@@ -284,30 +294,64 @@
                         </div>
 
                     </div>
-                </aside>
+                </div>
 
 
 
+                <!-- 
+                Stuff that should always be visible such as:
+                -Info Panel
+                -Actions Bar
+                -->
+                <div class="tile-details white-bar">
+                    <div class="inner">
+                        <h4>General Tile Info</h4>
+                        <table>
+                            <tr>
+                                <td>Base Cover Type:</td>
+                                <td class="base-cover-type">???</td>
+                            </tr>
+                            <tr>
+                                <td>Owner:</td>
+                                <td class="owner">---</td>
+                            </tr>
+                        </table>
 
-                <footer class="">
 
-                    <div class="action-bar">
-                        <button class="white-bar hoverable">
-                            <img src="img/game-icons/actions/eye.png" />
-                        </button>
-                        <button class="white-bar hoverable">
-                            <img src="img/game-icons/actions/dollar.png" />
-                        </button>                        
-                        <button class="white-bar hoverable">
-                            <img src="img/game-icons/actions/saw.png" />
-                        </button>
-
-                        <button class="white-bar hoverable">
-                            <img src="img/game-icons/actions/eye.png" />
-                        </button>
+                        <div class="survey-data">
+                            <h4>Survey Data</h4>
+                            <table>
+                                <tr>
+                                    <td>Last Surveyed:</td>
+                                    <td class="last-surveyed">???</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
+                </div>
+                <div class="action-bar">
+                    <button class="white-bar hoverable survey-button">
+                        <img src="img/game-icons/actions/eye.png" />
+                    </button>
+                    <button class="white-bar hoverable buy-button">
+                        <img src="img/game-icons/actions/dollar.png" />
+                    </button>                        
+                    <button class="white-bar hoverable clear-cut-button">
+                        <img src="img/game-icons/actions/saw.png" />
+                    </button>
+                    <button class="white-bar hoverable diameter-cut-button">
+                        <img src="img/game-icons/actions/saw_circle.png" />
+                    </button>
+                    <button class="white-bar hoverable plant-button">
+                        <img src="img/game-icons/actions/tree.png" />
+                    </button>                        
+                </div>
 
 
+
+
+
+                <footer>
                     <div class="quick-bar white-bar">
                         <div class="world-info">
                             <span class="world-name"></span> 
@@ -317,7 +361,7 @@
                         <div class="player-info">
                             <span class="actions-remaining hourglass-icon">0</span>
                             <span class="player-balance currency-icon">0</span>
-                            <span class="lumber-icon">0</span>
+                            <span class="player-lumber lumber-icon">0</span>
                         </span>
                     </div>
                 </footer>
@@ -354,7 +398,12 @@
         <script src="js/vendor/backbone-1.0.0.min.js"></script>
 
         <script src="js/vendor/three.min.js"></script>
+
         <!-- End: Vendor includes -->
+
+
+
+
 
 
 
@@ -407,9 +456,16 @@
         <script src="js/app/views/RegisterView.js"></script>
 
         <script src="js/app/views/LobbyView.js"></script>
-        <!--Game Stuff-->
 
+
+        <!--Game GUI -->        
         <script src="js/app/views/GameGUI/QuickBarView.js"></script>
+        <script src="js/app/views/GameGUI/ActionButtonsView.js"></script>
+        <script src="js/app/views/GameGUI/TileDetailsView.js"></script>
+
+        <!--Game Stuff-->
+        <script src="js/app/views/three/OrbitControls.js"></script>
+
         <script src="js/app/views/GameView.js"></script>
         <script src="js/app/views/WorldView.js"></script>
         <!-- End: Backbone Views -->

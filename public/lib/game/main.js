@@ -187,13 +187,13 @@ ig.module(
             },
 
             onGetWorldData: function() {
-                //ig.log("Got world data.");
+                ig.log("Got world data.");
 				var rect = {x_min : 0, x_max : 64, y_min : 0, y_max : 64};
 				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
-                TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
-                TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
-                TFglobals.DATA_CONTROLLER.getPlayerStats();
-                TFglobals.DATA_CONTROLLER.getPlayersOwnedEquipment();
+                // TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
+                // TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
+                // TFglobals.DATA_CONTROLLER.getPlayerStats();
+                // TFglobals.DATA_CONTROLLER.getPlayersOwnedEquipment();
             },
 
             onGetPlayerStats: function(theResponse) {
@@ -232,8 +232,15 @@ ig.module(
                     if (tile) {
                         tileFeature = landType = undefined;
                         //ig.log("Found a tile that isn't null: " + tile.x + ", " + tile.y);
+
+
+                        //handle some features
                         switch(tile.base_cover_type) {
                             case "forest":
+                                if(tile.large_tree_basal_area == 0 && tile.small_tree_basal_area == 0){
+                                    break;
+                                }
+
                                 if (tile.large_tree_basal_area == 0) {
                                     tileFeature = "forest_tileset_light";
                                 }
@@ -251,6 +258,7 @@ ig.module(
                             default:
                                 break;
                         }
+                        //handle
                         switch (tile.type) {
                             case "LandTile":
                                 landType = "grass";
@@ -435,21 +443,21 @@ ig.module(
                         if (this.mapUpdate) {
                             this.featureMap.update();
                             this.terrainMap.update();
-                            if (!this.minimap) {
-                             //ig.log("Loading minimap");
-                             this.minimap = new IsoMinimap(new Rect(0,
-                                 0,
-                                 ig.system.width / 4,
-                                 ig.system.width / 4 / 1.7777777777
-                             ));
-                             this.minimap.addReferenceMap(this.terrainMap);
-                             this.minimap.load();
-                             this.terrainMap.mapChangeCallback = function() {
-                                 self.minimap.load();
-                             };
-                             //ig.log("Minimap loaded");
-                             this.minimapBox.addChild(this.minimap);
-                             }
+                            // if (!this.minimap) {
+                            //  //ig.log("Loading minimap");
+                            //  this.minimap = new IsoMinimap(new Rect(0,
+                            //      0,
+                            //      ig.system.width / 4,
+                            //      ig.system.width / 4 / 1.7777777777
+                            //  ));
+                            //  this.minimap.addReferenceMap(this.terrainMap);
+                            //  this.minimap.load();
+                            //  this.terrainMap.mapChangeCallback = function() {
+                            //      self.minimap.load();
+                            //  };
+                            //  //ig.log("Minimap loaded");
+                            //  this.minimapBox.addChild(this.minimap);
+                            //  }
                         }
                     }
 
@@ -1378,8 +1386,14 @@ ig.module(
                 if(this.serverResponseWasPositive(theResponse)){
                     //ig.log(theResponse);
                     //ig.log(theResponse.survey.x + ", " + theResponse.survey.y);
+
+
                     this.tilesSurveyed[theResponse.survey.x] = this.tilesSurveyed[theResponse.survey.x] || [];
                     this.tilesSurveyed[theResponse.survey.x][theResponse.survey.y] = true;
+
+                    
+
+                    
                 }
                 else{
                     console.log("onConductSurveyOfTileWithXY failure with message: " + theResponse.errors.join(", "));
