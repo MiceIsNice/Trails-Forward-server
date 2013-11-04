@@ -237,14 +237,13 @@ class ResourceTile < ActiveRecord::Base
   # CHANGE THIS TO DETERMINE WHO THE OWNER IS - 
   #    RIGHT NOW IT JUST SAYS "none" ALWAYS 
   def to_simple_tile
-   # the_owner_id = Megatile.find(self.megatile_id).owner_id
-    #the_owner = the_owner_id == null ? "none" : "owned"
+    the_owner_id = Megatile.find(self.megatile_id).owner_id
     return OpenStruct.new(:x => self.x, :y => self.y, :base_cover_type => self.base_cover_type,
                            :marten_population => self.marten_population, :housing_type => self.housing_type,
                            :small_tree_basal_area => self.small_tree_basal_area, 
                            :large_tree_basal_area => self.large_tree_basal_area,
                            :type => self.type,
-                           :owner => "none")
+                           :owner => the_owner_id)
   end
   
   def to_str

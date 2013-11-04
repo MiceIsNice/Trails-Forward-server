@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  include TFClientResponder
   
   before_filter :authenticate_user!
 
@@ -145,7 +146,7 @@ class PlayersController < ApplicationController
   # returns all resource tiles owned by a player 
   def owned_resource_tiles
      result = can_perform_action params, [:user_id, :player_id], 
-               get_player_with_userid_and_playerid, Object_required, :player_info 
+               Proc.new { |args| get_player_with_userid_and_playerid_with_message args}, Object_required, :player_info 
       
     if result[:success] && result[:objects].length > 0
       can_perform_action nil, {:player_id => result[:objects][0].id, :world_id => result[:objects][0].world_id}, 
@@ -217,7 +218,7 @@ class PlayersController < ApplicationController
 
   def set_player_balance_and_turn_points
     result = can_perform_action params, [:user_id, :player_id, :balance, :turn_points], 
-               get_player_with_userid_and_playerid, Object_required, :player_info
+               Proc.new { |args| get_player_with_userid_and_playerid_with_message args}, Object_required, :player_info
 	
 	if result[:success]
       player.balance = params[:balance].to_i

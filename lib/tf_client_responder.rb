@@ -3,12 +3,12 @@
 
 module TFClientResponder
 
-  Object_required =  true
+  Object_required = true
   Object_not_required = false
   
   # checks if needed parameters are given, and all objects desired are authorized to perform the desired function
   # returns a: {:success => bool, :objects => ActiveRecord object[], :client_response => TFClientResponse}
-  def can_perform_action given_parameters, needed_parameters, active_record_lookup_func, object_is_required, authorization_tag
+  def can_perform_action given_parameters, needed_parameters, active_record_lookup_func_proc, object_is_required, authorization_tag
   
     if given_parameters != nil && needed_parameters != nil
       response = all_parameters_given given_parameters, needed_parameters
@@ -17,7 +17,7 @@ module TFClientResponder
       end
     end
     
-    response[:objects] = active_record_lookup_func given_parameters
+    response[:objects] = active_record_lookup_func_proc.call(given_parameters)
     if object_is_required && response[:objects].length == 0
       response[:success] = false
       response[:client_response] = client_response_with_errors_array_from_response nil, response[:objects][:not_found_message]

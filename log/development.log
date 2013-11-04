@@ -1919,3 +1919,240 @@ ActiveRecord::StatementInvalid (Mysql2::Error: Incorrect date value: '1800' for 
   app/controllers/surveys_controller.rb:44:in `block in create'
   app/controllers/surveys_controller.rb:43:in `create'
 
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:203: syntax error, unexpected keyword_nil, expecting keyword_do or '{' or '('
+..._errors_array_from_response nil, [e.message]
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:203: Can't assign to nil
+...errors_array_from_response nil, [e.message]
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:203: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:215: syntax error, unexpected keyword_nil, expecting keyword_do or '{' or '('
+..._errors_array_from_response nil, ["Not enough time left to p...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:215: Can't assign to nil
+...errors_array_from_response nil, ["Not enough time left to pe...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:215: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:222: syntax error, unexpected keyword_nil, expecting keyword_do or '{' or '('
+..._errors_array_from_response nil, ["Not enough money to perfo...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:222: Can't assign to nil
+...errors_array_from_response nil, ["Not enough money to perfor...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:222: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:236: syntax error, unexpected keyword_do_block, expecting keyword_end
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:242: syntax error, unexpected keyword_do_block, expecting keyword_end
+          harvestable_tiles.each_with_index do |tile, index|
+                                              ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:242: syntax error, unexpected '|', expecting '='
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:256: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:215: syntax error, unexpected keyword_nil, expecting keyword_do or '{' or '('
+..._errors_array_from_response nil, ["Not enough time left to p...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:215: Can't assign to nil
+...errors_array_from_response nil, ["Not enough time left to pe...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:215: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:222: syntax error, unexpected keyword_nil, expecting keyword_do or '{' or '('
+..._errors_array_from_response nil, ["Not enough money to perfo...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:222: Can't assign to nil
+...errors_array_from_response nil, ["Not enough money to perfor...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:222: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:236: syntax error, unexpected keyword_do_block, expecting keyword_end
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:242: syntax error, unexpected keyword_do_block, expecting keyword_end
+          harvestable_tiles.each_with_index do |tile, index|
+                                              ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:242: syntax error, unexpected '|', expecting '='
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:256: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (undefined local variable or method `get_player_with_userid_and_playerid' for #<PlayersController:0x007fc85e80c220>):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/players_controller.rb:123:in `get_player_with_userid_and_playerid_with_message'
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/players_controller.rb:123:in `get_player_with_userid_and_playerid_with_message'
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/players_controller.rb:148: syntax error, unexpected ',', expecting keyword_end
+...rid_and_playerid_with_message), Object_required, :player_inf...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/players_controller.rb:148: dynamic constant assignment
+...with_message), Object_required, :player_info 
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/players_controller.rb:148: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/players_controller.rb:220: syntax error, unexpected ',', expecting keyword_end
+...rid_and_playerid_with_message), Object_required, :player_info
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/players_controller.rb:220: dynamic constant assignment
+...with_message), Object_required, :player_info
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/players_controller.rb:220: syntax error, unexpected '\n', expecting tCOLON2 or '[' or '.'):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:149:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:149:in `owned_resource_tiles'
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:149:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/tf_client_responder.rb:6: syntax error, unexpected '=', expecting ')'
+  attr_accessor(:Object_required = true, :Object_not_required = false)
+                                  ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/tf_client_responder.rb:6: Can't assign to true
+  attr_accessor(:Object_required = true, :Object_not_required = false)
+                                        ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/tf_client_responder.rb:6: syntax error, unexpected '=', expecting tCOLON2 or '[' or '.'
+  attr_accessor(:Object_required = true, :Object_not_required = false)
+                                                               ^):
+  app/controllers/resource_tiles_controller.rb:15:in `<class:ResourceTilesController>'
+  app/controllers/resource_tiles_controller.rb:14:in `<top (required)>'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:149:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant PlayersController::Object_required):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `Object_required' for TFClientResponder:Module):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `can_perform_action' for #<PlayersController:0x007fea9f8277d8>):
+  app/controllers/players_controller.rb:147:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `can_perform_action' for TFClientResponder:Module):
+  app/controllers/players_controller.rb:147:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `can_perform_action' for TFClientResponder:Module):
+  app/controllers/players_controller.rb:147:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `can_perform_action' for TFClientResponder:Module):
+  app/controllers/players_controller.rb:148:in `owned_resource_tiles'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+

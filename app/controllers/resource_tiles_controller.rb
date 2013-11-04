@@ -200,26 +200,26 @@ class ResourceTilesController < ApplicationController
     begin 
       check_harvest_rights
     rescue CanCan::AccessDenied => e
-      render json: client_response_with_errors_array_from_response nil, [e.message]
+      render json: client_response_with_errors_array_from_response(nil, [e.message])
       return
-    end
-
-    puts "player_id: #{player.id}"
-    
+    end    
     
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
 
+    puts "clearcut time_cost: #{time_cost}, money_cost: #{money_cost}"
+
+
     if params[:estimate] == false
 	  unless TimeManager.can_perform_action?(player: player, cost: time_cost)
-    	render json: client_response_with_errors_array_from_response nil, ["Not enough time left to perform harvest"]
+    	render json: client_response_with_errors_array_from_response(nil, ["Not enough time left to perform harvest"])
         return
       end
     end
     
     if params[:estimate] == false
       unless player.balance >= money_cost
-      render json: client_response_with_errors_array_from_response nil, ["Not enough money to perform harvest, you need #{money_cost}"]
+      render json: client_response_with_errors_array_from_response(nil, ["Not enough money to perform harvest, you need #{money_cost}"])
         return
       end
     end
@@ -266,8 +266,9 @@ class ResourceTilesController < ApplicationController
 
     time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
+
+    puts "diameter_limit_cut above #{params[:above]} inches and below #{params[:below]} inches time_cost: #{time_cost}, money_cost: #{money_cost}"
     
-    puts "diameter_limit_cut_list: time_cost: #{time_cost}, money_cost: #{money_cost}"
     if params[:estimate] == false && !TimeManager.can_perform_action?(player: player, cost: time_cost)
       render json: {:errors => ["Not enough time left to perform harvest"]}
       #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
@@ -317,6 +318,8 @@ class ResourceTilesController < ApplicationController
   
     time_cost = TimeManager.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
+
+      puts "partial_selection_cut qratio: #{params[:qratio]}, target_basal_area: #{params[:target_basal_area]}, time_cost: #{time_cost}, money_cost: #{money_cost}"
 
       unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
         respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)

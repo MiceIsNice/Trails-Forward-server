@@ -60,8 +60,7 @@ class TimeManager
     harvest_ability = LoggingEquipment.harvest_volume_for(diameter: options[:diameter], equipment: options[:player].logging_equipment)
 
     volume = options[:tile].send("estimated_#{options[:diameter]}_inch_tree_volume")
-    
-    #puts "clearcut_cost_for_diameter #{options[:diameter]}: harvest_ability = #{harvest_ability}, volume = #{volume}"
+    puts "clearcut_cost_for_diameter tile #{options[:tile].id} harvest_ability = #{harvest_ability}, volume = #{volume}"
     
     return 0.0 if volume == 0.0
     return 0.0 if harvest_ability == 0.0
@@ -89,6 +88,8 @@ class TimeManager
     harvest_ability = LoggingEquipment.harvest_volume_for(diameter: options[:diameter], equipment: options[:player].logging_equipment)
 
     volume = options[:tile].send("estimated_#{options[:diameter]}_inch_tree_volume")
+    puts "partial_selection_cost_for_diameter tile #{options[:tile].id} harvest_ability = #{harvest_ability}, volume = #{volume}"
+
 
     return 0.0 if volume == 0.0
     return 0.0 if harvest_ability == 0.0
@@ -116,6 +117,7 @@ class TimeManager
     harvest_ability = LoggingEquipment.harvest_volume_for(diameter: options[:diameter], equipment: options[:player].logging_equipment)
 
     volume = options[:tile].send("estimated_#{options[:diameter]}_inch_tree_volume")
+    puts "diameter_limit_cost_for_diameter tile #{options[:tile].id} harvest_ability = #{harvest_ability}, volume = #{volume}"
 
     return 0.0 if volume == 0.0
     return 0.0 if harvest_ability == 0.0
