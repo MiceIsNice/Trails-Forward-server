@@ -187,10 +187,6 @@ class PlayersController < ApplicationController
 # For development convenience 
 # Comment out in production
   
-  def clear_player_tiles
-    required_params = [:user_id, :player_id]
-  end
-  
   def clear_player_upgrades
     required_params = [:user_id, :player_id]  
   end

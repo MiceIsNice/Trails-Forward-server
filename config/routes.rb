@@ -8,6 +8,12 @@ TrailsForwardWorld::Application.routes.draw do
   match "/users/authenticate_for_token" => "users#authenticate_for_token"
 #  match "/users/sign_up" => "devise/registrations#new"
 
+  resources :rosebud do
+    put :clear_my_owned_land
+    put :clear_all_owned_land
+    put :clear_survey_data
+  end
+
   resources :users do
     resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
   end

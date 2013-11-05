@@ -14,13 +14,14 @@ TrailsForwardGlobals.prototype = {
  
  	constructor : TrailsForwardGlobals,
  
- 	initialize : function(dataControllerRef, helperFunctionsRef, impactRef){
+ 	initialize : function(dataControllerRef, helperFunctionsRef, impactRef, rosebudRef){
  	
  		  /* references to objects */
  		this.DATA_CONTROLLER = dataControllerRef;
  		this.SERVER_API = this.DATA_CONTROLLER.serverAPI;
  		this.HELPER_FUNCTIONS = helperFunctionsRef;
  		this.IMPACT = impactRef;
+ 		this.ROSEBUD_CONTROLLER = rosebudRef;
  		
  		  /* shared values */
  		  

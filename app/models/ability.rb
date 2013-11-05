@@ -3,6 +3,10 @@ class Ability
 
   def initialize(user)
 
+   can :authorize_user_for_rosebud, Player do
+    true
+   end
+
     can :index_worlds, World do
       true
     end

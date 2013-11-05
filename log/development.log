@@ -2156,3 +2156,115 @@ NoMethodError (undefined method `can_perform_action' for TFClientResponder:Modul
 ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/js/dataController/TrailsForwardRosebudController.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+LoadError (Expected /Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/rosebud_controller.rb to define RosebudController):
+  
+
+
+AbstractController::ActionNotFound (The action 'update' could not be found for RosebudController):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:13:in `clear_all_owned_land'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:14:in `clear_all_owned_land'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:14:in `clear_all_owned_land'
+
+
+NameError (uninitialized constant RosebudController::MegaTile):
+  app/controllers/rosebud_controller.rb:9:in `clear_my_owned_land'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (uninitialized constant RosebudController::MegaTile):
+  app/controllers/rosebud_controller.rb:9:in `clear_my_owned_land'
+
+
+ActionView::MissingTemplate (Missing template rosebud/clear_my_owned_land, application/clear_my_owned_land with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/views"
+  * "/Users/aarontietz/.rvm/gems/ruby-1.9.2-p320/gems/devise-1.5.3/app/views"
+):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (undefined local variable or method `params' for RosebudController:Class):
+  app/controllers/rosebud_controller.rb:4:in `<class:RosebudController>'
+  app/controllers/rosebud_controller.rb:1:in `<top (required)>'
+
+
+NoMethodError (undefined method `authorize_user_for_rosebud!' for #<RosebudController:0x007f9850ab6d88>):
+  
+
+
+NoMethodError (undefined method `authorize_user_for_rosebud!' for #<RosebudController:0x007f98519ebfd8>):
+  
+
+
+NoMethodError (undefined method `authorize_user_for_rosebud!' for #<RosebudController:0x007f9851914808>):
+  
+

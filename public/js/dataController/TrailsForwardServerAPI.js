@@ -335,7 +335,7 @@ TrailsForwardServerAPI.prototype = {
 	  /* send PUT message to TF server */
 	makePutRequest : function(aResourcePath, urlParameters, messagePayload, aCallbackFunction, aFailureContinuation){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.makePutRequest", ["aResourcePath", "urlParameters", "messagePayload", "aCallbackFunction", "aFailureContinuation"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));	
-
+//console.log("making put request with aResourcePath: " + aResourcePath);
 		if(aResourcePath && urlParameters && messagePayload && aCallbackFunction && aFailureContinuation || aFailureContinuation == null){		
 			messagePayload._method = 'PUT';
 			$.ajax({
