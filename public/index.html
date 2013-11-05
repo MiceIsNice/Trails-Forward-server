@@ -161,13 +161,211 @@
             <!--END: .lobby-wrapper-->
 
 
-            <!--BEGIN: .world-wrapper-->
-            <section class="tf-page world-wrapper">
-                <!--<h1>THE GAME</h1>-->
-                <div class="three-container"></div>
-                 <canvas id="canvas"></canvas>
+
+
+            <section class="tf-page game-wrapper">
+            
+
+
+                <!--BEGIN: .world-wrapper-->
+                <div class="world-wrapper">
+                    <!--<h1>THE GAME</h1>-->
+                    <div class="three-container"></div>
+                     <canvas id="canvas"></canvas>
+                </div>
+                <!--END: .world-wrapper-->
+            
+
+
+
+
+
+
+
+
+
+                <!-- 
+                Didn't know what to call this, sorry
+                -Contracts
+                -Upgrades
+                -Expandable things
+                -->
+
+                <div class="other-info">
+
+                    <div class="contracts active accordian-section">
+                        <h1 class="black-bar">Contracts</h1>
+                        <div class="table-wrap">
+                            <table>
+                                <tr class="contract white-bar hoverable" data-contract-id="0">
+                                    <td class="contract-name">Contract 00</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="1">
+                                    <td class="contract-name">Contract 01</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="2">
+                                    <td class="contract-name">Contract 02</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="3">
+                                    <td class="contract-name">Contract 03</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="4">
+                                    <td class="contract-name">Contract 04</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="5">
+                                    <td class="contract-name">Contract 05</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>                                
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="upgrades accordian-section">
+                        <h1 class="black-bar">Upgrades</h1>
+                        <div class="table-wrap">
+                            <table>
+
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="2">
+                                    <td class="upgrade-name">upgrade 02</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="3">
+                                    <td class="upgrade-name">upgrade 03</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="4">
+                                    <td class="upgrade-name">upgrade 04</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="5">
+                                    <td class="upgrade-name">upgrade 05</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>                                 
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="upgrades accordian-section">
+                        <h1 class="black-bar">Another List</h1>
+                        <div class="table-wrap">
+                            <table>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="0">
+                                    <td class="upgrade-name">upgrade 00</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="2">
+                                    <td class="upgrade-name">upgrade 02</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="3">
+                                    <td class="upgrade-name">upgrade 03</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="4">
+                                    <td class="upgrade-name">upgrade 04</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="upgrade white-bar hoverable" data-upgrade-id="5">
+                                    <td class="upgrade-name">upgrade 05</td>
+                                    <td class="lumber">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>                                 
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!-- 
+                Stuff that should always be visible such as:
+                -Info Panel
+                -Actions Bar
+                -->
+                <div class="tile-details white-bar">
+                    <div class="inner">
+                        <h4>General Tile Info</h4>
+                        <table>
+                            <tr>
+                                <td>Base Cover Type:</td>
+                                <td class="base-cover-type">???</td>
+                            </tr>
+                            <tr>
+                                <td>Owner:</td>
+                                <td class="owner">---</td>
+                            </tr>
+                        </table>
+
+
+                        <div class="survey-data">
+                            <h4>Survey Data</h4>
+                            <table>
+                                <tr>
+                                    <td>Last Surveyed:</td>
+                                    <td class="last-surveyed">???</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <button class="white-bar hoverable survey-button">
+                        <img src="img/game-icons/actions/eye.png" />
+                    </button>
+                    <button class="white-bar hoverable buy-button">
+                        <img src="img/game-icons/actions/dollar.png" />
+                    </button>                        
+                    <button class="white-bar hoverable clear-cut-button">
+                        <img src="img/game-icons/actions/saw.png" />
+                    </button>
+                    <button class="white-bar hoverable diameter-cut-button">
+                        <img src="img/game-icons/actions/saw_circle.png" />
+                    </button>
+                    <button class="white-bar hoverable plant-button">
+                        <img src="img/game-icons/actions/tree.png" />
+                    </button>                        
+                </div>
+
+
+
+
+
+                <footer>
+                    <div class="quick-bar white-bar">
+                        <div class="world-info">
+                            <span class="world-name"></span> 
+                            <span class="world-year"></span>
+                            <span class="current-turn"></span>
+                        </div>
+                        <div class="player-info">
+                            <span class="actions-remaining hourglass-icon">0</span>
+                            <span class="player-balance currency-icon">0</span>
+                            <span class="player-lumber lumber-icon">0</span>
+                        </span>
+                    </div>
+                </footer>
             </section>
-            <!--END: .world-wrapper-->
 
 
 
@@ -200,7 +398,12 @@
         <script src="js/vendor/backbone-1.0.0.min.js"></script>
 
         <script src="js/vendor/three.min.js"></script>
+
         <!-- End: Vendor includes -->
+
+
+
+
 
 
 
@@ -247,10 +450,24 @@
 
 
         <!-- Start: Backbone Views -->
+        
+        <!--Login/Register Stuff-->
         <script src="js/app/views/LoginRegisterView.js"></script>
         <script src="js/app/views/LoginView.js"></script>
-        <script src="js/app/views/LobbyView.js"></script>
         <script src="js/app/views/RegisterView.js"></script>
+
+        <script src="js/app/views/LobbyView.js"></script>
+
+
+        <!--Game GUI -->        
+        <script src="js/app/views/GameGUI/QuickBarView.js"></script>
+        <script src="js/app/views/GameGUI/ActionButtonsView.js"></script>
+        <script src="js/app/views/GameGUI/TileDetailsView.js"></script>
+
+        <!--Game Stuff-->
+        <script src="js/app/views/three/OrbitControls.js"></script>
+
+        <script src="js/app/views/GameView.js"></script>
         <script src="js/app/views/WorldView.js"></script>
         <!-- End: Backbone Views -->
 

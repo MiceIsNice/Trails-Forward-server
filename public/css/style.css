@@ -1,6 +1,7 @@
-body{background: url(../img/bg_tile.png) repeat-x #aadd5a;}
+html{height:100%;}
+body{background: url(../img/bg_tile.png) repeat-x #aadd5a;height:100%;}
 ul {list-style:none;}
-p{color:#5a5a5a; font-family:georgia; font-size:14px; text-align:justify;}
+p{ font-size:14px;}
 a{text-decoration:none;}
 h2{margin:0;padding:0;}
 
@@ -9,6 +10,7 @@ h2{margin:0;padding:0;}
 	
 	margin:0 auto;
 	overflow:hidden;
+	height:100%;
 }
 
 .main-header{
@@ -49,7 +51,6 @@ h2{margin:0;padding:0;}
 
 .content{
 	position:relative;
-	
 }
 
 
@@ -62,16 +63,7 @@ h2{margin:0;padding:0;}
 }
 
 
-.white-panel{
-	background:rgba(255,255,255,.5);
-	border:solid 2px black;
-	padding:20px;
-	   -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-            border-radius: 8px;
-     -khtml-border-radius: 8px;
 
-}
 .black-panel{
 	background:#151926;
 	border:solid 2px black;
@@ -234,14 +226,319 @@ begin lobby
 
 
 
+/*                          
+  __ _  __ _ _ __ ___   ___ 
+ / _` |/ _` | '_ ` _ \ / _ \
+| (_| | (_| | | | | | |  __/
+ \__, |\__,_|_| |_| |_|\___|
+ |___/                      
+
+begin: game
+*/
+
+.game-wrapper{
+	margin:0 auto;
+	background:black;
+	height:100%;
+	width:100%;
+	z-index:1001;
+	position:absolute;
+	top:0;
+	overflow:hidden;
+}
+	
+.game-wrapper h4{
+	margin:0;
+	padding:0;
+}
+.world-wrapper{
+	position:absolute;
+	height:100%;
+	width:100%;
+	min-width:900px;
+	top:0;
+	left:0;
+	overflow:hidden;
+}
+/*.world-wrapper canvas,*/
+.world-wrapper .three-container{
+	width:100%;
+
+
+}
+
+
+
+.game-wrapper .other-info{
+	padding:0;
+	background:white;
+	overflow:hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
+	position:absolute;
+	right:1%;
+	top:2%;
+
+}
+.game-wrapper .other-info h1{
+	font-size:16px;
+	margin:0;
+	padding:5px;
+}
+
+
+
+.game-wrapper .accordian-section .table-wrap{
+	overflow:hidden;
+	width:100%;
+	height:0;
+	font-size:12px;
+
+}
+.game-wrapper .accordian-section:first-child .table-wrap{
+	height:100%;
+}
+
+.game-wrapper .accordian-section table{
+	width:100%;
+}
+
+
+.game-wrapper .accordian-section tr{
+	border-bottom:dotted 1px #333;
+	cursor:pointer;
+	height:auto;
+}
+.game-wrapper .accordian-section tr:last-child{
+	border-bottom:none;
+}
+.game-wrapper td{
+	padding:5px 5px;
+	font-size:12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*************************************
+			Always Visible
+*************************************/
+.game-wrapper .always-visible{
+	position:absolute;
+	bottom:35px;
+	width:98%;
+	left:1%;
+}
+
+
+.game-wrapper .tile-details{
+	display:inline;
+	float:left;
+	width:20%;
+	left:1%;
+	bottom:10px;
+	position:absolute;
+	bottom:40px;
+	border-radius:5px;
+	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
+}
+.game-wrapper .tile-details .inner{
+	padding:10px;
+}
+
+
+.game-wrapper .tile-details table{
+	font-size:13px;
+}
+.game-wrapper .tile-details td:first-child{
+}
+
+
+.game-wrapper .action-bar{
+	width:55%;
+	padding-top:10px;
+	position:absolute;
+	bottom:40px;
+	left:22%;
+}
+
+.game-wrapper .action-bar button{
+	border:none;
+	width:7%;
+	margin:0;
+	margin-right:5px;
+	border-radius:5px;
+	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
+	outline:none;
+	display:inline;
+	float:left;
+
+}
+.game-wrapper .action-bar button:nth-child(4){
+}
+
+.game-wrapper .action-bar button img{
+	width:100%;
+
+}
+
+
+
+
+
+
+
+
+
+.game-wrapper footer{
+	width:100%;
+	position:absolute;
+	bottom:0%;
+	z-index:10000;
+	overflow:hidden;
+
+}
+.game-wrapper .quick-bar{
+	width:100%;
+	overflow:hidden;
+	box-shadow: -2px 2px 20px rgba(0,0,0,.3);
+}
+.game-wrapper footer .quick-bar div>span{
+	float:left;
+	padding:5px 10px;
+	border-left:solid 1px #CCC;
+	border-right:solid 1px #fff;
+}
+.game-wrapper footer .world-info{
+	float:left;
+}
+.game-wrapper footer .player-info{
+	float:right;
+}
+
+
+.game-wrapper footer .currency{
+	padding-left:30px;
+	background:url(../img/game-icons/dollar.png) no-repeat  10px center;
+}
+.game-wrapper footer .actions-remaining{
+	padding-left:30px;
+	background:url(../img/game-icons/hourglass.png) no-repeat  10px center;
+}
+.game-wrapper footer .lumber{
+	padding-left:30px;
+	background:url(../img/game-icons/lumber.png) no-repeat  10px center;
+}
+
+
+
+.currency-icon{
+	padding-left:30px !important;
+	background:url(../img/game-icons/dollar.png) no-repeat  10px center;
+}
+.hourglass-icon{
+	padding-left:30px !important;
+	background:url(../img/game-icons/hourglass.png) no-repeat  10px center;
+}
+.lumber-icon{
+	padding-left:30px !important;
+	background:url(../img/game-icons/lumber.png) no-repeat  10px center;
+
+}
+
+
+
+
+.white-bar{
+
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(241,241,241,1)), color-stop(51%,rgba(225,225,225,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+
+}
+
+.white-bar.hoverable:hover{
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(242,242,242,1) 51%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(255,255,255,1)), color-stop(51%,rgba(242,242,242,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(242,242,242,1) 51%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(242,242,242,1) 51%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(242,242,242,1) 51%,rgba(255,255,255,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 50%,rgba(242,242,242,1) 51%,rgba(255,255,255,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+}
+.white-bar.hoverable:active{
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(241,241,241,1)), color-stop(51%,rgba(225,225,225,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+
+}
+
+
+
+
+
+
+.black-bar{
+	background: rgb(76,76,76); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(71,71,71,1) 46%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,76,76,1)), color-stop(46%,rgba(71,71,71,1)), color-stop(50%,rgba(44,44,44,1)), color-stop(51%,rgba(0,0,0,1)), color-stop(60%,rgba(17,17,17,1)), color-stop(91%,rgba(28,28,28,1)), color-stop(100%,rgba(19,19,19,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(76,76,76,1) 0%,rgba(71,71,71,1) 46%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(76,76,76,1) 0%,rgba(71,71,71,1) 46%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(76,76,76,1) 0%,rgba(71,71,71,1) 46%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(76,76,76,1) 0%,rgba(71,71,71,1) 46%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+	color:white;
+}
+
+
+
+/*
+end: game
+*/
+
+
+
+
 .three-container{
-	display:none;
 }
 .three-container canvas{
 	background-color: #000000;
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

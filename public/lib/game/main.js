@@ -60,6 +60,7 @@ ig.module(
             zoomPanOffsetY:0, // " "
             currentSurveyResults:"Loading survey data, one moment...",
             tilesSurveyed: [],
+            viewOwnedTiles: true,
 
             // Variables to aid in loading things in the correct order
             loadState:0,
@@ -147,635 +148,7 @@ ig.module(
                 // Otherwise known as "that = this", used identically
                 var self = this;
 
-                // ------------------------------ UI INSTANTIATION -----------------------------
-                // Most of this UI code has hard-coded numbers, making them not really translate well
-                // to screens of sizes other than 1200 x 675. Making the UI scaleable is something that will
-                // have to be done in future versions of TF if we ever want to support mobile UIs. (Tablet UIs probably
-                // already have the ability to support 1200 x 675 screen sizes, but touch functionality will need to
-                // be improved for these devices.)
 
-                // In an ideal world this code would be data-driven, in a slightly less ideal world it would be put
-                // in a different class than this one. In this world it's here. This is probably not the best place for
-                // it.
-
-                // Box with the current player's name in the upper left
-                var playerNameBox, playerNameText;
-                playerNameBox = new UIElement(new Rect(0, 0, 180, 30));
-                playerNameBox.setImage("uibox");
-                playerNameBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(playerNameBox);
-                playerNameText = new UIElement(new Rect(85, 1, 1, 1));
-                this.playerName = "David Tennant";
-                playerNameText.enableText(function() {
-                    return self.playerName;
-                }, this.font, ig.Font.ALIGN.CENTER);
-                playerNameBox.addChild(playerNameText);
-
-                // Zooming in and out via buttons on the side of the screen
-                var zoomInButton, zoomOutButton, zoomInText, zoomOutText;
-                zoomInButton = new Button(new Rect(0, ig.system.height / 2 - 70, 30, 30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        self.zoomMul *= 1.2;
-                        self.zoomMul = Math.min((Math.max(self.zoomMul, self.minZoom)), self.maxZoom);
-                        ig.system.imageZoom = self.zoomMul;
-                        self.zoomPanOffsetX = ((ig.system.width / 2) / self.zoomMul) - (ig.system.width / 2);
-                        self.zoomPanOffsetY = ((ig.system.height / 2) / self.zoomMul) - (ig.system.height / 2);
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                this.ui.addElement(zoomInButton);
-                zoomInText = new UIElement(new Rect(12, 1, 1, 1));
-                zoomInText.enableText(function() {
-                    return "+";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                zoomInButton.addChild(zoomInText);
-
-                zoomOutButton = new Button(new Rect(0, ig.system.height / 2 - 40, 30, 30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        self.zoomMul /= 1.2;
-                        self.zoomMul = Math.min((Math.max(self.zoomMul, self.minZoom)), self.maxZoom);
-                        ig.system.imageZoom = self.zoomMul;
-                        self.zoomPanOffsetX = ((ig.system.width / 2) / self.zoomMul) - (ig.system.width / 2);
-                        self.zoomPanOffsetY = ((ig.system.height / 2) / self.zoomMul) - (ig.system.height / 2);
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                this.ui.addElement(zoomOutButton);
-                zoomOutText = new UIElement(new Rect(12, 1, 1, 1));
-                zoomOutText.enableText(function() {
-                    return "-";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                zoomOutButton.addChild(zoomOutText);
-
-                // Box in the upper right of the screen showing how many turn points the player has left
-                var turnPointsBox, turnPointsBar, turnPointsText;
-                turnPointsBox = new UIElement(new Rect(ig.system.width - 160, 0, 160, 30));
-                turnPointsBox.setImage("uibox");
-                turnPointsBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(turnPointsBox);
-                turnPointsText = new UIElement(new Rect(75, 1, 1, 1));
-                this.turnPoints = 100;
-                this.turnPointsMax = 100;
-                turnPointsText.enableText(function () {
-                    return self.turnPoints + "/" + self.turnPointsMax;
-                }, this.font, ig.Font.ALIGN.CENTER);
-                turnPointsBox.addChild(turnPointsText);
-
-                // Box below turn points showing how much money the player has
-                var moneyBox, moneyText;
-                moneyBox = new UIElement(new Rect(ig.system.width - 160, 30, 160, 30));
-                moneyBox.setImage("uibox");
-                moneyBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(moneyBox);
-                moneyText = new UIElement(new Rect(148, 1, 1, 1));
-                this.money = 0;
-                moneyText.enableText(function () {
-                    var num = self.money, sign, cents;
-                    if (!num)
-                        num = 0;
-                    num = num.toString().replace(/\$|\,/g, '');
-                    if (isNaN(num)) num = "0";
-                    sign = (num == (num = Math.abs(num)));
-                    num = Math.floor(num * 100 + 0.50000000001);
-                    cents = num % 100;
-                    num = Math.floor(num / 100).toString();
-                    if (cents < 10) cents = "0" + cents;
-                    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
-                        num = num.substring(0, num.length - (4 * i + 3)) + ',' + num.substring(num.length - (4 * i + 3));
-                    return (((sign) ? '' : '-') + '$' + num + '.' + cents);
-                }, this.font, ig.Font.ALIGN.RIGHT);
-                moneyBox.addChild(moneyText);
-
-                // Box below money showing how much political capital the player has (currently unused)
-                var politicalCapitalBox, politicalCapitalText;
-                politicalCapitalBox = new UIElement(new Rect(ig.system.width - 160, 60, 160, 30));
-                politicalCapitalBox.setImage("uibox");
-                politicalCapitalBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(politicalCapitalBox);
-                politicalCapitalText = new UIElement(new Rect(75, 1, 1, 1));
-                this.politicalCapital = 0;
-                this.politicalCapitalMax = 10;
-                politicalCapitalText.enableText(function () {
-                    return self.politicalCapital + "/" + self.politicalCapitalMax;
-                }, this.font, ig.Font.ALIGN.CENTER);
-                politicalCapitalBox.addChild(politicalCapitalText);
-
-                // Box in the center of the screen that displays information about the currently selected tile
-                // Currently, this gets dummy data only //TODO: Make it display dynamic information from this.selectedTile
-                this.tileDetailsBox = new UIElement(new Rect(
-                    0,
-                    ig.system.height - 100,
-                    ig.system.width,
-                    110
-                ));
-                this.tileDetailsBox.setImage("uibox");
-                this.tileDetailsBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(this.tileDetailsBox);
-
-                this.tileDetailsContentBox = new UIElement(new Rect(
-                    ig.system.width / 4 + 8 + 20,
-                    10,
-                    600,
-                    100
-                ));
-                this.tileDetailsBox.addChild(this.tileDetailsContentBox);
-
-                this.tileDetailsTileView = new UIElement(new Rect(
-                    0,
-                    0,
-                    200,
-                    100
-                ));
-                var i, imageName, tileImages;
-                this.displayingTileImage = document.createElement("canvas");
-                this.displayingTileImageCtx = this.displayingTileImage.getContext("2d");
-                this.tileDetailsTileView.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (!this.displayingTile || (ig.game.selectedTile[0] != this.displayingTile[0]
-                            || ig.game.selectedTile[1] != this.displayingTile[1])) {
-                            ig.game.displayingTileImage.width = ig.game.displayingTileImage.width;
-                            tileImages = ig.game.terrainMap.getTile(ig.game.selectedTile[0], ig.game.selectedTile[1]);
-                            if (tileImages) {
-                                for (i = 0; i < tileImages.length; i++) {
-                                    imageName = tileImages[i];
-                                    ig.game.displayingTileImageCtx.drawImage(
-                                        ig.game.assetManager.images[imageName],
-                                        0,
-                                        -(ig.game.terrainMap.tilesize / 2)
-                                    );
-                                }
-                            }
-                            tileImages = ig.game.featureMap.getTile(ig.game.selectedTile[0], ig.game.selectedTile[1]);
-                            if (tileImages) {
-                                for (i = 0; i < tileImages.length; i++) {
-                                    imageName = tileImages[i];
-                                    ig.game.displayingTileImageCtx.drawImage(
-                                        ig.game.assetManager.images[imageName],
-                                        0,
-                                        -(ig.game.featureMap.tilesize / 2)
-                                    );
-                                }
-                            }
-                            this.displayingTile = ig.game.selectedTile;
-                            this.setImageFromSource(ig.game.displayingTileImage);
-                        }
-                    }
-                    else {
-                        this.displayingTile = null;
-                        this.setImage(undefined);
-                        ig.game.displayingTileImage.width = ig.game.displayingTileImage.width;
-                    }
-                };
-                this.ui.updatingElements.push(this.tileDetailsTileView);
-                this.tileDetailsContentBox.addChild(this.tileDetailsTileView);
-
-                this.tileDetailsTextBox1 = new UIElement(new Rect(
-                    200,
-                    0,
-                    400,
-                    100
-                ));
-                this.tileDetailsTextBox1.enableText(function() {
-                    return "Year: 2000\n" +
-                        "Turn: 5 / 20\n";
-                    }, this.detailFont, ig.Font.ALIGN.LEFT);
-                this.tileDetailsContentBox.addChild(this.tileDetailsTextBox1);
-
-                // Display a box in the lower left corner that contains the minimap
-                // The minimap will need to be revamped to be more friendly with map changes, because right now it has
-                // to step through the entire map dataset in order to make any visual changes to itself. There's a lot
-                // of data, so this won't scale well as our maps get larger.
-                this.minimapBox = new UIElement(new Rect(
-                    0,
-                    ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
-                    ig.system.width / 4 + 8,
-                    ig.system.width / 4 / 1.7777777777 + 8
-                ));
-                this.minimapBox.setImage("uibox");
-                this.minimapBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(this.minimapBox);
-
-                // Display a checkbox in the minimap to enable/disable showing tiles that the player owns
-                // TODO: Make owned tiles appear in the minimap (probably want a separate overlaying minimap object)
-                this.viewOwnedTilesButton = new Button(new Rect(
-                    this.minimapBox.bounds.x + 10,
-                    this.minimapBox.bounds.y + this.minimapBox.bounds.height - 20,
-                    10,
-                    10),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        if (!self.viewOwnedTiles) {
-                            self.viewOwnedTilesText._textFunction = function() { return "X"; };
-                            self.viewOwnedTiles = true;
-                        }
-                        else {
-                            self.viewOwnedTilesText._textFunction = function() { return ""; };
-                            self.viewOwnedTiles = false;
-                        }
-                    },
-                    [3, 75, 4, 33]
-                );
-                this.ui.addElement(this.viewOwnedTilesButton);
-                this.viewOwnedTilesText = new UIElement(new Rect(5, -2, 1, 1));
-                this.viewOwnedTilesText.enableText(function() { return ""; }, this.detailFont, ig.Font.ALIGN.CENTER);
-                this.viewOwnedTilesButton.addChild(this.viewOwnedTilesText);
-                this.viewOwnedTilesLabel = new UIElement(new Rect(12, -2, 1, 1));
-                this.viewOwnedTilesLabel.enableText(function() { return "Show Ownership Layer"; }, this.detailFont, ig.Font.ALIGN.LEFT);
-                this.viewOwnedTilesButton.addChild(this.viewOwnedTilesLabel);
-
-                // Box containing all of the actions a player can do. Note that all of these actions assume the player
-                // is of the Logger (Lumberjack, whatever you want to call it) class. When classes are implemented
-                // the actions here will be very different per class.
-                var actionsBox, actionsText;
-                actionsBox = new UIElement(new Rect(
-                    ig.system.width - ig.system.width / 4 - 8,
-                    ig.system.height - ig.system.width / 4 / 1.7777777777 - 8,
-                    ig.system.width / 4 + 8,
-                    ig.system.width / 4 / 1.7777777777 + 8));
-                actionsBox.setImage("uibox");
-                actionsBox.enableNinePatch(5, 11, 5, 10);
-                this.ui.addElement(actionsBox);
-                actionsText = new UIElement(new Rect((ig.system.width / 4 + 8) / 2 - 5, 1, 1, 1));
-                actionsText.enableText(function () {
-                    return "Actions";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                actionsBox.addChild(actionsText);
-
-                // Button for opening up the contracts window
-                var contractsButton, contractsButtonText;
-                contractsButton = new Button(new Rect(
-                        15,
-                        30,
-                        ig.system.width / 8 - 21,
-                        30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        self.showContractsWindow();
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                actionsBox.addChild(contractsButton);
-                contractsButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                contractsButtonText.enableText(function () {
-                    return "Contracts";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                contractsButton.addChild(contractsButtonText);
-
-                // Buton for opening up the upgrades window
-                var upgradesButton, upgradesButtonText;
-                upgradesButton = new Button(new Rect(
-                        10 + 15 + ig.system.width / 8 - 21,
-                        30,
-                        ig.system.width / 8 - 21,
-                        30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        self.showUpgradesWindow();
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                actionsBox.addChild(upgradesButton);
-                upgradesButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                upgradesButtonText.enableText(function () {
-                    return "Upgrades";
-                }, this.font, ig.Font.ALIGN.CENTER);
-                upgradesButton.addChild(upgradesButtonText);
-
-                // Button for surveying tiles, only active if a surveyable tile is selected. If a tile is selected
-                // that has already been surveyed, the text of the button changes to "View Survey". But right now
-                // there's a bug: Since surveys survey _megatiles,_ View Survey only works on the upper corners of
-                // surveyed megatiles. Really, selection needs to show the relevant megatile via a slighly less opaque
-                // highlight, and then the logic for this button needs to use the megatile's coordinates rather than
-                // the selected tile's.
-                this.surveyButton = new Button(new Rect(
-                        15,
-                        60,
-                        ig.system.width / 8 - 21,
-                        30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        TFglobals.DATA_CONTROLLER.conductSurveyOfTileWithXY(self.selectedTile[0], self.selectedTile[1]);
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                this.surveyButton.setImage("button_inactive");
-                this.surveyButton.inactive = true;
-                this.ui.updatingElements.push(this.surveyButton);
-                this.surveyButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.surveyButtonText.enableText(function () {
-                    return "Survey";
-                }, this.disableFont, ig.Font.ALIGN.CENTER);
-                this.surveyButton.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (this.inactive) {
-                            this.inactive = false;
-                            this.setImage("button");
-                            self.surveyButtonText._font = self.font;
-                        }
-                        if (self.tilesSurveyed[self.selectedTile[0]]) {
-                            if (self.tilesSurveyed[self.selectedTile[0]][self.selectedTile[1]]) {
-                                self.surveyButtonText._textFunction = function() {
-                                    return "View Survey";
-                                };
-                                this.onUnclick = function() {
-                                    self.viewSurveyResults(self.selectedTile[0], self.selectedTile[1]);
-                                };
-                            }
-                            else {
-                                self.surveyButtonText._textFunction = function() {
-                                    return "Survey";
-                                };
-                                this.onUnclick = function() {
-                                    TFglobals.DATA_CONTROLLER
-                                        .conductSurveyOfTileWithXY(self.selectedTile[0], self.selectedTile[1]);
-                                };
-                            }
-                        }
-                        else {
-                            self.surveyButtonText._textFunction = function() {
-                                return "Survey";
-                            };
-                            this.onUnclick = function() {
-                                TFglobals.DATA_CONTROLLER
-                                    .conductSurveyOfTileWithXY(self.selectedTile[0], self.selectedTile[1]);
-                            };
-                        }
-                        // change this.surveyButtonText to "View Survey"
-                        // change the associated function to viewing survey results
-                    }
-                    else {
-                        if (!this.inactive) {
-                            this.inactive = true;
-                            this.setImage("button_inactive");
-                            self.surveyButtonText._font = self.disableFont;
-                        }
-                    }
-                };
-                actionsBox.addChild(this.surveyButton);
-                this.surveyButton.addChild(this.surveyButtonText);
-
-                // The button for harvesting, which opens up a window allowing the user to pick which kind of
-                // harvesting they want to perform. All of the UI could use a lot of polishing, but this one especially.
-                this.harvestButton = new Button(new Rect(
-                    10 + 15 + ig.system.width / 8 - 21,
-                    60,
-                    ig.system.width / 8 - 21,
-                    30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        ig.log("Attempted to harvest tile - not yet implemented!");
-                        self.showHarvestWindow(self.selectedTile[0], self.selectedTile[1]);
-                        //Need to open a window to specify the type of cut
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                this.harvestButton.setImage("button_inactive");
-                this.harvestButton.inactive = true;
-                this.ui.updatingElements.push(this.harvestButton);
-                this.harvestButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.harvestButtonText.enableText(function () {
-                    return "Harvest";
-                }, this.disableFont, ig.Font.ALIGN.CENTER);
-                this.harvestButton.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (ig.game.canHarvestSelectedTile()) {
-                            if (this.inactive) {
-                                this.inactive = false;
-                                this.setImage("button");
-                                self.harvestButtonText.enableText(self.harvestButtonText._textFunction,
-                                    self.font, ig.Font.ALIGN.CENTER);
-                            }
-                        }
-                    }
-                    else {
-                        if (!this.inactive) {
-                            this.inactive = true;
-                            this.setImage("button_inactive");
-                            self.harvestButtonText.enableText(self.harvestButtonText._textFunction,
-                                self.disableFont, ig.Font.ALIGN.CENTER);
-                        }
-                    }
-                };
-                actionsBox.addChild(this.harvestButton);
-                this.harvestButton.addChild(this.harvestButtonText);
-
-                // Planting trees isn't implemented Impact-wise and Data Controller-wise. It should already be in the
-                // Ruby server/simulation, though. Planting will definitely need a pop-up window for specifying the
-                // parameters of planting - unless planting is a completely homogenous action, which I doubt.
-                // How many / what kinds of trees?
-                this.plantButton = new Button(new Rect(
-                    15,
-                    90,
-                    ig.system.width / 8 - 21,
-                    30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function(selectedTile) {
-                        ig.log("Attempted to plant tile - not yet implemented!");
-                        //TFglobals.DATA_CONTROLLER.requestPlantForTileWithId(selectedTile)
-                    },
-                    self.selectedTile,
-                    [3, 75, 4, 33]
-                );
-                this.plantButton.setImage("button_inactive");
-                this.plantButton.inactive = true;
-                this.ui.updatingElements.push(this.plantButton);
-                this.plantButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.plantButtonText.enableText(function () {
-                    return "Plant";
-                }, this.disableFont, ig.Font.ALIGN.CENTER);
-                this.plantButton.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (ig.game.canPlantSelectedTile()) {
-                            if (this.inactive) {
-                                this.inactive = false;
-                                this.setImage("button");
-                                self.plantButtonText.enableText(self.plantButtonText._textFunction,
-                                    self.font, ig.Font.ALIGN.CENTER);
-                            }
-                        }
-                    }
-                    else {
-                        if (!this.inactive) {
-                            this.inactive = true;
-                            this.setImage("button_inactive");
-                            self.plantButtonText.enableText(self.plantButtonText._textFunction,
-                                self.disableFont, ig.Font.ALIGN.CENTER);
-                        }
-                    }
-                };
-                actionsBox.addChild(this.plantButton);
-                this.plantButton.addChild(this.plantButtonText);
-
-                // Yarding is a step required to prep logs for transport, separate from transporting itself. Though
-                // admittedly, I believe it does technically involve MOVING the logs - as I understand, moving them to
-                // the place from which they're loaded up to be transported to their ultimate destination. Yarding
-                // isn't an implemented action yet - really it's just something that has to be done before logs can be
-                // sold. The novelty of having this be a separate action - something that might be split between turns,
-                // which is problematic given the timesteps of turns - needs discussion.
-                this.yardButton = new Button(new Rect(
-                    10 + 15 + ig.system.width / 8 - 21,
-                    90,
-                    ig.system.width / 8 - 21,
-                    30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function(selectedTile) {
-                        ig.log("Attempted to yard tile - not yet implemented!");
-                        //Need to open a window to specify the type of cut
-                    },
-                    self.selectedTile,
-                    [3, 75, 4, 33]
-                );
-                this.yardButton.setImage("button_inactive");
-                this.yardButton.inactive = true;
-                this.ui.updatingElements.push(this.yardButton);
-                this.yardButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.yardButtonText.enableText(function () {
-                    return "Yard";
-                }, this.disableFont, ig.Font.ALIGN.CENTER);
-                this.yardButton.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (ig.game.canYardSelectedTile()) {
-                            if (this.inactive) {
-                                this.inactive = false;
-                                this.setImage("button");
-                                self.yardButtonText.enableText(self.yardButtonText._textFunction,
-                                    self.font, ig.Font.ALIGN.CENTER);
-                            }
-                        }
-                    }
-                    else {
-                        if (!this.inactive) {
-                            this.inactive = true;
-                            this.setImage("button_inactive");
-                            self.yardButtonText.enableText(self.yardButtonText._textFunction,
-                                self.disableFont, ig.Font.ALIGN.CENTER);
-                        }
-                    }
-                };
-                actionsBox.addChild(this.yardButton);
-                this.yardButton.addChild(this.yardButtonText);
-
-                // This button is for buying land, which you have to do right now to be able to log tiles. (Actually,
-                // I'm not sure that's true. But it's a bug if you can log tiles that aren't yours.) Of course,
-                // contracts will probably need to circumvent this rule - e.g. you should be able to log a Developer's
-                // property if he wants you to.
-                this.purchaseButton = new Button(new Rect(
-                    15,
-                    120,
-                    ig.system.width / 8 - 21,
-                    30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        self.buyTile(self.selectedTile[0], self.selectedTile[1]);
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                this.purchaseButton.setImage("button_inactive");
-                this.purchaseButton.inactive = true;
-                this.ui.updatingElements.push(this.purchaseButton);
-                this.purchaseButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.purchaseButtonText.enableText(function () {
-                    return "Purchase";
-                }, this.disableFont, ig.Font.ALIGN.CENTER);
-                this.purchaseButton.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (ig.game.canPurchaseSelectedTile()) {
-                            if (this.inactive) {
-                                this.inactive = false;
-                                this.setImage("button");
-                                self.purchaseButtonText.enableText(self.purchaseButtonText._textFunction,
-                                    self.font, ig.Font.ALIGN.CENTER);
-                            }
-                        }
-                    }
-                    else {
-                        if (!this.inactive) {
-                            this.inactive = true;
-                            this.setImage("button_inactive");
-                            self.purchaseButtonText.enableText(self.purchaseButtonText._textFunction,
-                                self.disableFont, ig.Font.ALIGN.CENTER);
-                        }
-                    }
-                };
-                actionsBox.addChild(this.purchaseButton);
-                this.purchaseButton.addChild(this.purchaseButtonText);
-
-                // Transporting is the last step in the process of getting logs from the forest to the distributor, so
-                // it's the last thing loggers need to do in order to be done logging a tile and deliver on contracts.
-                // Disclaimer: I'm not an expert on lumberjackery.
-                this.transportButton = new Button(new Rect(
-                    10 + 15 + ig.system.width / 8 - 21,
-                    120,
-                    ig.system.width / 8 - 21,
-                    30),
-                    "button",
-                    "button_hover",
-                    "button_click",
-                    function() {
-                        ig.log("Attempted to transport tile - not yet implemented!");
-                        //Need to open a window to specify the type of cut
-                    },
-                    undefined,
-                    [3, 75, 4, 33]
-                );
-                this.transportButton.setImage("button_inactive");
-                this.transportButton.inactive = true;
-                this.ui.updatingElements.push(this.transportButton);
-                this.transportButtonText = new UIElement(new Rect((ig.system.width / 8) / 2 - 10, 7, 1, 1));
-                this.transportButtonText.enableText(function () {
-                    return "Transport";
-                }, this.disableFont, ig.Font.ALIGN.CENTER);
-                this.transportButton.update = function() {
-                    if (ig.game.selectedTile) {
-                        if (ig.game.canTransportSelectedTile()) {
-                            if (this.inactive) {
-                                this.inactive = false;
-                                this.setImage("button");
-                                self.transportButtonText.enableText(self.transportButtonText._textFunction,
-                                    self.font, ig.Font.ALIGN.CENTER);
-                            }
-                        }
-                    }
-                    else {
-                        if (!this.inactive) {
-                            this.inactive = true;
-                            this.setImage("button_inactive");
-                            self.transportButtonText.enableText(self.transportButtonText._textFunction,
-                                self.disableFont, ig.Font.ALIGN.CENTER);
-                        }
-                    }
-                };
-                actionsBox.addChild(this.transportButton);
-                this.transportButton.addChild(this.transportButtonText);
 
                 // End of UI instantiation
             },
@@ -806,30 +179,30 @@ ig.module(
             // server tells the Data Controller something has changed due to actions other than this client's.
             // The callbacks are all "onX", while the functions that expect a callback are generally the "X".
             onGetUserPlayers: function(players) {
-                ig.log("Got user players.");
+                //ig.log("Got user players.");
                 TFglobals.DATA_CONTROLLER.getWorldDataForPlayerId(players[0].id);
             },
 
             onLogin: function() {
-                ig.log("Logged in.");
+                //ig.log("Logged in.");
             },
 
             onGetWorldData: function() {
                 ig.log("Got world data.");
 				var rect = {x_min : 0, x_max : 64, y_min : 0, y_max : 64};
 				TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
-                TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
-                TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
-                TFglobals.DATA_CONTROLLER.getPlayerStats();
-                TFglobals.DATA_CONTROLLER.getPlayersOwnedEquipment();
+                // TFglobals.DATA_CONTROLLER.getAvailableContractsForPlayer();
+                // TFglobals.DATA_CONTROLLER.getAvailableUpgradesForPlayer();
+                // TFglobals.DATA_CONTROLLER.getPlayerStats();
+                // TFglobals.DATA_CONTROLLER.getPlayersOwnedEquipment();
             },
 
             onGetPlayerStats: function(theResponse) {
-                console.log("Impact onGetPlayerStats got: ", theResponse);
+                //console.log("Impact onGetPlayerStats got: ", theResponse);
                 if(this.serverResponseWasPositive(theResponse)){
-                    console.log("onGetPlayerStats received balance: " + theResponse.balance
-                        + ", turn points: " + theResponse.turn_points
-                        + ", political capital: " + theResponse.political_capital);
+                    // console.log("onGetPlayerStats received balance: " + theResponse.balance
+                    //     + ", turn points: " + theResponse.turn_points
+                    //     + ", political capital: " + theResponse.political_capital);
                     this.money = theResponse.balance;
                     this.turnPoints = theResponse.turn_points;
                     this.politicalCapital = theResponse.political_capital;
@@ -837,8 +210,8 @@ ig.module(
                 else{
                     this.showNotificationWindow(function() {
                         return "Uh oh! Something went wrong. Couldn't get player stats." } );
-                    console.log("onGetPlayerStats failure!");
-                    console.log(theResponse);
+                    // console.log("onGetPlayerStats failure!");
+                    // console.log(theResponse);
                 }
             },
 
@@ -850,7 +223,7 @@ ig.module(
              */
             onGetMapChunk: function(chunk) {
                 var self = this;
-                ig.log("Got map chunk.");
+                //ig.log("Got map chunk.");
                 var i, j, k, tile, shoreTypes, ownershipTypes, tileFeature, landType;
                 //ig.log(chunk);
                 // Interpret chunk data
@@ -860,8 +233,15 @@ ig.module(
                     if (tile) {
                         tileFeature = landType = undefined;
                         //ig.log("Found a tile that isn't null: " + tile.x + ", " + tile.y);
+
+
+                        //handle some features
                         switch(tile.base_cover_type) {
                             case "forest":
+                                if(tile.large_tree_basal_area == 0 && tile.small_tree_basal_area == 0){
+                                    break;
+                                }
+
                                 if (tile.large_tree_basal_area == 0) {
                                     tileFeature = "forest_tileset_light";
                                 }
@@ -879,6 +259,7 @@ ig.module(
                             default:
                                 break;
                         }
+                        //handle
                         switch (tile.type) {
                             case "LandTile":
                                 landType = "grass";
@@ -913,7 +294,7 @@ ig.module(
                 TFglobals.DATA_CONTROLLER.getPlayersOwnedResourceTiles();
                 // Get OTHER ownership data if any
                 TFglobals.DATA_CONTROLLER.getResourceTilesOwnedByOthers();
-                ig.log("Done getting map chunk");
+                //ig.log("Done getting map chunk");
                 this.gotMapChunk = true;
             },
 
@@ -925,10 +306,10 @@ ig.module(
                 var tile, i;
                 if(this.serverResponseWasPositive(theResponse)){
                 	if(theResponse.resource_tiles){
-						console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
+						//console.log("onGetPlayersOwnedResourceTiles received " + theResponse.resource_tiles.length + " tiles: ");
 						theResponse.resource_tiles.reduce(
 							function(previousValue, currentValue, index, array) {
-								console.log("",currentValue);
+								//console.log("",currentValue);
 							}
 						);
 						for (i = 0; i < theResponse.resource_tiles.length; i++) {
@@ -952,9 +333,10 @@ ig.module(
             onGetResourceTilesOwnedByOthers : function(theResponse){
                 var tile, i;
                 if(this.serverResponseWasPositive(theResponse)){
-                    console.log("onGetResourceTilesOwnedByOthers received " + theResponse.resource_tiles.length + " tiles: ");
-                    for(i = 0; i < theResponse.resource_tiles.length; i++)
-                        console.log("", theResponse.resource_tiles[i]);
+                    //console.log("onGetResourceTilesOwnedByOthers received " + theResponse.resource_tiles.length + " tiles: ");
+                    for(i = 0; i < theResponse.resource_tiles.length; i++){
+                        //console.log("", theResponse.resource_tiles[i]);
+                    }
                     for (i = 0; i < theResponse.resource_tiles.length; i++) {
                         tile = theResponse.resource_tiles[i];
                         this.otherOwnedTiles = this.otherOwnedTiles || [];
@@ -994,9 +376,9 @@ ig.module(
                 // Data Controller to talk to one another.
                 if (!TFglobals.IMPACT) {
                     TFglobals.IMPACT = this;
-                    ig.log("Constructing map");
+                    //ig.log("Constructing map");
                     this.constructMap();
-                    ig.log("Finished calling construct map");
+                    //ig.log("Finished calling construct map");
                 }
 
                 // Convenience.
@@ -1049,12 +431,12 @@ ig.module(
 
                 // Loading, updating the map and anything else that needs updating
                 if (!this.assetManager.loaded() && !this.assetsLoadingText) {
-                    ig.log("Loading assets...");
+                    //ig.log("Loading assets...");
                     this.assetsLoadingText = true;
                 }
                 else {
                     if (!this.assetsLoadedText) {
-                        ig.log("All assets loaded, ready to generate the map cache. Will generate once map chunk is gotten.");
+                        //ig.log("All assets loaded, ready to generate the map cache. Will generate once map chunk is gotten.");
                         this.mapUpdate = true;
                         this.assetsLoadedText = true;
                     }
@@ -1062,21 +444,21 @@ ig.module(
                         if (this.mapUpdate) {
                             this.featureMap.update();
                             this.terrainMap.update();
-                            if (!this.minimap) {
-                             ig.log("Loading minimap");
-                             this.minimap = new IsoMinimap(new Rect(0,
-                                 0,
-                                 ig.system.width / 4,
-                                 ig.system.width / 4 / 1.7777777777
-                             ));
-                             this.minimap.addReferenceMap(this.terrainMap);
-                             this.minimap.load();
-                             this.terrainMap.mapChangeCallback = function() {
-                                 self.minimap.load();
-                             };
-                             ig.log("Minimap loaded");
-                             this.minimapBox.addChild(this.minimap);
-                             }
+                            // if (!this.minimap) {
+                            //  //ig.log("Loading minimap");
+                            //  this.minimap = new IsoMinimap(new Rect(0,
+                            //      0,
+                            //      ig.system.width / 4,
+                            //      ig.system.width / 4 / 1.7777777777
+                            //  ));
+                            //  this.minimap.addReferenceMap(this.terrainMap);
+                            //  this.minimap.load();
+                            //  this.terrainMap.mapChangeCallback = function() {
+                            //      self.minimap.load();
+                            //  };
+                            //  //ig.log("Minimap loaded");
+                            //  this.minimapBox.addChild(this.minimap);
+                            //  }
                         }
                     }
 
@@ -1087,7 +469,6 @@ ig.module(
             },
 
             draw: function() {
-
                 var ctx, scale, realX, realY, x, y, tile, i, j;
 
                //if (ig.input.pressed("click")) {
@@ -1105,6 +486,7 @@ ig.module(
 
                 // Draw the terrain map
                 if (this.terrainMap) {
+
                     ctx = ig.system.context;
                     ctx.save();
                     scale = ig.system.imageZoom;
@@ -1218,6 +600,7 @@ ig.module(
                 }
                 else {
                     this.selectedTile = [x, y];
+                    TFApp.models.gameModel.set("selectedTileCoords", this.selectedTile);
                 }
             },
 
@@ -1249,7 +632,7 @@ ig.module(
              * @param args A list containing [x, y]
              */
             onConfirmBuyTile: function(args) {
-                ig.log("Attempted to purchase tile at " + args.x + ", " + args.y);
+                //ig.log("Attempted to purchase tile at " + args.x + ", " + args.y);
                 TFglobals.DATA_CONTROLLER.attemptToPurchaseMegatileIncludingResourceTileXY(
                     args.x, args.y);
             },
@@ -1257,9 +640,9 @@ ig.module(
             onAttemptToPurchaseMegatileIncludingResourceTileXY: function(theResponse){
                 var i, j;
                 if(this.serverResponseWasPositive(theResponse)){
-                    console.log("onAttemptToPurchaseMegatileIncludingResourceTileXY successfully purchased resource " +
-                        "tile with origin x, y: " + theResponse.megatile_upper_left_xy.x
-                        + ", " + theResponse.megatile_upper_left_xy.y);
+                    // console.log("onAttemptToPurchaseMegatileIncludingResourceTileXY successfully purchased resource " +
+                    //     "tile with origin x, y: " + theResponse.megatile_upper_left_xy.x
+                    //     + ", " + theResponse.megatile_upper_left_xy.y);
                 }
                 else{
                     this.showNotificationWindow(
@@ -1871,8 +1254,8 @@ ig.module(
                 TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("I_DUMMY.onGetPlayersOwnedEquipment", ["theResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.I_DUMMY_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.I_DUMMY_DEBUGGING_VERBOSE));
 
                 if(this.serverResponseWasPositive(theResponse)){
-                    console.log("onGetPlayersOwnedEquipment success!");
-                    console.log("player's equipment: ", theResponse);
+//                    console.log("onGetPlayersOwnedEquipment success!");
+//                    console.log("player's equipment: ", theResponse);
                     this.ownedUpgrades = theResponse.playersEquipment;
                     this.upgradesChanged = true;
                 }
@@ -2011,10 +1394,16 @@ ig.module(
 
             onConductSurveyOfTileWithXY: function(theResponse) {
                 if(this.serverResponseWasPositive(theResponse)){
-                    ig.log(theResponse);
-                    ig.log(theResponse.survey.x + ", " + theResponse.survey.y);
+                    //ig.log(theResponse);
+                    //ig.log(theResponse.survey.x + ", " + theResponse.survey.y);
+
+
                     this.tilesSurveyed[theResponse.survey.x] = this.tilesSurveyed[theResponse.survey.x] || [];
                     this.tilesSurveyed[theResponse.survey.x][theResponse.survey.y] = true;
+
+                    
+
+                    
                 }
                 else{
                     console.log("onConductSurveyOfTileWithXY failure with message: " + theResponse.errors.join(", "));

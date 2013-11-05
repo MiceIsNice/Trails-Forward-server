@@ -321,7 +321,6 @@ TrailsForwardDataController.prototype = {
 	
 	onAttemptToPurchaseMegatileIncludingResourceTileXY : function(theResult){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.onAttemptToPurchaseMegatileIncludingResourceTileXY", ["theResult"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-
 		if(theResult)
 			TFglobals.IMPACT.onAttemptToPurchaseMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
@@ -551,7 +550,7 @@ TrailsForwardDataController.prototype = {
 
 	prepareImpactMessage : function(serverResponse){
 		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("DC.prepareImpactMessage", ["serverResponse"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.DC_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.DC_DEBUGGING_VERBOSE));
-		console.log("serverResponse: ");
+//		console.log("serverResponse: ");
 		TFglobals.HELPER_FUNCTIONS.prettyPrintObject(serverResponse);
 		if(serverResponse){
 			if(serverResponse.errors){

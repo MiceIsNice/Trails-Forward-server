@@ -1,6 +1,6 @@
 var TFAPP = window.TFAPP || {};
 var WorldCollection = Backbone.Collection.extend({
-	model: WorldModel,
+	model: TFApp.WorldModel,
 	fetch: function(args){
 		var that=this;
 		$.ajax({

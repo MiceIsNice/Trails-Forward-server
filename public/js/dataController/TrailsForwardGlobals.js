@@ -7,7 +7,7 @@
 
 
 function TrailsForwardGlobals(){
-	console.log("TrailsForwardGlobals");
+	//console.log("TrailsForwardGlobals");
 }
  
 TrailsForwardGlobals.prototype = {
