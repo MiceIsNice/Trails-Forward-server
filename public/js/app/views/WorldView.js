@@ -9,10 +9,11 @@ TFApp.WorldView = Backbone.View.extend({
 	renderer: {},
 	worldScale: 1,
 	materials: {
-		grass: new THREE.MeshLambertMaterial({color: 0x009900}),
-		water: new THREE.MeshLambertMaterial({color: 0x000099}),
+		grass: new THREE.MeshLambertMaterial({color: 0x118811}),
+		water: new THREE.MeshPhongMaterial({color: 0x111166}),
 		selected: new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent: true, opacity: 0.5}),
-		treeLeaves: new THREE.MeshLambertMaterial({color: 0x006600})
+		treeLeaves: new THREE.MeshLambertMaterial({color: 0x003300}),
+		ownership: new THREE.MeshLambertMaterial({color:0xCCCC00})
 	},
 	textures: {
 
@@ -135,6 +136,8 @@ TFApp.WorldView = Backbone.View.extend({
 		this.tileGeometry.uvsNeedUpdate = true;
 
 
+		this.ownershipFlagGeometry = new THREE.CubeGeometry( this.worldScale*.1, this.worldScale*.3, this.worldScale*.1, 1, 1, 1);
+
 
 		for(var x=0; x<tiles.length; x++){
 			for(var y=0; y<tiles[x].length; y++){
@@ -218,7 +221,7 @@ TFApp.WorldView = Backbone.View.extend({
 
 		directionalLight.castShadow = true;
 		directionalLight.shadowDarkness = .4;
-		directionalLight.shadowCameraVisible = true;
+		directionalLight.shadowCameraVisible = false;
 		directionalLight.shadowMapWidth = 8192;
 		directionalLight.shadowMapHeight = 8192;
 		directionalLight.shadowMapBias = .0039;
@@ -326,6 +329,7 @@ TFApp.WorldView = Backbone.View.extend({
 
 		this.tileMeshes = this.tileMeshes || [];
 		this.tileMeshes[x] = this.tileMeshes[x] || [];
+
 		this.scene.remove(this.tileMeshes[x][y]);
 
 		var tileData = TFApp.models.currentWorldModel.tiles[x][y];
@@ -377,6 +381,24 @@ TFApp.WorldView = Backbone.View.extend({
 			tile.add(tree);
 			tree.position.set(this.worldScale*.5,0,this.worldScale*.5);
 		}
+
+
+
+		console.log("tileData.owner: ", tileData.owner);
+		console.log(".get(player_id): ", TFApp.models.currentPlayerModel.get("player_id"));
+
+		if(tileData.owner == TFApp.models.currentPlayerModel.get("player_id")){
+			var ownershipFlag = new THREE.Mesh(
+				this.ownershipFlagGeometry
+			);
+			ownershipFlag.material = this.materials.ownership;
+			ownershipFlag.castShadow = true;
+			ownershipFlag.receiveShadow = true;
+			tile.add(ownershipFlag);
+			ownershipFlag.position.set(this.worldScale*.1, 0, this.worldScale*.1);
+
+		}
+
 
 
 		this.scene.add(tile);

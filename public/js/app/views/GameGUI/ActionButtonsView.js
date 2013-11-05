@@ -40,22 +40,31 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 				+ "&player_id=" + TFApp.models.currentPlayerModel.get("player_id"),
 				dataType: "json",
 				success: function(data){
-					console.log("Buy Tile Success: ", data);
 					
-					//update the player data
-					TFApp.models.currentPlayerModel.loadPlayerData();
-					
-					var x = data.megatile_upper_left_xy.x,
-						y = data.megatile_upper_left_xy.y;
+					if(data.errors){
+						console.log("Buy Tile Error: ", data);
 
-
-					for(var tx = x; tx<x+3; tx++){
-						for(var ty = y; ty<y+3; ty++){
-							TFglobals.IMPACT.ownedTiles = TFglobals.IMPACT.ownedTiles || [];
-							TFglobals.IMPACT.ownedTiles[tx] = TFglobals.IMPACT.ownedTiles[tx] || [];
-							TFglobals.IMPACT.ownedTiles[tx][ty] = true;		
-						}
 					}
+					else{
+						console.log("Buy Tile Success: ", data);
+						//update the player data
+						TFApp.models.currentPlayerModel.loadPlayerData();
+						
+						var x = data.megatile_upper_left_xy.x,
+							y = data.megatile_upper_left_xy.y;
+
+						TFApp.models.currentWorldModel.tiles[tile_x][tile_y].owner = TFApp.models.currentPlayerModel.get("player_id");
+						TFApp.views.worldView.redrawTile({x: tile_x, z: tile_y});
+					}
+
+
+					// for(var tx = x; tx<x+3; tx++){
+					// 	for(var ty = y; ty<y+3; ty++){
+					// 		TFglobals.IMPACT.ownedTiles = TFglobals.IMPACT.ownedTiles || [];
+					// 		TFglobals.IMPACT.ownedTiles[tx] = TFglobals.IMPACT.ownedTiles[tx] || [];
+					// 		TFglobals.IMPACT.ownedTiles[tx][ty] = true;		
+					// 	}
+					// }
 
 
 				},
