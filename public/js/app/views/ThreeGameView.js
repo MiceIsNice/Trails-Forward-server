@@ -72,8 +72,8 @@ TFApp.ThreeGameView = Backbone.View.extend({
 
 
 		// set the scene size
-		var WIDTH = 400,
-		  HEIGHT = 300;
+		var WIDTH = 960,
+		  HEIGHT = 600;
 
 		// set some camera attributes
 		var VIEW_ANGLE = 45,

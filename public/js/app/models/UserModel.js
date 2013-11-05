@@ -34,9 +34,6 @@ var UserModel = Backbone.Model.extend({
 	getUserWorlds: function(){
 		var that=this;
 		var worldCollectionUrl = "/worlds.json" + that.get("authQueryString");
-
-
-
 	},
 	createAuthQueryString: function(){
 		this.set("authQueryString", 

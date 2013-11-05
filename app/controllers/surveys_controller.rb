@@ -23,6 +23,9 @@ class SurveysController < ApplicationController
     end
   end
 
+
+
+
   def create
     world = World.find(params[:world_id])
     resource_tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]

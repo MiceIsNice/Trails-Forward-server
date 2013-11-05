@@ -6,6 +6,7 @@ TFApp = (function(win, doc, $) {
 	var defaults = {},
 		_self;
 
+		var foo = [];
 	/**
 		@constructor
 	*/
@@ -17,6 +18,14 @@ TFApp = (function(win, doc, $) {
 
 		_self = this;
 	}
+	TFApp.prototype.arrayTest = function(){
+
+		var bar = [];
+		bar[1000000000] = "a";
+
+		foo.push(bar);
+
+	}
 
 	TFApp.prototype.init = function(){
 		var that = this;
@@ -26,14 +35,16 @@ TFApp = (function(win, doc, $) {
 		this.collections.userWorlds = new WorldCollection();
 		this.collections.allWorlds = new WorldCollection();
 
+		this.models.currentWorldModel = new _self.WorldModel();
+		this.models.currentPlayerModel = new _self.PlayerModel();
 		this.models.userModel = new UserModel();
-		this.models.worldModel = new WorldModel();
 		this.models.gameModel = new GameModel();
 
 		this.views.loginRegisterView = new _self.LoginRegisterView();
 		this.views.registerView = new _self.RegisterView();
 		this.views.loginView = new _self.LoginView();
 		this.views.lobbyView = new _self.LobbyView();
+		this.views.gameView = new _self.GameView();
 		//this.views.gameView = new _self.GameView();
 
 

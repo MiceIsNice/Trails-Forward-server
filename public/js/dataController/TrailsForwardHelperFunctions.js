@@ -19,39 +19,45 @@ TrailsForwardHelperFunctions.prototype = {
 			for (var key in theObj){
 				if (Array.isArray(theObj[key]) && !typeof theObj[key] === 'string'){
 					for (var i = 0; i < theObj[key].length; i++){
-						console.log(key + "[" + i + "] = " + theObj[key][i]);	
+						//console.log(key + "[" + i + "] = " + theObj[key][i]);	
 					}
 				}
 				else if(typeof theObj[key] === 'object'){
-					console.log(key);
-					console.log("typeof theObj[key]: " + typeof theObj[key]);
+					//console.log(key);
+					//console.log("typeof theObj[key]: " + typeof theObj[key]);
 					if(typeof theObj[key] === 'function' && !TFglobals.VERBOSE_FUNCTION_PRINTING)
 						return;
 					
 					this.prettyPrintObject(theObj[key]);
 				}
-				else 
-					console.log(key + " : " + theObj[key]);
+				else{
+					//console.log(key + " : " + theObj[key]);
+
+				}
 			}
 		}
  	},
 	
 	 /* copy non-object and non-array properties and their values from from obj to another */
 	addSimplePropertiesFromObjToObj : function(fromObj, toObj){
-		this.printDesiredDebugInfo("HF.addSimplePropertiesFromObjToObj", ["fromObj", "toObj"], 
-									arguments, (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING), 
-									(TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.HF_DEBUGGING_VERBOSE));
+		// this.printDesiredDebugInfo("HF.addSimplePropertiesFromObjToObj", ["fromObj", "toObj"], 
+		// 							arguments, (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING), 
+		// 							(TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.HF_DEBUGGING_VERBOSE));
 									
 		if(fromObj && toObj){
 			for (var key in fromObj){
 				if ((typeof fromObj[key] !== 'object' && !Array.isArray(fromObj[key])) || typeof fromObj[key] === 'string'){
-					if (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) 
-						console.log("HF.addSimplePropertiesFromObjToObj: adding " + key + " : " + fromObj[key]);
-						toObj[key] = fromObj[key];
+					if (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) {
+						//console.log("HF.addSimplePropertiesFromObjToObj: adding " + key + " : " + fromObj[key]);
 					}
+					
+					toObj[key] = fromObj[key];
+				}
 				else
-					if (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) 
-						console.log("HF.addSimplePropertiesFromObjToObj: not adding " + key + " : " + fromObj[key]);
+					if (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) {
+						//console.log("HF.addSimplePropertiesFromObjToObj: not adding " + key + " : " + fromObj[key]);
+
+					}
 			}
 		}
 	},

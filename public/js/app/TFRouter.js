@@ -5,7 +5,7 @@ var TFRouter = Backbone.Router.extend({
 		"login": 			"login",
 		"lobby": 			"lobby",
 		"game" :			"game",
-		"world/:id": 		"world",
+		"world/:id": 		"game",
 		""	   : 			"index",
 		"*path": 			"index"
 	},
@@ -17,28 +17,45 @@ var TFRouter = Backbone.Router.extend({
 	},
 	login: function(){
 		$(".tf-page.active").removeClass("active");
-		$("html").css({"margin-top": "0px"});
 		TFApp.views.loginRegisterView.$el.addClass("active");
 
 	},
 	lobby: function(){
 		if(this.checkForAuth()){
-			$("html").css({"margin-top": "0px"});
 			$(".tf-page.active").removeClass("active");
 			TFApp.views.lobbyView.$el.addClass("active");
 		}
 	},
-	world: function(id){
+	game: function(id){
 		if(this.checkForAuth()){
-			$("html").css({"margin-top": "-89px"});
 			$(".tf-page.active").removeClass("active");
+
+
+			TFApp.models.currentWorldModel.loadWorld(id);
+			//when the world data is loaded, load the player data
+			TFApp.models.currentWorldModel.on("change:world_id", function(){
+				TFApp.models.currentPlayerModel.getPlayerId(id);
+				//todo: get available contracts
+				//todo: get available upgrades
+			});
+
 			//create a new world view
 			TFApp.views.worldView = new TFApp.WorldView();
-			TFApp.views.worldView.$el.addClass("active");
+			TFApp.views.gameView.$el.addClass("active");
 		}
-
-
 	},
+
+	// world: function(id){
+	// 	if(this.checkForAuth()){
+	// 		$("html").css({"margin-top": "-89px"});
+	// 		$(".tf-page.active").removeClass("active");
+	// 		//create a new world view
+	// 		TFApp.views.worldView = new TFApp.WorldView();
+	// 		TFApp.views.worldView.$el.addClass("active");
+	// 	}
+
+
+	// },
 	checkForAuth: function(){
 		var user_id = $.cookie("user_id");
 

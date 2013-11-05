@@ -28,6 +28,11 @@ TrailsForwardWorld::Application.routes.draw do
     end
   end
 
+  
+  resources :players do
+    get :surveys_for_player
+  end
+
   resources :worlds, :only => [:index, :show, :update] do
     member do
       get :time_left_for_turn
