@@ -7,15 +7,10 @@ class ContractsController < ApplicationController
   respond_to :json, :html
 
 
+    # return all contract in the world not beloning to other players
   def index
-    #1. filter out contracts owned by others
-    available_contracts = contracts.select {|c| c.player_id == nil }
-    your_contracts      = contracts.select {|c| c.player_id == params[:player_id]}
-
-    #2. get extra info from contract templates 
-    available_contracts.map {|c| }
-    your_contracts.map {|c| }
-    respond_with contracts
+    the_contracts = contracts.select {|c| c.player_id == nil || c.player_id == params[:player_id].to_i}
+    render_for_api :base_contract, :json => the_contracts
   end
 
 

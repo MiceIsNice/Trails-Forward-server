@@ -6,3 +6,56 @@ ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2
 ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/contracts_controller.rb:16:in `block in index'
+  app/controllers/contracts_controller.rb:16:in `map'
+  app/controllers/contracts_controller.rb:16:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/contracts_controller.rb:19: syntax error, unexpected tASSOC, expecting '}'
+...d_with {:available_contracts => available_contracts, :player...
+...                               ^
+/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/contracts_controller.rb:19: syntax error, unexpected tASSOC, expecting tCOLON2 or '[' or '.'
+...ontracts, :players_contracts => your_contracts}
+...                               ^):
+  
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/contracts_controller.rb:16:in `block in index'
+  app/controllers/contracts_controller.rb:16:in `map'
+  app/controllers/contracts_controller.rb:16:in `index'
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/contracts_controller.rb:16:in `block in index'
+  app/controllers/contracts_controller.rb:16:in `map'
+  app/controllers/contracts_controller.rb:16:in `index'
+
+
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  app/controllers/contracts_controller.rb:16:in `block in index'
+  app/controllers/contracts_controller.rb:16:in `map'
+  app/controllers/contracts_controller.rb:16:in `index'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/contracts_controller.rb:16:in `index'
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/contracts_controller.rb:16: syntax error, unexpected tIDENTIFIER, expecting keyword_end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/contracts_controller.rb:16: syntax error, unexpected tIDENTIFIER, expecting keyword_end):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/controllers/contracts_controller.rb:16: syntax error, unexpected tIDENTIFIER, expecting keyword_end):
+  
+
