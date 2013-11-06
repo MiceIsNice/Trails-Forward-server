@@ -13,7 +13,7 @@ var PlayerCollection = Backbone.Collection.extend({
 			url: this.url,
 			dataType: "json",
 			success: function(data){
-				console.log("Player collection fetch success!! ", data.players);
+				//console.log("Player collection fetch success!! ", data.players);
 				that.reset(data.players);
 			},
 			error: function(data){

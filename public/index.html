@@ -193,11 +193,17 @@
 
                 <div class="other-info">
 
-                    <div class="contracts active accordian-section">
-                        <h1 class="black-bar">Contracts</h1>
+
+
+
+                    <div class="my-contracts active accordian-section">
+                        <h1 class="black-bar">Available Contracts</h1>
                         <div class="table-wrap">
                             <table>
-                                <tr class="contract white-bar hoverable" data-contract-id="0">
+                                <tr class="loading">
+                                    <td>Loading...</td>
+                                </tr>
+<!--                                 <tr class="contract white-bar hoverable" data-contract-id="0">
                                     <td class="contract-name">Contract 00</td>
                                     <td class="lumber lumber-icon">400</td>
                                     <td class="money currency-icon">2000</td>
@@ -226,7 +232,48 @@
                                     <td class="contract-name">Contract 05</td>
                                     <td class="lumber lumber-icon">400</td>
                                     <td class="money currency-icon">2000</td>
-                                </tr>                                
+                                </tr>   -->                              
+                            </table>
+                        </div>
+                    </div>
+                    <div class="contracts accordian-section">
+                        <h1 class="black-bar">Available Contracts</h1>
+                        <div class="table-wrap">
+                            <table>
+                                <tr class="loading">
+                                    <td>Loading...</td>
+                                </tr>
+
+<!--                                 <tr class="contract white-bar hoverable" data-contract-id="0">
+                                    <td class="contract-name">Contract 00</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="1">
+                                    <td class="contract-name">Contract 01</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="2">
+                                    <td class="contract-name">Contract 02</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="3">
+                                    <td class="contract-name">Contract 03</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="4">
+                                    <td class="contract-name">Contract 04</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>
+                                <tr class="contract white-bar hoverable" data-contract-id="5">
+                                    <td class="contract-name">Contract 05</td>
+                                    <td class="lumber lumber-icon">400</td>
+                                    <td class="money currency-icon">2000</td>
+                                </tr>  -->                               
                             </table>
                         </div>
                     </div>
@@ -444,6 +491,7 @@
         <!-- End: Backbone Models -->
 
         <!-- Start: Backbone Collections -->
+        <script src="js/app/collections/ContractCollection.js"></script>
         <script src="js/app/collections/PlayerCollection.js"></script>
         <script src="js/app/collections/WorldCollection.js"></script>
         <!-- End: Backbone Collections -->
@@ -463,6 +511,7 @@
         <script src="js/app/views/GameGUI/QuickBarView.js"></script>
         <script src="js/app/views/GameGUI/ActionButtonsView.js"></script>
         <script src="js/app/views/GameGUI/TileDetailsView.js"></script>
+        <script src="js/app/views/GameGUI/SidebarView.js"></script>
 
         <!--Game Stuff-->
         <script src="js/app/views/three/OrbitControls.js"></script>

@@ -35,6 +35,7 @@ TFApp.QuickBarView = Backbone.View.extend({
 		this.$currentTurn.text(TFApp.models.currentWorldModel.get("current_turn"));
 	},
 	updatePlayerValues: function(){
+		console.log(TFApp.models.currentPlayerModel.get("balance"));
 		this.$actionsRemaining.text(TFApp.models.currentPlayerModel.get("time_remaining_this_turn"));
 		this.$playerBalance.text(TFApp.models.currentPlayerModel.get("balance"));
 		//todo: update lumber once we have that

@@ -13,7 +13,7 @@ TFApp.WorldView = Backbone.View.extend({
 		water: new THREE.MeshPhongMaterial({color: 0x111166}),
 		selected: new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent: true, opacity: 0.5}),
 		treeLeaves: new THREE.MeshLambertMaterial({color: 0x003300}),
-		ownership: new THREE.MeshLambertMaterial({color:0xCCCC00})
+		ownership: new THREE.MeshLambertMaterial({color:0xFFFFFF, transparent: true, opacity: 0.3})
 	},
 	textures: {
 
@@ -35,7 +35,6 @@ TFApp.WorldView = Backbone.View.extend({
 
 	initialize: function(){
 		var that = this;
-		console.log("GameView.initialize");
 
 		this.initializeThreeScene();
 
@@ -58,8 +57,6 @@ TFApp.WorldView = Backbone.View.extend({
 		
 	},
 	drawTiles: function(){
-		console.log("-----------------------------------------");
-		console.log("draw tiles start");
 		var that = this;
 
 		var tiles = TFApp.models.currentWorldModel.tiles;
@@ -151,14 +148,10 @@ TFApp.WorldView = Backbone.View.extend({
 
 		that.renderer.render(that.scene, that.camera);
 
-		console.log("draw tiles end");
-		console.log("-----------------------------------------");
 		
 
 	},
 	initializeThreeScene: function(){
-		console.log("-----------------------------------------");
-		console.log("init three scene start");
 		var that = this;
 
 		that.materials.grass.vertexColors = true;
@@ -222,8 +215,8 @@ TFApp.WorldView = Backbone.View.extend({
 		directionalLight.castShadow = true;
 		directionalLight.shadowDarkness = .4;
 		directionalLight.shadowCameraVisible = false;
-		directionalLight.shadowMapWidth = 8192;
-		directionalLight.shadowMapHeight = 8192;
+		directionalLight.shadowMapWidth = 4096;
+		directionalLight.shadowMapHeight = 4096;
 		directionalLight.shadowMapBias = .0039;
 
 
@@ -275,8 +268,6 @@ TFApp.WorldView = Backbone.View.extend({
 		//this.renderer.render(this.scene, this.camera);
 		controls.update();
 
-		console.log("init three scene end");
-		console.log("-----------------------------------------");
 	},
 
 	handleScroll: function(e){
@@ -310,7 +301,6 @@ TFApp.WorldView = Backbone.View.extend({
 
 
 
-				console.log(pos);
 				this.selectionTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
 
 				TFApp.models.gameModel.set("selectedTileCoords", [pos.x, pos.y]);
@@ -354,8 +344,7 @@ TFApp.WorldView = Backbone.View.extend({
 		tile.scale.set(this.worldScale,this.worldScale,this.worldScale);
 
 		//create tree if there are trees
-		if(tileData.large_tree_basal_area>0){
-
+		if(tileData.large_tree_basal_area>50){
 			var tree = new THREE.Mesh(
 				this.treeGeometry
 			);
@@ -367,8 +356,10 @@ TFApp.WorldView = Backbone.View.extend({
 			tree.rotation.set(0,Math.random()*(Math.PI/2),0);
 			tile.add(tree);
 			tree.position.set(this.worldScale*.5,0,this.worldScale*.5);
+
 		}
-		else if(tileData.small_tree_basal_area>0){
+		else if(tileData.large_tree_basal_area>0){
+
 			var tree = new THREE.Mesh(
 				this.treeGeometry
 			);
@@ -381,21 +372,45 @@ TFApp.WorldView = Backbone.View.extend({
 			tile.add(tree);
 			tree.position.set(this.worldScale*.5,0,this.worldScale*.5);
 		}
+		else if(tileData.small_tree_basal_area>50){
+			var tree = new THREE.Mesh(
+				this.treeGeometry
+			);
+
+			tree.material = this.materials.treeLeaves;
+			tree.castShadow = true;
+			tree.receiveShadow = true;
+			tree.scale.set(.5*this.worldScale,.5*this.worldScale,.5*this.worldScale);
+			tree.rotation.set(0,Math.random()*(Math.PI/2),0);
+			tile.add(tree);
+			tree.position.set(this.worldScale*.5,0,this.worldScale*.5);
+		}		
+		else if(tileData.small_tree_basal_area>0){
+			var tree = new THREE.Mesh(
+				this.treeGeometry
+			);
+
+			tree.material = this.materials.treeLeaves;
+			tree.castShadow = true;
+			tree.receiveShadow = true;
+			tree.scale.set(.3*this.worldScale,.3*this.worldScale,.3*this.worldScale);
+			tree.rotation.set(0,Math.random()*(Math.PI/2),0);
+			tile.add(tree);
+			tree.position.set(this.worldScale*.5,0,this.worldScale*.5);
+		}
 
 
 
-		console.log("tileData.owner: ", tileData.owner);
-		console.log(".get(player_id): ", TFApp.models.currentPlayerModel.get("player_id"));
 
 		if(tileData.owner == TFApp.models.currentPlayerModel.get("player_id")){
-			var ownershipFlag = new THREE.Mesh(
-				this.ownershipFlagGeometry
-			);
-			ownershipFlag.material = this.materials.ownership;
-			ownershipFlag.castShadow = true;
+			// var ownershipFlag = new THREE.Mesh(
+			// 	this.ownershipFlagGeometry
+			// );
+			var ownershipFlag = new THREE.Mesh(new THREE.PlaneGeometry( 1, 1), this.materials.ownership);
+			ownershipFlag.rotation.set(3*Math.PI/2,0,0);
 			ownershipFlag.receiveShadow = true;
 			tile.add(ownershipFlag);
-			ownershipFlag.position.set(this.worldScale*.1, 0, this.worldScale*.1);
+			ownershipFlag.position.set(this.worldScale*.5, .005, this.worldScale*.5);
 
 		}
 
