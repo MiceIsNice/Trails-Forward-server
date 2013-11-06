@@ -8,7 +8,7 @@ var WorldCollection = Backbone.Collection.extend({
 			url: this.url,
 			dataType: "json",
 			success: function(data){
-				console.log("World collection fetch success!! ", data.worlds);
+				//console.log("World collection fetch success!! ", data.worlds);
 				that.reset(data.worlds);
 			},
 			error: function(data){

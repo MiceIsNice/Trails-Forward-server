@@ -39,7 +39,6 @@ TFApp.PlayerModel = Backbone.Model.extend({
 			dataType: "json",
 			success: function(data){
 				var player = data.player;
-				console.debug(player);
 				that.set({
 					balance: player.balance,
 					time_remaining_this_turn: player.time_remaining_this_turn,
@@ -56,6 +55,9 @@ TFApp.PlayerModel = Backbone.Model.extend({
 
 	},
 	getOwnedTiles: function(){
+
+	},
+	getContracts: function(){
 
 	}
 

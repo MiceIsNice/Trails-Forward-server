@@ -13,13 +13,11 @@ TFApp.GameView = Backbone.View.extend({
 		var that = this;
 
 
-
-
 		//creat and cache some backbone views that are exclusive to this view
 		this.QuickBarView = new TFApp.QuickBarView();
 		this.ActionButtonsView = new TFApp.ActionButtonsView();
 		this.TileDetailsView = new TFApp.TileDetailsView();
-
+		this.SidebarView = new TFApp.SidebarView();
 		
 
 	},

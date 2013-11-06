@@ -7,15 +7,14 @@ TFApp.WorldModel = Backbone.Model.extend({
 		name: "",
 		width: 0,
 		height: 0,
-		tiles: []
-
+		tiles: [],
+		contractCollection: {}
 
 	},
 	initialize: function(){
 		//this.on("change:world_id", this.loadWorldTiles);
 
 		//this.loadWorld();
-
 
 
 	},
@@ -29,7 +28,6 @@ TFApp.WorldModel = Backbone.Model.extend({
 			dataType: "json",
 			success: function(data){
 				var world = data.world;
-				console.debug(world);
 				that.set({
 					world_id: worldId,
 					height: world.height,
@@ -41,11 +39,16 @@ TFApp.WorldModel = Backbone.Model.extend({
 				});
 
 
+				var contractsUrl = 	"/worlds/" + 
+						  			that.get("world_id") + 
+						  			"/contracts.json";
+				that.set("contractCollection", new TFApp.ContractCollection({url: contractsUrl}));
+
+
+
 				for(var x = 0;x<64;x++){
 					that.tiles[x]=[];
 				}
-
-
 
 				that.getBasicInfoForTiles({x: 0, y: 0, width: 64, height: 64});
 				that.getSurveyDataForTiles();
@@ -100,7 +103,6 @@ TFApp.WorldModel = Backbone.Model.extend({
 			dataType: "json",
 			success: function(data){
 
-				console.log("MAH SURVEYS", data);
 				///TODO: reduce the surveys, only keeping the most recent for a given x y
 
 				for(var i = 0; i<data.surveys.length;i++){
@@ -110,7 +112,6 @@ TFApp.WorldModel = Backbone.Model.extend({
 						
 						///TODO: This shouldn't be survey.survey
 						if(that.tiles[pos.x] && that.tiles[pos.x][pos.y]){
-							console.log(data.surveys.length, siblingPositions.length);
 							that.tiles[pos.x][pos.y].surveyData = data.surveys[i].table.survey.survey;
 						}
 					}
@@ -125,6 +126,44 @@ TFApp.WorldModel = Backbone.Model.extend({
 
 
 	}, 
+	getContracts: function(){
+		var that = this;
+		var url = 
+				  "/worlds/" + 
+				  TFApp.models.currentWorldModel.get("id") + 
+				  "/contracts.json";
+
+		$.ajax({
+			type: "get",
+			url: url,
+			dataType: "json",
+			success: function(data){
+
+				console.log("World Contracts", data);
+				///TODO: reduce the surveys, only keeping the most recent for a given x y
+
+				for(var i = 0; i<data.length;i++){
+					var siblingPositions = that.getTileSiblings({x: data.surveys[i].table.x, y:data.surveys[i].table.y});
+					for(var j = 0; j<siblingPositions.length; j++){
+						var pos = siblingPositions[j];
+						
+						///TODO: This shouldn't be survey.survey
+						if(that.tiles[pos.x] && that.tiles[pos.x][pos.y]){
+							console.log(data.surveys.length, siblingPositions.length);
+							that.tiles[pos.x][pos.y].surveyData = data.surveys[i].table.survey.survey;
+						}
+					}
+				}
+				//that.set({tiles: data});
+			},
+			error: function(data){
+				console.error("Getting world contracts: ", data);
+			}
+		});	
+
+
+	},
+
 	//in: pos {x: ?, y: ?}
 	//out: the positions of all tiles in the megatile at given pos
 	getTileSiblings: function(pos){
