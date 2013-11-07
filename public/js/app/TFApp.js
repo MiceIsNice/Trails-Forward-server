@@ -63,9 +63,9 @@ TFApp = (function(win, doc, $) {
 
 		});
 
-			that.SERVER_API = new TrailsForwardServerAPI();
-			that.SERVER_API._userId = that.models.userModel.get("user_id");
-			that.SERVER_API._auth_token = that.models.userModel.get("authToken");
+			// that.SERVER_API = new TrailsForwardServerAPI();
+			// that.SERVER_API._userId = that.models.userModel.get("user_id");
+			// that.SERVER_API._auth_token = that.models.userModel.get("authToken");
 
 
 
