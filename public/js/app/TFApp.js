@@ -21,9 +21,6 @@ TFApp = (function(win, doc, $) {
 	TFApp.prototype.arrayTest = function(){
 
 		var bar = [];
-		bar[1000000000] = "a";
-
-		foo.push(bar);
 
 	}
 
@@ -59,10 +56,16 @@ TFApp = (function(win, doc, $) {
 			var allWorldCollectionUrl = "/worlds.json" + that.models.userModel.get("authQueryString");
 			that.collections.allWorlds.url = allWorldCollectionUrl;// = new PlayerCollection([], {url: playerCollectionUrl});
 			that.collections.allWorlds.fetch({reset: true});
+
+			that.SERVER_API = new TrailsForwardServerAPI();
+			that.SERVER_API._userId = that.models.userModel.get("user_id");
+			that.SERVER_API._auth_token = that.models.userModel.get("authToken");
+
 		});
 
-
-
+			that.SERVER_API = new TrailsForwardServerAPI();
+			that.SERVER_API._userId = that.models.userModel.get("user_id");
+			that.SERVER_API._auth_token = that.models.userModel.get("authToken");
 
 
 
