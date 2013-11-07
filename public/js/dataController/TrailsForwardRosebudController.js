@@ -17,33 +17,33 @@ TrailsForwardRosebudController.prototype = {
 	
 	clearMyOwnedLand : function(player_id){
 		rs = this.buildRosebudRS(this.CLEAR_MY_LAND);
-		var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
-		TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyOwnedLand);
+		var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
+		TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyOwnedLand);
 	},
 
     clearAllOwnedLand : function(player_id){
     	rs = this.buildRosebudRS(this.CLEAR_ALL_LAND);
-		var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
-		TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearAllOwnedLand);
+		var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
+		TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearAllOwnedLand);
     },
 
     clearMySurveyData : function(player_id){
     	rs = this.buildRosebudRS(this.CLEAR_MY_SURVEY_DATA);
-    	var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
-    	TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMySurveyData);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMySurveyData);
     },
 
     clearMyContracts : function(player_id){
     	rs = this.buildRosebudRS(this.CLEAR_MY_CONTRACTS);
-    	var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
-    	TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyContracts);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyContracts);
 
     },
 
     clearMyUpgrades: function(player_id){
     	rs = this.buildRosebudRS(this.CLEAR_MY_UPGRADES);
-    	var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
-    	TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyUpgrades);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyUpgrades);
 
     },
 
@@ -54,7 +54,7 @@ TrailsForwardRosebudController.prototype = {
 	
 	*****/
 
-	 onClearAllOwnedLand : function (reponse){
+	onClearAllOwnedLand : function (reponse){
     	console.log("onClearAllOwnLand");
     },
 
