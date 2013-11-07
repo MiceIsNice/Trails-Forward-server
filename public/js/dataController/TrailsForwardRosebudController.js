@@ -4,6 +4,8 @@ function TrailsForwardRosebudController(){
 	this.CLEAR_MY_LAND = "/clear_my_owned_land";
 	this.CLEAR_ALL_LAND = "/clear_all_owned_land";
 	this.CLEAR_MY_SURVEY_DATA = "/clear_my_survey_data";
+	this.CLEAR_MY_CONTRACTS = "/clear_my_contracts";
+	this.CLEAR_MY_UPGRADES = "/clear_my_upgrades";
 	this.UNUSED_NUMBER = "/2";
 }
 
@@ -31,6 +33,21 @@ TrailsForwardRosebudController.prototype = {
     	TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMySurveyData);
     },
 
+    clearMyContracts : function(player_id){
+    	rs = this.buildRosebudRS(this.CLEAR_MY_CONTRACTS);
+    	var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
+    	TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyContracts);
+
+    },
+
+    clearMyUpgrades: function(player_id){
+    	rs = this.buildRosebudRS(this.CLEAR_MY_UPGRADES);
+    	var queryString = TFglobals.SERVER_API.authString() + "&player_id=" + player_id;
+    	TFglobals.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyUpgrades);
+
+    },
+
+
     /*****
 
 		CALLBACK FUNCTIONS 
@@ -46,7 +63,16 @@ TrailsForwardRosebudController.prototype = {
 	},
 
 	onClearMySurveyData : function (response){
-		console.log("onClearMySurveyData")
+		console.log("onClearMySurveyData");
+	},
+
+	onClearMyContracts : function (response){
+		console.log("onClearMyContracts");
+	},
+
+
+	onClearMyUpgrades : function (response){
+		console.log("onClearMyUpgrades");
 	},
 	/*****
 

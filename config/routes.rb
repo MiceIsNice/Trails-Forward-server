@@ -12,6 +12,8 @@ TrailsForwardWorld::Application.routes.draw do
     put :clear_my_owned_land
     put :clear_all_owned_land
     put :clear_survey_data
+    put :clear_my_contracts
+    put :clear_my_upgrades
   end
 
   resources :users do
