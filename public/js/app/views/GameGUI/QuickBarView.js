@@ -18,7 +18,7 @@ TFApp.QuickBarView = Backbone.View.extend({
 
 		this.$actionsRemaining = this.$el.find(".actions-remaining");
 		this.$playerBalance = this.$el.find(".player-balance");
-		this.$playerBalance = this.$el.find(".player-lumber");
+		this.$playerLumber = this.$el.find(".player-lumber");
 
 		TFApp.models.currentWorldModel.on("change", that.updateWorldValues, that);
 		TFApp.models.currentPlayerModel.on("change", that.updatePlayerValues, that);

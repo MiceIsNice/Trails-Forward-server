@@ -9,7 +9,7 @@ TFApp.WorldView = Backbone.View.extend({
 	renderer: {},
 	worldScale: 1,
 	materials: {
-		grass: new THREE.MeshLambertMaterial({color: 0x118811}),
+		grass: new THREE.MeshLambertMaterial({color: 0x116611, shading: THREE.FlatShading, vertexColors: THREE.VertexColors}),
 		water: new THREE.MeshPhongMaterial({color: 0x111166}),
 		selected: new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent: true, opacity: 0.5}),
 		treeLeaves: new THREE.MeshLambertMaterial({color: 0x003300}),
@@ -21,6 +21,7 @@ TFApp.WorldView = Backbone.View.extend({
 	//some geometry 'prefabs'
 	treeGeometry: {},
 	tileGeometry: {},
+	tileSidesGeometry: {},
 
 	selectedLight: {},
 	selectedTile: {},
@@ -111,6 +112,7 @@ TFApp.WorldView = Backbone.View.extend({
 
 
 
+
 		//treeGeometry.computeBoundingSphere();
 		this.treeGeometry.computeFaceNormals();
 		this.treeGeometry.buffersNeedUpdate = true;
@@ -119,18 +121,67 @@ TFApp.WorldView = Backbone.View.extend({
 		//TILE GEOMETRY
 		this.tileGeometry = new THREE.Geometry();
 
+		//TOP
 		this.tileGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
 		this.tileGeometry.vertices.push(new THREE.Vector3(0, 0, 1));
 		this.tileGeometry.vertices.push(new THREE.Vector3(1, 0, 1));
 		this.tileGeometry.vertices.push(new THREE.Vector3(1, 0, 0));
 
+
 		this.tileGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
 		this.tileGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
 
-		//tileGeometry.computeBoundingSphere();
-		this.tileGeometry.computeFaceNormals();
-		this.tileGeometry.buffersNeedUpdate = true;
-		this.tileGeometry.uvsNeedUpdate = true;
+		
+
+
+
+		//FRONT
+		this.tileSidesGeometry = new THREE.Geometry();
+
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(0, -1, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(0, 0,  0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(1, 0,  0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(1, -1, 0));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
+
+		//LEFT
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 0));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(4,5,6,  new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(6,7,4, new THREE.Vector3(0,1,0)));
+
+
+
+
+		//RIGHT
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 1));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(8,9,10,  new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(10,11,8, new THREE.Vector3(0,1,0)));
+
+		//BACK
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 1));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(12,13,14,  new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(14,15,12,  new THREE.Vector3(0,1,0)));
+
+
+
+		//tileSidesGeometry.computeBoundingSphere();
+		this.tileSidesGeometry.computeFaceNormals();
+		this.tileSidesGeometry.buffersNeedUpdate = true;
+		this.tileSidesGeometry.uvsNeedUpdate = true;
 
 
 		this.ownershipFlagGeometry = new THREE.CubeGeometry( this.worldScale*.1, this.worldScale*.3, this.worldScale*.1, 1, 1, 1);
@@ -327,18 +378,31 @@ TFApp.WorldView = Backbone.View.extend({
 		var tile = new THREE.Mesh(
 			this.tileGeometry
 		);
+
 		tile.receiveShadow = true;	
+		tile.castShadow = true;
 		tile.doubleSided = false;
 		tile.position.set(x*this.worldScale, 0, y*this.worldScale);
-
 		this.tileMeshes[x][y] = tile;
 
 
+		var tileSides = new THREE.Mesh(
+			this.tileSidesGeometry
+		);
+		tileSides.receiveShadow = true;
+		tile.add(tileSides);
+		tileSides.position.set(0,0,0);
 		//set the tile material based on the tile type
-		if(tileData.type == "WaterTile")
+		if(tileData.type == "WaterTile"){
 			tile.material = this.materials.water;
-		else
+			tileSides.material = this.materials.water;
+			tile.position.y-=.5*this.worldScale;		
+		}
+		else{
 			tile.material = this.materials.grass;
+			tileSides.material = this.materials.grass;
+
+		}
 
 
 		tile.scale.set(this.worldScale,this.worldScale,this.worldScale);
