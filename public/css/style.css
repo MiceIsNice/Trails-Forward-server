@@ -280,6 +280,7 @@ begin: game
 	position:absolute;
 	right:1%;
 	top:2%;
+	width:15%;
 
 }
 .game-wrapper .other-info h1{
@@ -291,14 +292,11 @@ begin: game
 
 
 .game-wrapper .accordian-section .table-wrap{
-	overflow:hidden;
 	width:100%;
-	height:0;
 	font-size:12px;
 
 }
 .game-wrapper .accordian-section:first-child .table-wrap{
-	height:100%;
 }
 
 .game-wrapper .accordian-section table{

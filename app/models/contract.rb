@@ -79,6 +79,7 @@ class Contract < ActiveRecord::Base
     template.add 'contract_template.description', :as => :description
     template.add 'contract_template.deadline', :as => :delivery_window
     template.add 'contract_template.dollars', :as => :earnings
+    template.add 'contract_template.volume_required', :as => :volume_required
     template.add 'contract_template.role', :as => :role
     template.add 'contract_template.difficulty', :as => :difficulty
     template.add 'contract_template.points', :as => :points_offered

@@ -41,7 +41,8 @@ TFApp.WorldModel = Backbone.Model.extend({
 
 				var contractsUrl = 	"/worlds/" + 
 						  			that.get("world_id") + 
-						  			"/contracts.json";
+						  			"/contracts.json" + TFApp.models.userModel.get("authQueryString") +
+						  			"&player_id=" + TFApp.models.currentPlayerModel.get("player_id");
 				that.set("contractCollection", new TFApp.ContractCollection({url: contractsUrl}));
 
 
@@ -123,43 +124,6 @@ TFApp.WorldModel = Backbone.Model.extend({
 			}
 		});	
 
-
-
-	}, 
-	getContracts: function(){
-		var that = this;
-		var url = 
-				  "/worlds/" + 
-				  TFApp.models.currentWorldModel.get("id") + 
-				  "/contracts.json";
-
-		$.ajax({
-			type: "get",
-			url: url,
-			dataType: "json",
-			success: function(data){
-
-				console.log("World Contracts", data);
-				///TODO: reduce the surveys, only keeping the most recent for a given x y
-
-				for(var i = 0; i<data.length;i++){
-					var siblingPositions = that.getTileSiblings({x: data.surveys[i].table.x, y:data.surveys[i].table.y});
-					for(var j = 0; j<siblingPositions.length; j++){
-						var pos = siblingPositions[j];
-						
-						///TODO: This shouldn't be survey.survey
-						if(that.tiles[pos.x] && that.tiles[pos.x][pos.y]){
-							console.log(data.surveys.length, siblingPositions.length);
-							that.tiles[pos.x][pos.y].surveyData = data.surveys[i].table.survey.survey;
-						}
-					}
-				}
-				//that.set({tiles: data});
-			},
-			error: function(data){
-				console.error("Getting world contracts: ", data);
-			}
-		});	
 
 
 	},

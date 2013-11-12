@@ -49,7 +49,7 @@ class WorldPlayerContractsController < ApplicationController
   def deliver
     @player = Player.find(params[:player_id])
 
-    @contract = @player.contracts.where(:id => params[:id] || params[:contract_id]).first
+    @contract = @player.contracts.where(params[:contract_id]).first
     @megatiles = @player.world.megatiles.where(:id => params[:megatile_ids])
 
     authorize! :deliver, @contract
@@ -64,12 +64,13 @@ class WorldPlayerContractsController < ApplicationController
         end
       else
         respond_to do |format|
-          format.json {  render :json => "delivery failed", :status => :expectation_failed }
+          format.json {  render :json => {:errors => "delivery failed"}, :status => :expectation_failed }
         end
       end
     else
       respond_to do |format|
-        format.json {  render :json => "contract is not satisfied", :status => :failed_dependency }
+        #render json: {:errors => ["need a valid user id and player id combination"]}
+        format.json {  render :json => {:errors => "contract is not satisfied"}, :status => :failed_dependency }
       end
     end
   end

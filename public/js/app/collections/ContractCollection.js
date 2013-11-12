@@ -7,16 +7,18 @@ TFApp.ContractCollection = Backbone.Collection.extend({
 	initialize: function(args){
 		this.url = args.url;
 		this.fetch({reset: true});
+
 	},
 	fetch: function(args){
 		var that=this;
+		console.log(this.url);
 		$.ajax({
 			type: "get",
 			url: this.url,
 			dataType: "json",
 			success: function(data){
 				console.log("Contract Collection fetch success!! ", data);
-				that.reset(data);
+				that.reset(data.contracts);
 				//that.trigger("change");
 			},
 			error: function(data){

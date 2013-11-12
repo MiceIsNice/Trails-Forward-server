@@ -5,7 +5,7 @@ TFApp.GameView = Backbone.View.extend({
 	el: ".game-wrapper",
 	events:{
 		//todo move this all to it's own constructor
-		"click .accordian-section h1": "toggleAccordianSection"
+		//"click .accordian-section h1": "toggleAccordianSection"
 	},
 
 
