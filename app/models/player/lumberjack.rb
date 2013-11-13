@@ -1,2 +1,0 @@
-class Lumberjack < Player
-end
