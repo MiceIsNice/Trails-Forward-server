@@ -1,11 +1,14 @@
 function TrailsForwardRosebudController(){
 	this.JSON = ".json?";
 	this.ROSEBUD = "/rosebud";
-	this.CLEAR_MY_LAND = "/clear_my_owned_land";
+	this.CLEAR_PLAYER_LAND = "/clear_player_owned_land";
 	this.CLEAR_ALL_LAND = "/clear_all_owned_land";
-	this.CLEAR_MY_SURVEY_DATA = "/clear_my_survey_data";
-	this.CLEAR_MY_CONTRACTS = "/clear_my_contracts";
-	this.CLEAR_MY_UPGRADES = "/clear_my_upgrades";
+	this.CLEAR_PLAYER_SURVEY_DATA = "/clear_player_survey_data";
+	this.CLEAR_PLAYER_CONTRACTS = "/clear_player_contracts";
+	this.CLEAR_PLAYER_UPGRADES = "/clear_player_upgrades";
+	this.SET_PLAYER_TURN_POINTS = "/set_player_turn_points";
+	this.SET_PLAYER_BALANCE = "/set_player_balance";
+	this.RESET_PLAYER_STATS = "/reset_player_stats";
 	this.UNUSED_NUMBER = "/2";
 }
 
@@ -15,38 +18,55 @@ TrailsForwardRosebudController.prototype = {
 
 	constructor: TrailsForwardRosebudController, 
 	
-	clearMyOwnedLand : function(player_id){
-		rs = this.buildRosebudRS(this.CLEAR_MY_LAND);
+	clearPlayerOwnedLand : function(player_id){
+		rs = this.buildRosebudRS(this.CLEAR_PLAYER_LAND);
 		var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
-		TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyOwnedLand);
+		TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearPlayerOwnedLand);
 	},
 
-    clearAllOwnedLand : function(player_id){
+    clearPlayerOwnedLand : function(player_id){
     	rs = this.buildRosebudRS(this.CLEAR_ALL_LAND);
 		var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
 		TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearAllOwnedLand);
     },
 
-    clearMySurveyData : function(player_id){
-    	rs = this.buildRosebudRS(this.CLEAR_MY_SURVEY_DATA);
+    clearPlayerSurveyData : function(player_id){
+    	rs = this.buildRosebudRS(this.CLEAR_PLAYER_SURVEY_DATA);
     	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
-    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMySurveyData);
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearPlayerSurveyData);
     },
 
-    clearMyContracts : function(player_id){
-    	rs = this.buildRosebudRS(this.CLEAR_MY_CONTRACTS);
+    clearPlayerContracts : function(player_id){
+    	rs = this.buildRosebudRS(this.CLEAR_PLAYER_CONTRACTS);
     	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
-    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyContracts);
-
-    },
-
-    clearMyUpgrades: function(player_id){
-    	rs = this.buildRosebudRS(this.CLEAR_MY_UPGRADES);
-    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
-    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearMyUpgrades);
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearPlayerContracts);
 
     },
 
+    clearPlayerUpgrades: function(player_id){
+    	rs = this.buildRosebudRS(this.CLEAR_PLAYER_UPGRADES);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onClearPlayerUpgrades);
+
+    },
+
+    setPlayerTurnPoints: function(player_id){
+    	rs = this.buildRosebudRS(this.SET_PLAYER_TURN_POINTS);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onSetPlayerTurnPoints);
+    },
+
+    setPlayerBalance: function(player_id){
+    	rs = this.buildRosebudRS(this.SET_PLAYER_BALANCE);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onSetPlayerBalance);
+    },
+
+    resetPlayerStats: function(player_id){
+    	rs = this.buildRosebudRS(this.RESET_PLAYER_STATS);
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id" + player_id;
+    	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onResetPlayerStats);
+    },
 
     /*****
 
@@ -58,21 +78,32 @@ TrailsForwardRosebudController.prototype = {
     	console.log("onClearAllOwnLand");
     },
 
-    onClearMyOwnedLand : function (response){
-		console.log("onClearMyOwnLand");
+    onClearPlayerOwnedLand : function (response){
+		console.log("onClearPlayerOwnLand");
 	},
 
-	onClearMySurveyData : function (response){
-		console.log("onClearMySurveyData");
+	onClearPlayerSurveyData : function (response){
+		console.log("onClearPlayerSurveyData");
 	},
 
-	onClearMyContracts : function (response){
-		console.log("onClearMyContracts");
+	onClearPlayerContracts : function (response){
+		console.log("onClearPlayerContracts");
 	},
 
+	onClearPlayerUpgrades : function (response){
+		console.log("onClearPlayerUpgrades");
+	},
 
-	onClearMyUpgrades : function (response){
-		console.log("onClearMyUpgrades");
+	onSetPlayerBalance : function (response){
+		console.log("onSetPlayerBalance");
+	},
+
+	onSetPlayerTurnPoints : function (response){
+		console.log("onSetPlayerTurnPoints");
+	},
+
+	onResetPlayerStats : function (response){
+		console.log("onResetPlayerStats");
 	},
 	/*****
 
