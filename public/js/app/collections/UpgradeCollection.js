@@ -16,13 +16,13 @@ TFApp.UpgradeCollection = Backbone.Collection.extend({
 			url: this.url,
 			dataType: "json",
 			success: function(data){
-				console.log("Contract Collection fetch success!! ", data);
-				that.reset(data.contracts);
+				console.log("Upgrade Collection fetch success!! ", data);
+				that.reset(data.upgrades);
 				//that.trigger("change");
 			},
 			error: function(data){
 				console.log(that.url);
-				console.error("Error fetching Contract Collection: ", data);
+				console.error("Error fetching Upgrade Collection: ", data);
 			}
 		});
 	}

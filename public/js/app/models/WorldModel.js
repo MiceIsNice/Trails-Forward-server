@@ -8,6 +8,7 @@ TFApp.WorldModel = Backbone.Model.extend({
 		width: 0,
 		height: 0,
 		contractCollection: {},
+		upgradeCollection: {},
 		dirtyTiles: [],
 		staleTiles: []
 
@@ -45,6 +46,14 @@ TFApp.WorldModel = Backbone.Model.extend({
 						  			"/contracts.json" + TFApp.models.userModel.get("authQueryString") +
 						  			"&player_id=" + TFApp.models.currentPlayerModel.get("player_id");
 				that.set("contractCollection", new TFApp.ContractCollection({url: contractsUrl}));
+
+
+				// /worlds/:world_id/logging_equipment
+				var upgradesUrl = 	"/worlds/" + 
+						  			that.get("world_id") + 
+						  			"/logging_equipment.json" + TFApp.models.userModel.get("authQueryString") +
+						  			"&player_id=" + TFApp.models.currentPlayerModel.get("player_id");
+				that.set("upgradeCollection", new TFApp.UpgradeCollection({url: upgradesUrl}));
 
 
 
