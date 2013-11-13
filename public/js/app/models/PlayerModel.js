@@ -39,8 +39,10 @@ TFApp.PlayerModel = Backbone.Model.extend({
 			dataType: "json",
 			success: function(data){
 				var player = data.player;
+				console.log(player);
 				that.set({
 					balance: player.balance,
+					lumber: player.lumber,
 					time_remaining_this_turn: player.time_remaining_this_turn,
 					type: player.type
 				});

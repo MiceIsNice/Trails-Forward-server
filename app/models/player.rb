@@ -22,7 +22,7 @@ class Player < ActiveRecord::Base
     48 # In months.
   end
 
-  attr_accessible :name, :user, :world, :balance, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
+  attr_accessible :name, :user, :world, :balance, :pending_balance, :time_remaining_this_turn, :quest_points, :quests, :lumber
 
   def set_balance new_balance
     balance = new_balance

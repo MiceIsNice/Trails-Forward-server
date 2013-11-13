@@ -54,7 +54,10 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 							y = data.megatile_upper_left_xy.y;
 
 						TFApp.models.currentWorldModel.tiles[tile_x][tile_y].owner = TFApp.models.currentPlayerModel.get("player_id");
-						TFApp.views.worldView.redrawTile({x: tile_x, z: tile_y});
+						TFApp.models.currentWorldModel.get("dirtyTiles").push({x: tile_x, z: tile_y});
+						TFApp.models.currentWorldModel.trigger("change:dirtyTiles");
+
+						//TFApp.views.worldView.redrawTile({x: tile_x, z: tile_y});
 					}
 
 
@@ -131,7 +134,7 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 		var tile_x = selectedTileCoords[0],
 			tile_y = selectedTileCoords[1];
 
-		// POST /worlds/:world_id/resource_tiles/:id/clearcut
+		// POST /worlds/:world_id/resource_tiles/:UNUSED/clearcut
 		$.ajax({
 			type: "post",
 			url: "/worlds/" + TFApp.models.currentWorldModel.get("world_id") 
@@ -146,10 +149,14 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					TFApp.views.gameView.showErrorModal(data.errors[0]);
 				}
 				else{
+					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].large_tree_basal_area = 0;
+					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].small_tree_basal_area = 0;
+					TFApp.models.currentWorldModel.get("dirtyTiles").push({x: tile_x, z: tile_y});
+					TFApp.models.currentWorldModel.trigger("change:dirtyTiles");
 					//update the player data
 					TFApp.models.currentPlayerModel.loadPlayerData();
 					
-					var rect = {x_min : tile_x-1, x_max : tile_x+1, y_min : tile_y-1, y_max : tile_y+1};
+					//var rect = {x_min : tile_x-1, x_max : tile_x+1, y_min : tile_y-1, y_max : tile_y+1};
 					// TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
 					// TFglobals.IMPACT.onInvalidateTile(tile_x, tile_y);
 					//kind of hacky, triggering a change of the current tile coords

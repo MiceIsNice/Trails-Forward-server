@@ -16,13 +16,19 @@ TFApp.SidebarView = Backbone.View.extend({
 		this.$contracts = this.$el.find(".contracts");
 		this.$myContracts = this.$el.find(".my-contracts");
 
+		this.$upgrades = this.$el.find(".upgrades");
+		this.$myUpgrades = this.$el.find(".my-upgrades");
 
 		//handling 'nested collections' is less than glamorous
 		TFApp.models.currentWorldModel.on("change:contractCollection", function(){
 			var contractCollection = TFApp.models.currentWorldModel.get("contractCollection");
 			contractCollection.on("reset", that.updateContracts, that);
 		});
-
+		TFApp.models.currentWorldModel.on("change:upgradeCollection", function(){
+			var upgradeCollection = TFApp.models.currentWorldModel.get("upgradeCollection");
+			upgradeCollection.on("reset", that.updateUpgrades, that);
+		});
+		
 	},
 	render: function(){
 		//TODO
@@ -46,15 +52,20 @@ TFApp.SidebarView = Backbone.View.extend({
 
 
 			if(contract.get("player_id") == TFApp.models.currentPlayerModel.get("player_id")){
-				var $tr = $('<tr class="contract white-bar hoverable" data-contract-id="'+contract.get("id")+'"></tr>');
-				var $nameTd = $('<td class="contract-name">'+contract.get("codename")+'</td>');
-				var $lumberTd = $('<td class="lumber lumber-icon">'+contract.get("volume_required")+'</td>');
-				var $rewardTd = $('<td class="money currency-icon">'+contract.get("earnings")+'</td>');
-				$tr.append($nameTd);
-				$tr.append($lumberTd);
-				$tr.append($rewardTd);
-				$myContractsTable.append($tr);
-				myContractCount++;
+				if(contract.get("successful")){
+
+				}else{
+					var $tr = $('<tr class="contract white-bar hoverable" data-contract-id="'+contract.get("id")+'"></tr>');
+					var $nameTd = $('<td class="contract-name">'+contract.get("codename")+'</td>');
+					var $lumberTd = $('<td class="lumber lumber-icon">'+contract.get("volume_required")+'</td>');
+					var $rewardTd = $('<td class="money currency-icon">'+contract.get("earnings")+'</td>');
+					$tr.append($nameTd);
+					$tr.append($lumberTd);
+					$tr.append($rewardTd);
+					$myContractsTable.append($tr);
+					myContractCount++;
+				}
+
 			}else{
 				var $tr = $('<tr class="contract white-bar hoverable" data-contract-id="'+contract.get("id")+'"></tr>');
 				var $nameTd = $('<td class="contract-name">'+contract.get("codename")+'</td>');
@@ -79,7 +90,8 @@ TFApp.SidebarView = Backbone.View.extend({
 		var url = "/worlds/" + TFApp.models.currentWorldModel.get("world_id") + 
 				  "/players/" + TFApp.models.currentPlayerModel.get("player_id") + 
 				  "/available_contracts/" + cid +
-				  "/accept" + TFApp.models.userModel.get("authQueryString");
+				  "/accept" + TFApp.models.userModel.get("authQueryString") +
+				  "&contract_id=" + cid;
 
 		console.log(url);
 
@@ -119,7 +131,6 @@ TFApp.SidebarView = Backbone.View.extend({
 				  "/contracts/" + cid +
 				  "/deliver" + TFApp.models.userModel.get("authQueryString");
 
-		console.log(url);
 
 		$.ajax({
 			type: "post",
@@ -129,12 +140,18 @@ TFApp.SidebarView = Backbone.View.extend({
 				var contractCollection = TFApp.models.currentWorldModel.get("contractCollection");
 				contractCollection.fetch();
 				console.log("Complete Contract Success: ", data);
+				TFApp.models.currentPlayerModel.loadPlayerData();
 			},
 			error: function(data){
 				console.log("Complete Contract Error: ", data);
-				TFApp.views.gameView.showErrorModal(data.responseJSON.errors);
+				TFApp.views.gameView.showErrorModal("Unable to complete contract");
 			}
 		});
+
+
+
+	},
+	updateUpgrades: function(e){
 
 
 

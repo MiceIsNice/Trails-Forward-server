@@ -20,6 +20,7 @@ module PlayerApi
       template.add :time_remaining_this_turn
       template.add :quest_points
       template.add :quests
+      template.add :lumber
     end
 
     api_accessible :player_private_with_megatiles, :extend => :player_private do |template|

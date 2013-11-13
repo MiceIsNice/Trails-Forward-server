@@ -337,3 +337,612 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
 
+
+NoMethodError (undefined method `volume' for #<Array:0x007f7ff1c5a850>):
+  app/controllers/resource_tiles_controller.rb:231:in `clearcut'
+
+
+NoMethodError (undefined method `volume' for #<Array:0x007f7fef416e48>):
+  app/controllers/resource_tiles_controller.rb:231:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `poletimber_volume' for #<Array:0x007f7fef1fc400>):
+  app/controllers/resource_tiles_controller.rb:231:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `poletimber_volume' for #<Array:0x007f7fef36ee50>):
+  app/controllers/resource_tiles_controller.rb:235:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:235:in `each'
+  app/controllers/resource_tiles_controller.rb:235:in `clearcut'
+
+
+NoMethodError (undefined method `poletimber_volume' for #<Hash:0x007f7ff197f1d0>):
+  app/controllers/resource_tiles_controller.rb:235:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:235:in `each'
+  app/controllers/resource_tiles_controller.rb:235:in `clearcut'
+
+
+NoMethodError (undefined method `poletimber_volume' for #<Hash:0x007f7fef38c608>):
+  app/controllers/resource_tiles_controller.rb:235:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:235:in `each'
+  app/controllers/resource_tiles_controller.rb:235:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/resource_tiles_controller.rb:237:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:235:in `each'
+  app/controllers/resource_tiles_controller.rb:235:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:235: syntax error, unexpected tIDENTIFIER, expecting '}'
+...sult[:poletimber_volume] player.lumber += result[:sawtimber_...
+...                               ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/resource_tiles_controller.rb:235: syntax error, unexpected tIDENTIFIER, expecting '}'
+...sult[:poletimber_volume] player.lumber += result[:sawtimber_...
+...                               ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/resource_tiles_controller.rb:235:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:235:in `each'
+  app/controllers/resource_tiles_controller.rb:235:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/resource_tiles_controller.rb:235:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:235:in `each'
+  app/controllers/resource_tiles_controller.rb:235:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+TypeError (can't convert Symbol into Integer):
+  app/controllers/resource_tiles_controller.rb:241:in `[]'
+  app/controllers/resource_tiles_controller.rb:241:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:241:in `each'
+  app/controllers/resource_tiles_controller.rb:241:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+TypeError (can't convert Symbol into Integer):
+  app/controllers/resource_tiles_controller.rb:241:in `[]'
+  app/controllers/resource_tiles_controller.rb:241:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:241:in `each'
+  app/controllers/resource_tiles_controller.rb:241:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+TypeError (can't convert Symbol into Integer):
+  app/controllers/resource_tiles_controller.rb:241:in `[]'
+  app/controllers/resource_tiles_controller.rb:241:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:241:in `each'
+  app/controllers/resource_tiles_controller.rb:241:in `clearcut'
+
+
+NoMethodError (undefined method `toi' for 317.2291970465849:Float):
+  app/controllers/resource_tiles_controller.rb:241:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:241:in `each'
+  app/controllers/resource_tiles_controller.rb:241:in `clearcut'
+
+
+TypeError (can't convert Symbol into Integer):
+  app/controllers/resource_tiles_controller.rb:241:in `[]'
+  app/controllers/resource_tiles_controller.rb:241:in `block in clearcut'
+  app/controllers/resource_tiles_controller.rb:241:in `each'
+  app/controllers/resource_tiles_controller.rb:241:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:14: syntax error, unexpected ':', expecting ';' or '\n'
+  def is_satisfied? :theplayer
+                     ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:107: syntax error, unexpected keyword_end, expecting $end):
+  app/models/ability.rb:78:in `initialize'
+  app/controllers/players_controller.rb:11:in `index'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:14: syntax error, unexpected ':', expecting ';' or '\n'
+  def is_satisfied? :theplayer
+                     ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:107: syntax error, unexpected keyword_end, expecting $end):
+  app/models/ability.rb:78:in `initialize'
+  app/controllers/worlds_controller.rb:17:in `show'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:14: syntax error, unexpected ':', expecting ';' or '\n'
+  def is_satisfied? :theplayer
+                     ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:107: syntax error, unexpected keyword_end, expecting $end):
+  app/models/ability.rb:78:in `initialize'
+  app/controllers/worlds_controller.rb:6:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:14: syntax error, unexpected ':', expecting ';' or '\n'
+  def is_satisfied? :theplayer
+                     ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:107: syntax error, unexpected keyword_end, expecting $end):
+  app/models/ability.rb:78:in `initialize'
+  app/controllers/players_controller.rb:11:in `index'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:14: syntax error, unexpected ':', expecting ';' or '\n'
+  def is_satisfied? :theplayer
+                     ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:107: syntax error, unexpected keyword_end, expecting $end):
+  app/models/ability.rb:78:in `initialize'
+  app/controllers/worlds_controller.rb:6:in `index'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:14: syntax error, unexpected ':', expecting ';' or '\n'
+  def is_satisfied? :theplayer
+                     ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/contract.rb:107: syntax error, unexpected keyword_end, expecting $end):
+  app/models/ability.rb:78:in `initialize'
+  app/controllers/worlds_controller.rb:17:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/models/contract.rb:14:in `is_satisfied?'
+  app/models/contract.rb:37:in `deliver'
+  app/models/contract.rb:63:in `deliver!'
+  app/controllers/world_player_contracts_controller.rb:58:in `deliver'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/models/contract.rb:14:in `is_satisfied?'
+  app/models/contract.rb:37:in `deliver'
+  app/models/contract.rb:63:in `deliver!'
+  app/controllers/world_player_contracts_controller.rb:58:in `deliver'
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/models/contract.rb:14:in `is_satisfied?'
+  app/models/contract.rb:37:in `deliver'
+  app/models/contract.rb:63:in `deliver!'
+  app/controllers/world_player_contracts_controller.rb:58:in `deliver'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/models/contract.rb:14:in `is_satisfied?'
+  app/models/contract.rb:37:in `deliver'
+  app/models/contract.rb:63:in `deliver!'
+  app/controllers/world_player_contracts_controller.rb:58:in `deliver'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:84: syntax error, unexpected '}', expecting ')'
+..._id: player.id, success: false}).length > 0
+...                               ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:86: syntax error, unexpected keyword_elsif, expecting keyword_end
+      elsif !player.available_contracts.include?(contract)
+           ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:88: syntax error, unexpected keyword_else, expecting keyword_end
+      else 
+          ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:188: syntax error, unexpected keyword_end, expecting $end):
+  app/controllers/players_controller.rb:11:in `index'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:84: syntax error, unexpected '}', expecting ')'
+..._id: player.id, success: false}).length > 0
+...                               ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:86: syntax error, unexpected keyword_elsif, expecting keyword_end
+      elsif !player.available_contracts.include?(contract)
+           ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:88: syntax error, unexpected keyword_else, expecting keyword_end
+      else 
+          ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:188: syntax error, unexpected keyword_end, expecting $end):
+  app/controllers/worlds_controller.rb:17:in `show'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:84: syntax error, unexpected '}', expecting ')'
+..._id: player.id, success: false}).length > 0
+...                               ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:86: syntax error, unexpected keyword_elsif, expecting keyword_end
+      elsif !player.available_contracts.include?(contract)
+           ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:88: syntax error, unexpected keyword_else, expecting keyword_end
+      else 
+          ^
+/Users/ME4T/Development/Trails-Forward-server/app/models/ability.rb:188: syntax error, unexpected keyword_end, expecting $end):
+  app/controllers/worlds_controller.rb:6:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'contracts.success' in 'where clause': SELECT `contracts`.* FROM `contracts`  WHERE `contracts`.`player_id` = 1 AND `contracts`.`success` = 0):
+  app/models/ability.rb:84:in `block in initialize'
+  app/controllers/world_player_available_contracts_controller.rb:26:in `accept'
+
+
+NameError (uninitialized constant Ability::NULL):
+  app/models/ability.rb:84:in `block in initialize'
+  app/controllers/world_player_available_contracts_controller.rb:26:in `accept'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+

@@ -49,15 +49,18 @@ class WorldPlayerContractsController < ApplicationController
   def deliver
     @player = Player.find(params[:player_id])
 
-    @contract = @player.contracts.where(params[:contract_id]).first
+
+    @contract = @player.contracts.where("id = ?", params[:contract_id]).first
     @megatiles = @player.world.megatiles.where(:id => params[:megatile_ids])
 
     authorize! :deliver, @contract
 
-    if @contract.is_satisfied?
+    if (@contract.is_satisfied?)
       if @contract.deliver!
+        
         root_key = WorldPlayerContractsController::contracts_root_key_helper(@player)[0..-2]
         template_key = WorldPlayerContractsController::contracts_template_key_helper @player
+
 
         respond_to do |format|
           format.json { render_for_api template_key, :json => @contract, :root => root_key }
@@ -69,7 +72,6 @@ class WorldPlayerContractsController < ApplicationController
       end
     else
       respond_to do |format|
-        #render json: {:errors => ["need a valid user id and player id combination"]}
         format.json {  render :json => {:errors => "contract is not satisfied"}, :status => :failed_dependency }
       end
     end

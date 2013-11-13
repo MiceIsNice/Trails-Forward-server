@@ -7,8 +7,9 @@ TFApp.WorldModel = Backbone.Model.extend({
 		name: "",
 		width: 0,
 		height: 0,
-		tiles: [],
-		contractCollection: {}
+		contractCollection: {},
+		dirtyTiles: [],
+		staleTiles: []
 
 	},
 	initialize: function(){
