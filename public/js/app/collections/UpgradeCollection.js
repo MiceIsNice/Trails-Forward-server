@@ -17,7 +17,7 @@ TFApp.UpgradeCollection = Backbone.Collection.extend({
 			dataType: "json",
 			success: function(data){
 				console.log("Upgrade Collection fetch success!! ", data);
-				that.reset(data.upgrades);
+				that.reset(data.logging_equipment_list);
 				//that.trigger("change");
 			},
 			error: function(data){

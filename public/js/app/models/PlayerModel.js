@@ -7,11 +7,11 @@ TFApp.PlayerModel = Backbone.Model.extend({
 		time_remaining_this_turn: 0,
 		balance: "0",
 		currency: "0",
-		player_id: 0
+		player_id: 0,
+		upgradeCollection: {}
 	},
 	initialize: function(){
 		var that = this;
-
 		this.on("change:player_id", that.loadPlayerData);
 	},
 	getPlayerId: function(worldId){
@@ -32,6 +32,13 @@ TFApp.PlayerModel = Backbone.Model.extend({
 	loadPlayerData: function(){
 		var player_id = this.get("player_id");
 		var user_id = TFApp.models.userModel.get("user_id");
+
+		var upgradesUrl = 	"/worlds/" + 
+		  			TFApp.models.currentWorldModel.get("world_id") + 
+		  			"/logging_equipment/owned.json" + TFApp.models.userModel.get("authQueryString");
+
+		that.set("upgradeCollection", new TFApp.UpgradeCollection({url: upgradesUrl}));
+
 
 		$.ajax({
 			type: "get",

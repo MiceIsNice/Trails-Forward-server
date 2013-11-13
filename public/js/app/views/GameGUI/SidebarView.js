@@ -6,7 +6,8 @@ TFApp.SidebarView = Backbone.View.extend({
 
 	events:{
 		"click .contracts tr": "acceptContract",
-		"click .my-contracts tr": "completeContract"
+		"click .my-contracts tr": "completeContract",
+		"click .upgrades tr": "purchaseUpgrade",
 	},
 
 
@@ -24,11 +25,16 @@ TFApp.SidebarView = Backbone.View.extend({
 			var contractCollection = TFApp.models.currentWorldModel.get("contractCollection");
 			contractCollection.on("reset", that.updateContracts, that);
 		});
+
 		TFApp.models.currentWorldModel.on("change:upgradeCollection", function(){
 			var upgradeCollection = TFApp.models.currentWorldModel.get("upgradeCollection");
-			upgradeCollection.on("reset", that.updateUpgrades, that);
+			upgradeCollection.on("reset", that.updateWorldUpgrades, that);
 		});
-		
+
+		TFApp.models.currentPlayerModel.on("change:upgradeCollection", function(){
+			var upgradeCollection = TFApp.models.currentPlayerModel.get("upgradeCollection");
+			upgradeCollection.on("reset", that.updatePlayerUpgrades, that);
+		});
 	},
 	render: function(){
 		//TODO
@@ -147,14 +153,93 @@ TFApp.SidebarView = Backbone.View.extend({
 				TFApp.views.gameView.showErrorModal("Unable to complete contract");
 			}
 		});
+	},
+	updateWorldUpgrades: function(e){
+		var upgrades = TFApp.models.currentWorldModel.get("upgradeCollection");
+		var $upgradesTable = this.$upgrades.find("table");
 
+		$upgradesTable.empty();
+
+		for(var i = 0;i<upgrades.models.length;i++){
+			var upgrade = upgrades.models[i];
+
+
+
+            // <tr class="upgrade white-bar hoverable" data-upgrade-id="3">
+            //     <td class="upgrade-name">upgrade 03</td>
+            //     <td class="lumber">400</td>
+            //     <td class="money currency-icon">2000</td>
+            // </tr>
+
+			var $tr = $('<tr class="upgrade white-bar hoverable" data-upgrade-id="'+upgrade.get("id")+'"></tr>');
+			var $nameTd = $('<td class="upgrade-name">'+upgrade.get("name")+'</td>');
+			var $lumberTd = $('<td class="harvest-volume axe-icon">'+upgrade.get("harvest_volume")+'</td>');
+			var $costTd = $('<td class="initial-cost currency-icon">'+upgrade.get("initial_cost")+'</td>');
+			$tr.append($nameTd);
+			$tr.append($lumberTd);
+			$tr.append($costTd);
+			$upgradesTable.append($tr);
+
+		}
 
 
 	},
-	updateUpgrades: function(e){
+	updatePlayerUpgrades: function(e){
+		var upgrades = TFApp.models.currentPlayerModel.get("upgradeCollection");
+		var $myUpgradesTable = this.$myUpgrades.find("table");
+
+		$myUpgradesTable.empty();
+
+		for(var i = 0;i<upgrades.models.length;i++){
+			var upgrade = upgrades.models[i];
 
 
 
+            // <tr class="upgrade white-bar hoverable" data-upgrade-id="3">
+            //     <td class="upgrade-name">upgrade 03</td>
+            //     <td class="lumber">400</td>
+            //     <td class="money currency-icon">2000</td>
+            // </tr>
+
+			var $tr = $('<tr class="upgrade white-bar hoverable" data-upgrade-id="'+upgrade.get("id")+'"></tr>');
+			var $nameTd = $('<td class="upgrade-name">'+upgrade.get("name")+'</td>');
+			var $lumberTd = $('<td class="harvest-volume axe-icon">'+upgrade.get("harvest_volume")+'</td>');
+			var $costTd = $('<td class="initial-cost currency-icon">'+upgrade.get("initial_cost")+'</td>');
+			$tr.append($nameTd);
+			$tr.append($lumberTd);
+			$tr.append($costTd);
+			$myUpgradesTable.append($tr);
+
+		}
+
+
+	},
+	purchaseUpgrade: function(e){
+		var uid = $(e.currentTarget).data("upgrade-id");
+		
+		//rails route: /worlds/:world_id/logging_equipment/:id/buy
+		var url = "/worlds/" + TFApp.models.currentWorldModel.get("world_id") + 
+				  "/logging_equipment/" + uid + 
+				  "/buy.json" + TFApp.models.userModel.get("authQueryString");
+
+
+		$.ajax({
+			type: "put",
+			url: url,
+			dataType: "json",
+			success: function(data){
+				var myUpgradeCollection = TFApp.models.currentPlayerModel.get("upgradeCollection");
+				myUpgradeCollection.fetch();
+				var worldUpgradeCollection = TFApp.models.currentWorldModel.get("upgradeCollection");
+				worldUpgradeCollection.fetch();
+				TFApp.models.currentPlayerModel.loadPlayerData();
+				
+			},
+			error: function(data){
+				console.log("Complete Contract Error: ", data);
+				TFApp.views.gameView.showErrorModal("Unable to complete contract");
+			}
+		});
 	}
 
 
