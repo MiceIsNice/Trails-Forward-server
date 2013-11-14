@@ -389,7 +389,7 @@ TrailsForwardServerAPI.prototype = {
 	
 	  /* example: (["name", "hometown"],["Aaron","Decatur"]) => "&name=Aaron&hometown=Decatur" */
 	buildParameterStringWithNamesAndValues : function(aNamesList, aValuesList){
-		TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildParameterStringWithNamesAndValues", ["aNamesList", "aValuesList"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));	
+	//	TFglobals.HELPER_FUNCTIONS.printDesiredDebugInfo("S_API.buildParameterStringWithNamesAndValues", ["aNamesList", "aValuesList"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));	
 												
 		if(aNamesList && aValuesList && aNamesList.length == aValuesList.length){
 			var theString = "";

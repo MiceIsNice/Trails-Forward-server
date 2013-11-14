@@ -14,6 +14,9 @@ TrailsForwardWorld::Application.routes.draw do
     put :clear_survey_data
     put :clear_my_contracts
     put :clear_my_upgrades
+    put :set_player_balance
+    put :set_player_turn_points
+    put :reset_player_stats
   end
 
   resources :users do

@@ -8,7 +8,7 @@ FactoryGirl.define do
     last_turn_played_at { DateTime.now }
   end
 
-  factory(:lumberjack, class: Lumberjack, parent: :player) {}
-  factory(:developer,  class: Developer,  parent: :player) {}
-  factory(:conserver,  class: Conserver,  parent: :player) {}
+  #factory(:lumberjack, class: Lumberjack, parent: :player) {}
+  #factory(:developer,  class: Developer,  parent: :player) {}
+  #factory(:conserver,  class: Conserver,  parent: :player) {}
 end
