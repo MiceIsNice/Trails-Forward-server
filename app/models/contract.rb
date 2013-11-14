@@ -11,11 +11,16 @@ class Contract < ActiveRecord::Base
   validates :world, presence: true
   validates :contract_template_id, presence: true
 
-  def is_satisfied?
+  def is_satisfied?()
+
     case contract_template.role
       when "Lumberjack"
-        volume_harvested = volume_harvested_of_required_type || 0
-        volume_harvested >= contract_template.volume_required
+        # volume_harvested = volume_harvested_of_required_type || 0
+        # volume_harvested >= contract_template.volume_required
+
+
+        player.lumber >= contract_template.volume_required
+
       when "Developer"
         houses_built = houses_built_of_required_type || 0
         houses_built >= contract_template.acres_developed_required
@@ -41,6 +46,7 @@ class Contract < ActiveRecord::Base
 
         how_much_money_to_give_player = contract_template.dollars   #todo: scale this down if the player is late.
         player.balance += how_much_money_to_give_player
+        player.lumber -= contract_template.volume_required
         great_success &= player.save
 
         unless great_success
@@ -79,6 +85,7 @@ class Contract < ActiveRecord::Base
     template.add 'contract_template.description', :as => :description
     template.add 'contract_template.deadline', :as => :delivery_window
     template.add 'contract_template.dollars', :as => :earnings
+    template.add 'contract_template.volume_required', :as => :volume_required
     template.add 'contract_template.role', :as => :role
     template.add 'contract_template.difficulty', :as => :difficulty
     template.add 'contract_template.points', :as => :points_offered

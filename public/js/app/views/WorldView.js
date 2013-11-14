@@ -40,7 +40,8 @@ TFApp.WorldView = Backbone.View.extend({
 		this.initializeThreeScene();
 
 		TFApp.models.currentWorldModel.on("change:tiles", that.drawTiles, this);
-
+		TFApp.models.currentWorldModel.on("change:dirtyTiles", that.redrawDirtyTiles, this);
+		TFApp.models.currentWorldModel.on("change:staleTiles", that.fetchStaleTiles, this);
 
 		//since we can't handle global keyup/keydown from the normal view scope,
 		//add our own event listeners
@@ -199,7 +200,13 @@ TFApp.WorldView = Backbone.View.extend({
 
 		that.renderer.render(that.scene, that.camera);
 
-		
+	},
+	redrawDirtyTiles: function(){
+		var dirtyTiles = TFApp.models.currentWorldModel.get("dirtyTiles");
+		for(var i = 0;i<dirtyTiles.length;i++){
+			this.redrawTile(dirtyTiles[i]);
+		}
+
 
 	},
 	initializeThreeScene: function(){

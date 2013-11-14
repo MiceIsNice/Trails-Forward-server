@@ -34,12 +34,22 @@ TFApp.QuickBarView = Backbone.View.extend({
 		this.$worldYear.text(TFApp.models.currentWorldModel.get("year_current"));
 		this.$currentTurn.text(TFApp.models.currentWorldModel.get("current_turn"));
 	},
-	updatePlayerValues: function(){
-		console.log(TFApp.models.currentPlayerModel.get("balance"));
-		this.$actionsRemaining.text(TFApp.models.currentPlayerModel.get("time_remaining_this_turn"));
-		this.$playerBalance.text(TFApp.models.currentPlayerModel.get("balance"));
+	updatePlayerValues: function(shouldAnimate){
+		if(shouldAnimate){
+			var currentTimeRemaining = TFApp.models.currentPlayerModel.get("time_remaining_this_turn");
+			var previousTimeRemaining = TFApp.models.currentPlayerModel.previous("time_remaining_this_turn");
+			
+			var previousBalance = TFApp.models.currentPlayerModel.previous("balance");
+			var previousLumber = TFApp.models.currentPlayerModel.previous("lumber");
+
+
+
+
+		}
+		this.$actionsRemaining.text(parseInt(TFApp.models.currentPlayerModel.get("time_remaining_this_turn")).toLocaleString());
+		this.$playerBalance.text(parseInt(TFApp.models.currentPlayerModel.get("balance")).toLocaleString());
+		this.$playerLumber.text(parseInt(TFApp.models.currentPlayerModel.get("lumber")).toLocaleString());
 		//todo: update lumber once we have that
-		//this.$playerLumber.text(TFApp.models.currentPlayerModel.get("lumber"));
 	}
 
 

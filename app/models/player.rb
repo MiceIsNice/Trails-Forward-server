@@ -17,7 +17,7 @@ class Player < ActiveRecord::Base
   def self.default_time_remaining
     48 # In months.
   end
-
+  
   # ASSOCIATIONS #########################
   #
 

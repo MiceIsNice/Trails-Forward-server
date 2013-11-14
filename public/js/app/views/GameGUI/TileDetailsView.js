@@ -39,7 +39,7 @@ TFApp.TileDetailsView = Backbone.View.extend({
 			tile_y = selectedTileCoords[1];
 
 		var theTile = TFApp.models.currentWorldModel.tiles[tile_x][tile_y];
-
+		
 		console.log(theTile);
 		if(theTile!==undefined){
 

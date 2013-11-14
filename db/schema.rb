@@ -12,7 +12,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20131113203712) do
-
   create_table "agent_settings", :force => true do |t|
     t.integer "agent_id", :null => false
     t.string  "name",     :null => false
@@ -241,6 +240,7 @@ ActiveRecord::Schema.define(:version => 20131113203712) do
     t.integer  "pending_balance",          :default => 0
     t.text     "quests"
     t.integer  "time_remaining_this_turn", :default => 0
+    t.integer  "lumber"
   end
 
   create_table "resource_tiles", :force => true do |t|

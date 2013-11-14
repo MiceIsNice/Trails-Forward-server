@@ -79,8 +79,10 @@ class Ability
       puts "verifying player's ability to accept contract with id: #{contract.id}"
       player = contract.world.player_for_user(user)
 
-      if Contract.where("player_id = ?", player.id).length > 0
-        raise CanCan::AccessDenied.new("A player is allowed only one contract at a time.", :accept_contract, contract)
+      true
+
+      if Contract.where(player_id: player.id, successful: nil).length > 2
+        raise CanCan::AccessDenied.new("A player is allowed only three contracts at a time.", :accept_contract, contract)
       elsif !player.available_contracts.include?(contract)
         raise CanCan::AccessDenied.new("This contract is not available for the player.", :accept_contract, contract)
       else 

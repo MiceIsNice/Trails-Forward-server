@@ -207,7 +207,7 @@ class ResourceTilesController < ApplicationController
     time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
     money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
 
-    puts "clearcut time_cost: #{time_cost}, money_cost: #{money_cost}"
+    #puts "clearcut time_cost: #{time_cost}, money_cost: #{money_cost}"
 
 
     if params[:estimate] == false
@@ -228,7 +228,14 @@ class ResourceTilesController < ApplicationController
     player.time_remaining_this_turn -= time_cost
     results = harvestable_tiles.collect(&:clearcut)
     summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
+    
 
+    unless player.lumber
+      player.lumber = 0
+    end
+
+    results.each { |result| player.lumber += (result[:sawtimber_volume] + result[:poletimber_volume]).to_i }
+    
     if params[:estimate] == true
       respond_with summary
     else
