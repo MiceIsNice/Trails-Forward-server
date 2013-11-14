@@ -4,9 +4,10 @@ TFApp.PlayerModel = Backbone.Model.extend({
 		user_id: "",
 		world_id: "",
 		type: "",
-		time_remaining_this_turn: 0,
+		time_remaining_this_turn: "0",
 		balance: "0",
 		currency: "0",
+		lumber: "0",
 		player_id: 0,
 		upgradeCollection: {}
 	},

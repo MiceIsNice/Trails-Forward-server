@@ -57,10 +57,12 @@ TFApp = (function(win, doc, $) {
 			that.collections.allWorlds.url = allWorldCollectionUrl;// = new PlayerCollection([], {url: playerCollectionUrl});
 			that.collections.allWorlds.fetch({reset: true});
 
-			that.SERVER_API = new TrailsForwardServerAPI();
-			that.SERVER_API._userId = that.models.userModel.get("user_id");
-			that.SERVER_API._auth_token = that.models.userModel.get("authToken");
-
+			that.DATA_CONTROLLER = new TrailsForwardDataController();
+			that.DATA_CONTROLLER.serverAPI._userId = that.models.userModel.get("user_id");
+			that.DATA_CONTROLLER.serverAPI._auth_token = that.models.userModel.get("authentication_token");
+			
+			that.SERVER_API = that.DATA_CONTROLLER.serverAPI;
+			that.HELPER_FUNCTIONS = new TrailsForwardHelperFunctions();
 		});
 
 			// that.SERVER_API = new TrailsForwardServerAPI();

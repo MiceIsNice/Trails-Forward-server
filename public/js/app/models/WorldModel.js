@@ -15,10 +15,7 @@ TFApp.WorldModel = Backbone.Model.extend({
 	},
 	initialize: function(){
 		//this.on("change:world_id", this.loadWorldTiles);
-
 		//this.loadWorld();
-
-
 	},
 	loadWorld: function(worldId){
 		var that = this;
@@ -133,11 +130,7 @@ TFApp.WorldModel = Backbone.Model.extend({
 				console.error("Getting surveys Error: ", data);
 			}
 		});	
-
-
-
 	},
-
 	//in: pos {x: ?, y: ?}
 	//out: the positions of all tiles in the megatile at given pos
 	getTileSiblings: function(pos){
@@ -154,7 +147,6 @@ TFApp.WorldModel = Backbone.Model.extend({
 		}
 
 		return siblings;
-
 	}
 
 

@@ -5,7 +5,7 @@ TFApp.SidebarView = Backbone.View.extend({
 	el: ".other-info",
 
 	events:{
-		"click .contracts tr": "acceptContract",
+		"click .contracts tr": "confirmAcceptContract",
 		"click .my-contracts tr": "completeContract",
 		"click .upgrades tr": "purchaseUpgrade",
 	},
@@ -89,8 +89,23 @@ TFApp.SidebarView = Backbone.View.extend({
 	updatePlayerValues: function(){
 
 	},
-	acceptContract: function(e){
+	confirmAcceptContract: function(e){
+		var that = this;
 		var cid = $(e.currentTarget).data("contract-id");
+
+		TFApp.views.gameView.showConfirmationModal(
+
+			that.acceptContract,
+			cid,
+			"Accept this contract?",
+			"Press confirm to accept this contract"
+
+		);
+
+
+
+	},
+	acceptContract: function(cid, successCallback, ctx){
 		
 		//rails route: /worlds/:world_id/players/:player_id/available_contracts/:available_contract_id/accept
 		var url = "/worlds/" + TFApp.models.currentWorldModel.get("world_id") + 
@@ -99,7 +114,6 @@ TFApp.SidebarView = Backbone.View.extend({
 				  "/accept" + TFApp.models.userModel.get("authQueryString") +
 				  "&contract_id=" + cid;
 
-		console.log(url);
 
 		$.ajax({
 			type: "post",
@@ -115,7 +129,9 @@ TFApp.SidebarView = Backbone.View.extend({
 				}else{
 					var contractCollection = TFApp.models.currentWorldModel.get("contractCollection");
 					contractCollection.fetch();
-					console.log("Accepting Contract Success: ", data);
+					if(successCallback && ctx){
+						successCallback.call(ctx);
+					}
 				}
 			},
 			error: function(data){
