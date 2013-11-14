@@ -1,0 +1,73 @@
+
+NoMethodError (undefined method `lumber' for #<Lumberjack:0x007fa9f95d5a48>):
+  app/controllers/players_controller.rb:19:in `block (2 levels) in index'
+  app/controllers/players_controller.rb:16:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+AbstractController::ActionNotFound (The action 'clear_all_owned_land' could not be found for RosebudController):
+  
+
+
+NameError (undefined local variable or method `new_response' for #<RosebudController:0x007ff8e3fdb158>):
+  app/controllers/rosebud_controller.rb:37:in `clear_all_owned_land'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/dataController/TrailsForwardGlobals.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/dataController/TrailsForwardGameDataCache.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/dataController/TrailsForwardGlobals.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/dataController/TrailsForwardGameDataCache.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [PUT] "/rosebud/2/clear_player_contracts.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+

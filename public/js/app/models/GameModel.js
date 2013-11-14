@@ -1,5 +1,5 @@
 var TFApp = window.TFApp || {};
-var TFglobals = new TrailsForwardGlobals();
+//var TFglobals = new TrailsForwardGlobals();
 
 var GameModel = Backbone.Model.extend({
 	defaults:{

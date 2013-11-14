@@ -12,6 +12,7 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20131113203712) do
+
   create_table "agent_settings", :force => true do |t|
     t.integer "agent_id", :null => false
     t.string  "name",     :null => false
@@ -182,7 +183,6 @@ ActiveRecord::Schema.define(:version => 20131113203712) do
   end
 
   create_table "lumberjacks", :force => true do |t|
-    t.integer  "player_id"
     t.integer  "pole_timber"
     t.integer  "saw_timber"
     t.datetime "created_at"

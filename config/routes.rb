@@ -9,11 +9,11 @@ TrailsForwardWorld::Application.routes.draw do
 #  match "/users/sign_up" => "devise/registrations#new"
 
   resources :rosebud do
-    put :clear_my_owned_land
+    put :clear_player_owned_land
     put :clear_all_owned_land
     put :clear_survey_data
-    put :clear_my_contracts
-    put :clear_my_upgrades
+    put :clear_player_contracts
+    put :clear_player_upgrades
     put :set_player_balance
     put :set_player_turn_points
     put :reset_player_stats

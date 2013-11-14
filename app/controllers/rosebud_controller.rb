@@ -2,11 +2,11 @@ class RosebudController < ApplicationController
   include TFClientResponder
 
 #ActiveRecord helpers 
-  def self.new_response
+  def new_response
     return {:messages => [], :errors => []}
   end
 
-  def self.try_active_record_block success_message, response, activerecordproc
+  def try_active_record_block success_message, response, activerecordproc
     begin 
       activerecordproc.call
     rescue ActiveRecord::ActiveRecordError => e 
@@ -15,7 +15,7 @@ class RosebudController < ApplicationController
       return response[:messages].push success_message 
   end 
 
-  def self.clear_player_owned_land response = nil, values = nil
+  def clear_player_owned_land response = nil, values = nil
     if values == nil
       values = params
     end
@@ -28,7 +28,7 @@ class RosebudController < ApplicationController
   	render json: response 
   end
 
-  def self.clear_all_owned_land response = nil, values = nil
+  def clear_all_owned_land response = nil, values = nil
     if values == nil
       values = params
     end
@@ -43,7 +43,7 @@ class RosebudController < ApplicationController
   	render json: response 
   end
 
-  def self.clear_survey_data response = nil, values = nil 
+  def clear_survey_data response = nil, values = nil 
     if values == nil
       values = params
     end
@@ -56,7 +56,7 @@ class RosebudController < ApplicationController
   	render json: response
   end
 
-  def self.clear_player_contracts response = nil, values = nil
+  def clear_player_contracts response = nil, values = nil
     if values == nil
       values = params
     end
@@ -70,7 +70,7 @@ class RosebudController < ApplicationController
   end
 
     # for now, everything but player sawyer crew
-  def self.clear_player_upgrades response = nil, values = nil
+  def clear_player_upgrades response = nil, values = nil
     if values == nil
       values = params
     end
@@ -88,7 +88,7 @@ class RosebudController < ApplicationController
   # 
   #end 
 
-  def self.set_player_balance response = nil, values = nil 
+  def set_player_balance response = nil, values = nil 
     if values == nil
       values = params
     end
@@ -102,7 +102,7 @@ class RosebudController < ApplicationController
     render json: response
   end
 
-  def self.set_player_turn_points response = nil, values = nil
+  def set_player_turn_points response = nil, values = nil
     if values == nil
       values = params
     end
@@ -118,7 +118,7 @@ class RosebudController < ApplicationController
 
     # clear_player_upgrades, contracts, and lumber. Reset to starting 
     #  turn points and money values.
-  def self.reset_player_stats response = nil, values = nil
+  def reset_player_stats response = nil, values = nil
     if values == nil
       values = params
     end

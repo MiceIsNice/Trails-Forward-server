@@ -4,7 +4,6 @@
  * 
  */
 function TrailsForwardHelperFunctions(){
-	if(TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) console.log("TrailsForwardHelperFunctions()");
 }
 
 TrailsForwardHelperFunctions.prototype = {
@@ -12,9 +11,6 @@ TrailsForwardHelperFunctions.prototype = {
 	constructor : TrailsForwardHelperFunctions,
 
 	prettyPrintObject : function(theObj){
-		this.printDesiredDebugInfo("HF.prettyPrintObject", ["theObj"], 
-									arguments, (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING), 
-									(TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.HF_DEBUGGING_VERBOSE));
 		if(theObj){					
 			for (var key in theObj){
 				if (Array.isArray(theObj[key]) && !typeof theObj[key] === 'string'){
@@ -39,33 +35,19 @@ TrailsForwardHelperFunctions.prototype = {
  	},
 	
 	 /* copy non-object and non-array properties and their values from from obj to another */
-	addSimplePropertiesFromObjToObj : function(fromObj, toObj){
-		// this.printDesiredDebugInfo("HF.addSimplePropertiesFromObjToObj", ["fromObj", "toObj"], 
-		// 							arguments, (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING), 
-		// 							(TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.HF_DEBUGGING_VERBOSE));
-									
+	addSimplePropertiesFromObjToObj : function(fromObj, toObj){									
 		if(fromObj && toObj){
 			for (var key in fromObj){
-				if ((typeof fromObj[key] !== 'object' && !Array.isArray(fromObj[key])) || typeof fromObj[key] === 'string'){
-					if (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) {
-						//console.log("HF.addSimplePropertiesFromObjToObj: adding " + key + " : " + fromObj[key]);
-					}
-					
+				if ((typeof fromObj[key] !== 'object' && !Array.isArray(fromObj[key])) || typeof fromObj[key] === 'string'){					
 					toObj[key] = fromObj[key];
 				}
-				else
-					if (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING) {
-						//console.log("HF.addSimplePropertiesFromObjToObj: not adding " + key + " : " + fromObj[key]);
-
-					}
+				else ;
 			}
 		}
 	},
 	
  	  /*  */
  	buildObjectFromNamesListAndValuesList : function(aNamesList, aValuesList){
-  		this.printDesiredDebugInfo("S_API.buildObjectFromNamesListAndValuesList", ["aNamesList", "aValuesList"], arguments, (TFglobals.FULL_DEBUGGING || TFglobals.S_API_DEBUGGING), (TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.S_API_DEBUGGING_VERBOSE));		
-
 		if(aNamesList && aValuesList && aNamesList.length == aValuesList.length){
  	  		var obj = {};
 			for (var i = 0; i < aNamesList.length; i++)
@@ -84,11 +66,7 @@ TrailsForwardHelperFunctions.prototype = {
 			if(verboseDebugging)
 				this.prettyPrintObjectsListWithOptionalHeadersList(argumentValues, argumentNames);
 		}
-		else
-			this.printDesiredDebugInfo("HF.printDesiredDebugInfo", ["functionName", "argumentNames", "argumentValues", 
-																		"regularDebugging", "verboseDebugging"], 
-							arguments, (TFglobals.FULL_DEBUGGING || TFglobals.HF_DEBUGGING), 
-							(TFglobals.FULL_DEBUGGING_VERBOSE || TFglobals.HF_DEBUGGING_VERBOSE));
+		else ;
 	},
 	
 	 /* verbose debugging statement */
