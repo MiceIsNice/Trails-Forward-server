@@ -3,34 +3,53 @@ var TFApp = window.TFApp || {};
 TFApp.WorldView = Backbone.View.extend({
 
 	el: ".world-wrapper",
-
 	scene: {},
 	camera: {},
 	renderer: {},
 	worldScale: 1,
+	vertex_shader: "",
+	fragment_shader: "",
+	shaders:{
+		//created in createShaders()
+	},
 	materials: {
-		grass: new THREE.MeshLambertMaterial({color: 0x116611, shading: THREE.FlatShading, vertexColors: THREE.VertexColors}),
-		water: new THREE.MeshPhongMaterial({color: 0x111166}),
-		selected: new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent: true, opacity: 0.5}),
-		treeLeaves: new THREE.MeshLambertMaterial({color: 0x003300}),
-		ownership: new THREE.MeshLambertMaterial({color:0xFFFFFF, transparent: true, opacity: 0.3})
+		//created in createMaterials()
 	},
 	textures: {
-
 	},
 	//some geometry 'prefabs'
 	treeGeometry: {},
 	tileGeometry: {},
 	tileSidesGeometry: {},
+	houseGeometry: {},
+	houseRoofGeometry: {},
+
 
 	selectedLight: {},
 	selectedTile: {},
+
 	tileMeshes: [],
+
+	//inputs state handlers
 	keyArray: [],
+	mouseArray: [],
+
 	keyCode: { SHIFT: 16 },
+
+
+	//last tile hovered over, used to avoid unecessary re-renderings
+	_lastTileHoveredPos: {},
+	
+	_objsLoaded: false,
+
+
 	events:{
 		//"mousewheel .three-container": "handleScroll"
-		"click .three-container canvas": "handleCanvasClick"
+		"mousemove .three-container canvas" : "handleCanvasMove",
+		"click     .three-container canvas" : "handleCanvasClick",
+		"mousedown .three-container canvas" : "handleCanvasMouseDown",
+		"mouseup .three-container canvas" 	: "handleCanvasMouseUp"
+
 	},
 
 
@@ -61,141 +80,17 @@ TFApp.WorldView = Backbone.View.extend({
 	drawTiles: function(){
 		var that = this;
 
+
+		var that = this;
+
 		var tiles = TFApp.models.currentWorldModel.tiles;
-
-
-
-		this.treeGeometry = new THREE.Geometry();
-
-		this.treeGeometry.vertices.push(new THREE.Vector3(0, 1, 0));
-		//left
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0,  .3));
-
-		//back
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0,  .3));
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
-		
-		//right
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0, -.3));
-
-		//front
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0, -.3));
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
-		
-
-		// //bottom
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0, -.3));
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
-
-		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0,  .3));
-		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
-
-
-
-
-
-		this.treeGeometry.faces.push(new THREE.Face3(0,1,2,
-											new THREE.Vector3(0,-1,0)));
-		this.treeGeometry.faces.push(new THREE.Face3(0,3,4,
-											new THREE.Vector3(0,-1,0)));
-		this.treeGeometry.faces.push(new THREE.Face3(0,5,6,
-											new THREE.Vector3(0,-1,0)));
-		this.treeGeometry.faces.push(new THREE.Face3(0,7,8,
-											new THREE.Vector3(0,-1,0)));
-
-
-		this.treeGeometry.faces.push(new THREE.Face3(9,10,11, new THREE.Vector3(0,1,0)));
-		this.treeGeometry.faces.push(new THREE.Face3(12,13,14, new THREE.Vector3(0,-1,0)));
-
-
-
-
-		//treeGeometry.computeBoundingSphere();
-		this.treeGeometry.computeFaceNormals();
-		this.treeGeometry.buffersNeedUpdate = true;
-		this.treeGeometry.uvsNeedUpdate = true;
-
-		//TILE GEOMETRY
-		this.tileGeometry = new THREE.Geometry();
-
-		//TOP
-		this.tileGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-		this.tileGeometry.vertices.push(new THREE.Vector3(0, 0, 1));
-		this.tileGeometry.vertices.push(new THREE.Vector3(1, 0, 1));
-		this.tileGeometry.vertices.push(new THREE.Vector3(1, 0, 0));
-
-
-		this.tileGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
-		this.tileGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
-
-		
-
-
-
-		//FRONT
-		this.tileSidesGeometry = new THREE.Geometry();
-
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3(0, -1, 0));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3(0, 0,  0));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3(1, 0,  0));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3(1, -1, 0));
-
-		this.tileSidesGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
-		this.tileSidesGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
-
-		//LEFT
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 1));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 1));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 0));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 0));
-
-		this.tileSidesGeometry.faces.push(new THREE.Face3(4,5,6,  new THREE.Vector3(0,1,0)));
-		this.tileSidesGeometry.faces.push(new THREE.Face3(6,7,4, new THREE.Vector3(0,1,0)));
-
-
-
-
-		//RIGHT
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 0));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 0));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 1));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 1));
-
-		this.tileSidesGeometry.faces.push(new THREE.Face3(8,9,10,  new THREE.Vector3(0,1,0)));
-		this.tileSidesGeometry.faces.push(new THREE.Face3(10,11,8, new THREE.Vector3(0,1,0)));
-
-		//BACK
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 1));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 1));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 1));
-		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 1));
-
-		this.tileSidesGeometry.faces.push(new THREE.Face3(12,13,14,  new THREE.Vector3(0,1,0)));
-		this.tileSidesGeometry.faces.push(new THREE.Face3(14,15,12,  new THREE.Vector3(0,1,0)));
-
-
-
-		//tileSidesGeometry.computeBoundingSphere();
-		this.tileSidesGeometry.computeFaceNormals();
-		this.tileSidesGeometry.buffersNeedUpdate = true;
-		this.tileSidesGeometry.uvsNeedUpdate = true;
-
-
-		this.ownershipFlagGeometry = new THREE.CubeGeometry( this.worldScale*.1, this.worldScale*.3, this.worldScale*.1, 1, 1, 1);
-
-
+		while(!that._objsLoaded){
+			//i'm a bad person - mb
+		}
 		for(var x=0; x<tiles.length; x++){
 			for(var y=0; y<tiles[x].length; y++){
-
-
 				this.drawTile({x: x, z: y});
-
 			}
-
 		}
 
 		that.renderer.render(that.scene, that.camera);
@@ -212,9 +107,12 @@ TFApp.WorldView = Backbone.View.extend({
 	initializeThreeScene: function(){
 		var that = this;
 
-		that.materials.grass.vertexColors = true;
-		that.materials.water.vertexColors = true;
-		that.materials.selected.vertexColors = true;
+
+		that.createShaders();
+		that.createMaterials();
+		that.createGeometries();
+		that.loadObjs();
+
 
 		// get the DOM element to attach to
 		// - assume we've got jQuery to hand
@@ -232,7 +130,7 @@ TFApp.WorldView = Backbone.View.extend({
 
 
 		this.scene = new THREE.Scene();
-
+		// this.scene.fog = new THREE.Fog( 0x000000, 7, 60 );
 		this.camera =
 		  new THREE.PerspectiveCamera(
 		    VIEW_ANGLE,
@@ -323,6 +221,10 @@ TFApp.WorldView = Backbone.View.extend({
 		this.selectionTile.rotation.set(3*Math.PI/2,0,0);
 		this.scene.add(this.selectionTile);
 
+		this.highlightTile = new THREE.Mesh(new THREE.PlaneGeometry( 1, 1), this.materials.highlight);
+		this.highlightTile.position.set(0,-100,0);
+		this.highlightTile.rotation.set(3*Math.PI/2,0,0);
+		this.scene.add(this.highlightTile);
 		//this.renderer.render(this.scene, this.camera);
 		controls.update();
 
@@ -340,12 +242,12 @@ TFApp.WorldView = Backbone.View.extend({
 		}
 		return false;
 	},
-	handleCanvasClick: function(e){
+	handleCanvasMove: function(e){
 		e.preventDefault();
 
 		var that = this;
 
-		if(this.isKeyDown(this.keyCode.SHIFT)){
+		if(!this.isMouseDown(1) && !this.isMouseDown(2) && !this.isMouseDown(3)){
 
 			var vector = new THREE.Vector3( ( e.clientX / this.$canvas.width() ) * 2 - 1, - ( e.clientY / this.$canvas.height() ) * 2 + 1, 0.5 );
 			projector.unprojectVector( vector, this.camera );
@@ -357,20 +259,65 @@ TFApp.WorldView = Backbone.View.extend({
 				var clickedObject=intersects[0];
 				var pos = {x: Math.floor(clickedObject.point.x), y: Math.floor(clickedObject.point.z)};
 
+				if(that._lastTileHoveredPos.x == pos.x && that._lastTileHoveredPos.y == pos.y){
+
+				}
+				else{
+					that._lastTileHoveredPos = pos;
+					this.highlightTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
+					this.renderer.render(this.scene, this.camera);	
+				}
+
+			}
+		}
+		//}
+
+	},
+	handleCanvasClick: function(e){
+		e.preventDefault();
+
+		var that = this;
+
+		//if(this.isKeyDown(this.keyCode.SHIFT)){
 
 
-				this.selectionTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
 
-				TFApp.models.gameModel.set("selectedTileCoords", [pos.x, pos.y]);
 
-				this.selectedTile = clickedObject.object;
+		var vector = new THREE.Vector3( ( e.clientX / this.$canvas.width() ) * 2 - 1, - ( e.clientY / this.$canvas.height() ) * 2 + 1, 0.5 );
+		projector.unprojectVector( vector, this.camera );
 
-				this.renderer.render(this.scene, this.camera);
+		var raycaster = new THREE.Raycaster( this.camera.position, vector.sub( this.camera.position ).normalize() );
+
+		var intersects = raycaster.intersectObjects( this.scene.children, true );
+		if ( intersects.length > 0 ) {
+			var clickedObject=intersects[0];
+			var pos = {x: Math.floor(clickedObject.point.x), y: Math.floor(clickedObject.point.z)};
+
+
+
+			this.selectionTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
+
+			TFApp.models.gameModel.set("selectedTileCoords", [pos.x, pos.y]);
+
+			this.selectedTile = clickedObject.object;
+
+			this.renderer.render(this.scene, this.camera);
+
+			if(this.clickAction){
+				this.clickAction();
 			}
 		}
 
+
+
+
+
+		//}
+
 	},
 	drawTile: function(pos){
+		var that = this;
+
 		//confusing, i know...
 		var x = Math.floor(pos.x);
 		var y = Math.floor(pos.z);
@@ -485,6 +432,30 @@ TFApp.WorldView = Backbone.View.extend({
 
 		}
 
+		//console.log(tileData);
+
+		if(tileData.base_cover_type == "developed"){
+
+			var house = new THREE.Mesh(that.houseGeometry, that.materials.houseBody);
+			house.scale.set(.2,.2,.2);
+			house.castShadow = true;
+			house.receiveShadow = true;
+
+
+			var houseRoof = new THREE.Mesh(that.houseRoofGeometry, that.materials.houseRoof);
+
+			//var house = new THREE.Mesh(that.houseGeometry, that.materials.houseBody);
+			houseRoof.castShadow = true;
+			houseRoof.receiveShadow = true;
+
+			house.add(houseRoof);
+
+
+			tile.add(house);
+			house.position.set(that.worldScale*.5, 0, this.worldScale*.5);
+
+		}
+
 
 
 		this.scene.add(tile);
@@ -508,6 +479,251 @@ TFApp.WorldView = Backbone.View.extend({
 	},
 	isKeyDown: function(key){
 		return this.keyArray[key];
+	},
+	handleCanvasMouseDown: function(e){
+		this.mouseArray[e.which] = true;
+	},
+	handleCanvasMouseUp: function(e){
+		this.mouseArray[e.which] = false;
+	},
+	isMouseDown: function(mouseButton){
+		return this.mouseArray[mouseButton];
+	},
+	convertWorldPositionToScreenPosition: function(pos){
+
+
+	},
+	createGeometries: function(){
+
+
+		/*-------------------------------------------------------------
+			 _                 
+			| |_ _ __ ___  ___ 
+			| __| '__/ _ \/ _ \
+			| |_| | |  __/  __/
+			 \__|_|  \___|\___|
+
+		--------------------------------------------------------------*/
+                   
+
+		this.treeGeometry = new THREE.Geometry();
+
+		this.treeGeometry.vertices.push(new THREE.Vector3(0, 1, 0));
+		//left
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0,  .3));
+
+		//back
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0,  .3));
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
+		
+		//right
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0, -.3));
+
+		//front
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0, -.3));
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
+		
+
+		// //bottom
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0, -.3));
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
+
+		this.treeGeometry.vertices.push(new THREE.Vector3( .3, 0,  .3));
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0,  .3));
+		this.treeGeometry.vertices.push(new THREE.Vector3(-.3, 0, -.3));
+
+
+
+
+
+		this.treeGeometry.faces.push(new THREE.Face3(0,1,2,
+											new THREE.Vector3(0,-1,0)));
+		this.treeGeometry.faces.push(new THREE.Face3(0,3,4,
+											new THREE.Vector3(0,-1,0)));
+		this.treeGeometry.faces.push(new THREE.Face3(0,5,6,
+											new THREE.Vector3(0,-1,0)));
+		this.treeGeometry.faces.push(new THREE.Face3(0,7,8,
+											new THREE.Vector3(0,-1,0)));
+
+
+		this.treeGeometry.faces.push(new THREE.Face3(9,10,11, new THREE.Vector3(0,1,0)));
+		this.treeGeometry.faces.push(new THREE.Face3(12,13,14, new THREE.Vector3(0,-1,0)));
+
+
+
+
+		//treeGeometry.computeBoundingSphere();
+		this.treeGeometry.computeFaceNormals();
+		this.treeGeometry.buffersNeedUpdate = true;
+		this.treeGeometry.uvsNeedUpdate = true;
+
+
+
+		/*-------------------------------------------------------------
+			 _   _ _      
+			| |_(_) | ___ 
+			| __| | |/ _ \
+			| |_| | |  __/
+			 \__|_|_|\___|
+			              
+		--------------------------------------------------------------*/
+
+
+		//TILE GEOMETRY
+		this.tileGeometry = new THREE.Geometry();
+
+		//TOP
+		this.tileGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
+		this.tileGeometry.vertices.push(new THREE.Vector3(0, 0, 1));
+		this.tileGeometry.vertices.push(new THREE.Vector3(1, 0, 1));
+		this.tileGeometry.vertices.push(new THREE.Vector3(1, 0, 0));
+
+
+		this.tileGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
+		this.tileGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
+
+
+		//FRONT
+		this.tileSidesGeometry = new THREE.Geometry();
+
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(0, -1, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(0, 0,  0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(1, 0,  0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3(1, -1, 0));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
+
+		//LEFT
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 0));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(4,5,6,  new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(6,7,4, new THREE.Vector3(0,1,0)));
+
+
+
+
+		//RIGHT
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 0));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 1));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(8,9,10,  new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(10,11,8, new THREE.Vector3(0,1,0)));
+
+		//BACK
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1, -1, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 1,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0,  0, 1));
+		this.tileSidesGeometry.vertices.push(new THREE.Vector3( 0, -1, 1));
+
+		this.tileSidesGeometry.faces.push(new THREE.Face3(12,13,14,  new THREE.Vector3(0,1,0)));
+		this.tileSidesGeometry.faces.push(new THREE.Face3(14,15,12,  new THREE.Vector3(0,1,0)));
+
+
+
+		//tileSidesGeometry.computeBoundingSphere();
+		this.tileSidesGeometry.computeFaceNormals();
+		this.tileSidesGeometry.buffersNeedUpdate = true;
+		this.tileSidesGeometry.uvsNeedUpdate = true;
+
+
+
+		/*-------------------------------------------------------------
+			 _                          
+			| |__   ___  _   _ ___  ___ 
+			| '_ \ / _ \| | | / __|/ _ \
+			| | | | (_) | |_| \__ \  __/
+			|_| |_|\___/ \__,_|___/\___|
+
+		--------------------------------------------------------------*/
+		this.houseGeometry = new THREE.Geometry();
+
+		// //TOP
+		// this.houseGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
+		// this.houseGeometry.vertices.push(new THREE.Vector3(0, 0, 1));
+		// this.houseGeometry.vertices.push(new THREE.Vector3(1, 0, 1));
+		// this.houseGeometry.vertices.push(new THREE.Vector3(1, 0, 0));
+
+		// this.houseGeometry.faces.push(new THREE.Face3(0,1,2, new THREE.Vector3(0,1,0)));
+		// this.houseGeometry.faces.push(new THREE.Face3(2,3,0, new THREE.Vector3(0,1,0)));
+
+		// this.houseGeometry.computeFaceNormals();
+		// this.houseGeometry.buffersNeedUpdate = true;
+		// this.houseGeometry.uvsNeedUpdate = true;
+
+
+
+
+	},
+	createMaterials: function(){
+
+		this.materials.grass = new THREE.MeshLambertMaterial({color: 0x116611, shading: THREE.FlatShading, vertexColors: THREE.VertexColors}),
+		this.materials.water = new THREE.MeshPhongMaterial({color: 0x111166}),
+		this.materials.selected = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent: true, opacity: 0.5}),
+		
+
+		this.materials.highlight = new THREE.ShaderMaterial({
+			attributes: {},
+			uniforms:{
+				color: { type: "c", value: new THREE.Color( 0xFFFFFF) },
+				texture: { type: "t", value: THREE.ImageUtils.loadTexture('img/common/transparent_16.png') }
+			},
+			vertexShader: this.vertex_shader,
+			fragmentShader: this.fragment_shader,
+			transparent: true,
+			opacity: .3
+		}),
+
+
+		this.materials.houseBody = new THREE.MeshLambertMaterial({color: 0xFFFFFF}),
+		this.materials.houseRoof = new THREE.MeshLambertMaterial({color: 0x36260b}),
+
+		this.materials.treeLeaves = new THREE.MeshLambertMaterial({color: 0x003300}),
+		this.materials.ownership = new THREE.MeshLambertMaterial({color:0xFFFFFF, transparent: true, opacity: 0.3})
+		
+		this.materials.grass.vertexColors = true;
+		this.materials.water.vertexColors = true;
+		this.materials.selected.vertexColors = true;
+	},
+	createShaders: function(){
+		this.vertex_shader = "varying vec2 vUv; void main() {vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }";
+		this.fragment_shader = "uniform vec3 color;uniform sampler2D texture;varying vec2 vUv;void main() {vec4 tColor = texture2D( texture, vUv );gl_FragColor = vec4( mix( color, tColor.rgb, tColor.a ), 0.5 );}";
+	},
+	loadObjs: function(){
+		var that = this;
+		var manager = new THREE.LoadingManager();
+		manager.onProgress = function ( item, loaded, total ) {
+			console.log( item, loaded, total );
+		};
+
+		//HOUSE
+		var loader = new THREE.OBJLoader( manager );
+		loader.load("/media/models/buildings/simple_house.obj", function(object){
+			console.log(object);
+
+			that.houseGeometry = object.children[1].geometry;
+			that.houseGeometry.computeFaceNormals();
+			that.houseGeometry.buffersNeedUpdate = true;
+			that.houseGeometry.uvsNeedUpdate = true;
+
+			that.houseRoofGeometry = object.children[0].geometry;
+			that.houseRoofGeometry.computeFaceNormals();
+			that.houseRoofGeometry.buffersNeedUpdate = true;
+			that.houseRoofGeometry.uvsNeedUpdate = true;
+
+			that._objsLoaded = true;
+		});
+
+
+
 	}
 
 

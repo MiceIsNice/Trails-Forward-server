@@ -1,5 +1,5 @@
 class RemovePlayerIdFromLumberjacks < ActiveRecord::Migration
   def change
-    remove_column :player_id
+    remove_column :lumberjacks, :player_id
   end
 end

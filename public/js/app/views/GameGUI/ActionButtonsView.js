@@ -5,9 +5,9 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 	//-----------------------------------------------
 	el: ".action-bar",
 	events:{
-		"click .buy-button": "attemptToBuyTile",
-		"click .survey-button": "attemptToSurveyTile",
-		"click .clear-cut-button": "attemptClearCut",
+		"click .buy-button": "setActionToBuyTile",
+		"click .survey-button": "setActionToSurvey",
+		"click .clear-cut-button": "setActionToClearCut",
 		"click .diameter-cut-button": "attemptDiameterCut"
 	},
 	//-----------------------------------------------
@@ -21,6 +21,14 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 	render: function(){
 	},
 	start: function(){
+	},
+
+	setActionToBuyTile: function(){
+		TFApp.views.worldView.clickAction = this.attemptToBuyTile;
+		//TFApp.views.worldView.materials.highlight.color = new THREE.Color( 0x006600 );
+		//TFApp.views.worldView.materials.highlight.map = THREE.ImageUtils.loadTexture("/img/game-icons/actions/dollar.png");
+		TFApp.views.worldView.materials.highlight.uniforms.texture.value = THREE.ImageUtils.loadTexture("/img/game-icons/actions/dollar.png");
+		TFApp.views.worldView.materials.highlight.needsUpdate = true;
 	},
 	attemptToBuyTile: function(){
 		
@@ -80,9 +88,15 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 			console.warn("No tile selected. Doing nothing.");
 		}
 	},
+	setActionToSurvey: function(){
+		TFApp.views.worldView.clickAction = this.attemptToSurveyTile;
+		//TFApp.views.worldView.materials.highlight.color = new THREE.Color( 0x000066 );
+		TFApp.views.worldView.materials.highlight.uniforms.texture.value = THREE.ImageUtils.loadTexture("/img/game-icons/actions/eye.png");
+		TFApp.views.worldView.materials.highlight.needsUpdate = true;
+	},
 	attemptToSurveyTile: function(){
 		var selectedTileCoords = TFApp.models.gameModel.get("selectedTileCoords");
-
+		console.log(selectedTileCoords);
 		var tile_x = selectedTileCoords[0],
 			tile_y = selectedTileCoords[1];
 
@@ -129,6 +143,14 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 			console.warn("No tile selected. Doing nothing.");
 		}
 	},
+
+
+	setActionToClearCut: function(){
+		TFApp.views.worldView.clickAction = this.attemptClearCut;
+		//TFApp.views.worldView.materials.highlight.color = new THREE.Color( 0x660000 );
+		TFApp.views.worldView.materials.highlight.uniforms.texture.value = THREE.ImageUtils.loadTexture("/img/game-icons/actions/saw.png");
+		TFApp.views.worldView.materials.highlight.needsUpdate = true;
+	},
 	attemptClearCut: function(){
 		var selectedTileCoords = TFApp.models.gameModel.get("selectedTileCoords");
 		var tile_x = selectedTileCoords[0],
@@ -156,11 +178,6 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					//update the player data
 					TFApp.models.currentPlayerModel.loadPlayerData();
 					
-					//var rect = {x_min : tile_x-1, x_max : tile_x+1, y_min : tile_y-1, y_max : tile_y+1};
-					// TFglobals.DATA_CONTROLLER.getTilesInRect(rect);
-					// TFglobals.IMPACT.onInvalidateTile(tile_x, tile_y);
-					//kind of hacky, triggering a change of the current tile coords
-					//to trigger a redraw of some ui elements
 					TFApp.models.gameModel.trigger("change:selectedTileCoords");
 				}
 
