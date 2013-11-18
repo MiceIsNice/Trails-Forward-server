@@ -52,6 +52,8 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					if(data.errors){
 						console.log("Buy Tile Error: ", data);
 
+						TFApp.views.gameView.showErrorModal(data.errors[0]);
+
 					}
 					else{
 						console.log("Buy Tile Success: ", data);
@@ -169,6 +171,8 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 				console.log("Clear Cut Tile Success: ", data);
 				if(data.errors){
 					TFApp.views.gameView.showErrorModal(data.errors[0]);
+				}else if(data.success===false){
+					TFApp.views.gameView.showErrorModal(data.key[0]);
 				}
 				else{
 					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].large_tree_basal_area = 0;

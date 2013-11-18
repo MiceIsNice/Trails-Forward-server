@@ -19,10 +19,20 @@ TFApp.WorldView = Backbone.View.extend({
 	},
 	//some geometry 'prefabs'
 	treeGeometry: {},
+
+	//todo: add all tree geometry to one object, less draw calls
+	allTreesGeometry: {},
+
 	tileGeometry: {},
+
+	//todo: add all tile geometry to one object, less draw calls
+	allTilesGeometry: {},
+
 	tileSidesGeometry: {},
 	houseGeometry: {},
 	houseRoofGeometry: {},
+
+
 
 
 	selectedLight: {},
@@ -72,7 +82,13 @@ TFApp.WorldView = Backbone.View.extend({
 		});
 	},
 	render: function(){
+		// console.log("WorldView.render");
+		// var d1 = new Date();
 
+		this.renderer.render(this.scene,this.camera);
+
+		// var d2 = new Date();
+		// console.log("r", d2-d1);
 	},
 	start: function(){
 		
@@ -93,7 +109,7 @@ TFApp.WorldView = Backbone.View.extend({
 			}
 		}
 
-		that.renderer.render(that.scene, that.camera);
+		that.render();
 
 	},
 	redrawDirtyTiles: function(){
@@ -149,15 +165,9 @@ TFApp.WorldView = Backbone.View.extend({
 		controls = new THREE.OrbitControls( this.camera );
 		controls.target.set(32,0,32);
 		controls.addEventListener( 'change', function(){
-			that.renderer.render(that.scene, that.camera)
+			that.render();
 		});
 		this.scene.add(this.camera);
-
-
-
-
-		
-
 
 
 
@@ -225,7 +235,7 @@ TFApp.WorldView = Backbone.View.extend({
 		this.highlightTile.position.set(0,-100,0);
 		this.highlightTile.rotation.set(3*Math.PI/2,0,0);
 		this.scene.add(this.highlightTile);
-		//this.renderer.render(this.scene, this.camera);
+		//this.render();
 		controls.update();
 
 	},
@@ -233,12 +243,9 @@ TFApp.WorldView = Backbone.View.extend({
 	handleScroll: function(e){
 		e.preventDefault();
 
-
-
-
 		if(this.scene){
 			this.camera.position.z-=e.originalEvent.wheelDelta/20;
-			this.renderer.render(this.scene, this.camera);
+			this.render();
 		}
 		return false;
 	},
@@ -265,7 +272,8 @@ TFApp.WorldView = Backbone.View.extend({
 				else{
 					that._lastTileHoveredPos = pos;
 					this.highlightTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
-					this.renderer.render(this.scene, this.camera);	
+					TFApp.models.gameModel.set("selectedTileCoords", [pos.x, pos.y]);
+					this.render();	
 				}
 
 			}
@@ -295,13 +303,13 @@ TFApp.WorldView = Backbone.View.extend({
 
 
 
-			this.selectionTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
+			//this.selectionTile.position.set(pos.x+this.worldScale*.5, .01, pos.y+this.worldScale*.5);
 
 			TFApp.models.gameModel.set("selectedTileCoords", [pos.x, pos.y]);
 
 			this.selectedTile = clickedObject.object;
 
-			this.renderer.render(this.scene, this.camera);
+			this.render();
 
 			if(this.clickAction){
 				this.clickAction();
@@ -432,9 +440,9 @@ TFApp.WorldView = Backbone.View.extend({
 
 		}
 
-		//console.log(tileData);
+		// console.log(tileData);
 
-		if(tileData.base_cover_type == "developed"){
+		if(tileData.base_cover_type == "developed" && tileData.housing_type !== null){
 
 			var house = new THREE.Mesh(that.houseGeometry, that.materials.houseBody);
 			house.scale.set(.2,.2,.2);
@@ -463,7 +471,7 @@ TFApp.WorldView = Backbone.View.extend({
 	},
 	redrawTile: function(pos){
 		this.drawTile(pos);
-		this.renderer.render(this.scene, this.camera);
+		this.render();
 	},
 
 	handleKeyDown: function(e){

@@ -295,21 +295,23 @@ THREE.OrbitControls = function ( object, domElement ) {
 		if ( scope.enabled === false ) { return; }
 		event.preventDefault();
 
-		if ( event.button === 2 ) {
+		if ( event.button === 1 ) {
 			if ( scope.noRotate === true ) { return; }
 
 			state = STATE.ROTATE;
 
 			rotateStart.set( event.clientX, event.clientY );
 
-		} else if ( event.button === 1 ) {
-			if ( scope.noZoom === true ) { return; }
+		} 
+		// else if ( event.button === 1 ) {
+		// 	if ( scope.noZoom === true ) { return; }
 
-			state = STATE.DOLLY;
+		// 	state = STATE.DOLLY;
 
-			dollyStart.set( event.clientX, event.clientY );
+		// 	dollyStart.set( event.clientX, event.clientY );
 
-		} else if ( event.button === 0 ) {
+		// } 
+		else if ( event.button === 2 ) {
 
 			if ( scope.noPan === true ) { return; }
 			state = STATE.PAN;
