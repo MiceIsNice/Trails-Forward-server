@@ -412,12 +412,16 @@ begin: game
 	overflow-y:scroll;
 	margin:0;
 	padding:0;
+	/*hide the ugly scroll bar*/
+	padding-right:40px;
 }
 .game-wrapper .console p{
 	padding:3px 10px;
 	margin:0;
 }
-
+.game-wrapper .console .error{
+	color:#cc0000;
+}
 
 /***************************************
 	       _           _       

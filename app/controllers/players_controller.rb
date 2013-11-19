@@ -49,7 +49,12 @@ class PlayersController < ApplicationController
   # GET /users/:user_id/players/:id
   def show
     @user = User.find params[:user_id]
-    @player = @user.players.where(:id => params[:id]).first
+    @player = Player.find params[:id]
+
+    
+    puts "~~~~~~~~~~~~~"
+    puts @player.time_remaining_this_turn
+    puts params[:id]
 
     authorize! :show_player, @player
 

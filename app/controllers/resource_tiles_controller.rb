@@ -226,6 +226,7 @@ class ResourceTilesController < ApplicationController
 
     player.balance -= money_cost
     player.time_remaining_this_turn -= time_cost
+
     results = harvestable_tiles.collect(&:clearcut)
     summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
     
@@ -242,7 +243,7 @@ class ResourceTilesController < ApplicationController
       begin
         ActiveRecord::Base.transaction do
           player.save!
-
+          puts "SAVED PLAYER"
           harvestable_tiles.each(&:save!)
 
           # Update the market for viable tiles

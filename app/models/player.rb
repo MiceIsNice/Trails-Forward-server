@@ -1,14 +1,15 @@
 class Player < ActiveRecord::Base
   acts_as_api
   include PlayerApi
+  has_many :logging_equipment
 
   attr_accessible :name, :user, :world, :balance, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
 
   serialize :quests, Hash
-  after_initialize do 
-      self.balance                  = self.class.default_balance
-      self.time_remaining_this_turn = self.class.default_time_remaining
-  end 
+  # after_initialize do 
+  #     self.balance                  = self.class.default_balance
+  #     self.time_remaining_this_turn = self.class.default_time_remaining
+  # end 
 
   def self.default_balance
     50000

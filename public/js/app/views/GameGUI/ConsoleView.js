@@ -17,12 +17,14 @@ TFApp.ConsoleView = Backbone.View.extend({
 	start: function(){
 	},
 	addMessage: function(messageText){
-		this.$consoleInner.append($('<p>'+messageText+'</p>'));
+		var date = new Date();
+		this.$consoleInner.append($('<p><span class="time">'+date.toLocaleTimeString()+': </span>'+messageText+'</p>'));
 		this.$consoleInner.scrollTop(this.$consoleInner.prop("scrollHeight"));
 
 	},
-	addError: function(errorText){
-		this.$consoleInner.append($('<p class="error">'+errorText+'</p>'));
+	addError: function(messageText){
+		var date = new Date();
+		this.$consoleInner.append($('<p class="error"><span class="time">'+date.toLocaleTimeString()+': </span>'+messageText+'</p>'));
 		this.$consoleInner.scrollTop(this.$consoleInner.prop("scrollHeight"));
 
 

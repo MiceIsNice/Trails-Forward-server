@@ -2,7 +2,6 @@ class Lumberjack < Player
 
   attr_accessible :saw_timber, :pole_timber
 
-  has_many :logging_equipment
 
   before_create :create_default_sawyer_crew_logging_equipment
 
