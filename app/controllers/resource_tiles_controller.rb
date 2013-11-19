@@ -190,6 +190,10 @@ class ResourceTilesController < ApplicationController
     render json: { :message => "Found #{resource_tiles.length} resource_tiles owned by other players", :resource_tiles => rts_owned_by_others}
   end 
 
+  def clearcut_tile
+    
+  end 
+
 # changed from clearcut_list
 #1 add in client responder module
 #2 work on completing a contract
