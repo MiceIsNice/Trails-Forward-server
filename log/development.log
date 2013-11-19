@@ -1115,3 +1115,895 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Contract with id=undefined):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Contract with id=undefined):
+  app/controllers/world_player_available_contracts_controller.rb:22:in `accept'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Unknown column 'logging_equipments.lumberjack_id' in 'where clause': SELECT COUNT(*) FROM `logging_equipments`  WHERE `logging_equipments`.`lumberjack_id` = 1):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:207:in `clearcut'
+

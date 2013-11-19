@@ -72,6 +72,8 @@ TFApp.WorldView = Backbone.View.extend({
 		TFApp.models.currentWorldModel.on("change:dirtyTiles", that.redrawDirtyTiles, this);
 		TFApp.models.currentWorldModel.on("change:staleTiles", that.fetchStaleTiles, this);
 
+		this.$canvas = this.$el.find("canvas");
+
 		//since we can't handle global keyup/keydown from the normal view scope,
 		//add our own event listeners
 		$(document).on("keyup", function(e){
@@ -114,9 +116,13 @@ TFApp.WorldView = Backbone.View.extend({
 	},
 	redrawDirtyTiles: function(){
 		var dirtyTiles = TFApp.models.currentWorldModel.get("dirtyTiles");
-		for(var i = 0;i<dirtyTiles.length;i++){
-			this.redrawTile(dirtyTiles[i]);
+		if(dirtyTiles.length>0){
+			for(var i = 0;i<dirtyTiles.length;i++){
+				this.redrawTile(dirtyTiles[i]);
+			}
+			TFApp.models.currentWorldModel.set("dirtyTiles", []);
 		}
+
 
 
 	},
@@ -158,16 +164,7 @@ TFApp.WorldView = Backbone.View.extend({
 
 
 
-		// add the camera to the scene
-		this.camera.position.set(64,32,64);
-		this.camera.lookAt(new THREE.Vector3( 32, 0, 32 ));
-		//this.camera.lookAt(32,0,32);
-		controls = new THREE.OrbitControls( this.camera );
-		controls.target.set(32,0,32);
-		controls.addEventListener( 'change', function(){
-			that.render();
-		});
-		this.scene.add(this.camera);
+
 
 
 
@@ -224,6 +221,27 @@ TFApp.WorldView = Backbone.View.extend({
 
 		this.$canvas = this.$el.find("canvas");
 
+
+
+
+
+		// add the camera to the scene
+		this.camera.position.set(64,32,64);
+		this.camera.lookAt(new THREE.Vector3( 32, 0, 32 ));
+		//this.camera.lookAt(32,0,32);
+
+		controls = new THREE.OrbitControls( this.camera, this.$canvas.get(0) );
+		
+		controls.target.set(32,0,32);
+		controls.addEventListener( 'change', function(){
+			that.render();
+		});
+		this.scene.add(this.camera);
+
+
+
+
+
 		projector = new THREE.Projector();
 
 		this.selectionTile = new THREE.Mesh(new THREE.PlaneGeometry( 1, 1), this.materials.selected);
@@ -241,13 +259,13 @@ TFApp.WorldView = Backbone.View.extend({
 	},
 
 	handleScroll: function(e){
-		e.preventDefault();
+		// e.preventDefault();
 
-		if(this.scene){
-			this.camera.position.z-=e.originalEvent.wheelDelta/20;
-			this.render();
-		}
-		return false;
+		// if(this.scene){
+		// 	this.camera.position.z-=e.originalEvent.wheelDelta/20;
+		// 	this.render();
+		// }
+		// return false;
 	},
 	handleCanvasMove: function(e){
 		e.preventDefault();
