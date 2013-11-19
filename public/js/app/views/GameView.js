@@ -60,7 +60,7 @@ TFApp.GameView = Backbone.View.extend({
 		this.$alerts.stop().css({"display":"table"}).animate({opacity: 1});
 
 		errorText = errorText || "SOMETHING BAD HAPPENED";
-		this.$errorModal.find("p").text = errorText;
+		this.$errorModal.find("p").text(errorText);
 		this.$errorModal.stop().css({"display":"table-cell"}).animate({opacity: 1});
 		
 	},

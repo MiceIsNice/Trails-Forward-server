@@ -8,7 +8,9 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 		"click .buy-button": "setActionToBuyTile",
 		"click .survey-button": "setActionToSurvey",
 		"click .clear-cut-button": "setActionToClearCut",
-		"click .diameter-cut-button": "attemptDiameterCut"
+		"click .diameter-cut-button": "attemptDiameterCut",
+		"click .build-button": "setActionToBuild",
+		"click button": "selectButton"
 	},
 	//-----------------------------------------------
 
@@ -16,7 +18,14 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 	initialize: function(){
 		var that = this;
 		//cache some elements
+
+
 		this.$worldName = this.$el.find(".world-name");
+		this.$buyButton = this.$el.find(".buy-button");
+		this.$surveyButton = this.$el.find(".survey-button");
+		this.$clearcutButton = this.$el.find(".clear-cut-button");
+		this.$buildButton = this.$el.find(".build-button");
+		this.$actionButtons = this.$el.find("buttons");
 	},
 	render: function(){
 	},
@@ -33,12 +42,17 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 	attemptToBuyTile: function(){
 		
 		var selectedTileCoords = TFApp.models.gameModel.get("selectedTileCoords");
-		var tile_x = selectedTileCoords[0],
-			tile_y = selectedTileCoords[1];
-
 
 
 		if(selectedTileCoords!==undefined){
+
+			var tile_x = selectedTileCoords[0],
+				tile_y = selectedTileCoords[1];
+
+			var selectedTile = TFApp.models.currentWorldModel.tiles[tile_x][tile_y];
+
+			console.log(selectedTile);
+
 			$.ajax({
 				type: "put",
 				url: "/worlds/" + TFApp.models.currentWorldModel.get("world_id") 
@@ -51,9 +65,8 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					
 					if(data.errors){
 						console.log("Buy Tile Error: ", data);
-
-						TFApp.views.gameView.showErrorModal(data.errors[0]);
-
+						// TFApp.views.gameView.showErrorModal(data.errors[0]);
+						TFApp.views.consoleView.addError(data.errors[0]);
 					}
 					else{
 						console.log("Buy Tile Success: ", data);
@@ -82,6 +95,7 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 
 				},
 				error: function(data){
+					TFApp.views.consoleView.addError(data);
 					console.log("Buy Tile Error: ", data);
 				}
 			});
@@ -170,9 +184,12 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 			success: function(data){
 				console.log("Clear Cut Tile Success: ", data);
 				if(data.errors){
-					TFApp.views.gameView.showErrorModal(data.errors[0]);
+					//TFApp.views.gameView.showErrorModal(data.errors[0]);
+					TFApp.views.consoleView.addError(data.errors[0]);
 				}else if(data.success===false){
-					TFApp.views.gameView.showErrorModal(data.key[0]);
+					//TFApp.views.gameView.showErrorModal(data.key[0]);
+					TFApp.views.consoleView.addError(data.key[0]);
+
 				}
 				else{
 					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].large_tree_basal_area = 0;
@@ -181,7 +198,6 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					TFApp.models.currentWorldModel.trigger("change:dirtyTiles");
 					//update the player data
 					TFApp.models.currentPlayerModel.loadPlayerData();
-					
 					TFApp.models.gameModel.trigger("change:selectedTileCoords");
 				}
 
@@ -191,7 +207,8 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 
 			},
 			error: function(data){
-				TFApp.views.gameView.showErrorModal(data);
+				//TFApp.views.gameView.showErrorModal(data.statusText);
+				TFApp.views.consoleView.addError(data.statusText);
 				console.error("Clear Cut Error: ", data);
 			}
 		});
@@ -234,6 +251,12 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 				console.error("Clear Cut Error: ", data);
 			}
 		});
+	},
+	selectButton: function(e){
+		console.log(e);
+		var $currentTarget = $(e.currentTarget);
+		$currentTarget.siblings().removeClass("active");
+		$currentTarget.addClass("active");
 	}
 	//-----------------------------------------------
 

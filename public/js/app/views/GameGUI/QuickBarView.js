@@ -41,11 +41,8 @@ TFApp.QuickBarView = Backbone.View.extend({
 			
 			var previousBalance = TFApp.models.currentPlayerModel.previous("balance");
 			var previousLumber = TFApp.models.currentPlayerModel.previous("lumber");
-
-
-
-
 		}
+		console.log(TFApp.models.currentPlayerModel.get("time_remaining_this_turn"));
 		this.$actionsRemaining.text(parseInt(TFApp.models.currentPlayerModel.get("time_remaining_this_turn")).toLocaleString());
 		this.$playerBalance.text(parseInt(TFApp.models.currentPlayerModel.get("balance")).toLocaleString());
 		this.$playerLumber.text(parseInt(TFApp.models.currentPlayerModel.get("lumber")).toLocaleString());

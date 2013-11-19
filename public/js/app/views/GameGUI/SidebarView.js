@@ -92,27 +92,23 @@ TFApp.SidebarView = Backbone.View.extend({
 	confirmAcceptContract: function(e){
 		var that = this;
 		var cid = $(e.currentTarget).data("contract-id");
-
+		var callbackData = {contractId: cid, contractName: $(e.currentTarget).find(".contract-name").text()};
 		TFApp.views.gameView.showConfirmationModal(
 
 			that.acceptContract,
-			cid,
+			callbackData,
 			"Accept this contract?",
 			"Press confirm to accept this contract"
-
 		);
-
-
-
 	},
-	acceptContract: function(cid, successCallback, ctx){
+	acceptContract: function(contractData, successCallback, ctx){
 		
 		//rails route: /worlds/:world_id/players/:player_id/available_contracts/:available_contract_id/accept
 		var url = "/worlds/" + TFApp.models.currentWorldModel.get("world_id") + 
 				  "/players/" + TFApp.models.currentPlayerModel.get("player_id") + 
-				  "/available_contracts/" + cid +
+				  "/available_contracts/" + contractData.contractId +
 				  "/accept" + TFApp.models.userModel.get("authQueryString") +
-				  "&contract_id=" + cid;
+				  "&contract_id=" + contractData.contractId;
 
 
 		$.ajax({
@@ -124,11 +120,12 @@ TFApp.SidebarView = Backbone.View.extend({
 				if(data.errors){
 					console.log("Accepting Contract Error: ", data);
 					TFApp.views.gameView.showErrorModal(data.errors);
-
-
 				}else{
 					var contractCollection = TFApp.models.currentWorldModel.get("contractCollection");
 					contractCollection.fetch();
+					console.log(data);
+					TFApp.views.consoleView.addMessage("Accepted Contract: " + contractData.contractName);
+
 					if(successCallback && ctx){
 						successCallback.call(ctx);
 					}
@@ -136,7 +133,12 @@ TFApp.SidebarView = Backbone.View.extend({
 			},
 			error: function(data){
 				console.log("Accepting Contract Error: ", data);
-				TFApp.views.gameView.showErrorModal(data.responseJSON.errors);
+				if(data.responseJSON){
+					TFApp.views.gameView.showErrorModal(data.responseJSON.errors);
+				}else {
+					TFApp.views.gameView.showErrorModal(data.statusText);
+
+				}
 
 			}
 		});
