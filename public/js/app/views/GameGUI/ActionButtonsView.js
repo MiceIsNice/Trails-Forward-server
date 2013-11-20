@@ -67,14 +67,16 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 						console.log("Buy Tile Error: ", data);
 						// TFApp.views.gameView.showErrorModal(data.errors[0]);
 						TFApp.views.consoleView.addError(data.errors[0]);
+						TFApp.views.audioView.playError();
 					}
 					else{
 						console.log("Buy Tile Success: ", data);
 						//update the player data
 						TFApp.models.currentPlayerModel.loadPlayerData();
-						
+						TFApp.views.audioView.playCashRegister();
 						var x = data.megatile_upper_left_xy.x,
 							y = data.megatile_upper_left_xy.y;
+						TFApp.views.consoleView.addMessage("Successfully purchased tile at x: " + x + ", y: " + y);
 
 						TFApp.models.currentWorldModel.tiles[tile_x][tile_y].owner = TFApp.models.currentPlayerModel.get("player_id");
 						TFApp.models.currentWorldModel.get("dirtyTiles").push({x: tile_x, z: tile_y});
@@ -96,6 +98,7 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 				},
 				error: function(data){
 					TFApp.views.consoleView.addError(data);
+					TFApp.views.audioView.playError();
 					console.log("Buy Tile Error: ", data);
 				}
 			});
@@ -129,6 +132,9 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					console.log("Survey Tile Success: ", data);
 					if(data.errors){
 						TFApp.views.gameView.showErrorModal(data.errors[0]);
+						TFApp.views.consoleView.addError(data.errors[0]);
+						TFApp.views.audioView.playError();
+
 					}
 					else{
 						var siblingPositions = TFApp.models.currentWorldModel.getTileSiblings({x: tile_x, y: tile_y});
@@ -152,6 +158,8 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 				},
 				error: function(data){
 					console.error("Survey Tile Error: ", data);
+					TFApp.views.consoleView.addError(data);
+					TFApp.views.audioView.playError();
 				}
 			});
 
@@ -186,19 +194,28 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 				if(data.errors){
 					//TFApp.views.gameView.showErrorModal(data.errors[0]);
 					TFApp.views.consoleView.addError(data.errors[0]);
+					TFApp.views.audioView.playError();
 				}else if(data.success===false){
 					//TFApp.views.gameView.showErrorModal(data.key[0]);
 					TFApp.views.consoleView.addError(data.key[0]);
+					TFApp.views.audioView.playError();
 
 				}
 				else{
+
 					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].large_tree_basal_area = 0;
 					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].small_tree_basal_area = 0;
 					TFApp.models.currentWorldModel.get("dirtyTiles").push({x: tile_x, z: tile_y});
 					TFApp.models.currentWorldModel.trigger("change:dirtyTiles");
+					TFApp.views.audioView.playWoodChopOnce();
+
 					//update the player data
+					console.log(data);
 					TFApp.models.currentPlayerModel.loadPlayerData();
 					TFApp.models.gameModel.trigger("change:selectedTileCoords");
+					TFApp.views.consoleView.addMessage("Successfully clearcut tile at x: " + tile_x + ", y: " + tile_y);
+					TFApp.views.consoleView.addMessage("Received " + Math.round(data.message.poletimber_volume + data.message.sawtimber_volume) + " things of wood.");
+
 				}
 
 
@@ -209,6 +226,7 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 			error: function(data){
 				//TFApp.views.gameView.showErrorModal(data.statusText);
 				TFApp.views.consoleView.addError(data.statusText);
+				TFApp.views.audioView.playError();
 				console.error("Clear Cut Error: ", data);
 			}
 		});

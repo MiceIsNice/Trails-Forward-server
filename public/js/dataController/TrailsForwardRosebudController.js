@@ -52,19 +52,19 @@ TrailsForwardRosebudController.prototype = {
 
     setPlayerTurnPoints: function(player_id){
     	rs = this.buildRosebudRS(this.SET_PLAYER_TURN_POINTS);
-    	var queryString = TFApp.SERVER_API.authString() + "&player_id" + player_id;
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
     	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onSetPlayerTurnPoints);
     },
 
     setPlayerBalance: function(player_id){
     	rs = this.buildRosebudRS(this.SET_PLAYER_BALANCE);
-    	var queryString = TFApp.SERVER_API.authString() + "&player_id" + player_id;
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
     	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onSetPlayerBalance);
     },
 
     resetPlayerStats: function(player_id){
     	rs = this.buildRosebudRS(this.RESET_PLAYER_STATS);
-    	var queryString = TFApp.SERVER_API.authString() + "&player_id" + player_id;
+    	var queryString = TFApp.SERVER_API.authString() + "&player_id=" + player_id;
     	TFApp.SERVER_API.makePutRequest(rs, queryString, {}, rosebud.onResetPlayerStats);
     },
 

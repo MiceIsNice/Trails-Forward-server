@@ -337,7 +337,22 @@
 
                 <!--AUDIO SOURCES-->
                 <div class="audio-sources">
-                    <audio></audio>
+                    <audio id="wood-chop-once" class="sfx">
+                        <source src="media/audio/sfx/wood_chop_once.ogg" type="audio/ogg" />
+                        <source src="media/audio/sfx/wood_chop_once.mp3" type="audio/mpeg" />
+                    </audio>
+                    <audio id="wood-chop-many" class="sfx">
+                        <source src="media/audio/sfx/wood_chop_many_slow.ogg" type="audio/ogg" />
+                        <source src="media/audio/sfx/wood_chop_many_slow.mp3" type="audio/mpeg" />
+                    </audio>
+                    <audio id="cash-register" class="sfx">
+                        <source src="media/audio/sfx/cash_register.ogg" type="audio/ogg" />
+                        <source src="media/audio/sfx/cash_register.mp3" type="audio/mpeg" />
+                    </audio>
+                    <audio id="error-beep" class="sfx">
+                        <source src="media/audio/sfx/error_strum.ogg" type="audio/ogg" />
+                        <source src="media/audio/sfx/error_strum.mp3" type="audio/mpeg" />
+                    </audio>
                 </div>
 
 
@@ -395,10 +410,10 @@
         <script type="text/javascript" src="js/dataController/TrailsForwardDataController.js"></script>
         <script type="text/javascript" src="js/dataController/TrailsForwardServerAPI.js"></script>
         <script type="text/javascript" src="js/dataController/TrailsForwardRosebudController.js"></script>
-        <!--Start: ye olde impact stuff-->
+        <script type="text/javascript" src="js/dataController/TrailsForwardHelperFunctions.js"></script>
+        <!--Start: ye olde impact stuff-
         <script type="text/javascript" src="lib/impact/impact.js"></script>
         <script type="text/javascript" src="lib/game/main.js"></script>
-        <script type="text/javascript" src="js/dataController/TrailsForwardHelperFunctions.js"></script>
         <script type="text/javascript" src="js/wtfglobal.js"></script>
         <script type="text/javascript" src="lib/game/time.js"></script>
         <!--End: ye olde impact stuff-->
@@ -435,6 +450,7 @@
         <script src="js/app/views/RegisterView.js"></script>
 
         <script src="js/app/views/LobbyView.js"></script>
+        <script src="js/app/views/AudioView.js"></script>
 
 
         <!--Game GUI -->        

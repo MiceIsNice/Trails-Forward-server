@@ -7,7 +7,7 @@
 
 
 function TrailsForwardServerAPI(){
-	this.SERVER_URL = "http://localhost:3000";
+	this.SERVER_URL = "http://0.0.0.0:3000";
 	//this.SERVER_URL = "http://tfnew.dax.getdown.org";
 	this.AUTHENTICATE_USER_URL = "/users/authenticate_for_token.json?";
 	this.EMAIL = "email";
