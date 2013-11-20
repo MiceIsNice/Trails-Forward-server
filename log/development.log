@@ -2239,3 +2239,354 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into Integer):
+  app/controllers/rosebud_controller.rb:15:in `[]'
+  app/controllers/rosebud_controller.rb:15:in `try_active_record_block'
+  app/controllers/rosebud_controller.rb:115:in `set_player_turn_points'
+  app/controllers/rosebud_controller.rb:133:in `reset_player_stats'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/water.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/grass.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/trees_10_0.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/uibox.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/button.png"):
+  
+
+
+ActiveRecord::ConnectionTimeoutError (could not obtain a database connection within 5 seconds.  The max pool size is currently 5; consider increasing it.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/button_click.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/button_inactive.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_A.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_B.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_C.png"):
+  
+
+
+ActiveRecord::ConnectionTimeoutError (could not obtain a database connection within 5 seconds.  The max pool size is currently 5; consider increasing it.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_E.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_F.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_G.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_H.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_I.png"):
+  
+
+
+ActiveRecord::ConnectionTimeoutError (could not obtain a database connection within 5 seconds.  The max pool size is currently 5; consider increasing it.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_J.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_K.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_L.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_M.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_N.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_O.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_P.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/shoreline_Q.png"):
+  
+
+
+ActiveRecord::ConnectionTimeoutError (could not obtain a database connection within 5 seconds.  The max pool size is currently 5; consider increasing it.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/selection_highlight.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/forest_tileset_heavy_1.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/forest_tileset_heavy_2.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/forest_tileset_heavy_3.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/forest_tileset_light.png"):
+  
+
+
+ActiveRecord::ConnectionTimeoutError (could not obtain a database connection within 5 seconds.  The max pool size is currently 5; consider increasing it.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/contract_picture.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/park_contract_picture.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/mill_contract_picture.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/upgrade_picture.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/sawyer_upgrade_picture.png"):
+  
+
+
+ActiveRecord::ConnectionTimeoutError (could not obtain a database connection within 5 seconds.  The max pool size is currently 5; consider increasing it.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/media/ownershipOther_solid.png"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+

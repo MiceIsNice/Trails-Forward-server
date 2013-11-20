@@ -45,6 +45,7 @@ TFApp = (function(win, doc, $) {
 			that.views.lobbyView = new _self.LobbyView();
 			that.views.gameView = new _self.GameView();
 			that.views.consoleView = new _self.ConsoleView();
+			that.views.audioView = new _self.AudioView();
 			//that.views.gameView = new _self.GameView();
 
 
