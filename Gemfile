@@ -33,6 +33,13 @@ gem 'will_paginate'
 gem 'whenever', require: false
 gem 'simple_form'
 
+#websocket stuff
+gem 'eventmachine'
+gem 'em-websocket'
+gem 'amqp'
+#a 'daemon-izer' to run eventmachine
+gem 'daemons'
+
 gem 'jquery-rails'
 
 group :assets do

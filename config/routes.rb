@@ -22,6 +22,9 @@ TrailsForwardWorld::Application.routes.draw do
   resources :users do
     resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
   end
+  resources :websocket do
+    get :pushmessage
+  end
  
   resources :users do 
     resources :players do

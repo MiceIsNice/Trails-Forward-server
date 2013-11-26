@@ -58,6 +58,10 @@ GEM
       activesupport (= 3.1.3)
     activesupport (3.1.3)
       multi_json (~> 1.0)
+    amq-protocol (1.9.0)
+    amqp (1.1.3)
+      amq-protocol (>= 1.9.0)
+      eventmachine
     archive-tar-minitar (0.5.2)
     arel (2.2.1)
     awesome_print (1.1.0)
@@ -125,6 +129,9 @@ GEM
       warden (~> 1.1)
     diff-lcs (1.1.3)
     diffy (3.0.1)
+    em-websocket (0.5.0)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.5.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
     eventmachine (1.0.0-x86-mingw32)
@@ -174,6 +181,7 @@ GEM
     highline (1.6.9)
     hike (1.2.1)
     hirb (0.7.1)
+    http_parser.rb (0.5.3)
     i18n (0.6.1)
     interception (0.3)
     jazz_hands (0.5.1)
@@ -379,6 +387,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   acts_as_api!
+  amqp
   bamfcsv
   cancan
   capistrano
@@ -388,9 +397,12 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   colorful
   cucumber-rails
+  daemons
   database_cleaner
   decent_exposure
   devise
+  em-websocket
+  eventmachine
   exceptional
   factory_girl_rails
   fuubar

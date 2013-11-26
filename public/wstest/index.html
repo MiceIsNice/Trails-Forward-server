@@ -36,25 +36,48 @@
         <!-- Start: Vendor includes -->
         <script src="/js/vendor/jquery-1.10.2.min.js"></script>
         <script src="/js/vendor/jquery.cookie.js"></script>
-
+        <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+        <script src="/js/vendor/stomp.js"></script>
         <script>
+
+
+
             var socket;
-
-            socket = new WebSocket('ws://0.0.0.0:8080/');
-            socket.onopen = function(msg){
-                console.log("socket.onopen");    
-                console.log(msg);            
-            }
-            socket.onmessage = function(mess){
-                console.log("message.data: ", mess.data);
+            var ws = new SockJS('http://127.0.0.1:15674/stomp')
+            var client = Stomp.over(ws);
+            var on_message = function(message, somethingelse){
+                console.log("GOT A MESSAGE: ", message, somethingelse);
             };
+            var on_connect = function(){
+                client.subscribe("/queue/foo", on_message)
+                console.log("POTATO");
+            };
+            var on_error = function(){
+                console.log("ERROR");
+            };
+            client.connect('guest', 'guest', on_connect, on_error, '/');
 
 
 
-            $(document).keypress(function(e){
-                var bar = String.fromCharCode(e.keyCode);
-                socket.send(bar);
-            });
+
+
+
+
+            // socket = new WebSocket('ws://0.0.0.0:8080/');
+            // socket.onopen = function(msg){
+            //     console.log("socket.onopen");    
+            //     console.log(msg);            
+            // }
+            // socket.onmessage = function(mess){
+            //     console.log("message.data: ", mess.data);
+            // };
+
+
+
+            // $(document).keypress(function(e){
+            //     var bar = String.fromCharCode(e.keyCode);
+            //     socket.send(bar);
+            // });
 
         </script>
 
