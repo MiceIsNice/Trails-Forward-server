@@ -32,6 +32,7 @@ function TrailsForwardServerAPI(){
 	this.OWNED_RESOURCE_TILES = "/owned_resource_tiles";
 	this.OWNED = "/owned";
 	this.OWNED_BY_OTHERS = "/owned_by_others";
+	this.PLANT_SAPPLINGS = "/plant_sapplings";
 	this.PLAYER_EQUIPMENT = "/player_equipment";
 	this.DIAMETER_LIMIT_CUT = "/diameter_limit_cut";
 	this.SET_BALANCE_AND_TURN_POINTS = "/set_player_balance_and_turn_points";
@@ -195,39 +196,88 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 	
-	attemptToClearCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, the_estimate){												
-		if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
+	// attemptToClearCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, the_estimate){												
+	// 	if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
+	// 		var resourceString = this.buildAttemptToClearCutTileRSWithWorldId(world_id);
+	// 		var parameterString = this.authString();
+	// 		if(the_estimate)
+	// 			this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
+	// 									TFApp.DATA_CONTROLLER.onGetEstimateForClearCutMegatileIncludingResourceTileXY);
+	// 		else
+	// 			return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
+	// 	}
+	// 	else console.log("bad input");
+	// },
+
+	attemptToClearCutListOfResourceTilesWithWorldId : function(the_tile_ids, world_id){
+		if(the_tile_ids && (world_id || world_id == 0)){
 			var resourceString = this.buildAttemptToClearCutTileRSWithWorldId(world_id);
 			var parameterString = this.authString();
-			if(the_estimate)
-				this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
-										TFApp.DATA_CONTROLLER.onGetEstimateForClearCutMegatileIncludingResourceTileXY);
-			else
-				return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
+			return this.sendPostMessagePromise(resourceString, parameterString, {tile_ids : the_tile_ids, estimate : false});
 		}
 		else console.log("bad input");
 	},
-	
-	attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, cut_above, cut_below, the_estimate){		
-		if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
+
+	attemptToDiameterLimitCutListOfResourceTilesWithWorldId : function(the_tile_ids, cut_above, cut_below, world_id){
+		if(the_tile_ids && (world_id || world_id == 0) && cut_above && cut_below){
 			var resourceString = this.buildAttemptToDiameterLimitCutTileRSWithWorldId(world_id);
 			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["above", "below"],[cut_above, cut_below]);
-			if(the_estimate)
-				this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
-										TFApp.DATA_CONTROLLER.onGetEstimateForDiameterLimitCutIncludingResourceTileXY);
-			else
-				return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
+			return this.sendPostMessagePromise(resourceString, parameterString, {tile_ids : the_tile_ids, estimate : false});
 		}
-		else console.log("bad input");		
+		else console.log("bad input");
+
 	},
 
-	attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY : function(world_id, player_id, tile_x, tile_y){					
-		if((world_id || world_id == 0) && (player_id || player_id == 0) && (tile_x || tile_x == 0) && (tile_y || tile_y == 0)){
-			var resourceString = this.buildPurchaseMegatileRSWithWorldId(world_id);
-			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["tile_x", "tile_y", "player_id"], [tile_x, tile_y, player_id]);
-			return this.makePutRequestPromise(resourceString, parameterString, {});
+	getEstimateForClearCutListOfResourceTilesWithWorldId : function(the_tile_ids, world_id){
+		if(the_tile_ids && (world_id || world_id == 0)){
+			var resourceString = this.buildAttemptToClearCutTileRSWithWorldId(world_id);
+			var parameterString = this.authString();
+			this.sendPostMessage(resourceString, parameterString, {tile_ids : the_tile_ids, estimate : true}, 
+									TFApp.DATA_CONTROLLER.onGetEstimateForClearCutMegatileIncludingResourceTileXY);
 		}
-		else console.log("bad input");	
+		else console.log("bad input");
+	},
+
+	getEstimateForDiameterLimitCutListOfResourceTilesWithWorldId : function(the_tile_ids, cut_above, cut_below, world_id){
+		if(the_tile_ids && (world_id || world_id == 0) && cut_above && cut_below){
+			var resourceString = this.buildAttemptToDiameterLimitCutTileRSWithWorldId(world_id);
+			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["above", "below"],[cut_above, cut_below]);
+			this.sendPostMessage(resourceString, parameterString, {tile_ids : the_tile_ids, estimate : true}, 
+						TFApp.DATA_CONTROLLER.onGetEstimateForDiameterLimitCutIncludingResourceTileXY);
+		}
+		else console.log("bad input");
+
+	},
+	
+	// attemptToDiameterLimitCutMegatileWithWorldIdResourceTileXYAndEstimate : function(world_id, x, y, cut_above, cut_below, the_estimate){		
+	// 	if((world_id || world_id == 0) && (x || x == 0) && (y || y == 0)){
+	// 		var resourceString = this.buildAttemptToDiameterLimitCutTileRSWithWorldId(world_id);
+	// 		var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["above", "below"],[cut_above, cut_below]);
+	// 		if(the_estimate)
+	// 			this.sendPostMessage(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate}, 
+	// 									TFApp.DATA_CONTROLLER.onGetEstimateForDiameterLimitCutIncludingResourceTileXY);
+	// 		else
+	// 			return this.sendPostMessagePromise(resourceString, parameterString, {tile_x : x, tile_y : y, estimate : the_estimate});
+	// 	}
+	// 	else console.log("bad input");		
+	// },
+
+	// attemptToPurchaseMegatileWithWorldIdPlayerIdAndResourceTileXY : function(world_id, player_id, tile_x, tile_y){					
+	// 	if((world_id || world_id == 0) && (player_id || player_id == 0) && (tile_x || tile_x == 0) && (tile_y || tile_y == 0)){
+	// 		var resourceString = this.buildPurchaseMegatileRSWithWorldId(world_id);
+	// 		var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["tile_x", "tile_y", "player_id"], [tile_x, tile_y, player_id]);
+	// 		return this.makePutRequestPromise(resourceString, parameterString, {});
+	// 	}
+	// 	else console.log("bad input");	
+	// },
+
+	attemptToPurchaseResourceTilesWithWorldIdAndPlayerId : function(the_tile_ids, world_id, player_id){
+		if(the_tile_ids && (world_id || world_id == 0) && (player_id || player_id == 0)){
+			var resourceString = this.buildPurchaseMegatileRSWithWorldId(world_id);
+			var parameterString = this.authString();
+			return this.makePutRequestPromise(resourceString, parameterString, {tile_ids : the_tile_ids});
+		}
+		else console.log("bad input");
 	},
 	
 	conductSurveyOfTileWithWorldIdAndTileXY : function (world_id, tile_x, tile_y){
@@ -244,6 +294,16 @@ TrailsForwardServerAPI.prototype = {
 			var resourceString = this.buildSurveyRSWithWorldId(world_id);
 			var parameterString = this.authString() + this.buildParameterStringWithNamesAndValues(["tile_x", "tile_y"], [tile_x, tile_y]);
 			this.makeGetRequest(resourceString, parameterString, TFApp.DATA_CONTROLLER.onViewExistingSurveyOfTileWithWorldIdAndTileXY);		
+		}
+		else console.log("bad input");
+	},
+
+	plantSapplingsOnListOfResourceTilesWithWorldIdAndCount : function(the_tile_ids, world_id, sapplings_per_tile){
+		if(the_tile_ids && (world_id || world_id == 0) && (sapplings_per_tile >= 0)){
+			var resourceString = this.buildPlantSapplingsRSWithWortdId(world_id);
+			var parameterString =  this.authString();
+			this.sendPostMessage(resourceString, parameterString, {tree_count : sapplings_per_tile, tile_ids : the_tile_ids}, 
+									TFApp.DATA_CONTROLLER.onPlantSapplingsOnListOfResourceTilesWithWorldIdAndCount);
 		}
 		else console.log("bad input");
 	},
@@ -484,6 +544,14 @@ TrailsForwardServerAPI.prototype = {
 	buildSetPlayerBalanceAndTurnPointsRSWithUserIdAndPlayerId : function(user_id, player_id){
 		if((user_id || user_id == 0) && (player_id || player_id == 0))
 			return this.USERS + this.FORWARD_SLASH + user_id + this.PLAYERS + this.FORWARD_SLASH + player_id + this.SET_BALANCE_AND_TURN_POINTS + this.JSON;
+		else console.log("bad input");
+	},
+
+	/* /worlds/world_id/resource_tiles/id/plant_sapplings.json? */
+	buildPlantSapplingsRSWithWortdId : function(world_id){
+		if(world_id || world_id == 0){
+			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.UNUSED_NUMBER + this.PLANT_SAPPLINGS + this.JSON;
+		}
 		else console.log("bad input");
 	},
  

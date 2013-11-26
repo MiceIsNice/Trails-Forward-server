@@ -9,6 +9,7 @@ module TFClientResponder
   # checks if needed parameters are given, and all objects desired are authorized to perform the desired function
   # returns a: {:success => bool, :objects => ActiveRecord object[], :client_response => TFClientResponse}
   def can_perform_action given_parameters, needed_parameters, active_record_lookup_func_proc, object_is_required, authorization_tag
+    response = new_successful_client_response
   
     if given_parameters != nil && needed_parameters != nil
       response = all_parameters_given given_parameters, needed_parameters
@@ -17,12 +18,15 @@ module TFClientResponder
       end
     end
     
-    response[:objects] = active_record_lookup_func_proc.call(given_parameters)
+    the_data = active_record_lookup_func_proc.call(given_parameters)
+    response[:objects] = the_data[:objects]
+
     if object_is_required && response[:objects].length == 0
+      puts "please don't be here!"
       response[:success] = false
-      response[:client_response] = client_response_with_errors_array_from_response nil, response[:objects][:not_found_message]
+      response[:client_response] = client_response_with_errors_array_from_response nil, the_data[:objects][:not_found_message]
       return response
-    end 
+    end
     
     begin 
       response[:objects].each{|thing| authorize! authorization_tag, thing}
@@ -52,6 +56,10 @@ module TFClientResponder
     
     return response
   end 
+
+  def new_successful_client_response
+    return {:success => true}
+  end
   
     # A message can be nil or a hash. If the key is new, add the key and associated value
     #  array to the hash.  If the key exists, append new values where they belong
@@ -74,6 +82,14 @@ module TFClientResponder
   def client_response_with_message_array_from_response response, message_array 
     client_response_from_response response, :message, message_array
   end 
+
+  def client_response_with_details_hash_from_response response, hash
+    if !response[:details]
+      response[:details] = {}
+    end
+
+    return response[:details].merge(hash)
+  end
   
 end
 

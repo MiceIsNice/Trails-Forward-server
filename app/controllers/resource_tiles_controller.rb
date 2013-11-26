@@ -19,26 +19,16 @@ class ResourceTilesController < ApplicationController
   before_filter :authenticate_user!
   skip_authorization_check :only => :permitted_actions
 
-#  before_filter :check_harvest_rights, only: [:clearcut_list, :diameter_limit_cut_list, :partial_selection_cut_list]
+  # before_filter :check_harvest_rights, only: [:clearcut_list, :diameter_limit_cut_list, :partial_selection_cut_list]
 
   expose(:world) { World.find params[:world_id] }
-  expose(:resource_tile) { ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]}
- # expose(:resource_tile) { ResourceTile.find (params[:tile_id] ? params[:tile_id] : 1) }
-
-  expose(:resource_tiles) do
-    if params[:tile_x] && params[:tile_y]
-      tile = ResourceTile.where("x = ? AND y = ? AND world_id = ?", params[:tile_x], params[:tile_y], params[:world_id])[0]
-      tiles = ResourceTile.where("megatile_id = ?", tile.megatile_id)
-      tiles = tiles.harvestable if @clearcut
-      tiles
-    else
-      tiles = world.resource_tiles
-      tiles = tiles.harvestable if @clearcut
-      tiles.includes(:megatile => :owner).within_rectangle x_min: params[:x_min], y_min: params[:y_min], x_max: params[:x_max], y_max: params[:y_max]
+  expose(:resource_tiles) do 
+    if params[:tile_ids]
+       ResourceTile.find(params[:tile_ids])
+    else 
+      []
     end
   end
-
-    #puts "world id: #{world.id}, current user: #{current_user.id}"
 
   expose(:player) { world.player_for_user(current_user) }
 
@@ -61,7 +51,6 @@ class ResourceTilesController < ApplicationController
     
     if valid_rect_params? params
       @result = produce_tiles_in_rect params
-     # @result.each { |x| puts x.id}
       puts "Sending #{@result.length} resource_tiles retrieved from the database"
       simple_tiles = @result.map {|tile| tile.to_simple_tile}
       render json: simple_tiles
@@ -91,30 +80,35 @@ class ResourceTilesController < ApplicationController
     return ResourceTile.where("x <= #{params[:x_max]} AND y <= #{params[:y_max]} AND x >= #{params[:x_min]} AND y >= #{params[:y_min]} AND world_id = #{params[:world_id]}");
   end 
 
-  def build
-    authorize! :build, resource_tile
-    construction_type = params[:type]
+  def get_player_with_userid_and_playerid_with_message params
+    {:objects => Player.where("user_id = ? AND id = ?", params[:user_id], params[:player_id]), 
+     :not_found_message => "No player_id #{params[:player_id]} found for user_id #{params[:user_id]}"}
+  end
 
-    if resource_tile.can_build?
-      case construction_type
-        when "single family"
-          Craftsman.new.build_single_family_home! resource_tile
-        when "vacation"
-          Craftsman.new.build_vacation_home! resource_tile
-        when "apartment"
-          Craftsman.new.build_apartment! resource_tile
-        else
-          raise "Unknown build type requested!"
-      end
-      respond_to do |format|
-        format.json { render_for_api :resource, :json => resource_tile, :root => :resource_tile  }
-      end
-    else
-      respond_to do |format|
-        format.json { render :status => :forbidden, :text => "Action illegal for this land" }
-      end
-    end
-  end #build
+  def build
+    result = can_perform_action params, [:type], 
+               Proc.new { |args| {:objects => resource_tiles, :not_found_message => "No valid tiles given"}},
+               Object_required, :build 
+    response = client_response_with_known_symbol_given_from_response result[:client_response],
+                        ["simgle family", "vacation", "apartment"], params[:type] 
+
+    if response[:success]
+      result[:objects].map { |tile| 
+           case params[:type]
+             when "single family"
+               Craftsman.new.build_single_family_home! tile
+             when "vacation"
+               Craftsman.new.build_vacation_home! tile
+             when "apartment"
+               Craftsman.new.build_apartment! tile
+           end 
+         }
+    end     
+
+
+#        format.json { render_for_api :resource, :json => resource_tile, :root => :resource_tile  }
+      render json: response
+  end 
 
   def build_outpost
     authorize! :build_outpost, resource_tile
@@ -190,189 +184,173 @@ class ResourceTilesController < ApplicationController
     render json: { :message => "Found #{resource_tiles.length} resource_tiles owned by other players", :resource_tiles => rts_owned_by_others}
   end 
 
-  def clearcut_tile
-    
-  end 
-
-# changed from clearcut_list
-#1 add in client responder module
-#2 work on completing a contract
-  def clearcut
-   #  result = can_perform_action params, [:user_id, :player_id], 
-    #           get_player_with_userid_and_playerid, Object_required, :player_info 
-               
-    begin 
-      check_harvest_rights
-    rescue CanCan::AccessDenied => e
-      render json: client_response_with_errors_array_from_response(nil, [e.message])
-      return
-    end    
-    
-    time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-    money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-
-    #puts "clearcut time_cost: #{time_cost}, money_cost: #{money_cost}"
-
-
-    if params[:estimate] == false
-	  unless TimeManager.can_perform_action?(player: player, cost: time_cost)
-    	render json: client_response_with_errors_array_from_response(nil, ["Not enough time left to perform harvest"])
-        return
+  def check_if_player_has_time_and_money_for_action player, time_needed, money_needed, response
+      if !TimeManager.can_perform_action?(player: player, cost: time_needed)
+        response = client_response_with_errors_array_from_response response, ["Not enough time left to perform harvest"]
       end
-    end
-    
-    if params[:estimate] == false
-      unless player.balance >= money_cost
-      render json: client_response_with_errors_array_from_response(nil, ["Not enough money to perform harvest, you need #{money_cost}"])
-        return
+      if player.balance < money_needed
+        response = client_response_with_errors_array_from_response response, ["Not enough money to perform harvest, you need #{money_cost}"]
       end
-    end
+      return response  
+  end
 
-    player.balance -= money_cost
-    player.time_remaining_this_turn -= time_cost
 
-    results = harvestable_tiles.collect(&:clearcut)
-    summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
-    
+  def clearcut_list  
+    response = can_perform_action params, [:estimate], Proc.new{|args| {:objects => resource_tiles, 
+     :not_found_message => "No valid resource tiles found to perform clearcut on."} }, true, :harvest
 
-    unless player.lumber
-      player.lumber = 0
-    end
+    if response[:success]
 
-    results.each { |result| player.lumber += (result[:sawtimber_volume] + result[:poletimber_volume]).to_i }
-    
-    if params[:estimate] == true
-      respond_with summary
-    else
-      begin
-        ActiveRecord::Base.transaction do
-          player.save!
-          puts "SAVED PLAYER"
-          harvestable_tiles.each(&:save!)
+        time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
+        money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
 
-          # Update the market for viable tiles
-          harvestable_tiles.each_with_index do |tile, index|
-            tile.update_market! results[index]
-          end
-          result = cut_completes_open_contract params
-          puts "contract was compelted by cut == #{result}"
-          render json: {:message => summary, :contact_completed => result}
+        if params[:estimate] == false 
+            response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
         end
-      rescue ActiveRecord::RecordInvalid => e
-    	render json: {:errors => ["Transaction Failed: #{e.message}"]}       
-        #respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
-      end
-      
-      
+
+        if reponse[:success]
+            player.balance -= money_cost
+            player.time_remaining_this_turn -= time_cost
+
+            results = harvestable_tiles.collect(&:clearcut)
+            results.each { |result| player.lumber += (result[:sawtimber_volume] + result[:poletimber_volume]).to_i }
+
+            summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
+            response = client_response_with_details_hash_from_response response, summary
+        end
+
+        if params[:estimate] == false
+            begin
+              ActiveRecord::Base.transaction do
+                player.save!
+                harvestable_tiles.each(&:save!)
+
+                # Update the market for viable tiles
+                harvestable_tiles.each_with_index do |tile, index|
+                  tile.update_market! results[index]
+                end
+              end
+            rescue ActiveRecord::RecordInvalid => e
+        	    response = client_response_with_errors_array_from_response response, ["Transaction Failed: #{e.message}"]      
+            end
+        end
+
     end
+      render json: reponse
   end
 
 
   def diameter_limit_cut_list
-    begin 
-      check_harvest_rights
-    rescue CanCan::AccessDenied => e
-      render json: {:errors => [e.message] }
-      return
-    end
+    response = can_perform_action params, [:above, :below, :estimate], Proc.new{|args| {:objects => resource_tiles, 
+     :not_found_message => "No valid resource tiles found to perform diameter_limit_cut on."} }, true, :harvest
 
-    time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
-    money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
+    if response[:success]
+        time_cost = TimeManager.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
+        money_cost = Pricing.diameter_limit_cost(tiles: harvestable_tiles, player: player).to_i
+        
 
-    puts "diameter_limit_cut above #{params[:above]} inches and below #{params[:below]} inches time_cost: #{time_cost}, money_cost: #{money_cost}"
-    
-    if params[:estimate] == false && !TimeManager.can_perform_action?(player: player, cost: time_cost)
-      render json: {:errors => ["Not enough time left to perform harvest"]}
-      #respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
-      return
-    end
-
-    player.balance -= money_cost
-    player.time_remaining_this_turn -= time_cost
-    results = harvestable_tiles.collect{|tile| tile.diameter_limit_cut!(above: params[:above], below: params[:below])}
-    summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
-
-    if params[:estimate] == true
-      respond_with summary
-    else
-      begin
-        ActiveRecord::Base.transaction do
-          player.save!
-          harvestable_tiles.each(&:save!)
-
-          # Update the market for viable tiles
-          harvestable_tiles.each_with_index do |tile, index|
-            tile.update_market! results[index]
-          end
-
-            result = cut_completes_open_contract params
-            puts "contract was compelted by cut == #{result}"
-            render json: {:message => summary, :contact_completed => result}
-#          end
-          
-          #respond_with summary
+        if params[:estimate] == false 
+            response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
         end
-      rescue ActiveRecord::RecordInvalid => e
-        render json: {:errors => ["Transaction Failed: #{e.message}"]}
-        #respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
-      end
+
+        if reponse[:success]
+            player.balance -= money_cost
+            player.time_remaining_this_turn -= time_cost
+
+            results = harvestable_tiles.collect{|tile| tile.diameter_limit_cut!(above: params[:above], below: params[:below])}
+            results.each { |result| player.lumber += (result[:sawtimber_volume] + result[:poletimber_volume]).to_i }
+
+            summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
+            response = client_response_with_details_hash_from_response response, summary
+        end
+
+        if params[:estimate] == false
+            begin
+              ActiveRecord::Base.transaction do
+              player.save!
+              harvestable_tiles.each(&:save!)
+
+              # Update the market for viable tiles
+              harvestable_tiles.each_with_index do |tile, index|
+                tile.update_market! results[index]
+              end
+            end
+          rescue ActiveRecord::RecordInvalid => e
+              response = client_response_with_errors_array_from_response response, ["Transaction Failed: #{e.message}"]      
+          end
+        end
     end
+
+    render json: response
   end
 
+  def plant_sapplings
+      response = can_perform_action params, [:tree_count], Proc.new{|args| {:objects => resource_tiles, 
+        :not_found_message => "No valid resource tiles found to perform diameter_limit_cut on."} }, true, :plant_trees
+
+      if response[:success]
+          time_cost  = TimeManager.plant_sapplings(tiles: harvestable_tiles)
+          money_cost = Pricing.plant_sapplings
+      
+          begin
+            resource_tiles.each do |tile|
+              tile.plant_2_inch_diameter_trees! params[:tree_count]
+            end
+          rescue ActiveRecord::RecordInvalid => e
+            response = client_response_with_errors_array_from_response(response, ["Transaction Failed: #{e.message}"])
+          end
+      end
+      render json: response 
+  end 
 
   def partial_selection_cut_list
-    begin 
-      check_harvest_rights
-    rescue CanCan::AccessDenied => e
-      render json: {:errors => [e.message] }
-      return
-    end 
+      response = can_perform_action params, [:qratio, :target_basal_area, :estimate], Proc.new{|args| {:objects => resource_tiles, 
+        :not_found_message => "No valid resource tiles found to perform partial_selection_cut on."} }, true, :harvest
   
-    time_cost = TimeManager.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
-    money_cost = Pricing.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
+      if response[:success]
+          time_cost = TimeManager.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
+          money_cost = Pricing.partial_selection_cost(tiles: harvestable_tiles, player: player).to_i
 
-      puts "partial_selection_cut qratio: #{params[:qratio]}, target_basal_area: #{params[:target_basal_area]}, time_cost: #{time_cost}, money_cost: #{money_cost}"
-
-      unless params[:estimate] == true && TimeManager.can_perform_action?(player: player, cost: time_cost)
-        respond_with({errors: ["Not enough time left to perform harvest"]}, status: :unprocessable_entity)
-        return
-      end
-
-    player.balance -= money_cost
-    player.time_remaining_this_turn -= time_cost
-    results = harvestable_tiles.collect{|tile| tile.partial_selection_cut!(qratio: params[:qratio], target_basal_area: params[:target_basal_area])}
-    summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
-
-    if params[:estimate] == 'true'
-      respond_with summary
-    else
-      begin
-        ActiveRecord::Base.transaction do
-          player.save!
-
-          harvestable_tiles.each(&:save!)
-
-          # Update the market for viable tiles
-          harvestable_tiles.each_with_index do |tile, index|
-            tile.update_market! results[index]
+          if params[:estimate] == false 
+              response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
           end
 
-          result = cut_completes_open_contract params
-          puts "contract was compelted by cut == #{result}"
-          # add contract completion data here when upgrading to TFClientResponder module
-          respond_with summary
-        end
-      rescue ActiveRecord::RecordInvalid => e
-        respond_with({errors: ["Transaction Failed: #{e.message}"]}, status: :unprocessable_entity)
+          if reponse[:success]
+              player.balance -= money_cost
+              player.time_remaining_this_turn -= time_cost
+
+              results = harvestable_tiles.collect{|tile| tile.partial_selection_cut!(qratio: params[:qratio], target_basal_area: params[:target_basal_area])}
+              results.each { |result| player.lumber += (result[:sawtimber_volume] + result[:poletimber_volume]).to_i }
+
+              summary = results_hash(results, harvestable_tiles).merge(time_cost: time_cost, money_cost: money_cost)
+              response = client_response_with_details_hash_from_response response, summary
+          end
+
+          if params[:estimate] == false
+              begin
+                ActiveRecord::Base.transaction do
+                  player.save!
+                  harvestable_tiles.each(&:save!)
+
+                  # Update the market for viable tiles
+                  harvestable_tiles.each_with_index do |tile, index|
+                    tile.update_market! results[index]
+                  end
+                end
+              rescue ActiveRecord::RecordInvalid => e
+                response = client_response_with_errors_array_from_response response, ["Transaction Failed: #{e.message}"]      
+              end
+          end
       end
+
+      render json: response
     end
-  end
 
 
   private
 
   def results_hash(results, resource_tiles)
-puts "results length: #{results.length} first one #{results[0]}"
+    puts "results length: #{results.length} first one #{results[0]}"
     poletimber_value  = results.collect{|result| result[:poletimber_value ]}.sum
     poletimber_volume = results.collect{|result| result[:poletimber_volume]}.sum
     sawtimber_value   = results.collect{|result| result[:sawtimber_value  ]}.sum
@@ -382,37 +360,6 @@ puts "results length: #{results.length} first one #{results[0]}"
        sawtimber_value: sawtimber_value,   sawtimber_volume: sawtimber_volume,
         resource_tiles: resource_tiles.as_api_response(:resource)
     }
-  end
-
-  def cut_completes_open_contract stats 
-      player_contracts = player_open_contracts stats
-      if player_contracts.length == 0
-        false
-      else
-        can_satisfy_contract? player_contracts[0], stats
-      end
-  end
-
-  def player_open_contracts stats
-    Contract.where("player_id = ? AND world_id = ? AND ended = 0", stats[:player_id], stats[:world_id])    
-  end
-  
-  def can_satisfy_contract? contract, stats
-    if contract && stats
-      contract.add_volume stats[:poletimber_volume] || 0
-      contract.add_volume stats[:sawtimber_volume]  || 0
-      if contract.is_satisfied?
-        return contract.deliver
-      end
-    end
-    return false
-  end
-
-
-  def check_harvest_rights
-    resource_tiles.each do |tile|
-        authorize! :harvest, tile
-    end
   end
 
 end

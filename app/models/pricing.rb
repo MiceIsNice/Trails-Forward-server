@@ -85,4 +85,15 @@ class Pricing
 
     operation_cost * time_cost
   end
+
+  # PLANT SAPPLINGS #######################
+  #
+  def self.plant_sapplings
+      return 0 
+  end
+
 end
+
+
+
+

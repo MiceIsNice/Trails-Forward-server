@@ -102,10 +102,11 @@ TrailsForwardWorld::Application.routes.draw do
     resources :resource_tiles, :only => [:index, :show, :update] do
       member do
         post :bulldoze
-        post :clearcut
+        post :clearcut, action: :clearcut_list
         post :build
         post :build_outpost
         post :diameter_limit_cut, action: :diameter_limit_cut_list
+        post :plant_sapplings
       end
 
       collection do

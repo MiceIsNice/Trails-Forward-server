@@ -123,4 +123,18 @@ class TimeManager
     return 0.0 if harvest_ability == 0.0
     volume / harvest_ability
   end
+
+
+  # PLANT SAPPLINGS #######################
+  #
+  def self.plant_sapplings tiles
+      return tiles.length
+  end
 end
+
+
+
+
+
+
+

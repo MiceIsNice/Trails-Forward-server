@@ -213,6 +213,14 @@ class ResourceTile < ActiveRecord::Base
     save!
   end
 
+  # should this be 2 inch trees or a new sapplings field?
+  def plant_2_inch_diameter_trees! count
+    if count.to_i >= 0
+      self.num_2_inch_diameter_trees += count.to_i
+      save!
+    end
+  end
+
   def tick
     raise NotImplementedError
   end

@@ -146,15 +146,26 @@ class Ability
 
     can :harvest, ResourceTile do |rt|
       player = rt.megatile.world.player_for_user(user)
-#      puts "megatile with id: #{rt.megatile.id} lives in world: #{rt.megatile.world.id} and has owner #{rt.megatile.owner}"
-#      puts "requesting player has id: #{player.id}"
+#     puts "resrouce tile with id: #{rt.megatile.id} lives in world: #{rt.megatile.world.id} and has owner #{rt.megatile.owner}"
+#     puts "requesting player has id: #{player.id}"
       if !player
         raise CanCan::AccessDenied.new("Cannot find a player for user #{user.id} in world #{rt.megatile.world.id}", :harvest, rt)
       elsif player != rt.megatile.owner
-        raise CanCan::AccessDenied.new("Player does not have harvest rights for megatile id #{rt.megatile.id}", :harvest, rt)
+        raise CanCan::AccessDenied.new("Player does not have harvest rights for resource tile id #{rt.id}", :harvest, rt)
       else
         true
       end
+    end
+
+    can :plant_trees, ResourceTile do |rt|
+      player = rt.megatile.world.player_for_user(user)
+      if !player
+        raise CanCan::AccessDenied.new("Cannot find a player for user #{user.id} in world #{rt.megatile.world.id}", :harvest, rt)
+      elsif player.id != rt.megatile.owner_id
+        raise CanCan::AccessDenied.new("Player does not have planting rights for resource tile id #{rt.id}", :harvest, rt)
+      else
+        true
+      end 
     end
 
     can :player_info, Player do |player|

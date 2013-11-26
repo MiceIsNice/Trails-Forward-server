@@ -114,6 +114,31 @@ TrailsForwardDataController.prototype = {
 			this.serverAPI.attemptToAcceptContractWithWorldIdPlayerIdAndContractId(this.gameDataCache.id, this.gameDataCache.player_id, contract_id);
 		else console.log("bad input");	
 	},
+
+	attemptToClearCutListOfResourceTilesWithWorldId : function(the_tile_ids, world_id){
+		this.serverAPI.attemptToClearCutListOfResourceTilesWithWorldId(the_tile_ids, world_id);
+	},
+
+	plantSapplingsOnListOfResourceTilesWithWorldIdAndCount : function(the_tile_ids, world_id, sapplings_per_tile){
+		this.serverAPI.plantSapplingsOnListOfResourceTilesWithWorldIdAndCount(the_tile_ids, world_id, sapplings_per_tile);
+	},
+
+		/* NEED TO REMOVE MEGATILES BEFORE USING THIS */
+	attemptToPurchaseResourceTilesWithWorldIdAndPlayerId : function(the_tile_ids, world_id, player_id){
+		this.serverAPI.attemptToPurchaseResourceTilesWithWorldIdAndPlayerId(the_tile_ids, world_id, player_id);
+	},
+
+	attemptToDiameterLimitCutListOfResourceTilesWithWorldId : function(the_tile_ids, cut_above, cut_below, world_id){
+		this.serverAPI.attemptToDiameterLimitCutListOfResourceTilesWithWorldId(the_tile_ids, cut_above, cut_below, world_id);
+	},
+
+	getEstimateForClearCutListOfResourceTilesWithWorldId : function(the_tile_ids, world_id){
+		this.serverAPI.getEstimateForClearCutListOfResourceTilesWithWorldId(the_tile_ids, world_id);
+	},
+
+	getEstimateForDiameterLimitCutListOfResourceTilesWithWorldId : function(the_tile_ids, cut_above, cut_below, world_id){
+		this.serverAPI.getEstimateForDiameterLimitCutListOfResourceTilesWithWorldId(the_tile_ids, cut_above, cut_below, world_id);
+	},
 	
 	attemptToClearCutMegatileIncludingResourceTileXY : function(x,y){
 		if((x || x == 0) && (y || y == 0))
@@ -263,28 +288,38 @@ TrailsForwardDataController.prototype = {
 	
 	onAttemptToClearCutMegatileIncludingResourceTileXY : function(theResult){
 		if(theResult)
-			TFglobals.IMPACT.onAttemptToClearCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			console.log("response: ",theResult);
+			//TFglobals.IMPACT.onAttemptToClearCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");
 	},
 	
 	onGetEstimateForClearCutMegatileIncludingResourceTileXY : function(theResult){
 		if(theResult)
-			TFglobals.IMPACT.onGetEstimateForClearCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			console.log("response: ",theResult);
+			//TFglobals.IMPACT.onGetEstimateForClearCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");	
 	},
 	
 	onAttemptToDiameterLimitCutMegatileWithResourceTileXY : function(theResult){
 		if(theResult){
+			console.log("response: ",theResult);
 			TFglobals.DATA_CONTROLLER.contractComplete(theResult);
-			TFglobals.IMPACT.onAttemptToDiameterLimitCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			//TFglobals.IMPACT.onAttemptToDiameterLimitCutMegatileIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		}
 		else console.log("bad input");		
 	},
-	
+
+	onPlantSapplingsOnListOfResourceTilesWithWorldIdAndCount : function(theResult){
+		if(theResult){
+			console.log("response: ",theResult);
+		}
+		else console.log("bad input");
+	},
 	
 	onGetEstimateForDiameterLimitCutIncludingResourceTileXY : function(theResult){
 		if(theResult)
-			TFglobals.IMPACT.onGetEstimateForDiameterLimitCutIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
+			console.log("response: ",theResult);
+			//TFglobals.IMPACT.onGetEstimateForDiameterLimitCutIncludingResourceTileXY(TFglobals.DATA_CONTROLLER.prepareImpactMessage(theResult));
 		else console.log("bad input");		
 	},
 
