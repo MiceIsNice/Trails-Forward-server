@@ -1,6 +1,7 @@
 class Contract < ActiveRecord::Base
   acts_as_api
 
+  attr_reader :player_id
   belongs_to :contract_template
   belongs_to :world
   belongs_to :player
@@ -62,6 +63,10 @@ class Contract < ActiveRecord::Base
   def deliver!
     deliver and save!
   end
+
+  def to_base_contract_hash
+    {:id => self.id}
+  end 
 
   api_accessible :base_contract do |template|
     template.add :id

@@ -32,7 +32,7 @@ function TrailsForwardServerAPI(){
 	this.OWNED_RESOURCE_TILES = "/owned_resource_tiles";
 	this.OWNED = "/owned";
 	this.OWNED_BY_OTHERS = "/owned_by_others";
-	this.PLANT_SAPPLINGS = "/plant_sapplings";
+	this.PLANT_SAPLINGS = "/plant_saplings";
 	this.PLAYER_EQUIPMENT = "/player_equipment";
 	this.DIAMETER_LIMIT_CUT = "/diameter_limit_cut";
 	this.SET_BALANCE_AND_TURN_POINTS = "/set_player_balance_and_turn_points";
@@ -298,12 +298,12 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 
-	plantSapplingsOnListOfResourceTilesWithWorldIdAndCount : function(the_tile_ids, world_id, sapplings_per_tile){
-		if(the_tile_ids && (world_id || world_id == 0) && (sapplings_per_tile >= 0)){
-			var resourceString = this.buildPlantSapplingsRSWithWortdId(world_id);
+	plantSaplingsOnListOfResourceTilesWithWorldIdAndCount : function(the_tile_ids, world_id, saplings_per_tile){
+		if(the_tile_ids && (world_id || world_id == 0) && (saplings_per_tile >= 0)){
+			var resourceString = this.buildPlantSaplingsRSWithWortdId(world_id);
 			var parameterString =  this.authString();
-			this.sendPostMessage(resourceString, parameterString, {tree_count : sapplings_per_tile, tile_ids : the_tile_ids}, 
-									TFApp.DATA_CONTROLLER.onPlantSapplingsOnListOfResourceTilesWithWorldIdAndCount);
+			this.sendPostMessage(resourceString, parameterString, {tree_count : saplings_per_tile, tile_ids : the_tile_ids}, 
+									TFApp.DATA_CONTROLLER.onPlantSaplingsOnListOfResourceTilesWithWorldIdAndCount);
 		}
 		else console.log("bad input");
 	},
@@ -547,10 +547,10 @@ TrailsForwardServerAPI.prototype = {
 		else console.log("bad input");
 	},
 
-	/* /worlds/world_id/resource_tiles/id/plant_sapplings.json? */
-	buildPlantSapplingsRSWithWortdId : function(world_id){
+	/* /worlds/world_id/resource_tiles/id/plant_saplings.json? */
+	buildPlantSaplingsRSWithWortdId : function(world_id){
 		if(world_id || world_id == 0){
-			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.UNUSED_NUMBER + this.PLANT_SAPPLINGS + this.JSON;
+			return this.WORLDS + this.FORWARD_SLASH + world_id + this.RESOURCE_TILES + this.UNUSED_NUMBER + this.PLANT_SAPLINGS + this.JSON;
 		}
 		else console.log("bad input");
 	},

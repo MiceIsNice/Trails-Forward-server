@@ -106,7 +106,7 @@ TrailsForwardWorld::Application.routes.draw do
         post :build
         post :build_outpost
         post :diameter_limit_cut, action: :diameter_limit_cut_list
-        post :plant_sapplings
+        post :plant_saplings
       end
 
       collection do

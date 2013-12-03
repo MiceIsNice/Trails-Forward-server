@@ -2,10 +2,18 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :fail, String do |s|
+      puts s
+      false
+    end
 
    can :authorize_user_for_rosebud, Player do
     true
    end
+
+    can :view_contract, ResourceTile, Player do |tile, player|
+      (tile.owner_id == player.id || tile.owner_id == nil) && tile.world_id == player.world_id
+    end
 
     can :index_worlds, World do
       true

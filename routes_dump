@@ -1,0 +1,126 @@
+
+                  users_authenticate_for_token        /users/authenticate_for_token(.:format)                                                          {:controller=>"users", :action=>"authenticate_for_token"}
+                                  user_players GET    /users/:user_id/players(.:format)                                                                {:action=>"index", :controller=>"players"}
+                                               POST   /users/:user_id/players(.:format)                                                                {:action=>"create", :controller=>"players"}
+                               new_user_player GET    /users/:user_id/players/new(.:format)                                                            {:action=>"new", :controller=>"players"}
+                              edit_user_player GET    /users/:user_id/players/:id/edit(.:format)                                                       {:action=>"edit", :controller=>"players"}
+                                   user_player GET    /users/:user_id/players/:id(.:format)                                                            {:action=>"show", :controller=>"players"}
+                                               PUT    /users/:user_id/players/:id(.:format)                                                            {:action=>"update", :controller=>"players"}
+                                               DELETE /users/:user_id/players/:id(.:format)                                                            {:action=>"destroy", :controller=>"players"}
+                                         users GET    /users(.:format)                                                                                 {:action=>"index", :controller=>"users"}
+                                               POST   /users(.:format)                                                                                 {:action=>"create", :controller=>"users"}
+                                      new_user GET    /users/new(.:format)                                                                             {:action=>"new", :controller=>"users"}
+                                     edit_user GET    /users/:id/edit(.:format)                                                                        {:action=>"edit", :controller=>"users"}
+                                          user GET    /users/:id(.:format)                                                                             {:action=>"show", :controller=>"users"}
+                                               PUT    /users/:id(.:format)                                                                             {:action=>"update", :controller=>"users"}
+                                               DELETE /users/:id(.:format)                                                                             {:action=>"destroy", :controller=>"users"}
+                      user_player_player_stats GET    /users/:user_id/players/:player_id/player_stats(.:format)                                        {:action=>"player_stats", :controller=>"players"}
+                  user_player_player_equipment GET    /users/:user_id/players/:player_id/player_equipment(.:format)                                    {:action=>"player_equipment", :controller=>"players"}
+              user_player_owned_resource_tiles GET    /users/:user_id/players/:player_id/owned_resource_tiles(.:format)                                {:action=>"owned_resource_tiles", :controller=>"players"}
+user_player_set_player_balance_and_turn_points PUT    /users/:user_id/players/:player_id/set_player_balance_and_turn_points(.:format)                  {:action=>"set_player_balance_and_turn_points", :controller=>"players"}
+                                               GET    /users/:user_id/players(.:format)                                                                {:action=>"index", :controller=>"players"}
+                                               POST   /users/:user_id/players(.:format)                                                                {:action=>"create", :controller=>"players"}
+                                               GET    /users/:user_id/players/new(.:format)                                                            {:action=>"new", :controller=>"players"}
+                                               GET    /users/:user_id/players/:id/edit(.:format)                                                       {:action=>"edit", :controller=>"players"}
+                                               GET    /users/:user_id/players/:id(.:format)                                                            {:action=>"show", :controller=>"players"}
+                                               PUT    /users/:user_id/players/:id(.:format)                                                            {:action=>"update", :controller=>"players"}
+                                               DELETE /users/:user_id/players/:id(.:format)                                                            {:action=>"destroy", :controller=>"players"}
+                                               GET    /users(.:format)                                                                                 {:action=>"index", :controller=>"users"}
+                                               POST   /users(.:format)                                                                                 {:action=>"create", :controller=>"users"}
+                                               GET    /users/new(.:format)                                                                             {:action=>"new", :controller=>"users"}
+                                               GET    /users/:id/edit(.:format)                                                                        {:action=>"edit", :controller=>"users"}
+                                               GET    /users/:id(.:format)                                                                             {:action=>"show", :controller=>"users"}
+                                               PUT    /users/:id(.:format)                                                                             {:action=>"update", :controller=>"users"}
+                                               DELETE /users/:id(.:format)                                                                             {:action=>"destroy", :controller=>"users"}
+                world_end_turn_for_all_players PUT    /worlds/:world_id/end_turn_for_all_players(.:format)                                             {:action=>"end_turn_for_all_players", :controller=>"worlds"}
+           world_resource_tile_owned_by_others GET    /worlds/:world_id/resource_tiles/:resource_tile_id/owned_by_others(.:format)                     {:action=>"owned_by_others", :controller=>"resource_tiles"}
+                          world_resource_tiles GET    /worlds/:world_id/resource_tiles(.:format)                                                       {:action=>"index", :controller=>"resource_tiles"}
+                                               POST   /worlds/:world_id/resource_tiles(.:format)                                                       {:action=>"create", :controller=>"resource_tiles"}
+                       new_world_resource_tile GET    /worlds/:world_id/resource_tiles/new(.:format)                                                   {:action=>"new", :controller=>"resource_tiles"}
+                      edit_world_resource_tile GET    /worlds/:world_id/resource_tiles/:id/edit(.:format)                                              {:action=>"edit", :controller=>"resource_tiles"}
+                           world_resource_tile GET    /worlds/:world_id/resource_tiles/:id(.:format)                                                   {:action=>"show", :controller=>"resource_tiles"}
+                                               PUT    /worlds/:world_id/resource_tiles/:id(.:format)                                                   {:action=>"update", :controller=>"resource_tiles"}
+                                               DELETE /worlds/:world_id/resource_tiles/:id(.:format)                                                   {:action=>"destroy", :controller=>"resource_tiles"}
+                                        worlds GET    /worlds(.:format)                                                                                {:action=>"index", :controller=>"worlds"}
+                                               POST   /worlds(.:format)                                                                                {:action=>"create", :controller=>"worlds"}
+                                         world GET    /worlds/:id(.:format)                                                                            {:action=>"show", :controller=>"worlds"}
+                                               PUT    /worlds/:id(.:format)                                                                            {:action=>"update", :controller=>"worlds"}
+                                               DELETE /worlds/:id(.:format)                                                                            {:action=>"destroy", :controller=>"worlds"}
+                     player_surveys_for_player GET    /players/:player_id/surveys_for_player(.:format)                                                 {:action=>"surveys_for_player", :controller=>"players"}
+                                       players GET    /players(.:format)                                                                               {:action=>"index", :controller=>"players"}
+                                               POST   /players(.:format)                                                                               {:action=>"create", :controller=>"players"}
+                                    new_player GET    /players/new(.:format)                                                                           {:action=>"new", :controller=>"players"}
+                                   edit_player GET    /players/:id/edit(.:format)                                                                      {:action=>"edit", :controller=>"players"}
+                                        player GET    /players/:id(.:format)                                                                           {:action=>"show", :controller=>"players"}
+                                               PUT    /players/:id(.:format)                                                                           {:action=>"update", :controller=>"players"}
+                                               DELETE /players/:id(.:format)                                                                           {:action=>"destroy", :controller=>"players"}
+                      time_left_for_turn_world GET    /worlds/:id/time_left_for_turn(.:format)                                                         {:action=>"time_left_for_turn", :controller=>"worlds"}
+                              turn_state_world GET    /worlds/:id/turn_state(.:format)                                                                 {:action=>"turn_state", :controller=>"worlds"}
+                  pine_sawtimber_world_pricing GET    /worlds/:world_id/pricing/pine_sawtimber(.:format)                                               {:action=>"pine_sawtimber", :controller=>"world_pricing"}
+                      world_player_bids_placed GET    /worlds/:world_id/players/:player_id/bids_placed(.:format)                                       {:action=>"bids_placed", :controller=>"world_players"}
+                    world_player_bids_received GET    /worlds/:world_id/players/:player_id/bids_received(.:format)                                     {:action=>"bids_received", :controller=>"world_players"}
+        world_player_contract_attach_megatiles POST   /worlds/:world_id/players/:player_id/contracts/:contract_id/attach_megatiles(.:format)           {:action=>"attach_megatiles", :controller=>"world_player_contracts"}
+                 world_player_contract_deliver POST   /worlds/:world_id/players/:player_id/contracts/:contract_id/deliver(.:format)                    {:action=>"deliver", :controller=>"world_player_contracts"}
+                        world_player_contracts GET    /worlds/:world_id/players/:player_id/contracts(.:format)                                         {:action=>"index", :controller=>"world_player_contracts"}
+        world_player_available_contract_accept POST   /worlds/:world_id/players/:player_id/available_contracts/:available_contract_id/accept(.:format) {:action=>"accept", :controller=>"world_player_available_contracts"}
+              world_player_available_contracts GET    /worlds/:world_id/players/:player_id/available_contracts(.:format)                               {:action=>"index", :controller=>"world_player_available_contracts"}
+                                 world_players GET    /worlds/:world_id/players(.:format)                                                              {:action=>"index", :controller=>"world_players"}
+                                               POST   /worlds/:world_id/players(.:format)                                                              {:action=>"create", :controller=>"world_players"}
+                                  world_player DELETE /worlds/:world_id/players/:id(.:format)                                                          {:action=>"destroy", :controller=>"world_players"}
+                         active_world_listings GET    /worlds/:world_id/listings/active(.:format)                                                      {:controller=>"listings", :action=>"index_active"}
+                      accept_world_listing_bid POST   /worlds/:world_id/listings/:listing_id/bids/:id/accept(.:format)                                 {:action=>"accept", :controller=>"listing_bids"}
+                            world_listing_bids GET    /worlds/:world_id/listings/:listing_id/bids(.:format)                                            {:action=>"index", :controller=>"listing_bids"}
+                                               POST   /worlds/:world_id/listings/:listing_id/bids(.:format)                                            {:action=>"create", :controller=>"listing_bids"}
+                         new_world_listing_bid GET    /worlds/:world_id/listings/:listing_id/bids/new(.:format)                                        {:action=>"new", :controller=>"listing_bids"}
+                        edit_world_listing_bid GET    /worlds/:world_id/listings/:listing_id/bids/:id/edit(.:format)                                   {:action=>"edit", :controller=>"listing_bids"}
+                             world_listing_bid GET    /worlds/:world_id/listings/:listing_id/bids/:id(.:format)                                        {:action=>"show", :controller=>"listing_bids"}
+                                world_listings GET    /worlds/:world_id/listings(.:format)                                                             {:action=>"index", :controller=>"listings"}
+                                               POST   /worlds/:world_id/listings(.:format)                                                             {:action=>"create", :controller=>"listings"}
+                                 world_listing GET    /worlds/:world_id/listings/:id(.:format)                                                         {:action=>"show", :controller=>"listings"}
+                       world_megatile_listings GET    /worlds/:world_id/megatiles/:megatile_id/listings(.:format)                                      {:action=>"index", :controller=>"listings"}
+                                               POST   /worlds/:world_id/megatiles/:megatile_id/listings(.:format)                                      {:action=>"create", :controller=>"listings"}
+                    new_world_megatile_listing GET    /worlds/:world_id/megatiles/:megatile_id/listings/new(.:format)                                  {:action=>"new", :controller=>"listings"}
+                   edit_world_megatile_listing GET    /worlds/:world_id/megatiles/:megatile_id/listings/:id/edit(.:format)                             {:action=>"edit", :controller=>"listings"}
+                        world_megatile_listing GET    /worlds/:world_id/megatiles/:megatile_id/listings/:id(.:format)                                  {:action=>"show", :controller=>"listings"}
+                     world_megatile_bid_accept POST   /worlds/:world_id/megatiles/:megatile_id/bids/:bid_id/accept(.:format)                           {:action=>"accept", :controller=>"bids"}
+                     world_megatile_bid_reject POST   /worlds/:world_id/megatiles/:megatile_id/bids/:bid_id/reject(.:format)                           {:action=>"reject", :controller=>"bids"}
+                           world_megatile_bids GET    /worlds/:world_id/megatiles/:megatile_id/bids(.:format)                                          {:action=>"index", :controller=>"bids"}
+                                               POST   /worlds/:world_id/megatiles/:megatile_id/bids(.:format)                                          {:action=>"create", :controller=>"bids"}
+                        new_world_megatile_bid GET    /worlds/:world_id/megatiles/:megatile_id/bids/new(.:format)                                      {:action=>"new", :controller=>"bids"}
+                       edit_world_megatile_bid GET    /worlds/:world_id/megatiles/:megatile_id/bids/:id/edit(.:format)                                 {:action=>"edit", :controller=>"bids"}
+                            world_megatile_bid GET    /worlds/:world_id/megatiles/:megatile_id/bids/:id(.:format)                                      {:action=>"show", :controller=>"bids"}
+                        world_megatile_surveys GET    /worlds/:world_id/megatiles/:megatile_id/surveys(.:format)                                       {:action=>"index", :controller=>"surveys"}
+                                               POST   /worlds/:world_id/megatiles/:megatile_id/surveys(.:format)                                       {:action=>"create", :controller=>"surveys"}
+                         world_megatile_survey GET    /worlds/:world_id/megatiles/:megatile_id/surveys/:id(.:format)                                   {:action=>"show", :controller=>"surveys"}
+                            buy_world_megatile PUT    /worlds/:world_id/megatiles/:id/buy(.:format)                                                    {:action=>"buy", :controller=>"megatiles"}
+                       appraise_world_megatile GET    /worlds/:world_id/megatiles/:id/appraise(.:format)                                               {:action=>"appraise", :controller=>"megatiles"}
+                      appraise_world_megatiles GET    /worlds/:world_id/megatiles/appraise(.:format)                                                   {:controller=>"megatiles", :action=>"appraise_list"}
+                         owned_world_megatiles GET    /worlds/:world_id/megatiles/owned(.:format)                                                      {:action=>"owned", :controller=>"megatiles"}
+                               world_megatiles GET    /worlds/:world_id/megatiles(.:format)                                                            {:action=>"index", :controller=>"megatiles"}
+                                world_megatile GET    /worlds/:world_id/megatiles/:id(.:format)                                                        {:action=>"show", :controller=>"megatiles"}
+                  bulldoze_world_resource_tile POST   /worlds/:world_id/resource_tiles/:id/bulldoze(.:format)                                          {:action=>"bulldoze", :controller=>"resource_tiles"}
+                  clearcut_world_resource_tile POST   /worlds/:world_id/resource_tiles/:id/clearcut(.:format)                                          {:action=>"clearcut_list", :controller=>"resource_tiles"}
+                     build_world_resource_tile POST   /worlds/:world_id/resource_tiles/:id/build(.:format)                                             {:action=>"build", :controller=>"resource_tiles"}
+             build_outpost_world_resource_tile POST   /worlds/:world_id/resource_tiles/:id/build_outpost(.:format)                                     {:action=>"build_outpost", :controller=>"resource_tiles"}
+        diameter_limit_cut_world_resource_tile POST   /worlds/:world_id/resource_tiles/:id/diameter_limit_cut(.:format)                                {:action=>"diameter_limit_cut_list", :controller=>"resource_tiles"}
+           plant_sapplings_world_resource_tile POST   /worlds/:world_id/resource_tiles/:id/plant_sapplings(.:format)                                   {:action=>"plant_sapplings", :controller=>"resource_tiles"}
+       diameter_limit_cut_world_resource_tiles POST   /worlds/:world_id/resource_tiles/diameter_limit_cut(.:format)                                    {:controller=>"resource_tiles", :action=>"diameter_limit_cut_list"}
+    partial_selection_cut_world_resource_tiles POST   /worlds/:world_id/resource_tiles/partial_selection_cut(.:format)                                 {:controller=>"resource_tiles", :action=>"partial_selection_cut_list"}
+                 bulldoze_world_resource_tiles POST   /worlds/:world_id/resource_tiles/bulldoze(.:format)                                              {:controller=>"resource_tiles", :action=>"bulldoze_list"}
+                 clearcut_world_resource_tiles POST   /worlds/:world_id/resource_tiles/clearcut(.:format)                                              {:controller=>"resource_tiles", :action=>"clearcut_list"}
+                    build_world_resource_tiles POST   /worlds/:world_id/resource_tiles/build(.:format)                                                 {:controller=>"resource_tiles", :action=>"build_list"}
+        permitted_actions_world_resource_tiles GET    /worlds/:world_id/resource_tiles/permitted_actions(.:format)                                     {:controller=>"resource_tiles", :action=>"permitted_actions"}
+                                               GET    /worlds/:world_id/resource_tiles(.:format)                                                       {:action=>"index", :controller=>"resource_tiles"}
+                                               GET    /worlds/:world_id/resource_tiles/:id(.:format)                                                   {:action=>"show", :controller=>"resource_tiles"}
+                                               PUT    /worlds/:world_id/resource_tiles/:id(.:format)                                                   {:action=>"update", :controller=>"resource_tiles"}
+                               world_contracts GET    /worlds/:world_id/contracts(.:format)                                                            {:action=>"index", :controller=>"contracts"}
+                                               POST   /worlds/:world_id/contracts(.:format)                                                            {:action=>"create", :controller=>"contracts"}
+                            new_world_contract GET    /worlds/:world_id/contracts/new(.:format)                                                        {:action=>"new", :controller=>"contracts"}
+                           edit_world_contract GET    /worlds/:world_id/contracts/:id/edit(.:format)                                                   {:action=>"edit", :controller=>"contracts"}
+                                world_contract GET    /worlds/:world_id/contracts/:id(.:format)                                                        {:action=>"show", :controller=>"contracts"}
+             available_world_logging_equipment GET    /worlds/:world_id/logging_equipment/:id/available(.:format)                                      {:action=>"available", :controller=>"world_logging_equipment"}
+                   buy_world_logging_equipment PUT    /worlds/:world_id/logging_equipment/:id/buy(.:format)                                            {:action=>"buy", :controller=>"world_logging_equipment"}
+           owned_world_logging_equipment_index GET    /worlds/:world_id/logging_equipment/owned(.:format)                                              {:action=>"owned", :controller=>"world_logging_equipment"}
+                 world_logging_equipment_index GET    /worlds/:world_id/logging_equipment(.:format)                                                    {:action=>"index", :controller=>"world_logging_equipment"}
+                                               GET    /worlds(.:format)                                                                                {:action=>"index", :controller=>"worlds"}
+                                               GET    /worlds/:id(.:format)                                                                            {:action=>"show", :controller=>"worlds"}

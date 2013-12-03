@@ -8,7 +8,9 @@ module TFClientResponder
   
   # checks if needed parameters are given, and all objects desired are authorized to perform the desired function
   # returns a: {:success => bool, :objects => ActiveRecord object[], :client_response => TFClientResponse}
-  def can_perform_action given_parameters, needed_parameters, active_record_lookup_func_proc, object_is_required, authorization_tag
+  def can_perform_action given_parameters, needed_parameters, active_record_lookup_func_proc, 
+                          object_is_required, authorization_tag, second_auth_arg_proc = nil
+                          
     response = new_successful_client_response
   
     if given_parameters != nil && needed_parameters != nil
@@ -22,14 +24,24 @@ module TFClientResponder
     response[:objects] = the_data[:objects]
 
     if object_is_required && response[:objects].length == 0
-      puts "please don't be here!"
       response[:success] = false
-      response[:client_response] = client_response_with_errors_array_from_response nil, the_data[:objects][:not_found_message]
+      response[:client_response] = client_response_with_errors_array_from_response nil, the_data[:not_found_message]
+      begin 
+        authorize! :fail, "failing on purpose!"
+      rescue CanCan::AccessDenied => e
+        response[:success] = false
+        response[:client_response] = client_response_with_errors_array_from_response nil, [e.message]
+      end
       return response
     end
     
     begin 
-      response[:objects].each{|thing| authorize! authorization_tag, thing}
+      if second_auth_arg_proc == nil 
+        response[:objects].each{|thing| authorize! authorization_tag, thing}
+      else 
+        second = second_auth_arg_proc.call given_parameters
+        response[:objects].each{|thing, second| authorize! authorization_tag, thing}
+      end
     rescue CanCan::AccessDenied => e
       response[:success] = false
       response[:client_response] = client_response_with_errors_array_from_response nil, [e.message]
@@ -58,14 +70,14 @@ module TFClientResponder
   end 
 
   def new_successful_client_response
-    return {:success => true}
+    return {:success => true, :details => nil, :errors => nil}
   end
   
     # A message can be nil or a hash. If the key is new, add the key and associated value
     #  array to the hash.  If the key exists, append new values where they belong
   def client_response_from_response response, key, value_array
     if response == nil 
-      response = {:success => true} 
+      response = new_successful_client_response
     end
     
     if key == :errors

@@ -139,4 +139,18 @@ class RosebudController < ApplicationController
 
   end 
 
+#   def plant_new_trees response = nil values = nil
+#     if values == nil
+#       values = params
+#     end
+#     authorize! :authorize_user_for_rosebud, Player.find(values[:player_id])
+#     if response == nil 
+#       response = new_response
+#     end
+#     player = values[:player_id]
+#     trees = values[:new_trees]
+#     diameter = values[:diameter]
+#     response = try_active_record_block "plant #{trees} trees", response, lambda {Tile.update(player, :player_id => player )} 
+# end
+
 end

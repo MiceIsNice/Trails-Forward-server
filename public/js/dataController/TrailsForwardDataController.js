@@ -119,8 +119,8 @@ TrailsForwardDataController.prototype = {
 		this.serverAPI.attemptToClearCutListOfResourceTilesWithWorldId(the_tile_ids, world_id);
 	},
 
-	plantSapplingsOnListOfResourceTilesWithWorldIdAndCount : function(the_tile_ids, world_id, sapplings_per_tile){
-		this.serverAPI.plantSapplingsOnListOfResourceTilesWithWorldIdAndCount(the_tile_ids, world_id, sapplings_per_tile);
+	plantSaplingsOnListOfResourceTilesWithWorldIdAndCount : function(the_tile_ids, world_id, saplings_per_tile){
+		this.serverAPI.plantSaplingsOnListOfResourceTilesWithWorldIdAndCount(the_tile_ids, world_id, saplings_per_tile);
 	},
 
 		/* NEED TO REMOVE MEGATILES BEFORE USING THIS */
@@ -309,7 +309,7 @@ TrailsForwardDataController.prototype = {
 		else console.log("bad input");		
 	},
 
-	onPlantSapplingsOnListOfResourceTilesWithWorldIdAndCount : function(theResult){
+	onPlantSaplingsOnListOfResourceTilesWithWorldIdAndCount : function(theResult){
 		if(theResult){
 			console.log("response: ",theResult);
 		}

@@ -284,13 +284,13 @@ class ResourceTilesController < ApplicationController
     render json: response
   end
 
-  def plant_sapplings
+  def plant_saplings
       response = can_perform_action params, [:tree_count], Proc.new{|args| {:objects => resource_tiles, 
         :not_found_message => "No valid resource tiles found to perform diameter_limit_cut on."} }, true, :plant_trees
 
       if response[:success]
-          time_cost  = TimeManager.plant_sapplings(tiles: harvestable_tiles)
-          money_cost = Pricing.plant_sapplings
+          time_cost  = TimeManager.plant_saplings(tiles: harvestable_tiles)
+          money_cost = Pricing.plant_saplings
       
           begin
             resource_tiles.each do |tile|

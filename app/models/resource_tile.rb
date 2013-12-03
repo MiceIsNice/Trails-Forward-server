@@ -12,6 +12,11 @@ class ResourceTile < ActiveRecord::Base
   after_save :touch_megatile
   before_save :update_local_desirability_score
 
+  attr_accessor :num_2_inch_diameter_trees, :num_4_inch_diameter_trees, :num_6_inch_diameter_trees, 
+                :num_8_inch_diameter_trees, :num_10_inch_diameter_trees, :num_12_inch_diameter_trees, 
+                :num_14_inch_diameter_trees, :num_16_inch_diameter_trees, :num_18_inch_diameter_trees, 
+                :num_20_inch_diameter_trees, :num_22_inch_diameter_trees, :num_24_inch_diameter_trees  
+
   def self.dist
     @@dist ||= SimpleRandom.new
     @@dist.set_seed
@@ -213,11 +218,22 @@ class ResourceTile < ActiveRecord::Base
     save!
   end
 
-  # should this be 2 inch trees or a new sapplings field?
+  def plant_x_inch_dimeter_trees! data
+    method_name = "plant_#{data[:diameter]}_inch_diameter_trees"
+    if count.to_i >= 0
+       new_count = self.send(method_name) + count.to_i
+       self.send(method_name, new_count)
+      save!
+    end
+  end
+
+  # should this be 2 inch trees or a new saplings field?
   def plant_2_inch_diameter_trees! count
     if count.to_i >= 0
-      self.num_2_inch_diameter_trees += count.to_i
-      save!
+     # self.num_2_inch_diameter_trees += count.to_i
+     data = {:count => count, :diameter => 2}
+     plant_x_inch_diameter_trees data
+     save!
     end
   end
 

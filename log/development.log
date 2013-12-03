@@ -6,3 +6,203 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
 ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
   
 
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:19:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:19:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:20:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:19:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:19:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:19:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/http:/0.0.0.0:3000/worlds/3/resource_tiles/2/owned_by_others.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/http:/0.0.0.0:3000/worlds/3/resource_tiles/2/owned_by_others.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:19:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:21:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:21:in `index'
+
+
+TypeError (can't convert Symbol into Integer):
+  lib/tf_client_responder.rb:29:in `[]'
+  lib/tf_client_responder.rb:29:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:288:in `plant_saplings'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ArgumentError (wrong number of arguments (0 for 1)):
+  app/controllers/contracts_controller.rb:11:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:21:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (undefined local variable or method `player_id' for #<ContractsController:0x007fc6f17a2690>):
+  app/controllers/contracts_controller.rb:14:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:21:in `block in index'
+  lib/tf_client_responder.rb:23:in `call'
+  lib/tf_client_responder.rb:23:in `can_perform_action'
+  app/controllers/contracts_controller.rb:21:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (undefined local variable or method `player_id' for #<ContractsController:0x007f8b91122428>):
+  app/controllers/contracts_controller.rb:14:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:21:in `block in index'
+  lib/tf_client_responder.rb:23:in `call'
+  lib/tf_client_responder.rb:23:in `can_perform_action'
+  app/controllers/contracts_controller.rb:21:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `has_key?' for #<Array:0x007fbf9eb7b848>):
+  app/controllers/contracts_controller.rb:24:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Array into Hash):
+  lib/tf_client_responder.rb:98:in `merge'
+  lib/tf_client_responder.rb:98:in `client_response_with_details_hash_from_response'
+  app/controllers/contracts_controller.rb:24:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+SyntaxError (/Users/aarontietz/Desktop/_/Tufts/Research/LPC/TrailsForward/Trails-Forward-server/app/models/ability.rb:206: syntax error, unexpected keyword_end, expecting $end):
+  lib/tf_client_responder.rb:30:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:288:in `plant_saplings'
+
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  lib/tf_client_responder.rb:30:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:288:in `plant_saplings'
+

@@ -390,29 +390,29 @@ puts "results length: #{results.length} first one #{results[0]}"
     }
   end
 
-  def cut_completes_open_contract stats 
-      player_contracts = player_open_contracts stats
-      if player_contracts.length == 0
-        false
-      else
-        can_satisfy_contract? player_contracts[0], stats
-      end
-  end
+  # def cut_completes_open_contract stats 
+  #     player_contracts = player_open_contracts stats
+  #     if player_contracts.length == 0
+  #       false
+  #     else
+  #       can_satisfy_contract? player_contracts[0], stats
+  #     end
+  # end
 
-  def player_open_contracts stats
-    Contract.where("player_id = ? AND world_id = ? AND ended = 0", stats[:player_id], stats[:world_id])    
-  end
+  # def player_open_contracts stats
+  #   Contract.where("player_id = ? AND world_id = ? AND ended = 0", stats[:player_id], stats[:world_id])    
+  # end
   
-  def can_satisfy_contract? contract, stats
-    if contract && stats
-      contract.add_volume stats[:poletimber_volume] || 0
-      contract.add_volume stats[:sawtimber_volume]  || 0
-      if contract.is_satisfied?
-        return contract.deliver
-      end
-    end
-    return false
-  end
+  # def can_satisfy_contract? contract, stats
+  #   if contract && stats
+  #     contract.add_volume stats[:poletimber_volume] || 0
+  #     contract.add_volume stats[:sawtimber_volume]  || 0
+  #     if contract.is_satisfied?
+  #       return contract.deliver
+  #     end
+  #   end
+  #   return false
+  # end
 
   def check_harvest_rights
     resource_tiles.each do |tile|
