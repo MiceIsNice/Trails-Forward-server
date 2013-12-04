@@ -30,7 +30,7 @@
             <br/>
             <h1>Web socket testing:</h1>
             <div id="foo">
-                <div class="text">
+                <div class="text"></div>
                 <a href="#" class="connect">Connect to worldchat3</a>
             </div>
 
@@ -48,7 +48,11 @@
             var socket = new WebSocket("ws://0.0.0.0:8080");
 
             socket.onmessage = function(message, somethingelse){
-                console.log("GOT A MESSAGE: ", message, somethingelse);
+                console.log("GOT A MESSAGE: ", message);
+
+                var somep = $("<p><span>" + new Date(message.timeStamp).toLocaleString() + ": </span>" + message.data + "</p>");
+
+                $(".text").append(somep);
             };
             socket.onopen = function(data){
                 console.log("client on_connect", data);
