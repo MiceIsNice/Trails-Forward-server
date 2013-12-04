@@ -23,12 +23,12 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
 
     data = JSON.parse(message)
     world_id = data["data"]["world_id"]
-
+    puts world_id
     if world_id
       AMQP.connect(:host => '127.0.0.1') do |connection, open_ok|
         AMQP::Channel.new(connection) do |channel, open_ok|
           worldchatqueue = channel.queue(uuid.generate);
-          worldchatqueue.bind(channel.fanout("worldchat" + world_id)).subscribe do |message|
+          worldchatqueue.bind(channel.fanout("worldchat" + world_id.to_s)).subscribe do |message|
             puts "Sending a message from /lib/websockets/websocket_server"
             ws.send message
           end
