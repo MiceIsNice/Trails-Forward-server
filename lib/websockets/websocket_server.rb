@@ -8,33 +8,34 @@ uuid = UUID.new
 EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
   ws.onopen do
     puts "WebSocket opened"
-    
-
-  
-
-
   end
 
 
 
   ws.onmessage do |message|
-    puts "got a message"
+    puts "-------------------------------------------------------------------"
+    puts "got a message from the client:"
     puts message
 
     data = JSON.parse(message)
     world_id = data["data"]["world_id"]
-    puts world_id
+
     if world_id
       AMQP.connect(:host => '127.0.0.1') do |connection, open_ok|
         AMQP::Channel.new(connection) do |channel, open_ok|
+
           worldchatqueue = channel.queue(uuid.generate);
+
+          puts "subscribing the websocket user to a world exchange based on their input data"
           worldchatqueue.bind(channel.fanout("worldchat" + world_id.to_s)).subscribe do |message|
-            puts "Sending a message from /lib/websockets/websocket_server"
+            #this is what happens when a new message is found on the exchange
+            puts "Sending message in worldchat" + world_id.to_s + " to a websocket client."
             ws.send message
           end
         end
       end
     end
+    puts "-------------------------------------------------------------------"
 
   end
 

@@ -12,9 +12,9 @@ class WebsocketController < ApplicationController
     conn = Bunny.new(:host => "127.0.0.1")
     conn.start
     ch = conn.create_channel
-    x = ch.fanout("twitter");
+    x = ch.fanout("worldchat3");
 
-    x.publish("OH PLEASE GOD")
+    x.publish("Sending a message to worldchat3")
 
     # ch.default_exchange.publish("HELLO WORLD!", :routing_key => q.name)
     # #q.publish("ANYTHING", :routing_key => q.name)
