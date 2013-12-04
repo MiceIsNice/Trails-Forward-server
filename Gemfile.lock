@@ -58,6 +58,10 @@ GEM
       activesupport (= 3.1.3)
     activesupport (3.1.3)
       multi_json (~> 1.0)
+    amq-protocol (1.9.0)
+    amqp (1.1.3)
+      amq-protocol (>= 1.9.0)
+      eventmachine
     archive-tar-minitar (0.5.2)
     arel (2.2.1)
     awesome_print (1.1.0)
@@ -68,6 +72,8 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.0.3)
+    bunny (1.0.5)
+      amq-protocol (>= 1.9.0)
     cancan (1.6.7)
     capistrano (2.9.0)
       highline
@@ -125,6 +131,9 @@ GEM
       warden (~> 1.1)
     diff-lcs (1.1.3)
     diffy (3.0.1)
+    em-websocket (0.5.0)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.5.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
     eventmachine (1.0.0-x86-mingw32)
@@ -174,6 +183,7 @@ GEM
     highline (1.6.9)
     hike (1.2.1)
     hirb (0.7.1)
+    http_parser.rb (0.5.3)
     i18n (0.6.1)
     interception (0.3)
     jazz_hands (0.5.1)
@@ -196,6 +206,8 @@ GEM
     json_pure (1.7.3)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
+    macaddr (1.6.1)
+      systemu (~> 2.5.0)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -230,6 +242,11 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry (0.9.12.2-x86-mingw32)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pry-debugger (0.2.2)
       debugger (~> 1.3)
       pry (~> 0.9.10)
@@ -344,6 +361,7 @@ GEM
       json_pure
     state_machine (1.1.1)
     subexec (0.2.1)
+    systemu (2.5.2)
     tattletail (0.0.3)
       colorful
     term-ansicolor (1.0.7)
@@ -360,6 +378,8 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0)
+    uuid (2.3.7)
+      macaddr (~> 1.0)
     warden (1.1.0)
       rack (>= 1.0)
     whenever (0.7.3)
@@ -368,6 +388,7 @@ GEM
     will_paginate (3.0.3)
     win32-process (0.7.2)
       ffi (>= 1.0.0)
+    win32console (1.3.2-x86-mingw32)
     xpath (0.1.4)
       nokogiri (~> 1.3)
     yard (0.8.7)
@@ -379,7 +400,9 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   acts_as_api!
+  amqp
   bamfcsv
+  bunny
   cancan
   capistrano
   capistrano-ext
@@ -388,9 +411,11 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   colorful
   cucumber-rails
+  daemons
   database_cleaner
   decent_exposure
   devise
+  em-websocket
   exceptional
   factory_girl_rails
   fuubar
@@ -435,5 +460,6 @@ DEPENDENCIES
   tattletail
   thin
   uglifier (>= 1.0.3)
+  uuid
   whenever
   will_paginate
