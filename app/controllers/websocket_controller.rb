@@ -1,44 +1,26 @@
 
 require "rubygems"
+require "bunny"
 require "amqp"
 
 class WebsocketController < ApplicationController
   skip_authorization_check
 
+
   def index
 
+    conn = Bunny.new(:host => "127.0.0.1")
+    conn.start
+    ch = conn.create_channel
+    x = ch.fanout("twitter");
 
-    AMQP.start(:host => "localhost") do
-      connection = AMQP.connect(:host => '127.0.0.1')
-      channel = AMQP::Channel.new(connection)
-      queue   = channel.queue("foo")
+    x.publish("OH PLEASE GOD")
 
-      channel.default_exchange.publish("Hello World!", :routing_key => "foo")
-      puts " [x] Sent 'Hello World!'"
+    # ch.default_exchange.publish("HELLO WORLD!", :routing_key => q.name)
+    # #q.publish("ANYTHING", :routing_key => q.name)
+    # puts "[x] Send 'Hello World!'"
 
-      EM.add_timer(0.5) do
-        connection.close do
-          EM.stop { exit }
-        end
-      end
-    end
-
-
-
-    # EventMachine.run do
-    #   puts "Connected to AMQP broker. Running #{AMQP::VERSION} version of the gem..."
-
-    #   channel  = AMQP::Channel.new(connection)
-    #   queue    = channel.queue("foo", :auto_delete => true)
-    #   exchange = channel.direct("")
-
-    #   queue.subscribe do |payload|
-    #     puts "Received a message: #{payload}. Disconnecting..."
-    #     connection.close { EventMachine.stop }
-    #   end
-
-      
-    # end
+    conn.close
 
     render json: {:message => ""}
 

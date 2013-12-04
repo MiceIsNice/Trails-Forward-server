@@ -334,3 +334,1548 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'foo' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'foo' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'foo' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'foo' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bunny.examples.hello_world' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bar' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bar' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bar' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bar' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'bar' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:9: no .<digit> floating literal anymore; put 0 before dot
+    conn = Bunny.new(:host => 127.0.0.1, :port => 15674)
+                                    ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:9: syntax error, unexpected tFLOAT
+    conn = Bunny.new(:host => 127.0.0.1, :port => 15674)
+                                       ^):
+  
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+AMQ::Protocol::EmptyResponseError (Empty response received from the server.):
+  app/controllers/websocket_controller.rb:10:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:14: syntax error, unexpected '=', expecting keyword_end
+    //x  = ch.default_exchange
+          ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'something' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template websocket/index, application/index with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'fail' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'fail' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'fail' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'fail' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `q' for #<WebsocketController:0x007f86356659a0>):
+  app/controllers/websocket_controller.rb:32:in `show'
+
+
+NameError (undefined local variable or method `q' for #<WebsocketController:0x007f863556c8f0>):
+  app/controllers/websocket_controller.rb:34:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (undefined local variable or method `queue' for WebsocketController:Class):
+  app/controllers/websocket_controller.rb:7:in `<class:WebsocketController>'
+  app/controllers/websocket_controller.rb:5:in `<top (required)>'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `queues' for #<WebsocketController:0x007f86357da790>):
+  app/controllers/websocket_controller.rb:34:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:20: syntax error, unexpected '=', expecting keyword_end
+    :queue = q
+            ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (undefined local variable or method `queue' for #<WebsocketController:0x007f8635290bb8>):
+  app/controllers/websocket_controller.rb:34:in `show'
+
+
+NameError (undefined local variable or method `queue' for #<WebsocketController:0x007f863557d718>):
+  app/controllers/websocket_controller.rb:34:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `queue' for #<WebsocketController:0x007f86354b4700>):
+  app/controllers/websocket_controller.rb:34:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'hope' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:14:in `index'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:20: syntax error, unexpected '=', expecting keyword_end
+    :queue = q
+            ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:20: syntax error, unexpected '=', expecting keyword_end
+    :queue = q
+            ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'other' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'other' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:13:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:39: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/websocket_controller.rb:39: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+LoadError (no such file to load -- amqp):
+  app/controllers/websocket_controller.rb:3:in `<top (required)>'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+LoadError (no such file to load -- amqp):
+  app/controllers/websocket_controller.rb:3:in `<top (required)>'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+LoadError (no such file to load -- amqp):
+  app/controllers/websocket_controller.rb:2:in `<top (required)>'
+
+
+LoadError (no such file to load -- amqp):
+  app/controllers/websocket_controller.rb:3:in `<top (required)>'
+
+
+LoadError (no such file to load -- amqp):
+  app/controllers/websocket_controller.rb:3:in `<top (required)>'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+Bunny::PreconditionFailed (PRECONDITION_FAILED - parameters for queue 'twitter' in vhost '/' not equivalent):
+  app/controllers/websocket_controller.rb:15:in `index'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+

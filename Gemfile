@@ -34,11 +34,18 @@ gem 'whenever', require: false
 gem 'simple_form'
 
 #websocket stuff
-gem 'eventmachine'
+#gem 'eventmachine'
 gem 'em-websocket'
+gem 'uuid'
 gem 'amqp'
+
+gem 'bunny'
+
+
 #a 'daemon-izer' to run eventmachine
 gem 'daemons'
+
+
 
 gem 'jquery-rails'
 

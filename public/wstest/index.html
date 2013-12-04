@@ -26,7 +26,9 @@
         <div class="tf-wrapper">
             <h1>Web socket testing:</h1>
             <div id="foo">
-
+                <div class="text">
+                <input type="text" />
+                <a href="#" class="connect">Connect</a>
             </div>
 
         </div>
@@ -40,44 +42,25 @@
         <script src="/js/vendor/stomp.js"></script>
         <script>
 
+            var socket = new WebSocket("ws://0.0.0.0:8080");
 
-
-            var socket;
-            var ws = new SockJS('http://127.0.0.1:15674/stomp')
-            var client = Stomp.over(ws);
-            var on_message = function(message, somethingelse){
+            socket.onmessage = function(message, somethingelse){
                 console.log("GOT A MESSAGE: ", message, somethingelse);
             };
-            var on_connect = function(){
-                client.subscribe("/queue/foo", on_message)
-                console.log("POTATO");
+            socket.onopen = function(data){
+                console.log("client on_connect", data);
             };
-            var on_error = function(){
-                console.log("ERROR");
+            socket.onerror = function(data){
+                console.log("ERROR", data);
             };
-            client.connect('guest', 'guest', on_connect, on_error, '/');
-
-
-
-
-
-
-
-            // socket = new WebSocket('ws://0.0.0.0:8080/');
-            // socket.onopen = function(msg){
-            //     console.log("socket.onopen");    
-            //     console.log(msg);            
-            // }
-            // socket.onmessage = function(mess){
-            //     console.log("message.data: ", mess.data);
-            // };
-
-
-
-            // $(document).keypress(function(e){
-            //     var bar = String.fromCharCode(e.keyCode);
-            //     socket.send(bar);
-            // });
+            $(".connect").on("click", function(e){
+                socket.send(
+                    JSON.stringify({
+                        event: "user_message",
+                        data: {world_id: 3}
+                    })
+                );
+            });
 
         </script>
 
