@@ -10,6 +10,8 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
     puts "WebSocket opened"
   end
 
+  
+
 
 
   ws.onmessage do |message|
