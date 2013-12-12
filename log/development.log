@@ -1,0 +1,53 @@
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa2e70a3c28>):
+  app/controllers/resource_tiles_controller.rb:239:in `clearcut_list'
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa2e71c0818>):
+  app/controllers/resource_tiles_controller.rb:239:in `clearcut_list'
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa2e70c7e48>):
+  app/controllers/resource_tiles_controller.rb:239:in `clearcut_list'
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa2e71158a0>):
+  app/controllers/resource_tiles_controller.rb:239:in `clearcut_list'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+

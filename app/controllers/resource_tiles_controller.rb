@@ -208,7 +208,7 @@ class ResourceTilesController < ApplicationController
             response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
         end
 
-        if reponse[:success]
+        if response[:success]
             player.balance -= money_cost
             player.time_remaining_this_turn -= time_cost
 
@@ -236,7 +236,7 @@ class ResourceTilesController < ApplicationController
         end
 
     end
-      render json: reponse
+      render json: response
   end
 
 
@@ -253,7 +253,7 @@ class ResourceTilesController < ApplicationController
             response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
         end
 
-        if reponse[:success]
+        if response[:success]
             player.balance -= money_cost
             player.time_remaining_this_turn -= time_cost
 
@@ -315,7 +315,7 @@ class ResourceTilesController < ApplicationController
               response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
           end
 
-          if reponse[:success]
+          if response[:success]
               player.balance -= money_cost
               player.time_remaining_this_turn -= time_cost
 

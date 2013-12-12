@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     can :fail, String do |s|
-      puts s
+      # puts s
       false
     end
 

@@ -16,6 +16,12 @@ module TFClientResponder
     if given_parameters != nil && needed_parameters != nil
       response = all_parameters_given given_parameters, needed_parameters
       if response[:success] == false 
+        begin 
+          authorize! :fail, "failing on purpose!"
+        rescue CanCan::AccessDenied => e
+          response[:success] = false
+          response[:client_response] = client_response_with_errors_array_from_response nil, [e.message]
+        end
         return response
       end
     end
@@ -59,7 +65,7 @@ module TFClientResponder
     if response[:client_response].length > 0
       response[:success] = false 
       message = ""
-      response[:client_response].each{|name| message += ", " + name}
+      response[:client_response].each{|name| message += ", " + name.to_s}
       err_message = [ "missing parameters: " + message ]
       response[:client_response] = client_response_with_errors_array_from_response nil, err_message
     else
