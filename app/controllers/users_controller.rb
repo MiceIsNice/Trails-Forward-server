@@ -9,6 +9,7 @@ class UsersController < ApplicationController
       ret = {:id => @user.id, :auth_token => @auth_token}
       cookies[:id] = @user.id
       cookies[:auth_token] = @auth_token
+      
       respond_to do |format|
         format.json {render :json => ret }
         format.xml  {render :xml => ret }

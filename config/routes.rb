@@ -16,16 +16,27 @@ TrailsForwardWorld::Application.routes.draw do
     put :clear_player_upgrades
     put :set_player_balance
     put :set_player_turn_points
-    put :reset_player_stats
+    get :reset_player_stats
+    get :end_round
   end
 
-  resources :users do
-    resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
-  end
+
   resources :websocket do
     get :pushmessage
   end
  
+
+  namespace :actions do
+    get :clearcut
+    get :survey
+    get :plant_saplings
+  end
+
+
+  resources :users do
+    resources :players, :only => [:index, :new, :create, :show, :update, :edit, :destroy]
+  end
+
   resources :users do 
     resources :players do
       get :player_stats
@@ -35,10 +46,17 @@ TrailsForwardWorld::Application.routes.draw do
     end
   end 
   
+
+
+
   resources :worlds do
     put :end_turn_for_all_players
     resources :resource_tiles do
       get :owned_by_others
+    end
+    member do
+      get :end_round
+      get :snapshot
     end
   end
 

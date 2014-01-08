@@ -315,9 +315,17 @@ TrailsForwardServerAPI.prototype = {
 *****/	
 	
 	  /* send GET message to TF server */
-	makeGetRequest : function(aResourcePath, urlParameters, aCallbackFunction){												
-		if(aResourcePath && urlParameters && (aCallbackFunction || aCallbackFunction == null))
-			$.getJSON(this.SERVER_URL + aResourcePath + urlParameters, aCallbackFunction);
+	makeGetRequest : function(aResourcePath, urlParameters, aCallbackFunction){		
+		console.log(this.SERVER_URL + aResourcePath + urlParameters);	
+		if(aResourcePath && urlParameters){
+
+			$.ajax({
+				type: "GET",
+				url: this.SERVER_URL + aResourcePath + urlParameters,
+				success: aCallbackFunction
+			});
+			//$.getJSON(this.SERVER_URL + aResourcePath + urlParameters, aCallbackFunction);
+		}
 		else console.log("bad input");
 	},
 	

@@ -194,7 +194,35 @@ class ResourceTile < ActiveRecord::Base
   def disallowed_zoned_uses
     []
   end
+  def clear_trees
+    self.tree_size = 0
+    self.num_2_inch_diameter_trees = 0
+    self.num_4_inch_diameter_trees = 0
+    self.num_6_inch_diameter_trees = 0
+    self.num_8_inch_diameter_trees = 0
+    self.num_10_inch_diameter_trees = 0
+    self.num_12_inch_diameter_trees = 0
+    self.num_14_inch_diameter_trees = 0
+    self.num_16_inch_diameter_trees = 0
+    self.num_18_inch_diameter_trees = 0
+    self.num_20_inch_diameter_trees = 0
+    self.num_22_inch_diameter_trees = 0
+    self.num_24_inch_diameter_trees = 0
+    self.small_tree_basal_area = 0
+    self.large_tree_basal_area = 0
+  end
 
+  def clear_trees!
+    clear_trees
+    save!
+  end
+  def plant_saplings
+    self.num_2_inch_diameter_trees = 50
+  end
+  def plant_saplings!
+    plant_saplings
+    save!
+  end
   def clear_resources
     self.primary_use = nil
     self.people_density = nil
@@ -262,7 +290,7 @@ class ResourceTile < ActiveRecord::Base
   #    RIGHT NOW IT JUST SAYS "none" ALWAYS 
   def to_simple_tile
     the_owner_id = Megatile.find(self.megatile_id).owner_id
-    return OpenStruct.new(:x => self.x, :y => self.y, :base_cover_type => self.base_cover_type,
+    return OpenStruct.new( :id => self.id, :x => self.x, :y => self.y, :base_cover_type => self.base_cover_type,
                            :marten_population => self.marten_population, :housing_type => self.housing_type,
                            :small_tree_basal_area => self.small_tree_basal_area, 
                            :large_tree_basal_area => self.large_tree_basal_area,
@@ -275,6 +303,7 @@ class ResourceTile < ActiveRecord::Base
   end
   
   api_accessible :resource_basics do |template|
+    template.add :id
     template.add :x
     template.add :y
     template.add :base_cover_type
