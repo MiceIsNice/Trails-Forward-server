@@ -3,7 +3,7 @@ class Player < ActiveRecord::Base
   include PlayerApi
   has_many :logging_equipment
 
-  attr_accessible :name, :user, :world, :balance, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
+  attr_accessible :name, :user, :world, :balance, :lumber, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
 
   serialize :quests, Hash
   # after_initialize do 

@@ -201,14 +201,14 @@ class ResourceTilesController < ApplicationController
 
     if response[:success]
 
-        time_cost = TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
-        money_cost = Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
+        time_cost = 1  #TimeManager.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
+        money_cost = 100 #Pricing.clearcut_cost(tiles: harvestable_tiles, player: player).to_i
 
         if params[:estimate] == false 
             response = check_if_player_has_time_and_money_for_action player, time_cost, money_cost, response
         end
 
-        if reponse[:success]
+        if response[:success]
             player.balance -= money_cost
             player.time_remaining_this_turn -= time_cost
 

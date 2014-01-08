@@ -265,6 +265,7 @@ class World < ActiveRecord::Base
     "#{self.name} #{self.id}"
   end
 
+
 private
 
   def world_dimensions_are_consistent

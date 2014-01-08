@@ -1,5 +1,6 @@
 class RosebudController < ApplicationController
   include TFClientResponder
+    #skip_authorization_check
 
 #ActiveRecord helpers 
   def new_response
@@ -138,6 +139,35 @@ class RosebudController < ApplicationController
     render json: response
 
   end 
+
+
+  def end_round
+    authorize! :authorize_user_for_rosebud, Player.find(params[:player_id])
+
+    world = World.find(params[:world_id])
+    the_players = Player.where('world_id' => params[:world_id])
+
+    the_players.each { |p|
+      p.time_remaining_this_turn = 50
+      p.save!
+    }
+
+    render json: the_players
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #   def plant_new_trees response = nil values = nil
 #     if values == nil

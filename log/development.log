@@ -1,0 +1,2936 @@
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Symbol into String):
+  lib/tf_client_responder.rb:62:in `+'
+  lib/tf_client_responder.rb:62:in `block in all_parameters_given'
+  lib/tf_client_responder.rb:62:in `each'
+  lib/tf_client_responder.rb:62:in `all_parameters_given'
+  lib/tf_client_responder.rb:17:in `can_perform_action'
+  app/controllers/resource_tiles_controller.rb:199:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+DatabaseSeedMissing (No equipment, does player have a Sawyer Crew?):
+  app/models/logging_equipment.rb:89:in `harvest_volume_for'
+  lib/time_manager.rb:60:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:204:in `clearcut_list'
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa4c8b5e978>):
+  app/controllers/resource_tiles_controller.rb:239:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+TypeError (nil can't be coerced into Float):
+  lib/tree_helper_methods.rb:22:in `*'
+  lib/tree_helper_methods.rb:22:in `block in calculate_basal_area'
+  lib/tree_helper_methods.rb:21:in `each'
+  lib/tree_helper_methods.rb:21:in `each_with_index'
+  lib/tree_helper_methods.rb:21:in `calculate_basal_area'
+  lib/tree_value.rb:60:in `estimated_tree_volume_for_size'
+  lib/tree_value.rb:44:in `block (2 levels) in <module:TreeValue>'
+  lib/time_manager.rb:62:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:204:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (nil can't be coerced into Float):
+  lib/tree_helper_methods.rb:22:in `*'
+  lib/tree_helper_methods.rb:22:in `block in calculate_basal_area'
+  lib/tree_helper_methods.rb:21:in `each'
+  lib/tree_helper_methods.rb:21:in `each_with_index'
+  lib/tree_helper_methods.rb:21:in `calculate_basal_area'
+  lib/tree_value.rb:60:in `estimated_tree_volume_for_size'
+  lib/tree_value.rb:44:in `block (2 levels) in <module:TreeValue>'
+  lib/time_manager.rb:62:in `clearcut_cost_for_diameter'
+  lib/time_manager.rb:51:in `block in clearcut_cost_for_tile'
+  lib/time_manager.rb:50:in `collect'
+  lib/time_manager.rb:50:in `clearcut_cost_for_tile'
+  lib/time_manager.rb:41:in `block in clearcut_cost'
+  lib/time_manager.rb:40:in `collect'
+  lib/time_manager.rb:40:in `clearcut_cost'
+  app/controllers/resource_tiles_controller.rb:204:in `clearcut_list'
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa4c8bcbf78>):
+  app/controllers/resource_tiles_controller.rb:211:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa4c8e5a320>):
+  app/controllers/resource_tiles_controller.rb:211:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NameError (undefined local variable or method `reponse' for #<ResourceTilesController:0x007fa4c4700100>):
+  app/controllers/resource_tiles_controller.rb:211:in `clearcut_list'
+
+
+NoMethodError (undefined method `>' for nil:NilClass):
+  lib/tree_harvesting.rb:38:in `block in excess_tree_counts'
+  lib/tree_harvesting.rb:37:in `each'
+  lib/tree_harvesting.rb:37:in `each_with_index'
+  lib/tree_harvesting.rb:37:in `excess_tree_counts'
+  lib/tree_harvesting.rb:18:in `calculate_product_values_and_volumes_for'
+  lib/tree_harvesting.rb:52:in `sawyer'
+  lib/tree_harvesting.rb:103:in `clearcut'
+  app/controllers/resource_tiles_controller.rb:215:in `collect'
+  app/controllers/resource_tiles_controller.rb:215:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut.json"):
+  
+
+
+ActionController::RoutingError (uninitialized constant ActionsController):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/clearcut.json"):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+NoMethodError (undefined method `action' for ActionController:Module):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (uninitialized constant ActionsController):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for ActionsController):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for ActionsController):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:29:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:json], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:29:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:29:in `show'
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:29:in `show'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:29:in `show'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/show, application/show with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/clearcut, application/clearcut with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:20:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template actions/clearcut, application/clearcut with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:20:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/actions/clearcut/foo"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/world.rb:182:in `player_for_user'
+  app/controllers/actions_controller.rb:6:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:20:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:21: syntax error, unexpected tLABEL
+		response = json: {tiles => resource_tiles}
+		                ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `tiles' for #<ActionsController:0x007fc89bc04598>):
+  app/controllers/actions_controller.rb:21:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `each' for #<ActionsController:0x007fc899e943a0>):
+  app/controllers/actions_controller.rb:22:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find ResourceTile with id=[1,2,3]):
+  app/controllers/actions_controller.rb:9:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:21:in `clearcut'
+
+
+NoMethodError (undefined method `length' for #<LandTile:0x007fc899b39e58>):
+  app/controllers/actions_controller.rb:22:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find ResourceTile with id=[1,2,3]):
+  app/controllers/actions_controller.rb:9:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:21:in `clearcut'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:22: syntax error, unexpected tIDENTIFIER, expecting keyword_do or '{' or '('
+			puts tile.id
+			         ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:39: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:22: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+			puts :tile.id
+			      ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:39: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:22: syntax error, unexpected tSYMBEG, expecting keyword_do or '{' or '('
+			puts :tile.id
+			      ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:39: syntax error, unexpected keyword_end, expecting $end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `resouce_tiles' for #<ActionsController:0x007fc899a991b0>):
+  app/controllers/actions_controller.rb:21:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `error=' for {}:Hash):
+  app/controllers/actions_controller.rb:53:in `clearcut'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:51: syntax error, unexpected ':', expecting keyword_end
+		response :error = "error"
+		          ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:51: syntax error, unexpected '=', expecting ']'
+				response[:error = "Player does not have enough...
+				                 ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:51: syntax error, unexpected ']', expecting keyword_end
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:54: syntax error, unexpected '=', expecting ']'
+			response[:error = "Player does not have enough...
+			                 ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:54: syntax error, unexpected ']', expecting keyword_end
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:80: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:51: syntax error, unexpected '=', expecting ']'
+				response[:error = "Player does not have enough...
+				                 ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:51: syntax error, unexpected ']', expecting keyword_end
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:54: syntax error, unexpected '=', expecting ']'
+			response[:error = "Player does not have enough...
+			                 ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:54: syntax error, unexpected ']', expecting keyword_end
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:80: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc89bcd7bf0>):
+  app/controllers/actions_controller.rb:49:in `block in clearcut'
+  app/controllers/actions_controller.rb:47:in `each'
+  app/controllers/actions_controller.rb:47:in `clearcut'
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc899cbc000>):
+  app/controllers/actions_controller.rb:33:in `block in clearcut'
+  app/controllers/actions_controller.rb:31:in `each'
+  app/controllers/actions_controller.rb:31:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `clearcut_cost' for #<ActionsController:0x007fc899b4f230>):
+  app/controllers/actions_controller.rb:31:in `block in clearcut'
+  app/controllers/actions_controller.rb:29:in `each'
+  app/controllers/actions_controller.rb:29:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+TypeError (:clearcut_cost can't be coerced into Fixnum):
+  app/controllers/actions_controller.rb:31:in `+'
+  app/controllers/actions_controller.rb:31:in `block in clearcut'
+  app/controllers/actions_controller.rb:29:in `each'
+  app/controllers/actions_controller.rb:29:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (undefined method `clearcut_cost=' for ActionsController:Class):
+  app/controllers/actions_controller.rb:16:in `<class:ActionsController>'
+  app/controllers/actions_controller.rb:1:in `<top (required)>'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc899db8148>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc899ed3410>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc899cb9da0>):
+  app/controllers/actions_controller.rb:35:in `block in clearcut'
+  app/controllers/actions_controller.rb:33:in `each'
+  app/controllers/actions_controller.rb:33:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `this' for #<ActionsController:0x007fc899f58ca0>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `clearcut_cost' for #<ActionsController:0x007fc899c9a400>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `clearcut_cost' for #<ActionsController:0x007fc899e7c5c0>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `clearcut_cost' for #<ActionsController:0x007fc899fc6cf0>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `clearcut_cost' for #<ActionsController:0x007fc899d1eef8>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `clearcut_cost' for #<ActionsController:0x007fc899ea6870>):
+  app/controllers/actions_controller.rb:28:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc899dfc6b8>):
+  app/controllers/actions_controller.rb:32:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clearcut_cost' for #<ActionsController:0x007fc899d39e88>):
+  app/controllers/actions_controller.rb:32:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:16: syntax error, unexpected '=', expecting ';' or '\n'
+	def clearcut_cost = 100
+	                   ^):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `clear' for #<ActionsController:0x007fc899c767d0>):
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:40:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:40:in `clearcut'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:41:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:41:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:42:in `clearcut'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:42:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:42:in `clearcut'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/controllers/actions_controller.rb:42:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/players/2/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/players/2/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/players/2/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/players/2/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/players/2/clearcut"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (undefined method `authorize!' for PlayersController:Class):
+  app/controllers/players_controller.rb:5:in `<class:PlayersController>'
+  app/controllers/players_controller.rb:1:in `<top (required)>'
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+AbstractController::ActionNotFound (The action 'index' could not be found for RosebudController):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/actions_controller.rb:5:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:37:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/action/clearcut"):
+  
+
+
+TypeError (nil can't be coerced into Float):
+  lib/tree_helper_methods.rb:22:in `*'
+  lib/tree_helper_methods.rb:22:in `block in calculate_basal_area'
+  lib/tree_helper_methods.rb:21:in `each'
+  lib/tree_helper_methods.rb:21:in `each_with_index'
+  lib/tree_helper_methods.rb:21:in `calculate_basal_area'
+  lib/land_scoring.rb:25:in `calculate_local_desirability_score'
+  lib/land_scoring.rb:56:in `update_local_desirability_score'
+  app/controllers/actions_controller.rb:46:in `block in clearcut'
+  app/controllers/actions_controller.rb:42:in `each'
+  app/controllers/actions_controller.rb:42:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `>' for nil:NilClass):
+  lib/tree_harvesting.rb:38:in `block in excess_tree_counts'
+  lib/tree_harvesting.rb:37:in `each'
+  lib/tree_harvesting.rb:37:in `each_with_index'
+  lib/tree_harvesting.rb:37:in `excess_tree_counts'
+  lib/tree_harvesting.rb:18:in `calculate_product_values_and_volumes_for'
+  lib/tree_harvesting.rb:52:in `sawyer'
+  lib/tree_harvesting.rb:103:in `clearcut'
+  app/controllers/resource_tiles_controller.rb:215:in `collect'
+  app/controllers/resource_tiles_controller.rb:215:in `clearcut_list'
+
+
+ActionView::MissingTemplate (Missing template actions/clearcut, application/clearcut with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/actions_controller.rb:66:in `clearcut'
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/worlds_controller.rb:179: syntax error, unexpected tIDENTIFIER, expecting keyword_end):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+NameError (undefined local variable or method `world' for #<WorldsController:0x007fbb7f104c20>):
+  app/controllers/worlds_controller.rb:176:in `end_round'
+
+
+IOError (not opened for reading):
+  app/controllers/worlds_controller.rb:177:in `end_round'
+
+
+NameError (undefined local variable or method `this' for #<WorldsController:0x007fbb7f173530>):
+  app/controllers/worlds_controller.rb:177:in `end_round'
+
+
+NameError (undefined local variable or method `this' for #<WorldsController:0x007fbb7f56c3a8>):
+  app/controllers/worlds_controller.rb:178:in `end_round'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NameError (undefined local variable or method `world' for #<WorldsController:0x007fbb7ae1ffe0>):
+  app/controllers/worlds_controller.rb:176:in `end_round'
+
+
+NameError (undefined local variable or method `world' for #<WorldsController:0x007fbb7f781648>):
+  app/controllers/worlds_controller.rb:176:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:176:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:176:in `end_round'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:176:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:177:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:177:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:177:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:177:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:178:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:178:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:178:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:178:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/worlds_controller.rb:178:in `end_round'
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find World without an ID):
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActiveRecord::RecordNotFound (Couldn't find World without an ID):
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+NoMethodError (undefined method `players' for #<Class:0x007fe5a34bbeb0>):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+NoMethodError (undefined method `find_by' for #<Class:0x007fe5a3147d10>):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+NoMethodError (undefined method `find_by' for Players:Module):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/rosebud_controller.rb:145: syntax error, unexpected ','
+    players = Player.find_by world_id:, params[:world_id]
+                                       ^):
+  
+
+
+NoMethodError (undefined method `find_by' for #<Class:0x007fe5a339ad60>):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+NoMethodError (undefined method `find_by' for #<Class:0x007fe5a376cee8>):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NameError (undefined local variable or method `values' for #<RosebudController:0x007f89fcdda3f0>):
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:147:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:147:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:147:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:147:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:147:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/rosebud/2/reset_player_stats"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:144:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:125:in `reset_player_stats'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NameError (undefined local variable or method `skip_authorization_check' for #<RosebudController:0x007ff7c95a0a50>):
+  app/controllers/rosebud_controller.rb:146:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/rosebud_controller.rb:147: syntax error, unexpected '=', expecting ')'
+    the_players = Player.where('world_id' = params[:world_id])
+                                           ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/rosebud_controller.rb:147: syntax error, unexpected ')', expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/rosebud_controller.rb:149: syntax error, unexpected '|', expecting '}'
+    the_players.each do{ |p|
+                          ^
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/rosebud_controller.rb:150: syntax error, unexpected tIDENTIFIER, expecting keyword_do or '{' or '('
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/rosebud_controller.rb:184: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NoMethodError (undefined method `>' for nil:NilClass):
+  lib/tree_harvesting.rb:38:in `block in excess_tree_counts'
+  lib/tree_harvesting.rb:37:in `each'
+  lib/tree_harvesting.rb:37:in `each_with_index'
+  lib/tree_harvesting.rb:37:in `excess_tree_counts'
+  lib/tree_harvesting.rb:18:in `calculate_product_values_and_volumes_for'
+  lib/tree_harvesting.rb:52:in `sawyer'
+  lib/tree_harvesting.rb:103:in `clearcut'
+  app/controllers/resource_tiles_controller.rb:215:in `collect'
+  app/controllers/resource_tiles_controller.rb:215:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/app/views/GameGUI/RosebudView.js"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+AbstractController::ActionNotFound (The action 'show' could not be found for RosebudController):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find World without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find World without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find World without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find World without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `>' for nil:NilClass):
+  lib/tree_harvesting.rb:38:in `block in excess_tree_counts'
+  lib/tree_harvesting.rb:37:in `each'
+  lib/tree_harvesting.rb:37:in `each_with_index'
+  lib/tree_harvesting.rb:37:in `excess_tree_counts'
+  lib/tree_harvesting.rb:18:in `calculate_product_values_and_volumes_for'
+  lib/tree_harvesting.rb:52:in `sawyer'
+  lib/tree_harvesting.rb:103:in `clearcut'
+  app/controllers/resource_tiles_controller.rb:215:in `collect'
+  app/controllers/resource_tiles_controller.rb:215:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/resource_tiles/2/clearcut"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+NameError (undefined local variable or method `values' for #<RosebudController:0x007fded6d716c8>):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+NameError (undefined local variable or method `values' for #<RosebudController:0x007fded70d8118>):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=2):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=2):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+NoMethodError (undefined method `>' for nil:NilClass):
+  lib/tree_harvesting.rb:38:in `block in excess_tree_counts'
+  lib/tree_harvesting.rb:37:in `each'
+  lib/tree_harvesting.rb:37:in `each_with_index'
+  lib/tree_harvesting.rb:37:in `excess_tree_counts'
+  lib/tree_harvesting.rb:18:in `calculate_product_values_and_volumes_for'
+  lib/tree_harvesting.rb:52:in `sawyer'
+  lib/tree_harvesting.rb:103:in `clearcut'
+  app/controllers/resource_tiles_controller.rb:215:in `collect'
+  app/controllers/resource_tiles_controller.rb:215:in `clearcut_list'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/create, devise/sessions/create, application/create with {:handlers=>[:erb, :builder], :formats=>[:json, :js, :html, :text, :js, :css, :ics, :csv, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :mpac], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=2):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+RuntimeError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id):
+  app/models/ability.rb:34:in `initialize'
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionView::MissingTemplate (Missing template users/new, application/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  app/controllers/users_controller.rb:42:in `new'
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/create, devise/sessions/create, application/create with {:handlers=>[:erb, :builder], :formats=>[:json, :js, :html, :text, :js, :css, :ics, :csv, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :mpac], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/create, devise/sessions/create, application/create with {:handlers=>[:erb, :builder], :formats=>[:json, :js, :html, :text, :js, :css, :ics, :csv, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :mpac], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/create, devise/sessions/create, application/create with {:handlers=>[:erb, :builder], :formats=>[:json, :js, :html, :text, :js, :css, :ics, :csv, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :mpac], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionView::MissingTemplate (Missing template sessions/new with {:handlers=>[:erb, :builder], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/Users/ME4T/Development/Trails-Forward-server/app/views"
+  * "/Users/ME4T/.rvm/gems/ruby-1.9.2-p320@trails_forward/gems/devise-1.5.3/app/views"
+):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [POST] "/actions/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [POST] "/actions/clearcut"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+TypeError (can't convert Fixnum into String):
+  app/controllers/actions_controller.rb:38:in `+'
+  app/controllers/actions_controller.rb:38:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  app/controllers/rosebud_controller.rb:145:in `end_round'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/contracts_controller.rb:12:in `contracts_not_owned_by_others'
+  app/controllers/contracts_controller.rb:21:in `block in index'
+  lib/tf_client_responder.rb:23:in `call'
+  lib/tf_client_responder.rb:23:in `can_perform_action'
+  app/controllers/contracts_controller.rb:21:in `index'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/players_controller.rb:192:in `surveys_for_player'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActiveRecord::RecordNotFound (Couldn't find Player with id=0):
+  app/controllers/actions_controller.rb:7:in `block in <class:ActionsController>'
+  app/controllers/actions_controller.rb:39:in `clearcut'
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+CanCan::AuthorizationNotPerformed (This action failed the check_authorization because it does not authorize_resource. Add skip_authorization_check to bypass this check.):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+NameError (undefined local variable or method `values' for #<ActionsController:0x007fac6f5dee68>):
+  app/controllers/actions_controller.rb:31:in `clearcut'
+
+
+SyntaxError (/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:140: syntax error, unexpected keyword_else, expecting keyword_end
+/Users/ME4T/Development/Trails-Forward-server/app/controllers/actions_controller.rb:163: syntax error, unexpected $end, expecting keyword_end):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/worlds/3/snapshot.json"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (undefined method `bytesize' for nil:NilClass):
+  app/controllers/websocket_controller.rb:14:in `index'
+
+
+NoMethodError (undefined method `bytesize' for nil:NilClass):
+  app/controllers/websocket_controller.rb:14:in `index'
+

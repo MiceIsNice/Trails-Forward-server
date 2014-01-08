@@ -1,4 +1,3 @@
-
 require "rubygems"
 require "bunny"
 require "amqp"
@@ -20,7 +19,6 @@ class WebsocketController < ApplicationController
 
 
   def show
-
     render json: {:message => ""}
   end
 

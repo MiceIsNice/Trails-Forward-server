@@ -109,6 +109,12 @@ class WorldsController < ApplicationController
     end
   end
 
+  def snapshot
+    world = World.find(params[:id])
+    authorize! :show_world, world
+    render json: {something: world.turn_state}
+  end
+
   def processing
     world = World.find(params[:id])
     authorize! :show_world, world

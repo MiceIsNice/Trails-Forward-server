@@ -9,8 +9,10 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 		"click .survey-button": "setActionToSurvey",
 		"click .clear-cut-button": "setActionToClearCut",
 		"click .diameter-cut-button": "attemptDiameterCut",
+		"click .plant-button": "setActionToPlantSaplings",
 		"click .build-button": "setActionToBuild",
-		"click button": "selectButton"
+		"click .end-round-button": "attemptToEndRound",
+		"click button": "selectButton",
 	},
 	//-----------------------------------------------
 
@@ -18,7 +20,6 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 	initialize: function(){
 		var that = this;
 		//cache some elements
-
 
 		this.$worldName = this.$el.find(".world-name");
 		this.$buyButton = this.$el.find(".buy-button");
@@ -180,25 +181,33 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 		var tile_x = selectedTileCoords[0],
 			tile_y = selectedTileCoords[1];
 
+		var selectedTile = TFApp.models.currentWorldModel.tiles[tile_x][tile_y];
+		var postData = {tile_ids: [selectedTile.id], estimate: false};
+
+		var url = "/actions/clearcut/" 
+			+ TFApp.models.userModel.get("authQueryString") 
+			+ "&world_id="+TFApp.models.currentWorldModel.get("world_id") 
+			+ "&player_id=" + TFApp.models.currentPlayerModel.get("player_id")
+			+ "&tile_ids[]="+selectedTile.id;
+		// 0.0.0.0:3000/actions/clearcut?world_id=2&player_id=13&tile_ids[]=1
+
 		// POST /worlds/:world_id/resource_tiles/:UNUSED/clearcut
 		$.ajax({
-			type: "post",
-			url: "/worlds/" + TFApp.models.currentWorldModel.get("world_id") 
-			+ "/resource_tiles/2/clearcut" 
-			+ TFApp.models.userModel.get("authQueryString") 
-			+ "&tile_x=" + tile_x + "&tile_y=" + tile_y
-			+ "&player_id=" + TFApp.models.currentPlayerModel.get("player_id"),
+			type: "get",
+			url: url,
 			dataType: "json",
+			data: postData,
 			success: function(data){
 				console.log("Clear Cut Tile Success: ", data);
-				if(data.errors){
+				if(data.error){
 					//TFApp.views.gameView.showErrorModal(data.errors[0]);
-					TFApp.views.consoleView.addError(data.errors[0]);
+					TFApp.views.consoleView.addError(data.error);
 					TFApp.views.audioView.playError();
 				}else if(data.success===false){
 					//TFApp.views.gameView.showErrorModal(data.key[0]);
 					TFApp.views.consoleView.addError(data.key[0]);
 					TFApp.views.audioView.playError();
+					
 
 				}
 				else{
@@ -214,7 +223,7 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					TFApp.models.currentPlayerModel.loadPlayerData();
 					TFApp.models.gameModel.trigger("change:selectedTileCoords");
 					TFApp.views.consoleView.addMessage("Successfully clearcut tile at x: " + tile_x + ", y: " + tile_y);
-					TFApp.views.consoleView.addMessage("Received " + Math.round(data.message.poletimber_volume + data.message.sawtimber_volume) + " things of wood.");
+					TFApp.views.consoleView.addMessage("Received " + Math.round(data.message.lumber) + " things of lumber.");
 
 				}
 
@@ -270,6 +279,74 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 			}
 		});
 	},
+	setActionToPlantSaplings: function(){
+		TFApp.views.worldView.clickAction = this.attemptPlantSaplings;
+		TFApp.views.worldView.materials.highlight.uniforms.texture.value = THREE.ImageUtils.loadTexture("/img/game-icons/actions/tree.png");
+		TFApp.views.worldView.materials.highlight.needsUpdate = true;
+	},
+	attemptPlantSaplings: function(){
+		var selectedTileCoords = TFApp.models.gameModel.get("selectedTileCoords");
+		var tile_x = selectedTileCoords[0],
+			tile_y = selectedTileCoords[1];
+
+		var selectedTile = TFApp.models.currentWorldModel.tiles[tile_x][tile_y];
+		var postData = {tile_ids: [selectedTile.id], estimate: false};
+
+		var url = "/actions/plant_saplings/" 
+			+ TFApp.models.userModel.get("authQueryString") 
+			+ "&world_id="+TFApp.models.currentWorldModel.get("world_id") 
+			+ "&player_id=" + TFApp.models.currentPlayerModel.get("player_id")
+			+ "&tile_ids[]="+selectedTile.id;
+		// GET 0.0.0.0:3000/actions/plant_saplings?world_id=2&player_id=13&tile_ids[]=1
+
+		$.ajax({
+			type: "get",
+			url: url,
+			dataType: "json",
+			data: postData,
+			success: function(data){
+				console.log("Clear Cut Tile Success: ", data);
+				if(data.error){
+					//TFApp.views.gameView.showErrorModal(data.errors[0]);
+					TFApp.views.consoleView.addError(data.error);
+					TFApp.views.audioView.playError();
+				}else if(data.success===false){
+					//TFApp.views.gameView.showErrorModal(data.key[0]);
+					TFApp.views.consoleView.addError(data.key[0]);
+					TFApp.views.audioView.playError();
+					
+
+				}
+				else{
+
+					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].large_tree_basal_area = 0;
+					TFApp.models.currentWorldModel.tiles[tile_x][tile_y].small_tree_basal_area = 0;
+					TFApp.models.currentWorldModel.get("dirtyTiles").push({x: tile_x, z: tile_y});
+					TFApp.models.currentWorldModel.trigger("change:dirtyTiles");
+					//TFApp.views.audioView.playWoodChopOnce();
+
+					//update the player data
+					TFApp.models.currentPlayerModel.loadPlayerData();
+					TFApp.models.gameModel.trigger("change:selectedTileCoords");
+					TFApp.views.consoleView.addMessage("Successfully clearcut tile at x: " + tile_x + ", y: " + tile_y);
+					TFApp.views.consoleView.addMessage("Received " + Math.round(data.message.lumber) + " things of lumber.");
+
+				}
+
+
+
+
+
+			},
+			error: function(data){
+				//TFApp.views.gameView.showErrorModal(data.statusText);
+				TFApp.views.consoleView.addError(data.statusText);
+				TFApp.views.audioView.playError();
+				console.error("Clear Cut Error: ", data);
+			}
+		});
+	},
+
 	selectButton: function(e){
 		console.log(e);
 		var $currentTarget = $(e.currentTarget);

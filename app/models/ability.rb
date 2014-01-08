@@ -10,7 +10,9 @@ class Ability
    can :authorize_user_for_rosebud, Player do
     true
    end
-
+   can :authorize_player_for_action, Player do
+    true
+   end
     can :view_contract, ResourceTile, Player do |tile, player|
       (tile.owner_id == player.id || tile.owner_id == nil) && tile.world_id == player.world_id
     end
@@ -180,7 +182,6 @@ class Ability
       Player.where("user_id = ? AND id= ? ", user.id, player.id).length == 1
     end
 
-    
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
