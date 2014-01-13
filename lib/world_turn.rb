@@ -40,7 +40,7 @@ class WorldTurn
     replenish_player_time
     advance_turn
   end 
-
+  
   def transfer_money
     world.players.each do |player|
       player.balance += player.pending_balance

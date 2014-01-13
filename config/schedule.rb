@@ -1,7 +1,5 @@
-every "* * * * *" do
-  runner "TurnScheduler.mark_for_processing"
+every 10.minute do
+   runner "TimeManager.replenish_players_turns_for_all_worlds"
 end
 
-every "* * * * *" do
-  runner "TurnScheduler.turn_next_world"
-end
+
