@@ -28,9 +28,10 @@ class TimeManager
   def self.replenish_players_turns_for_all_worlds
     @players = Player.all
     @players.each do |player|
-      player.time_remaining_this_turn += Player.turns_gained_per_tick
+      player.time_remaining_this_turn += player.time_gained_per_tick
       if(player.time_remaining_this_turn > player.max_turns)
         player.time_remaining_this_turn = player.max_turns
+      end
       player.save!
     end
   end

@@ -10,20 +10,27 @@ class Player < ActiveRecord::Base
   #     self.balance                  = self.class.default_balance
   #     self.time_remaining_this_turn = self.class.default_time_remaining
   # end 
+  # after_initialize do
+  #   @@max_turns = 40 
+  #   @@time_gained_per_tick = 1
+  # end
+  
+  def max_turns
+    40
+  end
+  def time_gained_per_tick
+    1
+  end
 
   def self.default_balance
     50000
   end
-  def self.max_turns
-    40
-  end
-  def self.turns_gained_per_tick
-    1
-  end
+
   def self.default_time_remaining
     40 # In months.
   end
   
+
   # ASSOCIATIONS #########################
   #
 

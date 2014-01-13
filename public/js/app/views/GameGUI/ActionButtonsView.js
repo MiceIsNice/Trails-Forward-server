@@ -223,7 +223,7 @@ TFApp.ActionButtonsView = Backbone.View.extend({
 					TFApp.models.currentPlayerModel.loadPlayerData();
 					TFApp.models.gameModel.trigger("change:selectedTileCoords");
 					TFApp.views.consoleView.addMessage("Successfully clearcut tile at x: " + tile_x + ", y: " + tile_y);
-					TFApp.views.consoleView.addMessage("Received " + Math.round(data.message.lumber) + " things of lumber.");
+					TFApp.views.consoleView.addMessage("Received " + Math.round(data.lumber) + " things of lumber.");
 
 				}
 
