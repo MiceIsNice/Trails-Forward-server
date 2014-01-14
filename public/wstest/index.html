@@ -44,8 +44,11 @@
         <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
         <script src="/js/vendor/stomp.js"></script>
         <script>
-
-            var socket = new WebSocket("ws://0.0.0.0:8080");
+            //for now, assume the websocket is running on this machine
+            //ugly oneliner, but it works for a temp solution ;D
+            var ws_url = window.location.href.split( '/' )[2].split(":")[0];
+            console.log(ws_url);
+            var socket = new WebSocket("ws://"+ ws_url+":8080");
 
             socket.onmessage = function(message, somethingelse){
                 console.log("GOT A MESSAGE: ", message);

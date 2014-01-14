@@ -5,7 +5,7 @@ require 'json'
 
 uuid = UUID.new
 
-EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
+EventMachine::WebSocket.start(:host => "127.0.0.1", :port => 8080) do |ws|
   ws.onopen do
     puts "WebSocket opened"
   end
@@ -44,4 +44,9 @@ EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
   ws.onclose do
     puts "WebSocket closed"
   end
+  ws.onerror { |error |
+    puts "ERROR!"
+    puts error
+
+  }
 end

@@ -210,4 +210,75 @@ class PlayersController < ApplicationController
   end
   #---------------------------------
 
+
+
+
+
+
+
+  #---------------------------------
+  # Player Actions
+  #---------------------------------
+  def survey
+    response = "survey"
+    render json: response
+  end
+  def harvest
+    response = "harvest"
+    render json: response
+  end
+  def clearcut
+
+    response = {}
+    expose(:resource_tiles) do 
+      if params[:tile_ids]
+         ResourceTile.find(params[:tile_ids])
+      else 
+        []
+      end
+    end
+
+    totalTimeCost = resource_tiles.length * 1
+    totalMoneyCost = resource_tiles.length * $clearcut_cost
+    lumberTotal = 0
+    resource_tiles.each { |tile| 
+      puts json: tile
+      lumberTotal += (tile.small_tree_basal_area + tile.large_tree_basal_area)
+    }
+
+    if(player.time_remaining_this_turn>=totalTimeCost)
+      if player.balance >  totalMoneyCost
+        puts json: player
+        player.time_remaining_this_turn-=totalTimeCost
+        player.balance -= totalMoneyCost
+        player.lumber += lumberTotal
+        player.save!
+      else
+        response[:error] = "Player does not have enough time to complete this action."
+      end
+    else
+      response[:error] = "Player does not have enough time to complete this action."
+    end
+
+    
+
+    render json: response
+
+
+  end
+  def diametercut
+    response = "diametercut"
+    render json: response
+  end
+  def build
+    response = "build"
+    render json: response
+  end
+  #---------------------------------
+
+
+
+
+
+
 end

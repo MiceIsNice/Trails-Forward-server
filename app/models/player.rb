@@ -3,22 +3,34 @@ class Player < ActiveRecord::Base
   include PlayerApi
   has_many :logging_equipment
 
-  attr_accessible :name, :user, :world, :balance, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
+  attr_accessible :name, :user, :world, :balance, :lumber, :pending_balance, :time_remaining_this_turn, :quest_points, :quests
 
   serialize :quests, Hash
   # after_initialize do 
   #     self.balance                  = self.class.default_balance
   #     self.time_remaining_this_turn = self.class.default_time_remaining
   # end 
+  # after_initialize do
+  #   @@max_turns = 40 
+  #   @@time_gained_per_tick = 1
+  # end
+  
+  def max_turns
+    40
+  end
+  def time_gained_per_tick
+    1
+  end
 
   def self.default_balance
     50000
   end
 
   def self.default_time_remaining
-    48 # In months.
+    40 # In months.
   end
   
+
   # ASSOCIATIONS #########################
   #
 
