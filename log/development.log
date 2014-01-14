@@ -51,3 +51,78 @@ CanCan::AuthorizationNotPerformed (This action failed the check_authorization be
 ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
   
 
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:45:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:18:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:22:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+
+
+ActionController::RoutingError (No route matches [GET] "/js/vendor/jquery-1.10.2.min.map"):
+  
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:22:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.+):
+  app/models/survey.rb:22:in `of'
+  app/controllers/surveys_controller.rb:48:in `create'
+

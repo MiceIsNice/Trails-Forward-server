@@ -42,6 +42,9 @@ class SurveysController < ApplicationController
 	  return
 	end
 	
+    if megatile == nil || player == nil
+      puts "metaile or player is nil"
+    end
     @survey = Survey.of megatile: megatile, player: player
 
     player.balance -= Survey.cost

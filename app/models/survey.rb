@@ -10,6 +10,10 @@ class Survey < ActiveRecord::Base
 
   def self.of(options = {})
     survey = Survey.new options
+    if survey == nil 
+        puts "survey is nil"
+    end
+
     tiles_with_trees = []
     tiles_with_trees = survey.megatile.resource_tiles.select do |rt|
       rt.can_harvest? && rt.respond_to?(:estimated_tree_volume_for_size)
